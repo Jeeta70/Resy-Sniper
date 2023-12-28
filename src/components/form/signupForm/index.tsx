@@ -7,14 +7,12 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { signupFormSchema } from "@/utils/formZodSchema";
-import { Dialog } from "@/components";
 import {
   Select,
   SelectContent,
@@ -161,6 +159,7 @@ const Index = () => {
                             id="phone"
                             placeholder="000-000-0000"
                             required
+                            {...field}
                           />
                         </div>
                       </div>

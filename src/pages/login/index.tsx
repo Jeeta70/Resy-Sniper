@@ -1,4 +1,4 @@
-import { Dialog, LoginForm } from "@/components";
+import { LoginForm } from "@/components";
 
 const Login = () => {
   return (
