@@ -1,6 +1,5 @@
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -16,21 +15,22 @@ import { signupFormSchema } from "@/utils/formZodSchema";
 import {
   Select,
   SelectContent,
-  SelectGroup,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { useNavigate } from "react-router-dom";
+import { CountryCode } from "@/components";
 
 const Index = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
       email: "",
+      countryCode: "",
+      phoneNumber: "",
       password: "",
       confirmPassword: "",
     },
@@ -48,6 +48,7 @@ const Index = () => {
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
         <div className="text-center text-[#F94633] text-5xl font-bold">
           RESY SNIPER
+          {form.watch("countryCode")}
         </div>
         <Form {...form}>
           <form
@@ -99,76 +100,53 @@ const Index = () => {
                 </>
               )}
             />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <>
-                  <FormItem className="">
-                    <FormControl>
-                      <div className="flex">
-                        <div className="w-1/4 space-y-2">
-                          <FormLabel>Phome</FormLabel>
-                          <Select>
+            <div className="flex items-end">
+              <FormField
+                control={form.control}
+                name="countryCode"
+                render={({ field }) => (
+                  <>
+                    <FormItem className="w-1/3">
+                      <FormControl>
+                        <>
+                          <FormLabel>Phone</FormLabel>
+                          <Select onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectGroup>
-                                <SelectItem value="+1">
-                                  <img
-                                    alt="US Flag"
-                                    className="inline-block mr-2"
-                                    height={20}
-                                    src="/placeholder.svg"
-                                    style={{
-                                      aspectRatio: "20/20",
-                                      objectFit: "cover",
-                                    }}
-                                    width={20}
-                                  />
-                                  (+1)
-                                </SelectItem>
-                                <SelectItem value="+44">
-                                  <img
-                                    alt="UK Flag"
-                                    className="inline-block mr-2"
-                                    height={20}
-                                    src="/placeholder.svg"
-                                    style={{
-                                      aspectRatio: "20/20",
-                                      objectFit: "cover",
-                                    }}
-                                    width={20}
-                                  />
-                                  (+44)
-                                </SelectItem>
-                              </SelectGroup>
+                              <CountryCode />
                             </SelectContent>
                           </Select>
-                        </div>
-                        <div className="w-3/4 space-y-2">
-                          <Label
-                            className="text-gray-600 dark:text-gray-400 required"
-                            htmlFor="phone"
-                          >
-                            Phone Number
-                          </Label>
+                        </>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <>
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <>
                           <Input
                             className="border-gray-300  bg-white rounded-s-none"
                             id="phone"
                             placeholder="000-000-0000"
-                            required
                             {...field}
                           />
-                        </div>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                </>
-              )}
-            />
+                        </>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name="password"

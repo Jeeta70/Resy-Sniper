@@ -11,15 +11,18 @@ export const loginFormSchema = z.object({
 
 export const signupFormSchema = z
   .object({
-    firstName: z.string().min(1),
-    lastName: z.string(),
+    firstName: z.string().min(1, { message: "First name is required!" }),
+    lastName: z.string().min(1, { message: "Last name is required!" }),
     email: z.string().email("Must be valid email"),
-    password: z.string(),
+    countryCode:z.string().min(0,{message:"Country Code is required"}),
+    phoneNumber: z.string().length(8,"Phone number must have exactly 8 digits.").regex(/^[0-9]+/),
+    password: z
+      .string().min(6),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"], 
+    path: ["confirmPassword"],
   });
 
   export const createAccountCardSchema = z.object({

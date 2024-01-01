@@ -16,11 +16,11 @@ const ConnectAccount = () => {
        </div>
        <div className="flex flex-col justify-center items-center sm:flex-row gap-4 sm:gap-10">
          <CreateAccountCard
-           heading={"Resy"}
+           image={"./connectAccount/resy.svg"}
            cardStyle={"w-[350px] ml-0 sm:ml-auto"}
          />
          <CreateAccountCard
-           heading={"OpenTable"}
+           image={"./connectAccount/openTable.svg"}
            cardStyle={"w-[350px] mr-0 sm:mr-auto"}
          />
        </div>

@@ -1,3 +1,9 @@
 export { default as Login } from "./login";
 export { default as SignUp } from "./signup";
 export { default as ConnectAccount } from "./connectAccount";
+export { default as Subscription } from "./subscription";
+export { default as Dashboard } from "./dashboard";
+export { default as Reservation } from "./reservations";
+export { default as AddReservation } from "./reservations/addReservation";
+export { default as Profile } from "./profile";
+export { default as Integration } from "./integration";

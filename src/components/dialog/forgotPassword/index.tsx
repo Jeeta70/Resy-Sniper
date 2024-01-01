@@ -28,7 +28,6 @@ const Index = () => {
       </DialogTrigger>
       <DialogContent
         className="sm:max-w-2xl"
-        onBlur={() => setToggle((prev) => !prev)}
       >
         <DialogHeader>
           <DialogTitle>Forgot Password?</DialogTitle>

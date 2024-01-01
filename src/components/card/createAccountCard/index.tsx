@@ -1,8 +1,8 @@
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -17,11 +17,11 @@ import { createAccountCardSchema } from "@/utils/formZodSchema";
 
 
 interface CreateAccountCardType {
-  heading: string;
+  image: string;
   cardStyle: string;
 }
 
-const Index = ({ heading, cardStyle }: CreateAccountCardType) => {
+const Index = ({ image, cardStyle }: CreateAccountCardType) => {
   const form = useForm<z.infer<typeof createAccountCardSchema>>({
     resolver: zodResolver(createAccountCardSchema),
     defaultValues: {
@@ -40,7 +40,7 @@ const Index = ({ heading, cardStyle }: CreateAccountCardType) => {
   return (
     <Card className={cardStyle}>
       <CardHeader>
-        <CardTitle>{heading}</CardTitle>
+        <img src={image} alt="" className="h-10 w-24" />
       </CardHeader>
       <CardContent>
         <Form {...form}>
