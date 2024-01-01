@@ -1,12 +1,18 @@
-import { countries, getEmojiFlag } from "countries-list";
+import { TCountryCode, countries, getEmojiFlag } from "countries-list";
 import { SelectGroup, SelectItem } from "../ui/select";
 
 const Index = () => {
+  interface CountryDetails {
+    flag: string;
+    phoneCode: string;
+  }
+
+  
   const getCountryDetails = () => {
     const data = [];
     for (const [key, value] of Object.entries(countries)) {
-      const countryDetail = {
-        flag: getEmojiFlag(key),
+      const countryDetail: CountryDetails = {
+        flag: getEmojiFlag(key as TCountryCode),
         phoneCode: `+ ${value.phone[0]}`,
       };
 
