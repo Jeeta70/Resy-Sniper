@@ -20,14 +20,14 @@ const Index = () => {
             <CardTitle>Integrations</CardTitle>
           </CardHeader>
         </div>
-        <Card className="sm:w-8/12 mx-auto mb-6">
+        <Card className="sm:w-8/12 mx-auto mb-3">
           <CardContent className="p-6">
             <div className="grid sm:grid-cols-[auto,15%] items-center gap-4 border-3">
-              <div className=" flex flex-col gap-1 ">
+              <div className=" flex flex-col gap-1">
                 <img
                   src="./connectAccount/resy.svg"
                   alt=""
-                  className="h-10 w-24"
+                  className="h-[30px] w-16"
                 />
                 <CardDescription className="font-bold text-black text-md ">
                   John Doe
@@ -40,11 +40,11 @@ const Index = () => {
               <div className=" justify-self-end w-full">
                 <Credenza>
                   <CredenzaTrigger asChild>
-                      <Button variant="outline" className="w-full">
-                  Disconnect
-                </Button>
+                    <Button variant="outline" className="w-full">
+                      Disconnect
+                    </Button>
                   </CredenzaTrigger>
-                  <DisconnectResyAccountModel/>
+                  <DisconnectResyAccountModel />
                 </Credenza>
               </div>
             </div>
@@ -57,7 +57,7 @@ const Index = () => {
                 <img
                   src="./connectAccount/openTable.svg"
                   alt=""
-                  className="h-10 w-24"
+                  className="h-[30px] w-24"
                 />
               </div>
               <div className="justify-self-end w-full">

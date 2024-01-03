@@ -7,3 +7,6 @@ export { default as Reservation } from "./reservations";
 export { default as AddReservation } from "./reservations/addReservation";
 export { default as Profile } from "./profile";
 export { default as Integration } from "./integration";
+export { default as Restaurant } from "./restaurant";
+export { default as Restaurants } from "./restaurants";
+export { default as TopPick } from "./restaurants/topPicks";

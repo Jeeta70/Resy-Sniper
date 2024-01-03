@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siderBarOptions } from "@/utils/constants";
 import { Link, useLocation } from "react-router-dom";
+import { Menu } from "lucide-react";
 
 const Index = () => {
   const [open, setOpen] = React.useState(false);
   const { pathname } = useLocation();
-  console.log(pathname);
+
   
 
   return (
@@ -20,33 +21,26 @@ const Index = () => {
       >
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <div className="text-center text-[#F94633] text-2xl font-bold">
+            <div className="text-center text-[#F94633] text-2xl font-bold w-full sm:w-auto">
               RESY SNIPER
             </div>
             <Button
-              className="bg-inherit block sm:hidden"
+              className={"bg-inherit block sm:hidden left-5 absolute"}
               onClick={() => setOpen(!open)}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
+              <Menu />
             </Button>
           </div>
           <div className="flex-1">
             <ul className="pt-2 pb-4 space-y-1 text-sm">
               {siderBarOptions.map((siderBarOption, indx) => (
-                <li className={cn("", pathname === siderBarOption.navigate && "border-l-4 border-[#F94633]")} key={indx}>
+                <li
+                  className={cn(
+                    siderBarOption.navigate.includes(pathname) &&
+                      " border-l-4 border-[#F94633]"
+                  )}
+                  key={indx}
+                >
                   <Link
                     to={siderBarOption.navigate}
                     className="flex items-center p-2 space-x-3 rounded-md"

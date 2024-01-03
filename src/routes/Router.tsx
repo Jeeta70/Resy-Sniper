@@ -1,6 +1,16 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Integration, Login, Profile, Reservation, SignUp, Subscription } from "@/pages";
+import {
+  Integration,
+  Login,
+  Profile,
+  Reservation,
+  Restaurant,
+  Restaurants,
+  SignUp,
+  Subscription,
+  TopPick,
+} from "@/pages";
 import ShowSidebar from "./ShowSidebar";
 
 const ConnectAccount = React.lazy(() => import("@/pages/connectAccount"));
@@ -22,8 +32,10 @@ const Router = () => {
         />
         <Route path="/" element={<ShowSidebar />}>
           <Route path="/reservations" element={<Reservation />} />
-          <Route path="/restaurants" element={<h1>restaurants</h1>} />
-          <Route path="/integrations" element={<Integration/>} />
+          <Route path="/restaurants" element={<Restaurants />} />
+          <Route path="/restaurant/:id" element={<Restaurant />} />
+          <Route path="/restaurants/top-picks" element={<TopPick />} />
+          <Route path="/integrations" element={<Integration />} />
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/profile" element={<Profile />} />
         </Route>

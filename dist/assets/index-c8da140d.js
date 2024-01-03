@@ -1,0 +1,1 @@
+import{j as s,i as e}from"./index-87dd1310.js";const i=()=>s.jsxs("div",{className:"grid  grid-cols-1 sm:grid-cols-2 place-items-center h-dvh",children:[s.jsx("div",{className:"h-full w-full bg-[url('login.png')] hidden sm:block"}),s.jsx(e,{})]});export{i as default};

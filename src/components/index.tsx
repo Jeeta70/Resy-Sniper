@@ -9,3 +9,7 @@ export { default as ProfileTab } from "@/components/tab/profileTab";
 export { default as ConnectOpenTabelAccountModel } from "@/components/model/connectOpenTableAccountModel";
 export { default as DisconnectResyAccountModel } from "@/components/model/disconnectResyAccountModal";
 export { default as Model } from "@/components/model/commanModal";
+export { default as DropDown } from "@/components/dropDown";
+export { default as RestaurantCard } from "@/components/card/restaurantCard";
+export { default as Carousel } from "@/components/carousel";
+export { default as RestaurantLocationCard } from "@/components/card/restaurantLocationCard";
