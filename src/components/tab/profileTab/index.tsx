@@ -55,19 +55,19 @@ const Index = () => {
       <TabsList className="grid sm:w-2/4 grid-cols-3 gap-20 sm:gap-10 bg-white">
         <TabsTrigger
           value="account"
-          className="data-[state=active]:border-b-4 data-[state=active]:border-red-700 border-3 border-red-600 justify-start text-lg"
+          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start  text-sm font-medium"
         >
           Personal info
         </TabsTrigger>
         <TabsTrigger
           value="password"
-          className="data-[state=active]:border-b-4 data-[state=active]:border-red-700 justify-start text-lg"
+          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium"
         >
           Reset Password
         </TabsTrigger>
         <TabsTrigger
           value="notications"
-          className="data-[state=active]:border-b-4 data-[state=active]:border-red-700 text-lg"
+          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium"
         >
           Notifications
         </TabsTrigger>

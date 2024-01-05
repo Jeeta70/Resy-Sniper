@@ -1,10 +1,10 @@
-import { AddReservationForm } from "@/components";
+import { ReservationForm } from "@/components";
 
 const index = () => {
   return (
-    <div className="grid  grid-cols-1 sm:grid-cols-2 place-items-center h-dvh">
-      <div className="h-full w-full bg-[url('login.png')] hidden sm:block"></div>
-      <AddReservationForm/>
+    <div className="grid  grid-cols-1 sm:grid-cols-2 place-items-center h-dvh ">
+      <div className="h-full w-full bg-[url('./reservation/reservationform.png')] hidden sm:block"></div>
+      <ReservationForm />
     </div>
   );
 };

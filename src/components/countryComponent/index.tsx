@@ -7,7 +7,6 @@ const Index = () => {
     phoneCode: string;
   }
 
-  
   const getCountryDetails = () => {
     const data = [];
     for (const [key, value] of Object.entries(countries)) {
@@ -22,14 +21,11 @@ const Index = () => {
     return [...new Map(data.map((item) => [item["phoneCode"], item])).values()];
   };
 
-  
-
   return (
     <SelectGroup>
       {getCountryDetails().map((country, index) => (
-        <SelectItem value={country.phoneCode.replace(" ","")} key={index}>
-          {country.flag}{" "}
-          {country.phoneCode}
+        <SelectItem value={country.phoneCode.replace(" ", "")} key={index}>
+          {country.flag} {country.phoneCode}
         </SelectItem>
       ))}
     </SelectGroup>

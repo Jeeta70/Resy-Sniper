@@ -1,12 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const index = () => {
+const Index = () => {
+  const navigate = useNavigate()
+  
+
   return (
     <div className="w-full h-screen p-10">
       <div className="flex justify-between">
-        <h1 className=" font-bold text-3xl">My Reservations</h1>
-        <Button variant="primary" className="hidden sm:inline-flex">
+        <h1 className=" font-bold text-2xl">My Reservations</h1>
+        <Button
+          variant="primary"
+          className="hidden sm:inline-flex"
+          onClick={() => navigate("/reservations/add-reservation")}
+        >
           <Plus className="mr-3" /> Add Reservation
         </Button>
       </div>
@@ -16,7 +24,11 @@ const index = () => {
           No reservations here yet. <br /> Click "Add Reservation" button to add
           me
         </p>
-        <Button variant="primary" className="sm:hidden">
+        <Button
+          variant="primary"
+          className="sm:hidden"
+          onClick={() => navigate("/reservations/add-reservation")}
+        >
           <Plus className="mr-3" /> Add Reservation
         </Button>
       </div>
@@ -24,4 +36,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

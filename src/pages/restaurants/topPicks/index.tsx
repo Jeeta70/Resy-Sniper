@@ -21,7 +21,7 @@ const index = () => {
       <SearchAndFilterSection />
       <div className="grid grid-cols-4 gap-4 mt-4">
         {topPickResturants.map((restaurant) => (
-          <RestaurantCard restaurant={restaurant} key={restaurant.id} />
+          <RestaurantCard restaurant={restaurant} key={restaurant.id} layout={{displayFooter:true}} />
         ))}
       </div>
       {/* <div>

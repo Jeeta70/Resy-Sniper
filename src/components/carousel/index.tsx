@@ -7,7 +7,7 @@ const Index = ({
   autoSlideInterval = 3000,
   className = "",
 }: {
-  children: any;
+  children: any | unknown;
   autoSlide: boolean;
   autoSlideInterval?: number;
   className?: string;

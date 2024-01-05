@@ -23,7 +23,7 @@ const Index = ({ subscriptionType, points }: SubscriptionCardType) => {
   // }
 
   return (
-    <Card className={"min-w-[600px]"}>
+    <Card className={"min-w-full sm:min-w-[600px]"}>
       <CardContent className="p-0">
         <div className="sm:flex">
           <div
@@ -38,10 +38,10 @@ const Index = ({ subscriptionType, points }: SubscriptionCardType) => {
               {subscriptionType}
             </div>
             <div>
-              <span className="text-4xl">
+              <span className="text-4xl font-semibold">
                 ${subscriptionType !== "Pro" ? "25" : "50"}
               </span>
-              .00/month
+              <span>.00</span> <span>/month</span>
             </div>
           </div>
 
@@ -51,7 +51,9 @@ const Index = ({ subscriptionType, points }: SubscriptionCardType) => {
                 return (
                   <li className="flex" key={index}>
                     <CheckCircle2 />
-                    <span className="ml-2">{point.point}t</span>
+                    <span className="ml-2 font-semibold text-sm">
+                      {point.point}
+                    </span>
                   </li>
                 );
               })}

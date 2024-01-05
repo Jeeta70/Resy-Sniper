@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -6,10 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
-import { Credenza,  CredenzaTrigger } from '@/components/ui/credenza';
-import { ConnectOpenTabelAccountModel, DisconnectResyAccountModel } from '@/components';
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import {
+  ConnectOpenTabelAccountModel,
+  DisconnectResyAccountModel,
+} from "@/components";
 
 const Index = () => {
   return (
@@ -17,7 +19,7 @@ const Index = () => {
       <div className="m-6 sm:m-auto">
         <div className="sm:w-8/12 mx-auto ">
           <CardHeader className="px-0">
-            <CardTitle>Integrations</CardTitle>
+            <CardTitle className="text-2xl font-bold">Integrations</CardTitle>
           </CardHeader>
         </div>
         <Card className="sm:w-8/12 mx-auto mb-3">
@@ -29,12 +31,15 @@ const Index = () => {
                   alt=""
                   className="h-[30px] w-16"
                 />
-                <CardDescription className="font-bold text-black text-md ">
+                <CardDescription className="font-bold text-black text-sm ">
                   John Doe
                 </CardDescription>
                 <CardDescription>
                   {" "}
-                  <span className="ml-1 text-xs"> johndoe@example.com</span>
+                  <span className="ml-1  font-medium text-xs">
+                    {" "}
+                    johndoe@example.com
+                  </span>
                 </CardDescription>
               </div>
               <div className=" justify-self-end w-full">
@@ -76,6 +81,6 @@ const Index = () => {
       </div>
     </>
   );
-}
+};
 
-export default Index
+export default Index;

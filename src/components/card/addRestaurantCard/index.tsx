@@ -1,28 +1,36 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent} from "@/components/ui/card";
+import { useReservationContext } from "@/context/ReservationFomProvider";
+import { selectResturant, selectSittingOptions } from "@/reducer/reservationFormReducer";
 import { MapPin } from "lucide-react";
 
 interface Props {
   restaurant: {
     name: string;
   };
-  layout: {
-    displayFooter: boolean;
-  };
 }
 
-const index = ({ restaurant, layout }: Props) => {
+const AddRestaurantCard = ({ restaurant }: Props) => {
+  const { dispatch } = useReservationContext();
+  
+
   return (
     <>
-      <Card className="">
+      <Card
+        className="flex cursor-pointer"
+        role="button"
+        onClick={() => {
+          selectResturant(dispatch, "latest value");
+          selectSittingOptions(dispatch);
+        }}
+      >
         {/* need to remove later  */}
         <div className="hidden">{`${restaurant}`}</div>
         <img
-          className="rounded-t-lg h-1/2 w-full"
+          className="rounded-lg w-1/3"
           src="../restaurant/restaurant.png"
           alt=""
         />
-        <CardContent>
+        <CardContent className="w-full">
           <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400">
             $$$$
           </p>
@@ -33,19 +41,9 @@ const index = ({ restaurant, layout }: Props) => {
             <MapPin className="inline-block" /> Prospective height
           </p>
         </CardContent>
-        {layout.displayFooter && (
-          <CardFooter className="flex gap-3">
-            <Button variant="outline" className="w-full">
-              Select
-            </Button>
-            <Button variant="primary" className="w-full">
-              Reserve
-            </Button>
-          </CardFooter>
-        )}
       </Card>
     </>
   );
 };
 
-export default index;
+export default AddRestaurantCard;

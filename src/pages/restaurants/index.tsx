@@ -6,7 +6,7 @@ const index = () => {
     {
       id: "1",
       title: "Top picks",
-      seeAllNavigateTo: "/restaurants/top-picks",
+      clickOnSeeAll: "/restaurants/top-picks",
       restaurants: [
         { name: "Ajeet" },
         { name: "Ajey" },
@@ -17,7 +17,7 @@ const index = () => {
     {
       id: "2",
       title: "Near You",
-      seeAllNavigateTo: "/restaurants/top-picks",
+      clickOnSeeAll: "/restaurants/top-picks",
       restaurants: [
         { name: "Ajeet" },
         { name: "Ajey" },
@@ -28,7 +28,7 @@ const index = () => {
     {
       id: "3",
       title: "All Restaurants",
-      seeAllNavigateTo: "/restaurants/top-picks",
+      clickOnSeeAll: "/restaurants/top-picks",
       restaurants: [
         { name: "Ajeet" },
         { name: "Ajey" },

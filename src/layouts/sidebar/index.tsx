@@ -7,21 +7,20 @@ import { Menu } from "lucide-react";
 
 const Index = () => {
   const [open, setOpen] = React.useState(false);
+  // const [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
-
-  
 
   return (
     <div className="flex z-10">
       <div
         className={cn(
-          "flex flex-col h-20 sm:h-screen p-3  bg-black shadow duration-300",
+          "flex flex-col h-16 sm:h-screen bg-black  shadow duration-300 overflow-hidden",
           open ? "w-screen h-screen" : " w-screen sm:w-64"
         )}
       >
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <div className="text-center text-[#F94633] text-2xl font-bold w-full sm:w-auto">
+            <div className="text-center text-primary text-2xl font-bold w-full sm:w-auto p-3">
               RESY SNIPER
             </div>
             <Button
@@ -30,38 +29,35 @@ const Index = () => {
             >
               <Menu />
             </Button>
+            {/* hamber icon do it later */}
+            {/* <div
+              className={`bg-inherit  sm:hidden  transition-all absolute cursor-pointer flex flex-col justify-around w-[30px] h-[25px] ${
+                open ? "open" : "close"
+              }`}
+              onClick={() => setOpen(!open)}
+            >
+              <div className="bg-[red] text-[white] h-[3px] transition-all duration-[0.3s] ease-linear line1"></div>
+              <div className="bg-[red] text-[white] h-[3px] transition-all duration-[0.3s] ease-linear line2"></div>
+              <div className="bg-[red] text-[white] h-[3px] transition-all duration-[0.3s] ease-linear line3"></div>
+            </div> */}
           </div>
+
           <div className="flex-1">
             <ul className="pt-2 pb-4 space-y-1 text-sm">
               {siderBarOptions.map((siderBarOption, indx) => (
                 <li
                   className={cn(
-                    siderBarOption.navigate.includes(pathname) &&
-                      " border-l-4 border-[#F94633]"
+                    pathname.includes(siderBarOption.pathname) &&
+                      " border-l-2 border-primary "
                   )}
                   key={indx}
                 >
                   <Link
                     to={siderBarOption.navigate}
-                    className="flex items-center p-2 space-x-3 rounded-md"
+                    className="flex items-center p-2 space-x-3 rounded-md text-white"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6 text-gray-100"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                      />
-                    </svg>
-                    <span className="text-gray-100">
-                      {siderBarOption.title}
-                    </span>
+                    {siderBarOption.icon}
+                    <span className="">{siderBarOption.title}</span>
                   </Link>
                 </li>
               ))}

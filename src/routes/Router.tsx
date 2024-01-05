@@ -1,6 +1,7 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import {
+  AddReservation,
+  ConnectAccount,
   Integration,
   Login,
   Profile,
@@ -12,35 +13,38 @@ import {
   TopPick,
 } from "@/pages";
 import ShowSidebar from "./ShowSidebar";
+import { ReservationContextProvider } from "@/context/ReservationFomProvider";
 
-const ConnectAccount = React.lazy(() => import("@/pages/connectAccount"));
+// const ConnectAccount = React.lazy(() => import("@/pages/connectAccount"));
 // const Dashboard = React.lazy(() => import("@/pages/dashboard"));
-const AddReservation = React.lazy(
-  () => import("@/pages/reservations/addReservation")
-);
+// const AddReservation = React.lazy(
+//   () => import("@/pages/reservations/addReservation")
+// );
 
 const Router = () => {
   return (
-    <Routes>
-      <Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/connect-accounts" element={<ConnectAccount />} />
-        <Route
-          path="/reservations/add-reservation"
-          element={<AddReservation />}
-        />
-        <Route path="/" element={<ShowSidebar />}>
-          <Route path="/reservations" element={<Reservation />} />
-          <Route path="/restaurants" element={<Restaurants />} />
-          <Route path="/restaurant/:id" element={<Restaurant />} />
-          <Route path="/restaurants/top-picks" element={<TopPick />} />
-          <Route path="/integrations" element={<Integration />} />
+    <ReservationContextProvider>
+      <Routes>
+        <Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/connect-accounts" element={<ConnectAccount />} />
+          <Route
+            path="/reservations/add-reservation"
+            element={<AddReservation />}
+          />
           <Route path="/subscription" element={<Subscription />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<ShowSidebar />}>
+            <Route path="/reservations" element={<Reservation />} />
+            <Route path="/restaurants" element={<Restaurants />} />
+            <Route path="/restaurant/:id" element={<Restaurant />} />
+            <Route path="/restaurants/top-picks" element={<TopPick />} />
+            <Route path="/integrations" element={<Integration />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </ReservationContextProvider>
   );
 };
 

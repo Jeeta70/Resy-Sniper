@@ -2,14 +2,14 @@ import { SubscriptionCard } from "@/components";
 
 const index = () => {
   return (
-    <div className="h-svh ">
+    <div className="h-svh border-2 border-red-800 p-10">
       <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">
-        <h1 className="mb-3 sm:mb-14 text-[#F94633] text-5xl font-bold">
+        <h1 className="mb-3 sm:mb-14 text-primary text-5xl font-bold">
           RESY SNIPER
         </h1>
         <span>
-          <h2 className="font-bold text-3xl">Subscription</h2>
-          <p className="text-[#12171A]">Please select a subscription page</p>
+          <h2 className="font-bold text-2xl">Subscription</h2>
+          <p className="text-light font-normal text-sm">Please select a subscription page</p>
         </span>
       </div>
       <div className="flex justify-center items-center flex-col gap-4 sm:gap-10">

@@ -38,24 +38,30 @@ const Index = () => {
     <>
       <Tabs defaultValue="account" className="sm:w-8/12 mx-auto">
         <CardHeader>
-          <CardTitle className="font-bold text-3xl">Profile </CardTitle>
+          <CardTitle className="font-bold text-2xl">Profile </CardTitle>
         </CardHeader>
         <CardContent className="">
           <div className="grid grid-cols-[20%,auto,20%] sm:grid-cols-[12%,auto,10%] items-center gap-4 border-3">
-            <div className=" bg-black h-full text-white rounded-md flex justify-center items-center text-6xl">
+            <div className=" bg-black h-full text-white rounded-md flex justify-center items-center text-4xl">
               JD
             </div>
             <div className=" flex flex-col gap-2 ">
-              <CardDescription className="font-bold text-black text-md ">
+              <CardDescription className="font-semibold text-black text-sm ">
                 John Doe
               </CardDescription>
               <CardDescription>
-                <AtSign className="inline-block" size={20} />
-                <span className="ml-1 text-xs"> johndoe@example.com</span>
+                <AtSign className="inline-block" size={17} />
+                <span className="ml-1 font-medium text-xs text-light">
+                  {" "}
+                  johndoe@example.com
+                </span>
               </CardDescription>
               <CardDescription>
-                <Phone className="inline-block" size={20} />
-                <span className="ml-1 text-xs"> +1 917-728-4685</span>
+                <Phone className="inline-block" size={17} />
+                <span className="ml-1 font-medium text-xs text-light">
+                  {" "}
+                  +1 917-728-4685
+                </span>
               </CardDescription>
             </div>
             <div className=" justify-self-end">
