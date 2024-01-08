@@ -26,9 +26,7 @@ const Index = ({
   }, []);
 
   return (
-    <div
-      className={cn("overflow-hidden relative sm:h-1/3 h-[300px]", className)}
-    >
+    <div className={cn("overflow-hidden relative sm:h-1/3 h-[300px]", className)}>
       <div
         className="flex h-full transition-transform ease-out duration-500 max-h-1/2"
         style={{ transform: `translateX(-${curr * 100}%)` }}
@@ -53,13 +51,7 @@ const Index = ({
       <div className="absolute bottom-4 right-0 left-0">
         <div className="flex items-center justify-center gap-2">
           {slides.map((_: any, i: Key | null | undefined) => (
-            <div
-              key={i}
-              className={`
-              transition-all w-10 h-2 bg-white rounded-full
-              ${curr === i ? "p-1 bg-red-600" : "bg-opacity-50"}
-            `}
-            />
+            <div key={i} className={`transition-all w-10 h-2 bg-white rounded-full${curr === i ? "p-1 bg-red-600" : "bg-opacity-50"}`} />
           ))}
         </div>
       </div>

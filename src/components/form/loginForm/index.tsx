@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
@@ -14,9 +15,13 @@ import {
 } from "@/components/ui/form";
 import { loginFormSchema } from "@/utils/formZodSchema";
 import { ForgotPasswordModal } from "@/components";
+import { useLogin } from "@/features/authentication/auth";
+import React from "react";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { login, isloading } = useLogin()
+
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -24,12 +29,20 @@ const Index = () => {
       password: "",
     },
   });
+console.log(isloading);
+
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof loginFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+   
     console.log(values);
+    
+    login({ email: "ajrana@gmail.com", password: "password" })
+
+
+
   }
 
   return (
@@ -90,7 +103,7 @@ const Index = () => {
               Don't have an account?{" "}
               <Button
                 className="text-blue font-medium"
-               variant="link"
+                variant="link"
                 onClick={() => navigate("/sign-up")}
               >
                 Sign Up
@@ -103,4 +116,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default React.memo(Index);

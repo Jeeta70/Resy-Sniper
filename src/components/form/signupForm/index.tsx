@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components
 import { signupFormSchema } from "@/utils/formZodSchema";
 import { CountryCode } from "@/components";
 
+
 const Index = () => {
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof signupFormSchema>>({
@@ -39,6 +40,7 @@ const Index = () => {
         <div className="text-center text-[#F94633] text-5xl font-bold">
           RESY SNIPER
         </div>
+        {/* <img src={logo} /> */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -50,12 +52,12 @@ const Index = () => {
               name="firstName"
               render={({ field }) => (
                 <>
-                  <FormItem className="">
-                    <FormLabel>First name</FormLabel>
+                  <FormItem className="relative">
+                    <FormLabel className="text-sm font-normal">First name</FormLabel>
                     <FormControl>
                       <Input placeholder="First name" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="absolute -bottom-5 text-xs" />
                   </FormItem>
                 </>
               )}
@@ -65,12 +67,12 @@ const Index = () => {
               name="lastName"
               render={({ field }) => (
                 <>
-                  <FormItem className="">
-                    <FormLabel>Last Name</FormLabel>
+                  <FormItem className="relative">
+                    <FormLabel className="text-sm font-normal">Last Name</FormLabel>
                     <FormControl>
                       <Input placeholder="Your email" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
                 </>
               )}
@@ -80,12 +82,12 @@ const Index = () => {
               name="email"
               render={({ field }) => (
                 <>
-                  <FormItem className="">
-                    <FormLabel>Email</FormLabel>
+                  <FormItem className="relative">
+                    <FormLabel className="text-sm font-normal">Email</FormLabel>
                     <FormControl>
                       <Input placeholder="Your email" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
                 </>
               )}
@@ -96,10 +98,10 @@ const Index = () => {
                 name="countryCode"
                 render={({ field }) => (
                   <>
-                    <FormItem className="w-2/5">
+                    <FormItem className="w-2/5 relative">
                       <FormControl>
                         <>
-                          <FormLabel>Phone</FormLabel>
+                          <FormLabel className="text-sm font-normal">Phone</FormLabel>
                           <Select onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
@@ -110,7 +112,7 @@ const Index = () => {
                           </Select>
                         </>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="absolute -bottom-5 text-xs text-error" />
                     </FormItem>
                   </>
                 )}
@@ -120,7 +122,7 @@ const Index = () => {
                 name="phoneNumber"
                 render={({ field }) => (
                   <>
-                    <FormItem className="w-full">
+                    <FormItem className="w-full relative">
                       <FormControl>
                         <>
                           <Input
@@ -132,7 +134,7 @@ const Index = () => {
                           />
                         </>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="absolute -bottom-5 text-xs text-error" />
                     </FormItem>
                   </>
                 )}
@@ -143,12 +145,12 @@ const Index = () => {
               name="password"
               render={({ field }) => (
                 <>
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
+                  <FormItem className="relative">
+                    <FormLabel className="text-sm font-normal">Password</FormLabel>
                     <FormControl>
                       <Input placeholder="Create password" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
                 </>
               )}
@@ -158,12 +160,12 @@ const Index = () => {
               name="confirmPassword"
               render={({ field }) => (
                 <>
-                  <FormItem className="">
-                    <FormLabel>Repeat password</FormLabel>
+                  <FormItem className="relative">
+                    <FormLabel className="text-sm font-normal">Repeat password</FormLabel>
                     <FormControl>
                       <Input placeholder="Repeat Password" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
                 </>
               )}

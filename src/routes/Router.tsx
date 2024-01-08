@@ -35,7 +35,7 @@ const Router = () => {
     <React.Suspense
       fallback={<> <h1>Loading...</h1></>}>
       <ReservationContextProvider>
-        <Routes>
+        <Routes location="/reservations">
           <Route>
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
@@ -46,8 +46,12 @@ const Router = () => {
 
             <Route path="/" element={<ShowSidebar />}>
               <Route path="/reservations" element={<Reservation />} />
-              <Route path="/restaurants" element={<Restaurants />} />
-              <Route path="/restaurants/top-picks" element={<TopPick />} />
+              <Route path="restaurants">
+                <Route index element={<Restaurants />} />
+                <Route path="top-picks" element={<TopPick />} />
+              </Route>
+              {/* <Route path="/restaurants" element={<Restaurants />} /> */}
+              {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
               <Route path="/integrations" element={<Integration />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
