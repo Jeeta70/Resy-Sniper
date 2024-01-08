@@ -1,17 +1,10 @@
-import { Card, CardContent} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useReservationContext } from "@/context/ReservationFomProvider";
-import { selectResturant, selectSittingOptions } from "@/reducer/reservationFormReducer";
+import { selectResturant, selectSittingOptions, } from "@/reducer/reservationFormReducer";
 import { MapPin } from "lucide-react";
 
-interface Props {
-  restaurant: {
-    name: string;
-  };
-}
-
-const AddRestaurantCard = ({ restaurant }: Props) => {
+const AddRestaurantCard = () => {
   const { dispatch } = useReservationContext();
-  
 
   return (
     <>
@@ -24,7 +17,6 @@ const AddRestaurantCard = ({ restaurant }: Props) => {
         }}
       >
         {/* need to remove later  */}
-        <div className="hidden">{`${restaurant}`}</div>
         <img
           className="rounded-lg w-1/3"
           src="../restaurant/restaurant.png"

@@ -1,24 +1,14 @@
 import * as z from "zod";
-import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { signupFormSchema } from "@/utils/formZodSchema";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
+import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
+import { signupFormSchema } from "@/utils/formZodSchema";
 import { CountryCode } from "@/components";
 
 const Index = () => {
@@ -48,13 +38,13 @@ const Index = () => {
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
         <div className="text-center text-[#F94633] text-5xl font-bold">
           RESY SNIPER
-          {form.watch("countryCode")}
         </div>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 m-auto w-full"
           >
+            <h2 className="text-center font-bold text-2xl">Sign up</h2>
             <FormField
               control={form.control}
               name="firstName"
@@ -106,7 +96,7 @@ const Index = () => {
                 name="countryCode"
                 render={({ field }) => (
                   <>
-                    <FormItem className="w-1/3">
+                    <FormItem className="w-2/5">
                       <FormControl>
                         <>
                           <FormLabel>Phone</FormLabel>
@@ -135,6 +125,7 @@ const Index = () => {
                         <>
                           <Input
                             className="border-gray-300  bg-white rounded-s-none"
+                            type="number"
                             id="phone"
                             placeholder="000-000-0000"
                             {...field}
@@ -181,15 +172,15 @@ const Index = () => {
             <Button variant="primary" type="submit" className="w-full">
               Sign Up
             </Button>
-            <div className="text-center font-medium ">
+            <div className="text-center font-normal">
               Already have an account?{" "}
-              <span
-                className="text-blue-700"
-                role="button"
+              <Button
+                className="text-blue font-medium"
+                variant="link"
                 onClick={() => navigate("/login")}
               >
                 Log in
-              </span>
+              </Button>
             </div>
           </form>
         </Form>

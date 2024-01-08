@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 import { ChevronsLeftIcon, ChevronsRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Key } from "react";
 const Index = ({
   children: slides,
   autoSlide = false,
   autoSlideInterval = 3000,
   className = "",
 }: {
-  children: any | unknown;
-  autoSlide: boolean;
+  children: JSX.IntrinsicElements["img"][] | unknown[] | any;
+  autoSlide?: boolean;
   autoSlideInterval?: number;
   className?: string;
 }) => {
@@ -24,6 +24,7 @@ const Index = ({
     const slideInterval = setInterval(next, autoSlideInterval);
     return () => clearInterval(slideInterval);
   }, []);
+
   return (
     <div
       className={cn("overflow-hidden relative sm:h-1/3 h-[300px]", className)}
@@ -51,7 +52,7 @@ const Index = ({
 
       <div className="absolute bottom-4 right-0 left-0">
         <div className="flex items-center justify-center gap-2">
-          {slides.map((_: string, i: number) => (
+          {slides.map((_: any, i: Key | null | undefined) => (
             <div
               key={i}
               className={`

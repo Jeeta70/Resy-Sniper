@@ -2,7 +2,7 @@ import { SubscriptionCard } from "@/components";
 
 const index = () => {
   return (
-    <div className="h-svh border-2 border-red-800 p-10">
+    <div className="h-svh p-10">
       <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">
         <h1 className="mb-3 sm:mb-14 text-primary text-5xl font-bold">
           RESY SNIPER

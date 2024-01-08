@@ -2,7 +2,7 @@ import { Switch } from '@/components/ui/switch';
 
 const OverideCurrentReservationToggleSection = () => {
   return (
-    <div className="flex flex-row items-center justify-between  p-3 ">
+    <div className="flex flex-row items-center justify-between  sm:p-3 ">
       <div className="space-y-0.5">
         <div className="mb-2 font-semibold text-sm">
           Overide current Reservation

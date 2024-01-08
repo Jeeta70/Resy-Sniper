@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import SelectReservationTypeSection from "./selectReservationTypeSection";
 import AddResturantSection from "./addResturantSection";
-import SelectPartTypeSection from "./selectPartTypeSection";
+import SelectPartSizeSection from "./selectPartTypeSection";
 import SelectReservationDateSection from "./selectReservationDate";
 import SelectReservationTime from "./selectReservationTime";
 import SelectFinalSnipingDaySection from "./selectFinalSnipingDaySection";
@@ -10,14 +10,12 @@ import ReserveButtonSection from "./reserveButtonSection";
 
 const Index = () => {
   return (
-    <div className="h-screen w-full p-10 flex flex-col gap-4 ">
+    <div className="h-screen w-full p-5 sm:p-10 flex flex-col gap-4">
       <h1 className=" font-bold text-2xl">Add Reservation</h1>
       <SelectReservationTypeSection />
-      <p className="text-light text-[11px]">
-        Reasy Sniper will look for Canceled reservation and book it for you
-      </p>
+      <p className="text-light text-[11px]"> Reasy Sniper will look for Canceled reservation and book it for you </p>
       <AddResturantSection />
-      <SelectPartTypeSection />
+      <SelectPartSizeSection />
       <SelectReservationDateSection />
       <SelectReservationTime />
       <SelectFinalSnipingDaySection />

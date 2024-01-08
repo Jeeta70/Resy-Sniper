@@ -1,4 +1,4 @@
-type EventState = NonNullable<unknown>;
+// type EventState = NonNullable<unknown>;
 
 type InitialSittingState = {
   showModel: boolean;
@@ -9,12 +9,24 @@ const initialSittingState = {
   showModel: false,
   title: "Add Resturant",
 };
+export interface IFormState {
+  reservationType: number | string | undefined;
+  resturantOption: {
+    selectedResturant: number | string | undefined;
+  };
+  partySize: number | string ,
+  selectSittingOptions: InitialSittingState;
+  title: string;
+  description: string;
+}
 
-export const initialState: EventState = {
+
+export const initialState: IFormState = {
   reservationType: "cancelReservation",
   resturantOption: {
     selectedResturant: "",
   },
+  partySize: 0,
   selectSittingOptions: {
     ...initialSittingState,
   },
@@ -22,25 +34,17 @@ export const initialState: EventState = {
   description: "",
 };
 
-export interface IFormState {
-  reservationType: string;
-  resturantOption: {
-    selectedResturant: string;
-  };
-  selectSittingOptions: InitialSittingState;
-  title: string;
-  description: string;
-}
 
 export enum ResturantReservationStateReducerConstant {
   RESERVATION_TYPE = "RESERVATION_TYPE",
   SELECT_RESTURANT = "SELECT_RESTURANT",
   SELECT_SITTING_OPTION = "SELECT_SITTING_OPTION",
   RESET_SITTING_OPTION = "RESET_SITTING_OPTION",
+  SELECT_PART_SIZE = "SELECT_PART_SIZE"
 }
 
 export interface IAction<T, P> {
-  value: string;
+  value?: string | number;
   type: T;
   payload?: Partial<P>;
 }
@@ -49,13 +53,9 @@ export type IActionType = IAction<
   ResturantReservationStateReducerConstant,
   IFormState
 >;
+export type IUserStateReducerDispatchType = (value: IActionType) => void;
 
-export type IUserStateReducerDispatchType = (value?: IActionType) => void;
-
-export const reservationFormReducer = (
-  state: IFormState,
-  action: IActionType
-): EventState => {
+export const reservationFormReducer = (state: IFormState, action: IActionType): IFormState => {
   switch (action.type) {
     case ResturantReservationStateReducerConstant.RESERVATION_TYPE:
       return { ...state, reservationType: action.value };
@@ -88,15 +88,18 @@ export const reservationFormReducer = (
         },
       };
 
+    case ResturantReservationStateReducerConstant.SELECT_PART_SIZE:
+      return {
+        ...state,
+        partySize: Number(action.value)
+      }
+
     default:
       return state;
   }
 };
 
-export function selectResturant(
-  dispatch: IUserStateReducerDispatchType,
-  value: string
-) {
+export function selectResturant(dispatch: IUserStateReducerDispatchType, value: string) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SELECT_RESTURANT,
     value: value,
@@ -106,16 +109,20 @@ export function selectResturant(
 export function selectSittingOptions(dispatch: IUserStateReducerDispatchType) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SELECT_SITTING_OPTION,
-    value: "",
   });
 }
 
-export function handleButtonClickReservationType(
-  dispatch: IUserStateReducerDispatchType,
-  value: string
-) {
+export function handleButtonClickReservationType(dispatch: IUserStateReducerDispatchType, value: string) {
   dispatch({
     type: ResturantReservationStateReducerConstant.RESERVATION_TYPE,
     value: value,
   });
+}
+
+export function handleButtonClickPartySize(dispatch: IUserStateReducerDispatchType, value: number) {
+
+  dispatch({
+    type: ResturantReservationStateReducerConstant.SELECT_PART_SIZE,
+    value: value,
+  })
 }

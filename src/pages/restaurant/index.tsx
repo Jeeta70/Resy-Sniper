@@ -16,7 +16,7 @@ const index = () => {
             <p className="text-2xl font-bold"> The Bar Room at the Beekman</p>
           </header>
           <div className="col-span-2 block sm:hidden ">
-            <Carousel autoSlide={true}>
+            <Carousel autoSlide={false}>
               {slides.map((s, i) => (
                 <img src={s} alt="" key={i} className="w-full rounded-lg " />
               ))}

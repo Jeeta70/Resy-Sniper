@@ -1,12 +1,8 @@
 import * as z from "zod";
 
 export const loginFormSchema = z.object({
-  email: z.string().email("Must be valid email").min(2, {
-    message: "Email must be at least 2 characters.",
-  }),
-  password: z.string().min(2, {
-    message: "Email must be at least 2 characters.",
-  }),
+  email: z.string().email("Must be valid email").min(2, { message: "Email must be at least 2 characters." }),
+  password: z.string().min(2, { message: "Email must be at least 2 characters." }),
 });
 
 export const signupFormSchema = z
@@ -14,10 +10,9 @@ export const signupFormSchema = z
     firstName: z.string().min(1, { message: "First name is required!" }),
     lastName: z.string().min(1, { message: "Last name is required!" }),
     email: z.string().email("Must be valid email"),
-    countryCode:z.string().min(0,{message:"Country Code is required"}),
-    phoneNumber: z.string().length(8,"Phone number must have exactly 8 digits.").regex(/^[0-9]+/),
-    password: z
-      .string().min(6),
+    countryCode: z.string().min(1, { message: "Country Code is required" }),
+    phoneNumber: z.string().length(8, "Phone number must have exactly 8 digits.").regex(/^[0-9]+/),
+    password: z.string().min(6),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -25,7 +20,7 @@ export const signupFormSchema = z
     path: ["confirmPassword"],
   });
 
-  export const createAccountCardSchema = z.object({
-    email: z.string().email("Must be valid email !").min(1),
-    password: z.string().min(2),
-  });
+export const createAccountCardSchema = z.object({
+  email: z.string().email("Must be valid email !").min(1),
+  password: z.string().min(2),
+});

@@ -13,10 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { loginFormSchema } from "@/utils/formZodSchema";
-import { Dialog } from "@/components";
+import { ForgotPasswordModal } from "@/components";
 
 const Index = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -43,13 +43,14 @@ const Index = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 m-auto w-full"
           >
+            <h2 className="text-center font-bold text-2xl">Login</h2>
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <>
-                  <FormItem className="">
-                    <FormLabel>Email</FormLabel>
+                  <FormItem>
+                    <FormLabel className=" font-normal text-sm">Email</FormLabel>
                     <FormControl>
                       <Input placeholder="Your email" {...field} />
                     </FormControl>
@@ -67,7 +68,7 @@ const Index = () => {
               render={({ field }) => (
                 <>
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel className=" font-normal text-sm ">Password</FormLabel>
                     <FormControl>
                       <Input placeholder="Your password" {...field} />
                     </FormControl>
@@ -80,20 +81,20 @@ const Index = () => {
               )}
             />
 
-            <Dialog />
+            <ForgotPasswordModal />
 
             <Button variant="primary" type="submit" className="w-full">
               Log in
             </Button>
-            <div className="text-center font-medium ">
+            <div className="text-center font-normal">
               Don't have an account?{" "}
-              <span
-                className="text-blue-700"
-                role="button"
+              <Button
+                className="text-blue font-medium"
+               variant="link"
                 onClick={() => navigate("/sign-up")}
               >
                 Sign Up
-              </span>
+              </Button>
             </div>
           </form>
         </Form>
