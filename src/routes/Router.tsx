@@ -35,7 +35,7 @@ const Router = () => {
     <React.Suspense
       fallback={<> <h1>Loading...</h1></>}>
       <ReservationContextProvider>
-        <Routes location="/reservations">
+        <Routes>
           <Route>
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
