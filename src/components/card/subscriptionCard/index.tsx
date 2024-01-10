@@ -12,9 +12,11 @@ type point = { point: string };
 interface SubscriptionCardType {
   subscriptionType: string;
   points: point[];
+  // handleSubscription: (subscriptionType:string) => void
 }
 
-const Index = ({ subscriptionType, points }: SubscriptionCardType) => {
+const Index = ({ subscriptionType, points}: SubscriptionCardType) => {
+  
   // 2. Define a submit handler.
   // function onSubmit(values: z.infer<typeof createAccountCardSchema>) {
   //   // Do something with the form values.
@@ -61,6 +63,7 @@ const Index = ({ subscriptionType, points }: SubscriptionCardType) => {
             <Button
               variant={subscriptionType !== "Pro" ? "default" : "destructive"}
               className="mt-3 w-full sm:w-auto"
+              onClick={() =>{}}
             >
               Subscribe
             </Button>

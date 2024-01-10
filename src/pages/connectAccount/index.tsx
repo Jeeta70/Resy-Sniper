@@ -1,29 +1,35 @@
-import { CreateAccountCard } from "@/components";
+import {  OpenTableConnectAccountCard, ResyConnectAccountCard } from "@/components";
+import { Button } from "@/components/ui/button";
 
 const ConnectAccount = () => {
+
+
    return (
-     <div className="h-svh ">
-       <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">
-         <h1 className="mb-3 sm:mb-14 text-[#F94633] text-5xl font-bold">
+     <div className="sm:h-svh sm:w-svw flex flex-col justify-evenly p-4 sm:justify-evenly">
+       <div className="mb-3 sm:mb-0 text-center">
+         <h1 className="sm:mb-14 text-primary text-4xl font-bold">
            RESY SNIPER
          </h1>
          <span>
-           <h2 className="font-bold text-3xl">Coneect Account</h2>
-           <p className="text-[#12171A]">
-             At least one accoint should be connected
+           <h2 className="font-bold text-2xl">Connect Accounts</h2>
+           <p className="text-light font-normal text-sm">
+             At least one account should be connected
            </p>
          </span>
        </div>
        <div className="flex flex-col justify-center items-center sm:flex-row gap-4 sm:gap-10">
-         <CreateAccountCard
+         <ResyConnectAccountCard
            image={"./connectAccount/resy.svg"}
-           cardStyle={"w-[350px] ml-0 sm:ml-auto"}
+           cardStyle={"w-full sm:w-[350px] mr-0 sm:ml-auto h-96"}
          />
-         <CreateAccountCard
+         <OpenTableConnectAccountCard
            image={"./connectAccount/openTable.svg"}
-           cardStyle={"w-[350px] mr-0 sm:mr-auto"}
+           cardStyle={"w-full sm:w-[350px] mr-0 sm:mr-auto h-96"}
          />
        </div>
+       <Button className="w-full sm:w-auto mt-4 sm:mt-0 mx-auto " variant="outline" type="submit">
+         Continue
+       </Button>
      </div>
    );
 };

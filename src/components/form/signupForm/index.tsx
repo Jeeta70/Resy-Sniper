@@ -10,28 +10,27 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from 
 import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { signupFormSchema } from "@/utils/formZodSchema";
 import { CountryCode } from "@/components";
+import { useSignup } from "@/features/authentication/auth";
 
 
 const Index = () => {
   const navigate = useNavigate();
+  const { signup, isloading } = useSignup()
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
       email: "",
-      countryCode: "",
+      countryCode: "+91",
       phoneNumber: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof signupFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    signup(values, { onSuccess: () => form.reset() })
   }
 
   return (
@@ -70,7 +69,7 @@ const Index = () => {
                   <FormItem className="relative">
                     <FormLabel className="text-sm font-normal">Last Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your email" {...field} />
+                      <Input placeholder="Last name" {...field} />
                     </FormControl>
                     <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
@@ -102,7 +101,7 @@ const Index = () => {
                       <FormControl>
                         <>
                           <FormLabel className="text-sm font-normal">Phone</FormLabel>
-                          <Select onValueChange={field.onChange}>
+                          <Select value="+91" onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>
@@ -171,7 +170,7 @@ const Index = () => {
               )}
             />
 
-            <Button variant="primary" type="submit" className="w-full">
+            <Button variant="primary" type="submit" className="w-full" disabled={isloading}>
               Sign Up
             </Button>
             <div className="text-center font-normal">

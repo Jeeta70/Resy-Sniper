@@ -11,7 +11,7 @@ export const signupFormSchema = z
     lastName: z.string().min(1, { message: "Last name is required!" }),
     email: z.string().email("Must be valid email"),
     countryCode: z.string().min(1, { message: "Country Code is required" }),
-    phoneNumber: z.string().length(8, "Phone number must have exactly 8 digits.").regex(/^[0-9]+/),
+    phoneNumber: z.string().length(10, "Phone number must have exactly 10 digits.").regex(/^[0-9]+/),
     password: z.string().min(6),
     confirmPassword: z.string(),
   })

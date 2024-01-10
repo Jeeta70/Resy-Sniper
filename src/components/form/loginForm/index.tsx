@@ -1,48 +1,35 @@
 /* eslint-disable react-refresh/only-export-components */
+import React from "react";
 import * as z from "zod";
-import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { loginFormSchema } from "@/utils/formZodSchema";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 import { ForgotPasswordModal } from "@/components";
 import { useLogin } from "@/features/authentication/auth";
-import React from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const navigate = useNavigate();
   const { login, isloading } = useLogin()
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "", },
   });
-console.log(isloading);
 
-
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof loginFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-   
-    console.log(values);
-    
-    login({ email: "ajrana@gmail.com", password: "password" })
-
-
-
+    login(values, {
+      onSuccess: () => {
+        form.reset()
+        navigate("/connect-accounts")
+      }
+    })
   }
 
   return (
@@ -56,13 +43,20 @@ console.log(isloading);
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 m-auto w-full"
           >
-            <h2 className="text-center font-bold text-2xl">Login</h2>
+            <h2 className="text-center font-bold text-2xl" onClick={() => {
+              console.log("ss");
+
+              toast({
+                description: "Your message has been sent.",
+                variant: "dark"
+              })
+            }}>Login</h2>
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <>
-                  <FormItem>
+                  <FormItem className="relative">
                     <FormLabel className=" font-normal text-sm">Email</FormLabel>
                     <FormControl>
                       <Input placeholder="Your email" {...field} />
@@ -70,7 +64,7 @@ console.log(isloading);
                     {/* <FormDescription>
                     This is your public display name.
                   </FormDescription> */}
-                    <FormMessage />
+                    <FormMessage className="absolute -bottom-5 text-xs" />
                   </FormItem>
                 </>
               )}
@@ -80,7 +74,7 @@ console.log(isloading);
               name="password"
               render={({ field }) => (
                 <>
-                  <FormItem>
+                  <FormItem className="relative">
                     <FormLabel className=" font-normal text-sm ">Password</FormLabel>
                     <FormControl>
                       <Input placeholder="Your password" {...field} />
@@ -88,7 +82,7 @@ console.log(isloading);
                     {/* <FormDescription>
                     This is your public display name.
                   </FormDescription> */}
-                    <FormMessage />
+                    <FormMessage className="absolute -bottom-5 text-xs" />
                   </FormItem>
                 </>
               )}
@@ -96,7 +90,7 @@ console.log(isloading);
 
             <ForgotPasswordModal />
 
-            <Button variant="primary" type="submit" className="w-full">
+            <Button variant="primary" type="submit" className="w-full" disabled={isloading}>
               Log in
             </Button>
             <div className="text-center font-normal">
@@ -104,6 +98,7 @@ console.log(isloading);
               <Button
                 className="text-blue font-medium"
                 variant="link"
+                // type="b"
                 onClick={() => navigate("/sign-up")}
               >
                 Sign Up

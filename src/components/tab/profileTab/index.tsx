@@ -74,7 +74,7 @@ const Index = () => {
       </TabsList>
       <TabsContent value="account" className="mt-0">
         <Card className="border-none">
-          <CardContent className="space-y-2 pt-6 ">
+          <CardContent className="space-y-2 pt-6">
             <div className="h-full w-full flex flex-col justify-center">
               <Form {...form}>
                 <form
