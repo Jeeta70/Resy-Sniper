@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { toast } from "@/components/ui/use-toast"
 import { baseUrl } from "@/config/baseUrl"
 import { useMutation } from "@tanstack/react-query"
@@ -18,7 +18,11 @@ export const useConnectResyAccount = () => {
       onSuccess: () => {
          toast({ description: "sucessfully connected", variant: "dark" })
       },
-      onError: () => toast({ description: "some issue in connecting account", variant: "destructive" })
+      onError: (error: { response: AxiosResponse }) => {
+         console.log(error);
+         
+         toast({ description: error.response.data.message, variant: "destructive" })
+      }
    })
 
    return { connectResyAccount, isLoading }

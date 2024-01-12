@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -11,31 +6,29 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 import { signupFormSchema } from "@/utils/formZodSchema";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { CountryCode } from "@/components";
 import { Switch } from "@/components/ui/switch";
 
-const Index = () => {
+type IUser = {
+  first_name: string
+  last_name:string
+  email:string
+}
+
+interface Props {
+  user: IUser
+}
+
+const Index = ({ user }: Props) => {
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
       countryCode: "",
       phoneNumber: "",
       password: "",

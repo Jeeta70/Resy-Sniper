@@ -6,6 +6,7 @@ export { default as ResyConnectAccountCard } from "@/components/card/connectAcco
 export { default as OpenTableConnectAccountCard } from "@/components/card/connectAccount/openTable";
 export { default as SubscriptionCard } from "@/components/card/subscriptionCard";
 export { default as AddRestaurantCard } from "@/components/card/addRestaurantCard";
+export { default as MyReservationOfResturantCard } from "@/components/card/myReservationofResturantCard"
 export { default as CountryCode } from "@/components/countryComponent";
 export { default as ProfileTab } from "@/components/tab/profileTab";
 export { default as MyReservationTab } from "@/components/tab/myReservationTab";
@@ -20,3 +21,4 @@ export { default as RestaurantLocationCard } from "@/components/card/restaurantL
 export { default as SearchInputField } from "@/components/inputField/searchInputField";
 export { default as ErrorMessage } from "@/components/errorMessage"
 export { default as ResponseUI } from "@/components/card/connectAccount/responseUI"
+export { default as RestaurantCardSkeleton } from "@/components/skeleton/resturantCardSkeleton"

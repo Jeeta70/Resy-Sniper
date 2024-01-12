@@ -1,8 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { baseUrl } from "@/config/baseUrl";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "@/utils/healper";
 
 interface IUser {
    firstName?: string;
@@ -43,7 +44,25 @@ export const useLogin = () => {
          localStorage.setItem('token', JSON.stringify(data.data))
          toast({ description: data.message, variant: "dark" })
       },
-      onError: (err: { response: AxiosResponse }) => toast({ description: err.response.data.message, variant: "destructive" }),
+      onError: (err: { response: AxiosResponse }) => {
+         console.log(err);
+
+         toast({ description: err.response.data.message, variant: "destructive" })
+      },
    });
    return { login, isloading };
 };
+
+
+export function useCheckUserIsLogin() {
+   const refreshToken = getToken("refresh_token");   
+   const { data, isPending: isLoading, isSuccess, isError } = useQuery({
+      queryKey: ["checkAuth"],
+      retry: false,
+      queryFn: () => {
+         return axios.get(`${baseUrl}/api/refresh`, { headers: { "Authorization": `Bearer ${refreshToken}` } });
+      },
+
+   })
+   return { data, isLoading, isSuccess, isError };
+}

@@ -9,10 +9,11 @@ import {
    FormControl,
    FormField,
    FormItem,
-   FormLabel,
    FormMessage,
 } from "@/components/ui/form";
-import { createAccountCardSchema } from "@/utils/formZodSchema";
+import { connectOpenTableAccountSchema } from "@/utils/formZodSchema";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CountryCode } from "@/components";
 
 
 
@@ -22,16 +23,16 @@ interface ResyConnectAccountCardType {
 }
 
 const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
-   const form = useForm<z.infer<typeof createAccountCardSchema>>({
-      resolver: zodResolver(createAccountCardSchema),
+   const form = useForm<z.infer<typeof connectOpenTableAccountSchema>>({
+      resolver: zodResolver(connectOpenTableAccountSchema),
       defaultValues: {
-         email: "",
-         password: "",
+         countryCode:"+91",
+         phoneNumber:""
       },
    });
 
    // 2. Define a submit handler.
-   function onSubmit(values: z.infer<typeof createAccountCardSchema>) {
+   function onSubmit(values: z.infer<typeof connectOpenTableAccountSchema>) {
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
       console.log(values);
@@ -39,38 +40,60 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
 
    return (
       <Card className={cardStyle}>
-         <CardHeader>
-            <img src={image} alt="" className="h-10 w-24" />
+         <CardHeader className="">
+            <img src={image} alt="" className="h-10 w-24 mx-auto" />
          </CardHeader>
          <CardContent>
             <Form {...form}>
-               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <FormField
-                     control={form.control}
-                     name="email"
-                     render={({ field }) => (
-                        <FormItem className="relative">
-                           <FormLabel className="text-sm font-normal">Email</FormLabel>
-                           <FormControl>
-                              <Input placeholder="Your email" {...field} />
-                           </FormControl>
-                           <FormMessage className="absolute -bottom-5 text-xs" />
-                        </FormItem>
-                     )}
-                  />
-                  <FormField
-                     control={form.control}
-                     name="password"
-                     render={({ field }) => (
-                        <FormItem className="relative">
-                           <FormLabel className="text-sm font-normal">Password</FormLabel>
-                           <FormControl>
-                              <Input placeholder="Your password" {...field} />
-                           </FormControl>
-                           <FormMessage className="absolute -bottom-5 text-xs" />
-                        </FormItem>
-                     )}
-                  />
+               <div className="font-medium text-sm text-center mb-4">Your OpenTable phone number</div>
+               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
+                 <div className="flex">
+                     <FormField
+                        control={form.control}
+                        name="countryCode"
+                        render={({ field }) => (
+                           <>
+                              <FormItem className="sm:w-1/3 w-2/12 relative">
+                                 <FormControl>
+                                    <>
+                                       <Select value="+91" onValueChange={field.onChange}>
+                                          <SelectTrigger className="rounded-e-none">
+                                             <SelectValue placeholder="Select a prefix" />
+                                          </SelectTrigger>
+                                          <SelectContent position="popper">
+                                             <CountryCode />
+                                          </SelectContent>
+                                       </Select>
+                                    </>
+                                 </FormControl>
+                                 <FormMessage className="absolute -bottom-5 text-xs" />
+                              </FormItem>
+                           </>
+                        )}
+                     />
+                     <FormField
+                        control={form.control}
+                        name="phoneNumber"
+                        render={({ field }) => (
+                           <>
+                              <FormItem className="w-full mt-auto relative">
+                                 <FormControl>
+                                    <>
+                                       <Input
+                                          className="border-gray-300  bg-white rounded-s-none"
+                                          id="phone"
+                                          placeholder="000-000-0000"
+                                          {...field}
+                                       />
+                                    </>
+                                 </FormControl>
+                                 <FormMessage className="absolute -bottom-5 text-xs" />
+                              </FormItem>
+                           </>
+                        )}
+                     />
+                 </div>
+                  <div className="font-normal text-sm text-center text-light">OpenTable will send you a message with a code</div>
                   <Button className="w-full" type="submit">
                      Connect
                   </Button>

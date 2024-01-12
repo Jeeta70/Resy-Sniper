@@ -5,15 +5,16 @@ interface ResyConnectAccountCardType {
   image: string;
   cardStyle: string;
   onResyFormSubmit?: () => void;
+  setdisableContinueButton: (boolean: boolean)=>void
 }
 
-const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
+const Index = ({ image, cardStyle, setdisableContinueButton }: ResyConnectAccountCardType) => {
   return (
     <Card className={cardStyle}>
       <CardHeader>
         <img src={image} alt="" className="h-10 w-24" />
       </CardHeader>
-      <ResponseUI />
+      <ResponseUI setdisableContinueButton={setdisableContinueButton} />
     </Card>
   );
 };

@@ -2,17 +2,42 @@ import { RestaurantCard } from "@/components";
 import SearchAndFilterSection from "../searchAndFilterSection";
 
 const index = () => {
-
   const topPickResturants = [
-    { id: "0", name: "Ajeet" },
-    { id: "1", name: "Ajey" },
-    { id: "2", name: "Ajey" },
-    { id: "3", name: "Ajey" },
-    { id: "4", name: "Ajey" },
-    { id: "5", name: "Ajey" },
-    { id: "6", name: "Ajey" },
-    { id: "7", name: "Ajey" },
-    { id: "8", name: "Ajey" },
+    {
+      id:0,
+      venue_name: "string",
+      locality: "string",
+      price: 1,
+      cover_image_url: "string",
+    },
+    {
+      id: 1,
+      venue_name: "string",
+      locality: "string",
+      price: 1,
+      cover_image_url: "string",
+    },
+    {
+      id: 2,
+      venue_name: "string",
+      locality: "string",
+      price: 1,
+      cover_image_url: "string",
+    },
+    {
+      id: 3,
+      venue_name: "string",
+      locality: "string",
+      price: 1,
+      cover_image_url: "string",
+    },
+    {
+      id: 4,
+      venue_name: "string",
+      locality: "string",
+      price: 1,
+      cover_image_url: "string",
+    },
   ];
 
   return (
@@ -21,7 +46,11 @@ const index = () => {
       <SearchAndFilterSection />
       <div className="grid grid-cols-4 gap-4 mt-4">
         {topPickResturants.map((restaurant) => (
-          <RestaurantCard restaurant={restaurant} key={restaurant.id} layout={{displayFooter:true}} />
+          <RestaurantCard
+            restaurant={restaurant}
+            key={restaurant.id}
+            layout={{ displayFooter: true }}
+          />
         ))}
       </div>
       {/* <div>

@@ -20,7 +20,12 @@ export const signupFormSchema = z
     path: ["confirmPassword"],
   });
 
-export const createAccountCardSchema = z.object({
+export const connectResyAccountSchema = z.object({
   email: z.string().email("Must be valid email !").min(1),
   password: z.string().min(2),
 });
+
+export const connectOpenTableAccountSchema = z.object({
+  countryCode: z.string().min(1, { message: "Country Code is required" }),
+  phoneNumber: z.string().length(10, "Phone number must have exactly 10 digits.").regex(/^[0-9]+/),
+})

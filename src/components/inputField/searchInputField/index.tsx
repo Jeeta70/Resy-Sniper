@@ -1,6 +1,10 @@
 import { Input } from '@/components/ui/input';
 
-const SearchInputField = () => {
+interface Props {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const SearchInputField = ({ onChange }: Props) => {
   return (
     <div className="relative">
       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -21,6 +25,7 @@ const SearchInputField = () => {
         </svg>
       </div>
       <Input
+        onChange={onChange}
         type="search"
         id="default-search"
         className="block  p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full"

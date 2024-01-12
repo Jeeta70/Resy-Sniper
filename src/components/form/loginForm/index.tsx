@@ -35,7 +35,7 @@ const Index = () => {
   return (
     <>
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
-        <div className="text-center mt-5 text-[#F94633] text-5xl font-bold">
+        <div className="text-center mt-5 text-primary text-5xl font-bold">
           RESY SNIPER
         </div>
         <Form {...form}>
@@ -44,8 +44,6 @@ const Index = () => {
             className="space-y-8 m-auto w-full"
           >
             <h2 className="text-center font-bold text-2xl" onClick={() => {
-              console.log("ss");
-
               toast({
                 description: "Your message has been sent.",
                 variant: "dark"
@@ -55,36 +53,32 @@ const Index = () => {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <>
-                  <FormItem className="relative">
-                    <FormLabel className=" font-normal text-sm">Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your email" {...field} />
-                    </FormControl>
-                    {/* <FormDescription>
+                <FormItem className="relative">
+                  <FormLabel className=" font-normal text-sm">Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Your email" {...field} />
+                  </FormControl>
+                  {/* <FormDescription>
                     This is your public display name.
                   </FormDescription> */}
-                    <FormMessage className="absolute -bottom-5 text-xs" />
-                  </FormItem>
-                </>
+                  <FormMessage className="absolute -bottom-5 text-xs" />
+                </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
-                <>
-                  <FormItem className="relative">
-                    <FormLabel className=" font-normal text-sm ">Password</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your password" {...field} />
-                    </FormControl>
-                    {/* <FormDescription>
+                <FormItem className="relative">
+                  <FormLabel className=" font-normal text-sm ">Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Your password" {...field} />
+                  </FormControl>
+                  {/* <FormDescription>
                     This is your public display name.
                   </FormDescription> */}
-                    <FormMessage className="absolute -bottom-5 text-xs" />
-                  </FormItem>
-                </>
+                  <FormMessage className="absolute -bottom-5 text-xs" />
+                </FormItem>
               )}
             />
 

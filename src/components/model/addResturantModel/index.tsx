@@ -32,7 +32,9 @@ const AddResturantModel = () => {
 
       {!reservationFormState.selectSittingOptions.showModel ? (
         <>
-          <SearchInputField />
+          <SearchInputField onChange={function (): void {
+            throw new Error("Function not implemented.");
+          } } />
           <CredenzaDescription>
             <ScrollArea className="sm:h-80 rounded-md">
               <div className="flex flex-col gap-2">

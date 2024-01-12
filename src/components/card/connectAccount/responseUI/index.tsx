@@ -5,33 +5,40 @@ import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
-import { createAccountCardSchema } from "@/utils/formZodSchema";
+import { connectResyAccountSchema } from "@/utils/formZodSchema";
 import { useConnectResyAccount } from "@/features/authentication/connectAccount";
 import { useState } from "react";
 
-const Index = () => {
+interface Props {
+   setdisableContinueButton: (boolean:boolean) => void
+}
+
+const Index = ({ setdisableContinueButton }: Props) => {
    const { connectResyAccount, isLoading } = useConnectResyAccount();
    const [responseState, setResponseState] = useState<"default" | "success" | "error">("default");
 
-   const form = useForm<z.infer<typeof createAccountCardSchema>>({
-      resolver: zodResolver(createAccountCardSchema),
+   const form = useForm<z.infer<typeof connectResyAccountSchema>>({
+      resolver: zodResolver(connectResyAccountSchema),
       defaultValues: {
-         email: "",
-         password: "",
+         email: "donotreply@resysniper.com",
+         password: "Pa$sw0rd23!25Vv",
       },
    });
 
-   function onSubmit(values: z.infer<typeof createAccountCardSchema>) {
+   function onSubmit(values: z.infer<typeof connectResyAccountSchema>) {
       connectResyAccount(values, {
          onSuccess: () => {
             setResponseState("success");
             form.reset();
+            setdisableContinueButton(false);
          },
          onError: () => {
             setResponseState("error");
          },
       });
    }
+
+   
 
    return (
       <>

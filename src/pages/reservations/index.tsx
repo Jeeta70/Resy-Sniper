@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button";
 import { MyReservationTab } from "@/components";
 
 const Index = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const flag = false;
-console.log(import.meta.env);
 
   return (
     <div className="w-full h-screen p-10">
@@ -21,20 +20,24 @@ console.log(import.meta.env);
           <Plus className="mr-3" /> Add Reservation
         </Button>
       </div>
-      {flag ? <div className="flex flex-col justify-center items-center h-5/6  text-center text-[#12171A] gap-5 ">
-        <img src="./Reservation.png" />
-        <p>
-          No reservations here yet. <br /> Click "Add Reservation" button to add
-          me
-        </p>
-        <Button
-          variant="primary"
-          className="sm:hidden"
-          onClick={() => navigate("/reservations/add-reservation")}
-        >
-          <Plus className="mr-3" /> Add Reservation
-        </Button>
-      </div> : <MyReservationTab/>}
+      {flag ? (
+        <div className="flex flex-col justify-center items-center h-5/6  text-center text-[#12171A] gap-5 ">
+          <img src="./Reservation.png" />
+          <p>
+            No reservations here yet. <br /> Click "Add Reservation" button to
+            add me
+          </p>
+          <Button
+            variant="primary"
+            className="sm:hidden"
+            onClick={() => navigate("/reservations/add-reservation")}
+          >
+            <Plus className="mr-3" /> Add Reservation
+          </Button>
+        </div>
+      ) : (
+        <MyReservationTab />
+      )}
     </div>
   );
 };
