@@ -162,6 +162,7 @@ const NewPage = () => {
 
     const navbarStyle = {
         backgroundColor: scrolling ? 'white' : 'transparent',
+        border: scrolling ? '2px solid black' : 'transparent',
     };
     return (
         <>
@@ -174,17 +175,17 @@ const NewPage = () => {
                         className="bg-cover"
                         style={{ backgroundImage: `url(${backgroundImage})` }}
                     >
-                        <div className='sm:flex hidden justify-between py-5 sm:px-44 px-4 items-center relative'>
+                        <div className={`sm:flex hidden justify-between py-5 sm:px-44 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}] border-[${navbarStyle.border}]`}>
                             <div>
                                 <img src={logo} />
                             </div>
                             <div className='sm:flex hidden gap-7 items-center font-inter text-sm !font-[600]'>
-                                <p><Link to={''} > Features</Link></p>
-                                <p><Link to={''} > How it Works</Link></p>
-                                <p><Link to={''} > Pricing</Link></p>
-                                <p><Link to={''} > FAQ's</Link></p>
-                                <p><Link to={''} > Blog</Link></p>
-                                <button type='button' className='bg-[#EA3A4B] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' >Sign In</button>
+                                <p className='hover:text-[#D62637] text-black'><Link to={''} > Features</Link></p>
+                                <p className='hover:text-[#D62637]'><Link to={''} > How it Works</Link></p>
+                                <p className='hover:text-[#D62637]'><Link to={''} > Pricing</Link></p>
+                                <p className='hover:text-[#D62637]'><Link to={''} > FAQ's</Link></p>
+                                <p className='hover:text-[#D62637]'><Link to={''} > Blog</Link></p>
+                                <button type='button' className='bg-[#EA3A4B] hover:bg-[#D62637] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' >Sign In</button>
                             </div>
                         </div>
                         <div className={`sm:hidden flex justify-between py-5 sm:px-44 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}]`}>
@@ -204,16 +205,16 @@ const NewPage = () => {
                                         <p><Link to={''} > Pricing</Link></p>
                                         <p><Link to={''} > FAQ's</Link></p>
                                         <p><Link to={''} > Blog</Link></p>
-                                        <button type='button' className='bg-[#EA3A4B] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' >Sign In</button>
+                                        <button type='button' className='bg-[#EA3A4B] hover:bg-[#D62637] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' >Sign In</button>
                                     </div>
                                 </div>
                             </> : ""}
                         </div>
-                        <div className='sm:grid block grid-cols-[55%,45%] sm:pl-16 pl-1 pt-16 sm:pt-1'>
+                        <div className='sm:grid block grid-cols-[55%,45%] sm:pl-16 pl-1 pt-16 sm:pt-24'>
                             <div className='m-auto sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-24 pl-1'>
                                 <h1 className='sm:text-[60px] text-[45px] !font-[700] leading-snug font-inter'>Never miss a Reservation again<span className='text-[#EA3A4B] font-semibold'>.</span></h1>
                                 <p className='text-[20px] mt-2 text-[#595D5F] font-inter !font-[500]'>Say goodbye to the frustration of restaurant reservations</p>
-                                <button type='button' className='font-inter !font-[500] px-8 py-4 mt-10 text-white rounded-md bg-[#EA3A4B] text-[16px] sm:w-auto w-[100%]'>Get Started Now</button>
+                                <button type='button' className='font-inter !font-[500] px-8 py-4 mt-10 text-white rounded-md bg-[#EA3A4B] hover:bg-[#D62637] text-[16px] sm:w-auto w-[100%]'>Get Started Now</button>
                             </div>
                             <div className='flex justify-end'>
                                 <img src={Hero} className='mt-10 pl-10 sm:pl-auto'></img>
