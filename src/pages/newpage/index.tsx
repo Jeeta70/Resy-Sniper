@@ -36,7 +36,7 @@ import Footer from '@/assets/homepage/Footer.png'
 
 const NewPage = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [show, setShow] = useState(false)
+    const [show] = useState(false)
     const data = [
         {
             image: Speed,
