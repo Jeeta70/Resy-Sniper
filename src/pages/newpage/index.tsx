@@ -20,6 +20,15 @@ import Rectangle from '../../assets/homepage/Rectangle.png'
 import Image from '../../assets/homepage/Img.png'
 import Instagram from '../../assets/homepage/Instagram.png'
 import Twitter from '../../assets/homepage/TwitterLogo.png'
+import Footer from '../../assets/homepage/Footer.png'
+import { Bars3Icon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+
+
+
+
+
+
 
 
 
@@ -27,6 +36,7 @@ import Twitter from '../../assets/homepage/TwitterLogo.png'
 
 const NewPage = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [show, setShow] = useState(false)
     const data = [
         {
             image: Speed,
@@ -102,14 +112,15 @@ const NewPage = () => {
             text: 'Resy Sniper allows you to create jobs that will automatically monitor specified restaurants between certain hours on a specified day. If any reservations come up, they will be instantly booked for you.'
         },
     ]
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setActiveIndex((prevIndex) => (prevIndex + 1) % faq.length);
-        }, 5000);
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         setActiveIndex((prevIndex) => (prevIndex + 1) % faq.length);
+    //     }, 5000);
 
-        return () => clearInterval(intervalId);
-    }, [faq.length]);
+    //     return () => clearInterval(intervalId);
+    // }, [faq.length]);
 
+    const [scrolling, setScrolling] = useState(false);
 
     const blogData = [
         {
@@ -134,6 +145,24 @@ const NewPage = () => {
             color: 'green'
         },
     ]
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setScrolling(true);
+            } else {
+                setScrolling(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const navbarStyle = {
+        backgroundColor: scrolling ? 'white' : 'transparent',
+    };
     return (
         <>
             <div>
@@ -145,27 +174,49 @@ const NewPage = () => {
                         className="bg-cover"
                         style={{ backgroundImage: `url(${backgroundImage})` }}
                     >
-                        <div className='flex justify-between py-5 px-44 items-center'>
+                        <div className='sm:flex hidden justify-between py-5 sm:px-44 px-4 items-center relative'>
                             <div>
                                 <img src={logo} />
                             </div>
-                            <div className='flex gap-7 items-center font-inter text-sm !font-[600]'>
+                            <div className='sm:flex hidden gap-7 items-center font-inter text-sm !font-[600]'>
                                 <p><Link to={''} > Features</Link></p>
                                 <p><Link to={''} > How it Works</Link></p>
                                 <p><Link to={''} > Pricing</Link></p>
                                 <p><Link to={''} > FAQ's</Link></p>
                                 <p><Link to={''} > Blog</Link></p>
-                                <button type='button' className='bg-[#EA3A4B] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium' >Sign In</button>
+                                <button type='button' className='bg-[#EA3A4B] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' >Sign In</button>
                             </div>
                         </div>
-                        <div className='grid grid-cols-[55%,45%] pl-16'>
-                            <div className='m-auto pr-8 py-20 pl-24'>
-                                <h1 className='text-[60px] font-semibold leading-snug font-inter'>Never miss a Reservation again<span className='text-[#EA3A4B] font-semibold'>.</span></h1>
+                        <div className={`sm:hidden flex justify-between py-5 sm:px-44 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}]`}>
+                            <div>
+                                <img src={logo} />
+                            </div>
+                            <div className='sm:hidden block'>
+                                {show ?
+                                    <XMarkIcon className="h-8 w-8 text-[#12171A]" onClick={() => setShow(false)} /> :
+                                    <Bars3Icon className="h-8 w-8 text-[#12171A]" onClick={() => setShow(true)} />}
+                            </div>
+                            {show ? <>
+                                <div className='absolute w-[100%] p-10 text-center top-[72px] left-0 right-0 bg-white'>
+                                    <div className='grid grid-rows gap-5 font-inter text-sm !font-[600]'>
+                                        <p><Link to={''} > Features</Link></p>
+                                        <p><Link to={''} > How it Works</Link></p>
+                                        <p><Link to={''} > Pricing</Link></p>
+                                        <p><Link to={''} > FAQ's</Link></p>
+                                        <p><Link to={''} > Blog</Link></p>
+                                        <button type='button' className='bg-[#EA3A4B] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' >Sign In</button>
+                                    </div>
+                                </div>
+                            </> : ""}
+                        </div>
+                        <div className='sm:grid block grid-cols-[55%,45%] sm:pl-16 pl-1 pt-16 sm:pt-1'>
+                            <div className='m-auto sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-24 pl-1'>
+                                <h1 className='sm:text-[60px] text-[45px] !font-[700] leading-snug font-inter'>Never miss a Reservation again<span className='text-[#EA3A4B] font-semibold'>.</span></h1>
                                 <p className='text-[20px] mt-2 text-[#595D5F] font-inter !font-[500]'>Say goodbye to the frustration of restaurant reservations</p>
-                                <button type='button' className='font-inter !font-[500] px-8 py-4 mt-10 text-white rounded-md bg-[#EA3A4B] text-[16px]'>Get Started Now</button>
+                                <button type='button' className='font-inter !font-[500] px-8 py-4 mt-10 text-white rounded-md bg-[#EA3A4B] text-[16px] sm:w-auto w-[100%]'>Get Started Now</button>
                             </div>
                             <div className='flex justify-end'>
-                                <img src={Hero} className='mt-10'></img>
+                                <img src={Hero} className='mt-10 pl-10 sm:pl-auto'></img>
                             </div>
                         </div>
                     </div>
@@ -174,16 +225,20 @@ const NewPage = () => {
                 {/* *****************************Second Component or Icons************************************** */}
 
                 <div>
-                    <div className='text-center text-[#12171A] pt-[120px] px-[134px]'>
+                    <div className='text-center text-[#12171A] sm:pt-[120px] pt-[60px] sm:px-[134px] px-5'>
                         <h1 className='text-[40px] !font-[600] leading-snug font-inter'>Features</h1>
                         <p className='font-inter text-[16px] !font-[500] mt-3 text-[#6C6F71]'>Resy Sniper offers everything you need</p>
                     </div>
-                    <div className='flex gap-10 items-center m-auto w-[100%] pb-[120px]  px-[134px] mt-10'>
+                    <div className='sm:flex block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] sm:px-[134px] px-5 sm:mt-10 mt-12'>
                         {data.map((ele, key) => (
-                            <div className='text-center flex flex-col items-center' key={key}>
-                                <img src={ele.image} className='h-[100px] w-[100px]'></img>
-                                <h1 className='mt-5 text-[24px] font-inter !font-[600] text-[#12171A]'>{ele.heading}</h1>
-                                <p className='text-[14px] mt-2 font-inter text-[#6C6F71]'>{ele.text}</p>
+                            <div className='text-center sm:flex sm:flex-col flex gap-3 sm:items-center items-start' key={key}>
+                                <div>
+                                    <img src={ele.image} className='h-[100px] sm:w-[100px] w-[120px]'></img>
+                                </div>
+                                <div>
+                                    <h1 className='mt-5 text-[24px] font-inter !font-[600] sm:text-center text-left text-[#12171A]'>{ele.heading}</h1>
+                                    <p className='text-[14px] mt-2 sm:text-center text-left font-inter text-[#6C6F71]'>{ele.text}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -191,13 +246,13 @@ const NewPage = () => {
 
                 {/* *****************************Third Component************************************** */}
 
-                <div className='bg-[#F3F5F6] py-[120px] px-[134px]'>
+                <div className='bg-[#F3F5F6] sm:py-[120px] py-16 sm:px-[134px] px-5'>
                     <div className=''>
                         <div className=''>
                             <h1 className='text-[40px] font-inter !font-[700] text-[#12171A] leading-snug'>How it works</h1>
                             <p className='text-[16px] text-[#6C6F71] !font-[500] font-inter pb-5'>Resy Sniper offers everything you need.</p>
                         </div>
-                        <div className='flex gap-[60px]'>
+                        <div className='sm:flex grid grid-rows-3 sm:gap-[60px] gap-2'>
                             {cardData.map((ele, key) => (
                                 <div className='grid grid-rows-2 bg-[#12171A] text-white rounded-md' key={key}>
                                     <div className='p-[40px]'>
@@ -216,10 +271,10 @@ const NewPage = () => {
                 {/* *****************************Forth Component or Banner************************************** */}
                 <div className='bg-cover' style={{ backgroundImage: `url(${Banner})` }}>
                     <div>
-                        <div className='w-[690px] py-24 pl-32'>
-                            <h1 className='font-inter text-[52px] !font-[700] leading-snug text-white'>Save your precious time with Resy Sniper</h1>
+                        <div className='sm:w-[690px] w-[100%] py-24 sm:pl-32 pl-5 pr-5 sm:pr-1'>
+                            <h1 className='font-inter sm:text-[52px] text-[36px] !font-[700] leading-snug text-white'>Save your precious time with Resy Sniper</h1>
                             <p className='text-white opacity-[80%] font-inter text-[16px] !font-[500] mt-2'>This tool is particularly valuable for those looking to dine at in-demand locations without the need to constantly check the Resy app themselves.</p>
-                            <button type='button' className='px-[28px] font-inter py-[16px] mt-10 text-white rounded-md bg-[black] text-[16px]'>Get Started Now</button>
+                            <button type='button' className='px-[28px] sm:w-auto w-[100%] font-inter py-[16px] mt-10 text-white rounded-md bg-[black] text-[16px]'>Get Started Now</button>
                         </div>
                     </div>
                 </div>
@@ -227,12 +282,12 @@ const NewPage = () => {
 
                 {/* *****************************Fifth Component or Pricing Section************************************** */}
 
-                <div className='py-[120px] px-[134px]'>
+                <div className='sm:py-[120px] py-[60px] sm:px-[134px] px-5'>
                     <div className='pb-[40px]'>
                         <h1 className='text-[40px] font-inter !font-[700] leading-snug text-center'>Pricing Plans</h1>
                     </div>
-                    <div className='grid grid-cols-3 gap-8'>
-                        <div className='bg-cover' style={{ backgroundImage: `url(${Card})` }}>
+                    <div className='sm:grid sm:grid-cols-3 md:grid-cols-3 grid grid-rows sm:gap-8 gap-4'>
+                        <div className='bg-cover rounded-md' style={{ backgroundImage: `url(${Card})` }}>
                             <div className='text-white py-10 px-5'>
                                 <h1 className='text-[24px] font-inter !font-[600]'>Choose a plan that’s right for you</h1>
                                 <p className='mt-3 font-inter !font-[500] text-[16px]'>Fast turnarounds. Flat monthly fee.
@@ -264,22 +319,22 @@ const NewPage = () => {
                 {/* *****************************Sixth Component or FAQ Section************************************** */}
 
                 <div className='bg-[#F3F5F6]'>
-                    <div className='grid grid-cols-2 gap-10 w-[80%] m-auto'>
+                    <div className='sm:grid sm:grid-cols-2 block gap-10 sm:w-[80%] w-[100%] sm:m-auto m-auto px-2'>
                         <div>
-                            <div className='py-20 w-[75%] '>
-                                <h1 className='text-5xl font-inter font-semibold leading-snug'>Frequently asked questions</h1>
-                                <p className='mt-3 font-inter text-sm'>If you have any other questions or feedback, please <span className='text-[red] underline'>contact us</span> and I’ll get back to you shortly. </p>
+                            <div className='sm:py-20 py-10 w-[85%] '>
+                                <h1 className='text-[40px] text-[#12171A] font-inter !font-[700] leading-snug'>Frequently asked questions</h1>
+                                <p className='mt-3 font-inter text-[16px] text-[#6C6F71] !font-[500]'>If you have any other questions or feedback, please <span className='text-[#EA3A4B] text-[16px] underline'>contact us</span> and I’ll get back to you shortly. </p>
                             </div>
                         </div>
-                        <div className='p-10 my-5'>
+                        <div className='sm:p-10 p-2 sm:my-5 my-2 w-[90%] sm:w-[100%]'>
                             {faq.map((ele, key) => (
-                                <div className={`${key === activeIndex ? '' : ''} h-28 border-b mb-3`} key={key}>
-                                    <div className='flex gap-5 items-center justify-between cursor-pointer' onClick={() => setActiveIndex(key)}>
+                                <div className={`${key === activeIndex ? 'h-auto transition-all duration-500 py-10' : 'h-auto transition-all duration-500 py-6 grid items-center'}  border-b mb-3`} key={key}>
+                                    <div className='flex items-center justify-between text-[20px] !font-[600] text-[#12171A] cursor-pointer' onClick={() => setActiveIndex(key)}>
                                         <p className='font-inter'>{ele.heading}</p>
-                                        {key != activeIndex ? <PlusIcon className="h-6 w-6 text-gray-500" /> :
-                                            <MinusIcon className="h-6 w-6 text-gray-500" />}
+                                        {key != activeIndex ? <PlusIcon className="h-6 w-6 text-[#12171A] text-[20px]" /> :
+                                            <MinusIcon className="h-6 w-6 text-[#12171A] text-[20px]" />}
                                     </div>
-                                    <p className={`${key === activeIndex ? 'active-faq font-inter text-sm ' : 'hidden'}`}>{ele.text}</p>
+                                    <p className={`faq-content font-inter text-sm transition-all duration-500 ${activeIndex === key ? 'active-faq' : 'hidden'}`}>{ele.text}</p>
                                 </div>
                             ))}
                         </div>
@@ -290,25 +345,25 @@ const NewPage = () => {
                 {/* *****************************Seventh Component ************************************** */}
 
                 <div className=''>
-                    <div className='grid grid-cols-[45%,55%]'>
+                    <div className='sm:grid sm:grid-cols-[46%,54%] flex flex-col-reverse'>
                         <div className=''>
-                            <img src={Blog} className='h-[800px]'></img>
+                            <img src={Blog} className='h-[800px] sm:w-[630px] w-auto'></img>
                         </div>
-                        <div className='w-[80%] m-auto'>
-                            <div className='py-10'>
+                        <div className='sm:py-[100px] py-[30px] sm:pl-[50px] pl-5'>
+                            <div className='pb-10'>
                                 <h1 className='text-[40px] font-inter !font-[700]'>Resy Sniper Blog</h1>
-                                <p className='mt-3 font-inter'>Catch up on all our latest news.</p>
+                                <p className='mt-3 font-inter !font-[500] text-[16px] text-[#6C6F71]'>Catch up on all our latest news.</p>
                             </div>
                             <div className='w-[90%]'>
                                 {blogData.map((ele, key) => (
-                                    <div className='flex gap-5 items-center shadow-sm mt-5 w-[80%]' key={key}>
+                                    <div className='flex gap-5 sm:items-center items-start sm:mt-5 mt-8 sm:w-[80%] w-auto' key={key}>
                                         <div>
-                                            <img src={ele.image} className='!max-w-[100px] rounded-md' ></img>
+                                            <img src={ele.image} className='sm:!max-w-[100px] !max-w-[150px] rounded-md' ></img>
                                         </div>
                                         <div>
-                                            <div className='flex gap-5 items-center'>
-                                                <p className={`bg-[${ele.color}] rounded-xl font-inter px-2 text-xs`}>{ele.title}</p>
-                                                <p className='text-xs font-inter'>{ele.date}</p>
+                                            <div className='sm:flex grid sm:gap-[12px] gap-2 items-center'>
+                                                <p className={`bg-[#F69046] w-[fit-content] rounded-xl font-inter px-[8px] py-[4px] text-white text-[12px]`}>{ele.title}</p>
+                                                <p className='text-[14px] text-[#6C6F71] font-inter'>{ele.date}</p>
                                             </div>
                                             <div>
                                                 <p className='pt-3 font-inter text-[20px] !font-[600]'>{ele.text}</p>
@@ -318,8 +373,8 @@ const NewPage = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className='my-10'>
-                                <button className='p-3 border border-[gray] rounded-md'>View All</button>
+                            <div className='mt-10'>
+                                <button className='py-[16px] px-[28px] sm:w-auto w-[100%] border border-[#D0D1D1] text-[16px] !font-[600] text-[#12171A] rounded-md'>View All</button>
                             </div>
                         </div>
                     </div>
@@ -327,21 +382,21 @@ const NewPage = () => {
 
 
 
-                {/* *****************************Seventh Component ************************************** */}
+                {/* ***************************** Footer Section ************************************** */}
 
                 <div>
-                    <div className='bg-[#12171A] text-white'>
-                        <div className='px-28 pt-20 pb-10 text-center'>
-                            <h1 className='text-4xl font-inter font-semibold'>Fast, secure, and easy-to-use</h1>
-                            <p className='text-sm mt-2 font-inter text-[gray]'>Try Resy Sniper today and never miss a reservation again!</p>
-                            <button type='button' className='bg-[#EA3A4B] text-sm text-white py-4 px-6 mt-8 rounded-md'>Get started now</button>
+                    <div className='bg-cover text-white' style={{ backgroundImage: `url(${Footer})` }}>
+                        <div className='sm:px-28 px-5 pt-20 pb-10 text-center'>
+                            <h1 className='sm:text-[52px] text-[45px] font-inter !font-[700]'>Fast, secure, and easy-to-use</h1>
+                            <p className='text-[16px] mt-2 font-inter opacity-[80%] text-[white]'>Try Resy Sniper today and never miss a reservation again!</p>
+                            <button type='button' className='bg-[#EA3A4B] sm:w-auto w-[100%] text-[16px] !font-[500] text-white py-[16px] px-[28px] mt-8 rounded-md'>Get started now</button>
                         </div>
-                        <div className='w-[60%] m-auto'>
+                        <div className='sm:w-[65%] w-[100%] m-auto'>
                             <img src={Image} ></img>
                         </div>
                     </div>
                     <div className='bg-[#000000]'>
-                        <div className='grid grid-cols-[30%,40%,30%] border-b border-[gray] mx-[121px] py-[60px] text-white'>
+                        <div className='sm:grid sm:grid-cols-[30%,30%,40%] block border-b border-[gray] sm:mx-[121px] mx-3 sm:py-[60px] text-white py-12'>
                             <div>
                                 <img src={logo} ></img>
                                 <div className='flex gap-3 mt-5'>
@@ -349,39 +404,39 @@ const NewPage = () => {
                                     <img src={Twitter} ></img>
                                 </div>
                             </div>
-                            <div className='grid grid-cols-3'>
+                            <div className='grid grid-cols-3 mt-8 sm:mt-auto'>
                                 <div>
                                     <ul>
-                                        <li className='font-inter'><p>About</p></li>
-                                        <li className='my-2 font-inter'><Link to={'#'}>Features</Link></li>
-                                        <li className='my-2 font-inter'><Link to={'#'}>How it works</Link></li>
-                                        <li className='my-2 font-inter'><Link to={'#'}>Pricing</Link></li>
+                                        <li className='font-inter text-[16px] !font-[600]'><p>About</p></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>Features</Link></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>How it works</Link></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>Pricing</Link></li>
                                     </ul>
                                 </div>
                                 <div>
                                     <ul>
-                                        <li className='font-inter'><p>Help</p></li>
-                                        <li className='my-2 font-inter'><Link to={'#'}>FAQ’s</Link></li>
-                                        <li className='my-2 font-inter'><Link to={'#'}>Support</Link></li>
+                                        <li className='font-inter text-[16px] !font-[600]'><p>Help</p></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>FAQ’s</Link></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>Support</Link></li>
                                     </ul>
                                 </div>
                                 <div>
                                     <ul>
-                                        <li className='font-inter'><p>Legal</p></li>
-                                        <li className='my-2 font-inter'><Link to={'#'}>Privacy</Link></li>
-                                        <li className='my-2 font-inter'><Link to={'#'}>Terms</Link></li>
+                                        <li className='font-inter text-[16px] !font-[600]'><p>Legal</p></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>Privacy</Link></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>Terms</Link></li>
                                     </ul>
                                 </div>
                             </div>
-                            <div>
+                            <div className='mt-8 sm:mt-auto'>
                                 <h1 className='font-inter'>Subscribe to Our Newsletter</h1>
                                 <div className='flex mt-5'>
-                                    <input type='text' placeholder='Your Email' className='px-5 py-3 bg-[gray]'></input>
-                                    <button type='button' className='px-6 py-3 bg-[#EA3A4B] font-inter text-sm text-white'>Subscribe</button>
+                                    <input type='text' placeholder='Your Email' className='px-[12px] sm:w-[310px] w-[100%] font-inter bg-[#303538] rounded-l-md text-[14px] text-[#D0D1D1]'></input>
+                                    <button type='button' className='px-6 py-3 bg-[#EA3A4B] font-inter rounded-r-md text-sm text-white'>Subscribe</button>
                                 </div>
                             </div>
                         </div>
-                        <div className='py-16 text-center px-10 text-white'>
+                        <div className='sm:py-16 py-8 text-center px-10 text-[#D0D1D1] text-[12px]'>
                             <p className='font-inter'>© 2024 Resy Sniper - All Rights Reserved</p>
                         </div>
                     </div>
