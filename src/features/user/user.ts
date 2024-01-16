@@ -12,15 +12,12 @@ export function useGetUser() {
          return axios.get(`${baseUrl}/api/current_user`, { headers: { "Authorization": `Bearer ${accesToken}` } });
       },
    })
-
-
    return { userResponse, isLoading, isSuccess, isError, error };
 }
 
 
 export function useCheckUserAccountIsConnected(){
    const accesToken = getToken("access_token");
-   console.log("accesToken query", accesToken)
    const { data: userResponse, isPending: isLoading, isSuccess, isError, error } = useQuery({
       queryKey: ["accesToken"],
       retry: false,
@@ -28,7 +25,5 @@ export function useCheckUserAccountIsConnected(){
          return axios.get(`${baseUrl}/api/check_resy_auth`, { headers: { "Authorization": `Bearer ${accesToken}` } });
       },
    })
-
-   console.log("userResponse query", userResponse);
    return { userResponse, isLoading, isSuccess, isError, error };
 }

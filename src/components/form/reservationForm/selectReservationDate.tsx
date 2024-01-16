@@ -1,114 +1,179 @@
-import React from 'react'
-import { DateRange } from 'react-day-picker';
-import { addDays, format } from 'date-fns';
+import React, { useContext, useEffect } from "react";
+import { format } from "date-fns";
 
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Separator } from "@/components/ui/separator";
+import { PopoverClose } from "@radix-ui/react-popover";
+import { cn } from "@/lib/utils";
+import { ErrorMessage } from "@/components";
+import { X } from "lucide-react";
+import { handleReservationTime } from "@/reducer/reservationFormReducer";
+import { useReservationContext } from "@/context/ReservationFomProvider";
+import { UserDetailContext } from "@/context/UserDetailProvider";
 
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Select, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover";
-import { Calendar } from '@/components/ui/calendar';
-import { Separator } from '@/components/ui/separator';
-import { PopoverClose } from '@radix-ui/react-popover';
-import { cn } from '@/lib/utils';
-import { ErrorMessage } from '@/components';
+import ProIcon from "@/assets/ProIcon.svg";
 
 const pastMonth = new Date(2020, 10, 15);
-const defaultSelected: DateRange = {
-  from: pastMonth,
-  to: addDays(pastMonth, 4),
-
-
-}
 
 interface IReservationDateSize {
-  value: string;
-  label: string;
+  value: string | Date;
+  label: string | Date;
   type: string;
 }
 [];
 
-
 const RESERVATION_DATE_BUTTONS = [
-  { value: "today", label: "Today", type: "button" },
-  { value: "Tommorow", label: "Tommorow", type: "button" },
-]
+  { value: new Date(), label: "Today", type: "button" },
+  {
+    value: new Date(+new Date() + 86400000),
+    label: "Tommorow",
+    type: "button",
+  },
+];
 
 const SelectReservationDateSection = () => {
-  const [range, setRange] = React.useState<DateRange | undefined>(defaultSelected);
-  // console.log(format(range.from, "PPP"));
+  const userDetail = useContext(UserDetailContext);
+  const { dispatch } = useReservationContext();
+  const initialDays: Date[] = [];
+  const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
+  const [reservationDates, setReservationDates] = React.useState<Array<IReservationDateSize>>(RESERVATION_DATE_BUTTONS);
+  const [selected, setSelected] = React.useState<Array<Date | string>>([]);
 
-  const [reservationDates] = React.useState<Array<IReservationDateSize>>(RESERVATION_DATE_BUTTONS);
+  useEffect(() => {
+    return handleReservationTime(dispatch, selected);
+  }, [selected]);
 
-  let footer = <p>Please pick the first day.</p>;
-  if (range?.from) {
-    if (!range.to) {
-      footer = <p>{format(range.from, "PPP")}</p>;
-    } else if (range.to) {
-      footer = (
-        <>
-          <Separator className='mt-3' />
-          <p className="flex justify-end mt-4">
-            <PopoverClose className='' >
-              <span className={cn(buttonVariants({ variant: "outline" }))} >
-                Cancel
-              </span>
-            </PopoverClose>
-            <Button variant="default" className=" ml-2 w-2/6">
-              Confirm
-            </Button>
-          </p>
-        </>
-      );
+  function handleSelectedButton(checkDate: string | Date, compare: boolean) {
+    if (compare) {
+      if (selected.includes(checkDate)) {
+        return setSelected((prev) => prev.filter((date) => date !== checkDate));
+      } else {
+        return setSelected((prev) => [...prev, checkDate]);
+      }
+    } else {
+      return setSelected((prev) => [...prev, checkDate]);
     }
   }
+
+  const footer =
+    days && days.length > 0 ? (
+      <>
+        <Separator className="mt-3" />
+        <p className="flex justify-end mt-4 gap-3">
+          <PopoverClose>
+            <span className={cn(buttonVariants({ variant: "outline" }))}>
+              Cancel
+            </span>
+          </PopoverClose>
+          <PopoverClose>
+            <span
+              className={cn(buttonVariants({ variant: "primary" }))}
+              onClick={() => {
+                setReservationDates((prev) => {
+                  days.forEach((day) => {
+                    const check = prev.some((prev) => prev.value === day);
+                    if (!check) {
+                      prev.push({
+                        value: day,
+                        label: format(day, "PP"),
+                        type: "button",
+                      });
+                    }
+                  });
+                  return [...prev];
+                });
+                days.forEach((day) => {
+                  handleSelectedButton(day, false);
+                });
+              }}
+            >
+              Confirm
+            </span>
+          </PopoverClose>
+        </p>
+      </>
+    ) : (
+      <p>Please pick one or more days.</p>
+    );
 
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Date</p>
       <div className="flex gap-3">
-
         {reservationDates.map((button, i) => (
-          <Button key={i} variant="outline" className="inline-flex">
-            {button.label}
-          </Button>
-        ))}
-
-        <Select onValueChange={(e) => console.log(e)}>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" className=" text-light ">
-                Custom
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                id="test"
-                mode="range"
-                defaultMonth={pastMonth}
-                selected={range}
-                footer={footer}
-                onSelect={setRange}
+          <span
+            onClick={() => handleSelectedButton(button.value, true)}
+            key={i}
+            className={cn(
+              buttonVariants({
+                variant: selected.includes(button.value)
+                  ? "default"
+                  : "outline",
+              }),
+              "inline-flex cursor-pointer"
+            )}
+          >
+            {button.label.toLocaleString()}{" "}
+            {i > 1 && (
+              <X
+                onClick={() => {
+                  setReservationDates((prev) => {
+                    return prev.filter((p) => p.value !== button.value);
+                  });
+                }}
+                size={15}
               />
-            </PopoverContent>
-          </Popover>
-          <SelectContent>
-            <SelectGroup>
-              {Array(4)
-                .fill("")
-                .map((_, index) => (
-                  <SelectItem key={index} value={index.toString()}>
-                    {5 + index}
-                    {" people"}
-                  </SelectItem>
-                ))}
-              {/* <SelectItem value={""}>{"index"}</SelectItem> */}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+            )}
+          </span>
+        ))}
+        {userDetail.subscription_type === "standard" ? (
+          <span
+            className={cn(buttonVariants({ variant: "outline" }), "relative")}
+          >
+            Custom{" "}
+            {
+              <img
+                src={ProIcon}
+                alt="pro icon"
+                className="absolute right-0 top-0"
+              />
+            }
+          </span>
+        ) : (
+          <Select disabled onValueChange={(e) => console.log(e)}>
+            <Popover>
+              <PopoverTrigger
+                asChild
+                disabled={userDetail.subscription_type === "standard"}
+              >
+                <Button variant="outline" className=" text-light relative">
+                  Custom
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  id="test"
+                  mode="multiple"
+                  defaultMonth={pastMonth}
+                  selected={days}
+                  footer={footer}
+                  onSelect={setDays}
+                />
+              </PopoverContent>
+            </Popover>
+          </Select>
+        )}
       </div>
-      <ErrorMessage message='Please set reservation date' />
+      <ErrorMessage message="Please set reservation date" />
     </div>
   );
-}
+};
 
-export default SelectReservationDateSection
+export default SelectReservationDateSection;

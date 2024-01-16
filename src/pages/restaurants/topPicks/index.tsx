@@ -4,32 +4,36 @@ import SearchAndFilterSection from "../searchAndFilterSection";
 const index = () => {
   const topPickResturants = [
     {
-      id:0,
+
       venue_name: "string",
       locality: "string",
       price: 1,
       cover_image_url: "string",
+      venue_id:111
     },
     {
-      id: 1,
+
       venue_name: "string",
       locality: "string",
       price: 1,
       cover_image_url: "string",
+      venue_id: 111
     },
     {
-      id: 2,
+
       venue_name: "string",
       locality: "string",
       price: 1,
       cover_image_url: "string",
+      venue_id: 111
     },
     {
-      id: 3,
+
       venue_name: "string",
       locality: "string",
       price: 1,
       cover_image_url: "string",
+      venue_id: 111
     },
     {
       id: 4,
@@ -37,6 +41,7 @@ const index = () => {
       locality: "string",
       price: 1,
       cover_image_url: "string",
+      venue_id: 111
     },
   ];
 
@@ -45,10 +50,10 @@ const index = () => {
       <h1 className="font-bold text-3xl mb-4">Top pick</h1>
       <SearchAndFilterSection />
       <div className="grid grid-cols-4 gap-4 mt-4">
-        {topPickResturants.map((restaurant) => (
+        {topPickResturants.map((restaurant, i) => (
           <RestaurantCard
             restaurant={restaurant}
-            key={restaurant.id}
+            key={i}
             layout={{ displayFooter: true }}
           />
         ))}

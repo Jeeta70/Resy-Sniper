@@ -9,30 +9,12 @@ import { RestaurantCardSkeleton } from "@/components";
 
 const Index = () => {
   const { searchRestaurants, isLoading } = useSearchRestaurants();
-  // const { restaurants, isLoading } = useGetAllRestaurants()
-  // const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-
-  // useEffect(() => {
-  //   if (!isLoading) setFilteredRestaurants(restaurants?.data)
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading])
-
-
+  
   const filteredRestaurants = useMemo(() => {
     if (!isLoading) {
       return searchRestaurants?.data ?? []
     }
   }, [isLoading, searchRestaurants?.data])
-
-
-
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     console.log(searchRestaurants.data);
-  //     setFilteredRestaurants(searchRestaurants?.data || filteredRestaurants);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading]);
 
 
 

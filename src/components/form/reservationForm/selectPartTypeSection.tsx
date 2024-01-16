@@ -1,5 +1,5 @@
 import { ErrorMessage } from "@/components";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -8,8 +8,12 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { useReservationContext } from "@/context/ReservationFomProvider";
+import { UserDetailContext } from "@/context/UserDetailProvider";
 import { handleButtonClickPartySize } from "@/reducer/reservationFormReducer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import ProIcon from "@/assets/ProIcon.svg"
+import { cn } from "@/lib/utils";
 
 interface IPartySize {
   value: string | number;
@@ -26,7 +30,8 @@ const DEFAULT_PARTY_SIZE_BUTTONS = [
 
 
 const SelectPartySizeSection = () => {
-  const { dispatch, reservationFormState: {  partySize }} = useReservationContext();
+  const userDetail = useContext(UserDetailContext)
+  const { dispatch, reservationFormState: { partySize, errors: { partySizeError } } } = useReservationContext();
 
   const [partySizeArray, setPartySizeArray] = useState<Array<IPartySize>>(DEFAULT_PARTY_SIZE_BUTTONS);
 
@@ -44,43 +49,56 @@ const SelectPartySizeSection = () => {
             <Button
               key={button.label}
               role="button"
-              onClick={() =>
-                handleButtonClickPartySize(dispatch, Number(button.value))
-              }
-              variant={
-                partySize === Number(button.value)
-                  ? "default"
-                  : "outline"
-              }
+              onClick={() => handleButtonClickPartySize(dispatch, Number(button.value))}
+              variant={partySize === Number(button.value) ? "default" : "outline"}
               className="inline-flex"
             >
               {button.label}
             </Button>
           );
         })}
-        <Select
-          onValueChange={(e) =>
-            handleButtonClickPartySize(dispatch, parseInt(e) + 5)
-          }
-        >
-          <SelectTrigger className="w-auto flex-row-reverse gap-4 text-light">
-            Custom
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {Array(4)
-                .fill("")
-                .map((_, index) => (
-                  <SelectItem key={index} value={index.toString()}>
-                    {5 + index}
-                    {" people"}
-                  </SelectItem>
-                ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+
+
+
+        {userDetail.subscription_type === "standard" ? (
+          <span
+            className={cn(buttonVariants({ variant: "outline" }), "relative")}
+          >
+            Custom{" "}
+            {
+              <img
+                src={ProIcon}
+                alt="pro icon"
+                className="absolute right-0 top-0"
+              />
+            }
+          </span>
+        ) : (
+          <Select
+            onValueChange={(e) =>
+              handleButtonClickPartySize(dispatch, parseInt(e) + 5)
+            }
+          >
+            <SelectTrigger className="w-auto flex-row-reverse gap-4 text-light relative">
+              Custom
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {Array(4)
+                  .fill("")
+                  .map((_, index) => (
+                    <SelectItem key={index} value={index.toString()}>
+                      {5 + index}
+                      {" people"}
+                    </SelectItem>
+                  ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>)}
+
       </div>
-      <ErrorMessage message='Please select a part size' />
+      {partySizeError && !partySize && <ErrorMessage message='Please select a part size' />}
+
     </div>
   );
 };

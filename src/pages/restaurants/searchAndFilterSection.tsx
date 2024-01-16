@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const SearchAndFilterSection = () => {
-  const [searchParams, setSeachParams] = useSearchParams({ query: "" })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setSeachParams] = useSearchParams({ query: "" })
   const [searchQuery, setsearchQuery] = useState("")
-
-  
-  console.log("", searchParams);
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setsearchQuery(e.target.value)
@@ -19,9 +17,9 @@ const SearchAndFilterSection = () => {
         prev.set("query", searchQuery)
         return prev
       })
-    }, 1000);
+    }, 500);
     return () => clearInterval(timer)
-  }, [searchQuery])
+  }, [searchQuery, setSeachParams])
 
 
   return (

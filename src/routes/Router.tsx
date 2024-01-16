@@ -13,12 +13,11 @@ import { } from // AddReservation,
   // TopPick,
   "@/pages";
 import ShowSidebar from "./ShowSidebar";
-
-import { ReservationContextProvider } from "@/context/ReservationFomProvider";
 import { Toaster } from "@/components/ui/toaster";
 import ProtectedRoute from "./ProtectedRoute";
 import PresistConnectAccount from "./PresistConnectAccount";
 import PersistSubscribtion from "./PersistSubscribtion";
+import { UserDetailContextProvider } from "@/context/UserDetailProvider";
 
 const Login = React.lazy(() => import("@/pages/login"));
 const SignUp = React.lazy(() => import("@/pages/signup"));
@@ -39,7 +38,7 @@ const Router = () => {
     <React.Suspense
       fallback={<h1>Loading...</h1>}
     >
-      <ReservationContextProvider>
+      <UserDetailContextProvider>
         <Routes>
           <Route>
             <Route path="/login" element={<Login />} />
@@ -54,7 +53,7 @@ const Router = () => {
               path="/reservations/add-reservation"
               element={<AddReservation />}
             />
-            <Route path="/restaurant/:id" element={<Restaurant />} />
+            <Route path="/restaurant/:venue_id" element={<Restaurant />} />
 
             <Route path="/" element={<ShowSidebar />}>
               <Route path="/reservations" element={<Reservation />} />
@@ -72,7 +71,7 @@ const Router = () => {
             </Route>
           </Route>
         </Routes>
-      </ReservationContextProvider>
+      </UserDetailContextProvider>
       <Toaster />
     </React.Suspense>
   );

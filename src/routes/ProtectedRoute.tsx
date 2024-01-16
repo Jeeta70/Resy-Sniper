@@ -14,7 +14,7 @@ const ProtectedRoute = () => {
 
 
    return (
-      <div>ProtectedRoute<Outlet /></div>
+      <><Outlet /></>
    )
 }
 

@@ -4,19 +4,26 @@ import { Globe, MapPin, Phone } from "lucide-react";
 
 interface Props {
   restaurant: {
-    name: string;
+    cover_image_url: string,
+    address_1: string;
+    locality: string;
+    country: string;
+    postal_code: string;
+    restuarant_phone_number: string;
+    restaurant_website: string;
   };
+  handleSelectResturant: () => void
 }
 
-const index = ({ restaurant }: Props) => {
+const index = ({ restaurant, handleSelectResturant }: Props) => {
+
+
   return (
     <>
       <Card className="">
-        {/* need to remove later  */}
-        <div className="hidden">{`${restaurant}`}</div>
         <img
           className="rounded-t-lg max-h-[100px] w-full"
-          src="../restaurant/restaurant.png"
+          src={restaurant.cover_image_url}
           alt=""
         />
         <CardContent className="w-3/5 p-6">
@@ -24,7 +31,7 @@ const index = ({ restaurant }: Props) => {
             $$$$
           </p>
           <h5 className="mb-2 text-base font-normal tracking-tight ">
-            5 Beekman Street, New York, NY 10038
+            {restaurant.address_1},{restaurant.locality},{restaurant.country},{restaurant.postal_code}
           </h5>
           <p className="mb-3 text-xs font-normal text-blue">
             <MapPin className="inline-block" size={15} />
@@ -32,18 +39,17 @@ const index = ({ restaurant }: Props) => {
           </p>
           <p className="mb-3 text-xs font-normal text-blue">
             <Phone className="inline-block" size={15} />
-            <span className="ml-1 text-xs"> +1 917-728-4685</span>
+            <span className="ml-1 text-xs"> {restaurant.restuarant_phone_number}</span>
           </p>
           <p className="mb-3 text-xs font-normal text-blue">
             <Globe className="inline-block" size={15} />
-            <span className="ml-1 text-xs">
-              {" "}
-              https://www.templecourtnyc.com/
-            </span>
+            <a className="ml-1 text-xs" target="_blank" href={restaurant.restaurant_website}>
+              {restaurant.restaurant_website}
+            </a>
           </p>
         </CardContent>
         <CardFooter className="flex gap-3">
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full" onClick={handleSelectResturant}>
             Select
           </Button>
           <Button variant="primary" className="w-full">

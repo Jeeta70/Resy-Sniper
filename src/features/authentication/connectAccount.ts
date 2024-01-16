@@ -19,8 +19,6 @@ export const useConnectResyAccount = () => {
          toast({ description: "sucessfully connected", variant: "dark" })
       },
       onError: (error: { response: AxiosResponse }) => {
-         console.log(error);
-         
          toast({ description: error.response.data.message, variant: "destructive" })
       }
    })

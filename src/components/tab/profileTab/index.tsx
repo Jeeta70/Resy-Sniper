@@ -48,19 +48,19 @@ const Index = ({ user }: Props) => {
       <TabsList className="grid sm:w-2/4 grid-cols-3 gap-20 sm:gap-10 bg-white">
         <TabsTrigger
           value="account"
-          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start  text-sm font-medium"
+          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start  text-sm font-medium rounded-none"
         >
           Personal info
         </TabsTrigger>
         <TabsTrigger
           value="password"
-          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium"
+          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium rounded-none"
         >
           Reset Password
         </TabsTrigger>
         <TabsTrigger
           value="notications"
-          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium"
+          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium rounded-none"
         >
           Notifications
         </TabsTrigger>

@@ -3,57 +3,121 @@ import { MapPin, X } from "lucide-react";
 import { AddRestaurantCard, Model, SearchInputField } from "@/components";
 import { Button } from "@/components/ui/button";
 import { CardTitle } from "@/components/ui/card";
-import { CredenzaClose, CredenzaDescription, CredenzaHeader } from "@/components/ui/credenza";
+import { CredenzaClose, CredenzaHeader } from "@/components/ui/credenza";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { cn } from "@/lib/utils";
+import { useSearchRestaurants } from "@/features/restaurant/restaurant";
+import { Key, useContext, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import {
+  selectResturantForReservation,
+  selectSittingOptions,
+} from "@/reducer/reservationFormReducer";
+import { IRestaurant } from "@/types/restaurants";
+import { UserDetailContext } from "@/context/UserDetailProvider";
+
+import ProIcon from "@/assets/ProIcon.svg";
+
+const selectAvailableSittingsButtons = [
+  { lable: "Indoor", value: "indoor" },
+  { lable: "Outdoor", value: "outdoor" },
+];
 
 const AddResturantModel = () => {
-  const { reservationFormState } = useReservationContext();
+  const userDetail = useContext(UserDetailContext);
+  const [avilableSittings, setAvilableSittings] = useState("any");
+  const { reservationFormState, dispatch } = useReservationContext();
+  const { searchRestaurants, isLoading } = useSearchRestaurants();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setSeachParams] = useSearchParams({ query: "" });
+  const [searchQuery, setsearchQuery] = useState("");
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSeachParams((prev) => {
+        prev.set("query", searchQuery);
+        return prev;
+      });
+    }, 500);
+    return () => clearInterval(timer);
+  }, [searchQuery, setSeachParams]);
 
+  const filteredRestaurants = useMemo(() => {
+    if (!isLoading) {
+      return searchRestaurants?.data ?? [];
+    }
+  }, [isLoading, searchRestaurants?.data]);
 
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setsearchQuery(e.target.value);
+  }
 
-  const tags = Array.from({ length: 10 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-  );
+  function onResturantCardClick(restauratCardDetail: IRestaurant) {
+    selectSittingOptions(dispatch, restauratCardDetail);
+  }
 
   return (
-    <Model className={cn("max-w-2xl border-2 h-screen sm:h-auto", reservationFormState.selectSittingOptions.showModel && "p-4")}>
+    <Model
+      className={cn(
+        "max-w-2xl h-screen sm:h-auto",
+        reservationFormState.selectSittingOptions.showModel && "p-4"
+      )}
+    >
       <CredenzaHeader className="">
         <CardTitle className=" mb-0 sm:mb-5 text-start font-bold text-2xl flex justify-between">
           <span> {reservationFormState.selectSittingOptions.title}</span>
           <CredenzaClose className="sm:hidden">
-            <span role="button"><X /></span>
+            <span role="button">
+              <X />
+            </span>
           </CredenzaClose>
         </CardTitle>
       </CredenzaHeader>
 
       {!reservationFormState.selectSittingOptions.showModel ? (
         <>
-          <SearchInputField onChange={function (): void {
-            throw new Error("Function not implemented.");
-          } } />
-          <CredenzaDescription>
-            <ScrollArea className="sm:h-80 rounded-md">
-              <div className="flex flex-col gap-2">
-                {tags.map((_tag, i) => <AddRestaurantCard key={i}  />)}
-              </div>
-            </ScrollArea>
-          </CredenzaDescription>
+          <SearchInputField onChange={onChange} />
+          {/* <CredenzaDescription className=""> */}
+          <ScrollArea className="sm:h-80 rounded-md">
+            <span className="flex flex-col gap-4">
+              {!isLoading &&
+                filteredRestaurants.map((restaurant: IRestaurant,i: Key | null | undefined) => {                  
+                  return (
+                    <AddRestaurantCard
+                      key={i}
+                      restaurant={restaurant}
+                      onResturantCardClick={onResturantCardClick}
+                    />
+                  );
+                })}
+            </span>
+          </ScrollArea>
+          {/* </CredenzaDescription> */}
         </>
       ) : (
         <div className="flex flex-col justify-between">
           <div>
-            <img className="rounded-lg w-full" src="../reservation/AddReservation/Img.png" alt="" />
+            <img
+              className="rounded-lg w-full object-cover"
+              src={
+                reservationFormState.selectSittingOptions.restaurantDetail
+                  .cover_image_url ?? "../reservation/AddReservation/Img.png"
+              }
+              alt=""
+            />
           </div>
           <div>
             <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400">
-              $$$$
+              {reservationFormState.selectSittingOptions.restaurantDetail.price}
+              $
             </p>
             <h5 className="mb-2 text-base font-bold tracking-tight ">
-              The Coop at Double Chicken Please
+              {
+                reservationFormState.selectSittingOptions.restaurantDetail
+                  .venue_name
+              }
             </h5>
             <p className="mb-3  text-xs font-normal ">
               <MapPin className="inline-block" /> Prospective height
@@ -68,15 +132,58 @@ const AddResturantModel = () => {
             </p>
             <h2 className="font-semibold text-sm my-3">Available sittings</h2>
             <div className="flex w-1/2 gap-2">
-              <Button variant="outline" className="w-full">
+              <Button
+                onClick={() => {
+                  setAvilableSittings("any");
+                }}
+                variant={avilableSittings === "any" ? "default" : "outline"}
+                className="w-full"
+              >
                 Any
               </Button>
-              <Button variant="outline" className="w-full">
-                Indoor
-              </Button>
-              <Button variant="outline" className="w-full">
-                Outdoor
-              </Button>
+
+              {userDetail.subscription_type === "standard" ? (
+                <>
+                  {" "}
+                  {selectAvailableSittingsButtons.map((button, i) => (
+                    <Button
+                      key={i}
+                      variant={
+                        avilableSittings === button.value
+                          ? "default"
+                          : "outline"
+                      }
+                      className="w-full relative"
+                    >
+                      {button.lable}
+                      <img
+                        src={ProIcon}
+                        alt="pro icon"
+                        className="absolute right-0 top-0"
+                      />
+                    </Button>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {selectAvailableSittingsButtons.map((button, i) => (
+                    <Button
+                      onClick={() => {
+                        setAvilableSittings(button.value);
+                      }}
+                      key={i}
+                      variant={
+                        avilableSittings === button.value
+                          ? "default"
+                          : "outline"
+                      }
+                      className="w-full"
+                    >
+                      {button.lable}
+                    </Button>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -86,11 +193,28 @@ const AddResturantModel = () => {
         <Button variant="outline" className="">
           Cancel
         </Button>
-        <Button variant="primary" className="">
-          Confirm
-        </Button>
-      </div>
 
+        <CredenzaClose className="">
+          <Button
+            variant="primary"
+            className=""
+            onClick={() => {
+              const restaurantPayload =
+                reservationFormState.selectSittingOptions.restaurantDetail;
+              Object.defineProperty(restaurantPayload, "availableSittings", {
+                value: avilableSittings,
+                writable: false,
+                enumerable: true,
+                configurable: true,
+              });
+
+              selectResturantForReservation(dispatch, restaurantPayload);
+            }}
+          >
+            Confirm
+          </Button>
+        </CredenzaClose>
+      </div>
     </Model>
   );
 };

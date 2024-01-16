@@ -20,7 +20,6 @@ const Index = () => {
 
   const [activeTab, setActiveTab] = useState<ITab>(tabs[0]);
 
-
   return (
     <>
       <Tabs defaultValue="all" className="">
@@ -39,7 +38,9 @@ const Index = () => {
           value={activeTab?.value ?? setActiveTab(tabs[0])}
           className=""
         >
-          {Array.from({ length: activeTab.count }).map(() => (<MyReservationOfResturantCard />))}
+          {Array.from({ length: activeTab.count }).map(() => (
+            <MyReservationOfResturantCard />
+          ))}
         </TabsContent>
         {/* <TabsContent value="active">
           <Card>

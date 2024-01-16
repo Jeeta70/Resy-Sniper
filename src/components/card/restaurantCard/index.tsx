@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-export type RestaurantProps = {
+ type RestaurantProps = {
+  venue_id: number;
   venue_name: string;
   locality: string;
   price: number;
@@ -17,14 +19,18 @@ interface Props {
   };
 }
 
-const index = ({ restaurant, layout }: Props) => {
+const Index = ({ restaurant, layout }: Props) => {
+  
+  const navigate = useNavigate()
   return (
     <>
-      <Card className="">
+      <Card className="cursor-pointer" onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)
+      }>
         <img
           className="rounded-t-lg object-cover h-48 w-96"
           src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
           alt=""
+          loading="lazy"
         />
         <CardContent>
           <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400">
@@ -39,7 +45,11 @@ const index = ({ restaurant, layout }: Props) => {
         </CardContent>
         {layout.displayFooter && (
           <CardFooter className="flex gap-3">
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" onClick={(e) => {
+              e.stopPropagation();
+              console.log("dd");
+              
+            }}>
               Select
             </Button>
             <Button variant="primary" className="w-full">
@@ -47,9 +57,9 @@ const index = ({ restaurant, layout }: Props) => {
             </Button>
           </CardFooter>
         )}
-      </Card>
+      </Card >
     </>
   );
 };
 
-export default index;
+export default Index;

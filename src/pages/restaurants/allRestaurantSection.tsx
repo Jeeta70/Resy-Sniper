@@ -1,10 +1,11 @@
 import { RestaurantCard } from "@/components";
-import { RestaurantProps } from "@/components/card/restaurantCard";
+import { IRestaurant } from "@/types/restaurants";
+// import { RestaurantProps } from "@/components/card/restaurantCard";
 import { useNavigate } from "react-router-dom";
 
 
 interface Props {
-  restaurants: RestaurantProps[];
+  restaurants: IRestaurant[];
   sectionTitle: string
 
 }

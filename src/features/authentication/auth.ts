@@ -45,8 +45,6 @@ export const useLogin = () => {
          toast({ description: data.message, variant: "dark" })
       },
       onError: (err: { response: AxiosResponse }) => {
-         console.log(err);
-
          toast({ description: err.response.data.message, variant: "destructive" })
       },
    });
