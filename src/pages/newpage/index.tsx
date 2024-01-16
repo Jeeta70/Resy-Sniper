@@ -1,28 +1,28 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import backgroundImage from '../../assets/homepage/Hero.png'
-import logo from '../../assets/homepage/logo.png'
-import Hero from '../../assets/homepage/Hero_img.png'
-import Speed from '../../assets/homepage/Speed.png'
-import Automatic from '../../assets/homepage/Automatic.png'
-import Secure from '../../assets/homepage/Secure.png'
-import Personalized from '../../assets/homepage/Personalised.png'
-import Image1 from '../../assets/homepage/Image1.png'
-import Image2 from '../../assets/homepage/Image2.png'
-import Image3 from '../../assets/homepage/Image3.png'
-import Banner from '../../assets/homepage/Banner.png'
-import Card from '../../assets/homepage/Card.png'
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { PlusIcon } from "@heroicons/react/24/outline";
-import { MinusIcon } from "@heroicons/react/24/outline";
-import Blog from '../../assets/homepage/blog_img.png'
-import Rectangle from '../../assets/homepage/Rectangle.png'
-import Image from '../../assets/homepage/Img.png'
-import Instagram from '../../assets/homepage/Instagram.png'
-import Twitter from '../../assets/homepage/TwitterLogo.png'
-import Footer from '../../assets/homepage/Footer.png'
-import { Bars3Icon } from "@heroicons/react/24/outline";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import backgroundImage from "@/assets/homepage/Hero.png"
+import logo from '@/assets/homepage/Logo.png'
+import Hero from '@/assets/homepage/Hero_img.png'
+import Speed from '@/assets/homepage/Speed.png'
+import Automatic from '@/assets/homepage/Automatic.png'
+import Secure from '@/assets/homepage/Secure.png'
+import Personalized from '@/assets/homepage/Personalised.png'
+import Image1 from '@/assets/homepage/Image1.png'
+import Image2 from '@/assets/homepage/Image2.png'
+import Image3 from '@/assets/homepage/Image3.png'
+import Banner from '@/assets/homepage/Banner.png'
+import Card from '@/assets/homepage/Card.png'
+// import { CheckCircleIcon } from "@heroicons/react/24/outline";
+// import { PlusIcon } from "@heroicons/react/24/outline";
+// import { MinusIcon } from "@heroicons/react/24/outline";
+import Blog from '@/assets/homepage/blog_img.png'
+import Rectangle from '@/assets/homepage/Rectangle.png'
+import Image from '@/assets/homepage/Img.png'
+import Instagram from '@/assets/homepage/Instagram.png'
+import Twitter from '@/assets/homepage/TwitterLogo.png'
+import Footer from '@/assets/homepage/Footer.png'
+// import { Bars3Icon } from "@heroicons/react/24/outline";
+// import { XMarkIcon } from "@heroicons/react/24/outline";
 
 
 
@@ -193,9 +193,9 @@ const NewPage = () => {
                                 <img src={logo} />
                             </div>
                             <div className='sm:hidden block'>
-                                {show ?
+                                {/* {show ?
                                     <XMarkIcon className="h-8 w-8 text-[#12171A]" onClick={() => setShow(false)} /> :
-                                    <Bars3Icon className="h-8 w-8 text-[#12171A]" onClick={() => setShow(true)} />}
+                                    <Bars3Icon className="h-8 w-8 text-[#12171A]" onClick={() => setShow(true)} />} */}
                             </div>
                             {show ? <>
                                 <div className='absolute w-[100%] p-10 text-center top-[72px] left-0 right-0 bg-white'>
@@ -304,8 +304,8 @@ const NewPage = () => {
                                 <div className='h-[230px] px-5 mt-8'>
                                     {ele.details.map((item, index) => (
                                         <div key={index} className='flex gap-3 items-center text-sm leading-snug mt-3'>
-                                            <CheckCircleIcon className="h-4 w-4 text-[#12171A] !font-[500]" />
-                                            <p className='font-inter text-[#12171A] !font-[500]'>{item}</p>
+                                            {/* <CheckCircleIcon className="h-4 w-4 text-[#12171A] !font-[500]" /> */}
+                                            <p className='font-inter text-[#12171A] !font-[500]'>{item}</p>CheckCircleIcon
                                         </div>
                                     ))}
                                 </div>
@@ -332,8 +332,8 @@ const NewPage = () => {
                                 <div className={`${key === activeIndex ? 'h-auto transition-all duration-500 py-10' : 'h-auto transition-all duration-500 py-6 grid items-center'}  border-b mb-3`} key={key}>
                                     <div className='flex items-center justify-between text-[20px] !font-[600] text-[#12171A] cursor-pointer' onClick={() => setActiveIndex(key)}>
                                         <p className='font-inter'>{ele.heading}</p>
-                                        {key != activeIndex ? <PlusIcon className="h-6 w-6 text-[#12171A] text-[20px]" /> :
-                                            <MinusIcon className="h-6 w-6 text-[#12171A] text-[20px]" />}
+                                        {/* {key != activeIndex ? <PlusIcon className="h-6 w-6 text-[#12171A] text-[20px]" /> :
+                                            <MinusIcon className="h-6 w-6 text-[#12171A] text-[20px]" />} */}
                                     </div>
                                     <p className={`faq-content font-inter text-sm transition-all duration-500 ${activeIndex === key ? 'active-faq' : 'hidden'}`}>{ele.text}</p>
                                 </div>
