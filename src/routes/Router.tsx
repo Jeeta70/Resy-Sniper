@@ -32,6 +32,7 @@ const Reservation = React.lazy(() => import("@/pages/reservations"));
 const Restaurant = React.lazy(() => import("@/pages/restaurant"));
 const TopPick = React.lazy(() => import("@/pages/restaurants/topPicks"));
 const Subscription = React.lazy(() => import("@/pages/subscription"));
+const NewPage = React.lazy(() => import("@/pages/newpage"))
 
 const Router = () => {
   return (
@@ -69,6 +70,9 @@ const Router = () => {
                 <Route path="/profile" element={<Profile />} />
               </Route>
             </Route>
+
+            <Route path="/newpage" element={<NewPage />} />
+
           </Route>
         </Routes>
       </UserDetailContextProvider>
