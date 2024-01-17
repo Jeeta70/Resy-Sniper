@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { MyReservationOfResturantCard } from "@/components";
+// import response from "@/reservation.json";
 
 export interface ITab {
   id: number;
@@ -10,6 +11,22 @@ export interface ITab {
 }
 
 const Index = () => {
+  // const reservationsArray = useMemo(() => {
+  //   return response.reduce((accumulator, currentValue) => {
+  //     const { active, paused, completed } = currentValue;
+  //     if (active) {
+  //       accumulator["active"].push({ ...currentValue, stauts: "active" })
+  //     } else if (paused) {
+  //       accumulator["paused"].push({ ...currentValue, stauts: "paused" })
+  //     } else if (completed) {
+  //       accumulator["completed"].push({ ...currentValue, status: "completed" });
+  //     }
+
+  //     return accumulator;
+  //   }, { active: [], paused: [], completed: [] });
+  // }, []);
+
+
   const [tabs] = useState<ITab[]>([
     { id: 1, value: "all", label: "All", count: 16 },
     { id: 2, value: "active", label: "Active", count: 2 },
@@ -22,7 +39,7 @@ const Index = () => {
 
   return (
     <>
-      <Tabs defaultValue="all" className="">
+      <Tabs defaultValue="all">
         <TabsList className="grid grid-cols-5 w-1/2">
           {tabs.map((tab) => (
             <TabsTrigger

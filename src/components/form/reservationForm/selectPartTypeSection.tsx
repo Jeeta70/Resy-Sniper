@@ -1,4 +1,4 @@
-import { ErrorMessage } from "@/components";
+import { ErrorMessage, FeatureIsForProModel } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Select,
@@ -14,6 +14,7 @@ import { useContext, useEffect, useState } from "react";
 
 import ProIcon from "@/assets/ProIcon.svg"
 import { cn } from "@/lib/utils";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 
 interface IPartySize {
   value: string | number;
@@ -61,18 +62,24 @@ const SelectPartySizeSection = () => {
 
 
         {userDetail.subscription_type === "standard" ? (
-          <span
-            className={cn(buttonVariants({ variant: "outline" }), "relative")}
-          >
-            Custom{" "}
-            {
-              <img
-                src={ProIcon}
-                alt="pro icon"
-                className="absolute right-0 top-0"
-              />
-            }
-          </span>
+          <Credenza>
+            <CredenzaTrigger asChild>
+              <span
+                className={cn(buttonVariants({ variant: "outline" }), "relative cursor-pointer")}
+              >
+                Custom
+                {
+                  <img
+                    src={ProIcon}
+                    alt="pro icon"
+                    className="absolute right-0 top-0"
+                  />
+                }
+              </span>
+            </CredenzaTrigger>
+            <FeatureIsForProModel />
+          </Credenza>
+
         ) : (
           <Select
             onValueChange={(e) =>

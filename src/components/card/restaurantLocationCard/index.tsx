@@ -1,22 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
+import { IRestaurant } from "@/types/restaurants";
 import { Globe, MapPin, Phone } from "lucide-react";
 
 interface Props {
-  restaurant: {
-    cover_image_url: string,
-    address_1: string;
-    locality: string;
-    country: string;
-    postal_code: string;
-    restuarant_phone_number: string;
-    restaurant_website: string;
-  };
-  handleSelectResturant: () => void
+  restaurant: IRestaurant;
 }
 
-const index = ({ restaurant, handleSelectResturant }: Props) => {
-
+const Index = ({ restaurant }: Props) => {
+  const { restaurants, addRestaurant } = useRestaurantContext();
+  const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
 
   return (
     <>
@@ -31,7 +25,8 @@ const index = ({ restaurant, handleSelectResturant }: Props) => {
             $$$$
           </p>
           <h5 className="mb-2 text-base font-normal tracking-tight ">
-            {restaurant.address_1},{restaurant.locality},{restaurant.country},{restaurant.postal_code}
+            {restaurant.address_1},{restaurant.locality},{restaurant.country},
+            {restaurant.postal_code}
           </h5>
           <p className="mb-3 text-xs font-normal text-blue">
             <MapPin className="inline-block" size={15} />
@@ -39,18 +34,35 @@ const index = ({ restaurant, handleSelectResturant }: Props) => {
           </p>
           <p className="mb-3 text-xs font-normal text-blue">
             <Phone className="inline-block" size={15} />
-            <span className="ml-1 text-xs"> {restaurant.restuarant_phone_number}</span>
+            <span className="ml-1 text-xs">
+              {" "}
+              {restaurant.restuarant_phone_number}
+            </span>
           </p>
           <p className="mb-3 text-xs font-normal text-blue">
             <Globe className="inline-block" size={15} />
-            <a className="ml-1 text-xs" target="_blank" href={restaurant.restaurant_website}>
+            <a
+              className="ml-1 text-xs"
+              target="_blank"
+              href={restaurant.restaurant_website}
+            >
               {restaurant.restaurant_website}
             </a>
           </p>
         </CardContent>
         <CardFooter className="flex gap-3">
-          <Button variant="outline" className="w-full" onClick={handleSelectResturant}>
-            Select
+          <Button
+            variant={
+              selected
+                ? "selected"
+                : "outline"
+            }
+            className="w-full"
+            onClick={() => addRestaurant(restaurant)}
+          >
+            {selected
+              ? "Selected"
+              : "Select"}
           </Button>
           <Button variant="primary" className="w-full">
             Reserve
@@ -61,4 +73,4 @@ const index = ({ restaurant, handleSelectResturant }: Props) => {
   );
 };
 
-export default index;
+export default Index;

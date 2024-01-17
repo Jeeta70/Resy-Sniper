@@ -83,7 +83,7 @@ const AddResturantModel = () => {
           <ScrollArea className="sm:h-80 rounded-md">
             <span className="flex flex-col gap-4">
               {!isLoading &&
-                filteredRestaurants.map((restaurant: IRestaurant,i: Key | null | undefined) => {                  
+                filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => {
                   return (
                     <AddRestaurantCard
                       key={i}
@@ -190,9 +190,12 @@ const AddResturantModel = () => {
       )}
       <Separator />
       <div className="flex justify-end gap-4">
-        <Button variant="outline" className="">
-          Cancel
-        </Button>
+        <CredenzaClose className="">
+          <Button variant="outline" className="">
+            Cancel
+          </Button>
+
+        </CredenzaClose>
 
         <CredenzaClose className="">
           <Button

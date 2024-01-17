@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siderBarOptions } from "@/utils/constants";
 import { Link, useLocation } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 
 const Index = () => {
   const [open, setOpen] = React.useState(false);
@@ -11,7 +11,7 @@ const Index = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="flex z-10">
+    <div className="flex z-10 fixed top-0 left-0">
       <div
         className={cn(
           "flex flex-col h-16 sm:h-screen bg-black  shadow duration-300 overflow-hidden",
@@ -61,6 +61,13 @@ const Index = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link className="flex items-center p-2 space-x-3 rounded-md text-white" to={""}>
+                  {/* {siderBarOption.icon} */}
+                  <LogOut />
+                  <span className="">Logout</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
