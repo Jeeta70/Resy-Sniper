@@ -10,7 +10,9 @@ export { default as ConnectOpenTabelAccountModel } from "@/components/model/conn
 export { default as DisconnectResyAccountModel } from "@/components/model/disconnectResyAccountModal";
 export { default as AddResturantModel } from "@/components/model/addResturantModel";
 export { default as Model } from "@/components/model/commanModal";
-export {default as DiscardChangesModal} from "@/components/model/discardChangesModal"
+export { default as DiscardChangesModal } from "@/components/model/discardChangesModal"
+export { default as ResetPasswordModal } from "@/components/model/resetPasswordModal"
+export { default as CancelSubscription } from "@/components/model/CancelSubscription"
 
 export { default as ResyConnectAccountCard } from "@/components/card/connectAccount/resyCard";
 export { default as OpenTableConnectAccountCard } from "@/components/card/connectAccount/openTable";
@@ -20,6 +22,7 @@ export { default as MyReservationOfResturantCard } from "@/components/card/myRes
 export { default as CountryCode } from "@/components/countryComponent";
 export { default as ProfileTab } from "@/components/tab/profileTab";
 export { default as MyReservationTab } from "@/components/tab/myReservationTab";
+export { default as NewSubscriptionCard } from '@/components/card/newSubscriptionCard'
 
 export { default as DropDown } from "@/components/dropDown";
 export { default as RestaurantCard } from "@/components/card/restaurantCard";

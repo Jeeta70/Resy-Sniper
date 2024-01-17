@@ -29,3 +29,13 @@ export const connectOpenTableAccountSchema = z.object({
   countryCode: z.string().min(1, { message: "Country Code is required" }),
   phoneNumber: z.string().length(10, "Phone number must have exactly 10 digits.").regex(/^[0-9]+/),
 })
+
+
+export const updateProfileSchema = z
+  .object({
+    firstName: z.string().min(1, { message: "First name is required!" }),
+    lastName: z.string().min(1, { message: "Last name is required!" }),
+    email: z.string().email("Must be valid email"),
+    countryCode: z.string().min(1, { message: "Country Code is required" }),
+    phoneNumber: z.string().length(10, "Phone number must have exactly 10 digits.").regex(/^[0-9]+/),
+  })

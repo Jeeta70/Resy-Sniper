@@ -7,15 +7,21 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
-import { signupFormSchema } from "@/utils/formZodSchema";
+// import { signupFormSchema } from "@/utils/formZodSchema";
 import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { CountryCode } from "@/components";
 import { Switch } from "@/components/ui/switch";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import ResetPasswordModal from "@/components/model/resetPasswordModal"
+import { updateProfileSchema } from "@/utils/formZodSchema";
+import { updateUserProfile } from "@/features/user/user";
 
 type IUser = {
   first_name: string
-  last_name:string
-  email:string
+  last_name: string
+  email: string
+  countryCode: string
+  phoneNumber: string
 }
 
 interface Props {
@@ -23,23 +29,27 @@ interface Props {
 }
 
 const Index = ({ user }: Props) => {
-  const form = useForm<z.infer<typeof signupFormSchema>>({
-    resolver: zodResolver(signupFormSchema),
+  const { update, isloading } = updateUserProfile()
+  const form = useForm<z.infer<typeof updateProfileSchema>>({
+    resolver: zodResolver(updateProfileSchema),
     defaultValues: {
       firstName: user.first_name,
       lastName: user.last_name,
       email: user.email,
-      countryCode: "",
-      phoneNumber: "",
-      password: "",
-      confirmPassword: "",
+      countryCode: user.countryCode,
+      phoneNumber: user.phoneNumber,
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof signupFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  function onSubmit(values: z.infer<typeof updateProfileSchema>) {
+    update(values, {
+      onSuccess: () => {
+        form.reset()
+      }
+    }
+
+    )
     console.log(values);
   }
 
@@ -159,14 +169,12 @@ const Index = ({ user }: Props) => {
                         <>
                           <FormItem className="w-full">
                             <FormControl>
-                              <>
-                                <Input
-                                  className="border-gray-300  bg-white rounded-s-none"
-                                  id="phone"
-                                  placeholder="000-000-0000"
-                                  {...field}
-                                />
-                              </>
+
+                              <Input
+                                className="border-gray-300  bg-white rounded-s-none"
+                                placeholder="000-000-0000"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -174,14 +182,15 @@ const Index = ({ user }: Props) => {
                       )}
                     />
                   </div>
+                  <Button variant="primary" className="w-full sm:w-auto" type="submit" disabled={isloading}>
+                    Save
+                  </Button>
                 </form>
               </Form>
             </div>
           </CardContent>
           <CardFooter>
-            <Button variant="primary" className="w-full sm:w-auto">
-              Save
-            </Button>
+
           </CardFooter>
         </Card>
       </TabsContent>
@@ -193,9 +202,15 @@ const Index = ({ user }: Props) => {
             </CardDescription>
           </CardContent>
           <CardFooter>
-            <Button variant="primary" className="w-full sm:w-auto">
-              Reset Password
-            </Button>
+            <Credenza>
+              <CredenzaTrigger asChild>
+                <Button variant="primary" className="w-full sm:w-auto">
+                  Reset Password
+                </Button>
+              </CredenzaTrigger>
+              <ResetPasswordModal />
+              {/* <DisconnectResyAccountModel /> */}
+            </Credenza>
           </CardFooter>
         </Card>
       </TabsContent>

@@ -33,6 +33,8 @@ const Restaurant = React.lazy(() => import("@/pages/restaurant"));
 const TopPick = React.lazy(() => import("@/pages/restaurants/topPicks"));
 const Subscription = React.lazy(() => import("@/pages/subscription"));
 const NewPage = React.lazy(() => import("@/pages/newpage"))
+const ResetPassword = React.lazy(() => import("@/pages/resetPassword"))
+const CheckSubscription = React.lazy(() => import("@/pages/checkSubscription"))
 
 const Router = () => {
   return (
@@ -49,6 +51,7 @@ const Router = () => {
             </Route>
             <Route element={<PersistSubscribtion />}>
               <Route path="/subscription" element={<Subscription />} />
+              <Route path="/check-subscription" element={<CheckSubscription />} />
             </Route>
             <Route
               path="/reservations/add-reservation"
@@ -70,7 +73,7 @@ const Router = () => {
                 <Route path="/profile" element={<Profile />} />
               </Route>
             </Route>
-
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/newpage" element={<NewPage />} />
 
           </Route>

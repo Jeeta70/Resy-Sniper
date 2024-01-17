@@ -42,16 +42,16 @@ const Index = () => {
           </form>
         </CardContent>
       </CredenzaBody>
-      <Separator/>
+      <Separator />
       <CredenzaFooter className="flex flex-row">
         <CredenzaClose asChild>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full sm:w-auto">
             Cancel
           </Button>
         </CredenzaClose>
 
-        <Button variant="primary" className="w-full">
-          Remove
+        <Button variant="primary" className="w-full sm:w-auto">
+          Connect
         </Button>
       </CredenzaFooter>
     </Model>
