@@ -1,12 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { UserDetailContext } from "@/context/UserDetailProvider";
-import {
-  handleFinalSnipingDay,
-} from "@/reducer/reservationFormReducer";
+import { handleFinalSnipingDay } from "@/reducer/reservationFormReducer";
 import { useContext, useState } from "react";
 
 import ProIcon from "@/assets/ProIcon.svg";
+import { cn } from "@/lib/utils";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import { FeatureIsForProModel } from "@/components";
 
 const DEFAULT_PARTY_SIZE_BUTTONS = [
   { value: "same_day", label: "Same day", type: "button" },
@@ -49,21 +50,32 @@ const SelectFinalSnipingDaySection = () => {
 
         {userDetail.subscription_type === "standard" ? (
           <>
-            {" "}
             {partySizeArray.map((button, i) => (
-              <Button
-                variant={
-                  finalSnipingDay === button.value ? "default" : "outline"
-                }
-                className="inline-flex relative"
-                key={i}
-              >
-                {button.label} <img
-                  src={ProIcon}
-                  alt="pro icon"
-                  className="absolute right-0 top-0"
-                />
-              </Button>
+              <Credenza key={i}>
+                <CredenzaTrigger asChild>
+                  <span
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "relative cursor-pointer"
+                    )}
+                  >
+                    {button.label}{" "}
+                    <img
+                      src={ProIcon}
+                      alt="pro icon"
+                      className="absolute right-0 top-0"
+                    />
+                    {
+                      <img
+                        src={ProIcon}
+                        alt="pro icon"
+                        className="absolute right-0 top-0"
+                      />
+                    }
+                  </span>
+                </CredenzaTrigger>
+                <FeatureIsForProModel />
+              </Credenza>
             ))}
           </>
         ) : (

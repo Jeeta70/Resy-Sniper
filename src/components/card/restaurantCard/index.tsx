@@ -1,27 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
+import { IRestaurant } from "@/types/restaurants";
 import { MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
- type RestaurantProps = {
-  venue_id: number;
-  venue_name: string;
-  locality: string;
-  price: number;
-  cover_image_url: string;
-};
+// type RestaurantProps = {
+//   venue_id: number;
+//   venue_name: string;
+//   locality: string;
+//   price: number;
+//   cover_image_url: string;
+// };
 
 
 interface Props {
-  restaurant: RestaurantProps;
+  restaurant: IRestaurant;
   layout: {
     displayFooter: boolean;
   };
 }
 
 const Index = ({ restaurant, layout }: Props) => {
-  
   const navigate = useNavigate()
+
+  const { restaurants, addRestaurant } = useRestaurantContext();
+  const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
+
+
   return (
     <>
       <Card className="cursor-pointer" onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)
@@ -45,12 +51,18 @@ const Index = ({ restaurant, layout }: Props) => {
         </CardContent>
         {layout.displayFooter && (
           <CardFooter className="flex gap-3">
-            <Button variant="outline" className="w-full" onClick={(e) => {
+            <Button variant={
+              selected
+                ? "selected"
+                : "outline"
+            } className="w-full" onClick={(e) => {
               e.stopPropagation();
-              console.log("dd");
-              
+              addRestaurant(restaurant)
+
             }}>
-              Select
+              {selected
+                ? "Selected"
+                : "Select"}
             </Button>
             <Button variant="primary" className="w-full">
               Reserve

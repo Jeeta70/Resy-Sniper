@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from 
 import { connectResyAccountSchema } from "@/utils/formZodSchema";
 import { useConnectResyAccount } from "@/features/authentication/connectAccount";
 import { useState } from "react";
+import { ButtonLoader } from "@/components";
 
 interface Props {
    setdisableContinueButton: (boolean:boolean) => void
@@ -75,7 +76,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                         )}
                      />
                      <Button className="w-full" type="submit" disabled={isLoading}>
-                        Connect
+                       {isLoading ? <ButtonLoader/> : "Connect"}
                      </Button>
                   </form>
                </Form>

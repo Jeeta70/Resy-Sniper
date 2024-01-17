@@ -1,15 +1,28 @@
+import { toast } from '@/components/ui/use-toast'
+import { useGetUser } from '@/features/user/user'
 import { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const ProtectedRoute = () => {
-   // const { auth, isLoading } = useCheckUserAuth()
+   const { userResponse, isLoading,isError } = useGetUser()
+ const navigate =   useNavigate()
 
    useEffect(() => {
 
-      // auth()
+      if (!isLoading) {
+         // const { data: { data } } = userResponse;
+         // console.log(data);
+         
+      }
+      if(isError){
+         toast({
+            description: "You need to Create the account First!",
+            variant: "destructive",
+         });
+         navigate("/login")
+      }
 
-
-   }, [])
+   }, [userResponse, isLoading, isError, navigate])
 
 
 
