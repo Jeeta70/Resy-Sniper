@@ -29,7 +29,6 @@ const AddResturantSection = () => {
         <Credenza>
           <CredenzaTrigger asChild>
             <span className={cn(buttonVariants({ variant: "outline" }), "inline-flex font-semibold text-[11px]  relative cursor-pointer")} >
-
               <img
                 src={ProIcon}
                 alt="pro icon"
@@ -43,12 +42,11 @@ const AddResturantSection = () => {
       ) : (
         <Credenza
           onOpenChange={() => resetSittingOption(dispatch)}
-
+        >
           {selectedResturantsForReservationOnAddReservationPage.map(
             (resturant, i) => (
               <Card key={i} className="flex h-[10vh] my-5">
                 <div><img className="rounded-l-lg h-full" src={resturant.cover_image_url ?? "../restaurant/restaurant.png"} alt="" /></div>
-
                 <CardContent className="p-0 px-5 space-y-2 my-auto w-full">
                   <div className="space-y-1 flex justify-between">
                     <div>
@@ -57,13 +55,11 @@ const AddResturantSection = () => {
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
                         {resturant.availableSittings}
-
                       </p>
                     </div>
                     <X
                       className="cursor-pointer "
                       onClick={() => deleteResturantForReservation(dispatch, resturant)}
-
                     />
                   </div>
                 </CardContent>
@@ -75,8 +71,7 @@ const AddResturantSection = () => {
               variant="outline"
               className="inline-flex font-semibold text-[11px] relative"
             >
-              <Plus className="mr-3 " /> Add Reservation
-
+              <Plus className="mr-3 " /> Add Reservationnmmmm
             </Button>
           </CredenzaTrigger>
           <AddResturantModel />
