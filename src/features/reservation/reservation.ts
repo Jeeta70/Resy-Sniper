@@ -44,7 +44,6 @@ export function useCreateReservation() {
   return { booking, isloading };
 }
 
-<<<<<<< HEAD
 export function useGetUserReservations() {
   const accesToken = getToken("access_token");
   const {
@@ -64,22 +63,3 @@ export function useGetUserReservations() {
   });
   return { userReservations, isLoading, isSuccess, isError, error };
 }
-=======
-   return { booking, isloading }
-
-}
-
-
-// export function useGetUserReservation(){
-
-//    const accesToken = getToken("access_token")
-//    const { data: userResponse, isPending: isLoading, isSuccess, isError, error } = useQuery({
-//       queryKey: ['reservation', accesToken],
-//       retry: false,
-//       queryFn: (): Promise<AxiosResponse> => {
-//          return axios.get(`${baseUrl}/api/current_user`, { headers: { "Authorization": `Bearer ${accesToken}` } });
-//       },
-//    })
-//    return { userResponse, isLoading, isSuccess, isError, error };
-// }
->>>>>>> d4e25eb (pull from new design branch)

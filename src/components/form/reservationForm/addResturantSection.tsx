@@ -25,24 +25,10 @@ const AddResturantSection = () => {
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Resturants</p>
-<<<<<<< HEAD
       {userDetail.subscription_type === "standard" && selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
         <Credenza>
           <CredenzaTrigger asChild>
             <span className={cn(buttonVariants({ variant: "outline" }), "inline-flex font-semibold text-[11px]  relative cursor-pointer")} >
-=======
-
-      {userDetail.subscription_type === "standard" &&
-        selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
-        <Credenza>
-          <CredenzaTrigger asChild>
-            <span
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "inline-flex font-semibold text-[11px]  relative cursor-pointer"
-              )}
-            >
->>>>>>> d4e25eb (pull from new design branch)
               <img
                 src={ProIcon}
                 alt="pro icon"
@@ -55,31 +41,12 @@ const AddResturantSection = () => {
         </Credenza>
       ) : (
         <Credenza
-<<<<<<< HEAD
           onOpenChange={() => resetSittingOption(dispatch)}
-=======
-          onOpenChange={() => {
-            resetSittingOption(dispatch);
-          }}
->>>>>>> d4e25eb (pull from new design branch)
         >
           {selectedResturantsForReservationOnAddReservationPage.map(
             (resturant, i) => (
               <Card key={i} className="flex h-[10vh] my-5">
-<<<<<<< HEAD
                 <div><img className="rounded-l-lg h-full" src={resturant.cover_image_url ?? "../restaurant/restaurant.png"} alt="" /></div>
-=======
-                <div>
-                  <img
-                    className="rounded-l-lg h-full"
-                    src={
-                      resturant.cover_image_url ??
-                      "../restaurant/restaurant.png"
-                    }
-                    alt=""
-                  />
-                </div>
->>>>>>> d4e25eb (pull from new design branch)
                 <CardContent className="p-0 px-5 space-y-2 my-auto w-full">
                   <div className="space-y-1 flex justify-between">
                     <div>
@@ -87,22 +54,12 @@ const AddResturantSection = () => {
                         {resturant.venue_name}
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
-<<<<<<< HEAD
                         {resturant.availableSittings}
-=======
-                        {resturant.avilableSittings}
->>>>>>> d4e25eb (pull from new design branch)
                       </p>
                     </div>
                     <X
                       className="cursor-pointer "
-<<<<<<< HEAD
                       onClick={() => deleteResturantForReservation(dispatch, resturant)}
-=======
-                      onClick={() =>
-                        deleteResturantForReservation(dispatch, resturant)
-                      }
->>>>>>> d4e25eb (pull from new design branch)
                     />
                   </div>
                 </CardContent>
@@ -114,11 +71,7 @@ const AddResturantSection = () => {
               variant="outline"
               className="inline-flex font-semibold text-[11px] relative"
             >
-<<<<<<< HEAD
               <Plus className="mr-3 " /> Add Reservationnmmmm
-=======
-              <Plus className="mr-3 " /> Add Reservation
->>>>>>> d4e25eb (pull from new design branch)
             </Button>
           </CredenzaTrigger>
           <AddResturantModel />

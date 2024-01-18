@@ -18,10 +18,6 @@ import React from "react";
 //   price: number;
 //   cover_image_url: string;
 // };
-<<<<<<< HEAD
-=======
-
->>>>>>> d4e25eb (pull from new design branch)
 
 interface Props {
   restaurant: IRestaurant;
@@ -31,22 +27,14 @@ interface Props {
 }
 
 const Index = ({ restaurant, layout }: Props) => {
-<<<<<<< HEAD
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const user = useContext(UserDetailContext);
   const premium = user.subscription_type === "standard" ? false : true;
 
-  const { restaurants, addRestaurant } = useRestaurantContext();
-  const selected = restaurants.some(
-    (singleResturant) => singleResturant.venue_id === restaurant.venue_id
-  );
-=======
-  const navigate = useNavigate()
 
   const { restaurants, addRestaurant } = useRestaurantContext();
   const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
 
->>>>>>> d4e25eb (pull from new design branch)
 
   return (
     <>
@@ -73,7 +61,6 @@ const Index = ({ restaurant, layout }: Props) => {
         </CardContent>
         {layout.displayFooter && (
           <CardFooter className="flex gap-3">
-<<<<<<< HEAD
             {!premium && restaurant.premium ? (
               <div className="flex bg-black text-white text-lg w-full h-full rounded-sm justify-center  items-center gap-3  px-6 py-2 ">
                 <span>
@@ -98,24 +85,6 @@ const Index = ({ restaurant, layout }: Props) => {
                 </Button>{" "}
               </>
             )}
-=======
-            <Button variant={
-              selected
-                ? "selected"
-                : "outline"
-            } className="w-full" onClick={(e) => {
-              e.stopPropagation();
-              addRestaurant(restaurant)
-
-            }}>
-              {selected
-                ? "Selected"
-                : "Select"}
-            </Button>
-            <Button variant="primary" className="w-full">
-              Reserve
-            </Button>
->>>>>>> d4e25eb (pull from new design branch)
           </CardFooter>
         )}
       </Card>
