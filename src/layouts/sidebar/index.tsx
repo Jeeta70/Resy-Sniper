@@ -53,6 +53,7 @@ const Index = () => {
                   key={indx}
                 >
                   <Link
+                    onClick={() => setOpen(!open)}
                     to={siderBarOption.navigate}
                     className="flex items-center p-2 space-x-3 rounded-md text-white"
                   >
