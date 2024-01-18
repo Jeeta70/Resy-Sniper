@@ -4,6 +4,7 @@ import { MyReservationOfResturantCard } from "@/components";
 import { useGetUserReservations } from "@/features/reservation/reservation";
 import { IReservation } from "@/types/reservations";
 
+
 export interface ITab {
   id: number;
   value: "all" | "active" | "paused" | "completed" | "canceled";
@@ -42,6 +43,7 @@ const Index = () => {
       );
     }
   }, [isLoading, userReservations]);
+
   const [tabs] = useState<ITab[]>([
     { id: 1, value: "all", label: "All" },
     { id: 2, value: "active", label: "Active" },
@@ -86,6 +88,7 @@ const Index = () => {
           ))} */}
           </TabsContent>
           {/* <TabsContent value="active">
+
           <Card>
             <CardHeader>
               <CardTitle>active</CardTitle>

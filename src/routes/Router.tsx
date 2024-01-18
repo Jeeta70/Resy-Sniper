@@ -44,6 +44,7 @@ const Router = () => {
       <RestaurantContextProvider>
         <UserDetailContextProvider>
           <Routes>
+
             <Route>
               <Route path="/" element={<Navigate to="/login " />} />
               <Route path="/login" element={<Login />} />
@@ -54,12 +55,12 @@ const Router = () => {
               <Route element={<PersistSubscribtion />}>
                 <Route path="/subscription" element={<Subscription />} />
               </Route>
+
               <Route
                 path="/reservations/add-reservation"
                 element={<AddReservation />}
               />
               <Route path="/restaurant/:venue_id" element={<Restaurant />} />
-
               <Route path="/" element={<ShowSidebar />}>
                 <Route path="/reservations" element={<Reservation />} />
                 <Route path="/check-subscription" element={<CheckSubscription />} />
@@ -78,6 +79,7 @@ const Router = () => {
               </Route>
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/newpage" element={<NewPage />} />
+
 
             </Route>
           </Routes>

@@ -1,3 +1,4 @@
+
 import { toast } from "@/components/ui/use-toast";
 import { useGetUser } from "@/features/user/user";
 import { useEffect } from "react";
@@ -14,6 +15,7 @@ const ProtectedRoute = () => {
          
       }
       if (isError) {
+
          toast({
             description: "You need to Create the account First!",
             variant: "destructive",
@@ -21,6 +23,7 @@ const ProtectedRoute = () => {
          navigate("/login");
       }
    }, [userResponse, isLoading, isError, navigate]);
+
 
    return (
       <>

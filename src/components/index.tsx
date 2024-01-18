@@ -15,6 +15,7 @@ export { default as FeatureIsForProModel } from "@/components/model/featureIsAva
 export { default as ResetPasswordModal } from "@/components/model/resetPasswordModal"
 export { default as CancelSubscription } from "@/components/model/CancelSubscription"
 
+
 export { default as ResyConnectAccountCard } from "@/components/card/connectAccount/resyCard";
 export { default as OpenTableConnectAccountCard } from "@/components/card/connectAccount/openTable";
 export { default as SubscriptionCard } from "@/components/card/subscriptionCard";

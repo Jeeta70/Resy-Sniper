@@ -32,6 +32,7 @@ const Index = ({ restaurant, layout }: Props) => {
   const premium = user.subscription_type === "standard" ? false : true;
 
 
+
   const { restaurants, addRestaurant } = useRestaurantContext();
   const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
 
@@ -85,6 +86,7 @@ const Index = ({ restaurant, layout }: Props) => {
                 </Button>{" "}
               </>
             )}
+
           </CardFooter>
         )}
       </Card>
