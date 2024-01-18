@@ -1,8 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {  useMemo, useState } from "react";
 import { MyReservationOfResturantCard } from "@/components";
+<<<<<<< HEAD
 import { useGetUserReservations } from "@/features/reservation/reservation";
 import { IReservation } from "@/types/reservations";
+=======
+>>>>>>> d4e25eb (pull from new design branch)
 // import response from "@/reservation.json";
 
 export interface ITab {
@@ -12,6 +15,7 @@ export interface ITab {
 }
 
 const Index = () => {
+<<<<<<< HEAD
   const { userReservations, isLoading } = useGetUserReservations();
 
   const reservationsObject = useMemo(() => {
@@ -43,6 +47,23 @@ const Index = () => {
       );
     }
   }, [isLoading, userReservations]);
+=======
+  // const reservationsArray = useMemo(() => {
+  //   return response.reduce((accumulator, currentValue) => {
+  //     const { active, paused, completed } = currentValue;
+  //     if (active) {
+  //       accumulator["active"].push({ ...currentValue, stauts: "active" })
+  //     } else if (paused) {
+  //       accumulator["paused"].push({ ...currentValue, stauts: "paused" })
+  //     } else if (completed) {
+  //       accumulator["completed"].push({ ...currentValue, status: "completed" });
+  //     }
+
+  //     return accumulator;
+  //   }, { active: [], paused: [], completed: [] });
+  // }, []);
+
+>>>>>>> d4e25eb (pull from new design branch)
 
   const [tabs] = useState<ITab[]>([
     { id: 1, value: "all", label: "All" },
@@ -56,6 +77,7 @@ const Index = () => {
 
   return (
     <>
+<<<<<<< HEAD
       {isLoading ? (
         "Loading"
       ) : (
@@ -88,6 +110,29 @@ const Index = () => {
           ))} */}
           </TabsContent>
           {/* <TabsContent value="active">
+=======
+      <Tabs defaultValue="all">
+        <TabsList className="grid grid-cols-5 w-1/2">
+          {tabs.map((tab) => (
+            <TabsTrigger
+              onClick={() => setActiveTab(tab)}
+              key={tab.id}
+              value={tab.value}
+            >
+              {tab.label.concat("(").concat(tab.count.toString()).concat(")")}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <TabsContent
+          value={activeTab?.value ?? setActiveTab(tabs[0])}
+          className=""
+        >
+          {Array.from({ length: activeTab.count }).map(() => (
+            <MyReservationOfResturantCard />
+          ))}
+        </TabsContent>
+        {/* <TabsContent value="active">
+>>>>>>> d4e25eb (pull from new design branch)
           <Card>
             <CardHeader>
               <CardTitle>active</CardTitle>

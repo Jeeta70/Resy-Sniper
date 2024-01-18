@@ -4,7 +4,11 @@ export const siderBarOptions = [
   {
     title: "My Reservations",
     navigate: "/reservations",
+<<<<<<< HEAD
     pathname: "reservations",
+=======
+    pathname: "",
+>>>>>>> d4e25eb (pull from new design branch)
     icon: <Utensils size={18} />,
   },
   {
