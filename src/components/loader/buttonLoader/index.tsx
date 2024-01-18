@@ -19,7 +19,7 @@ const index = () => {
             <line x1="60.1" y1="60.1" x2="82.7" y2="82.7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24">
             </line>
          </svg>
-         <span className="text-xl font-medium text-gray-500">Loading...</span>
+         {/* <span className="text-xl font-medium text-gray-500">Loading...</span> */}
       </div>
    )
 }

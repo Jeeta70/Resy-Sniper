@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { signupFormSchema } from "@/utils/formZodSchema";
-import { CountryCode } from "@/components";
+import { ButtonLoader, CountryCode } from "@/components";
 import { useSignup } from "@/features/authentication/auth";
 
 
@@ -171,7 +171,7 @@ const Index = () => {
             />
 
             <Button variant="primary" type="submit" className="w-full" disabled={isloading}>
-              Sign Up
+              {isloading ? <ButtonLoader /> : "Sign up"}
             </Button>
             <div className="text-center font-normal">
               Already have an account?{" "}

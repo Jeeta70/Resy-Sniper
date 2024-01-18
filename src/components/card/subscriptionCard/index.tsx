@@ -1,11 +1,7 @@
-// import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-// import { createAccountCardSchema } from "@/utils/formZodSchema";
 import { CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// type SubscriptionCardType = React.ComponentProps<typeof Card>;
 
 type point = { point: string };
 
@@ -15,7 +11,7 @@ interface SubscriptionCardType {
   handleSubscription: (subscriptionType: string) => void;
 }
 
-const Index = ({ subscriptionType, points, handleSubscription, }: SubscriptionCardType) => {
+const Index = ({ subscriptionType, points, handleSubscription }: SubscriptionCardType) => {
 
   return (
     <Card className={"min-w-full sm:min-w-[600px]"}>
