@@ -4,6 +4,12 @@ import { useRestaurantContext } from "@/context/SelectRestaurantForReservationPr
 import { IRestaurant } from "@/types/restaurants";
 import { MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import ProIcon from "@/assets/ProIcon.svg";
+import {
+  UserDetailContext,
+} from "@/context/UserDetailProvider";
+import { useContext } from "react";
+import React from "react";
 
 // type RestaurantProps = {
 //   venue_id: number;
@@ -13,7 +19,6 @@ import { useNavigate } from "react-router-dom";
 //   cover_image_url: string;
 // };
 
-
 interface Props {
   restaurant: IRestaurant;
   layout: {
@@ -22,16 +27,21 @@ interface Props {
 }
 
 const Index = ({ restaurant, layout }: Props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const user = useContext(UserDetailContext);
+  const premium = user.subscription_type === "standard" ? false : true;
 
   const { restaurants, addRestaurant } = useRestaurantContext();
-  const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
-
+  const selected = restaurants.some(
+    (singleResturant) => singleResturant.venue_id === restaurant.venue_id
+  );
 
   return (
     <>
-      <Card className="cursor-pointer" onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)
-      }>
+      <Card
+        className="cursor-pointer"
+        onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)}
+      >
         <img
           className="rounded-t-lg object-cover h-48 w-96"
           src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
@@ -51,27 +61,36 @@ const Index = ({ restaurant, layout }: Props) => {
         </CardContent>
         {layout.displayFooter && (
           <CardFooter className="flex gap-3">
-            <Button variant={
-              selected
-                ? "selected"
-                : "outline"
-            } className="w-full" onClick={(e) => {
-              e.stopPropagation();
-              addRestaurant(restaurant)
-
-            }}>
-              {selected
-                ? "Selected"
-                : "Select"}
-            </Button>
-            <Button variant="primary" className="w-full">
-              Reserve
-            </Button>
+            {!premium && restaurant.premium ? (
+              <div className="flex bg-black text-white text-lg w-full h-full rounded-sm justify-center  items-center gap-3  px-6 py-2 ">
+                <span>
+                  <img src={ProIcon} className="h-6" />
+                </span>{" "}
+                <span>Requires PRO Subscription</span>
+              </div>
+            ) : (
+              <>
+                <Button
+                  variant={selected ? "selected" : "outline"}
+                  className="w-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addRestaurant(restaurant);
+                  }}
+                >
+                  {selected ? "Selected" : "Select"}
+                </Button>
+                <Button variant="primary" className="w-full">
+                  Reserve
+                </Button>{" "}
+              </>
+            )}
           </CardFooter>
         )}
-      </Card >
+      </Card>
     </>
   );
 };
 
-export default Index;
+// eslint-disable-next-line react-refresh/only-export-components
+export default React.memo(Index);

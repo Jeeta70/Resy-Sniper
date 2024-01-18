@@ -41,7 +41,7 @@ export function useCheckUserAccountIsConnected(){
 }
 
 
-export function updateUserProfile () {
+export function useUpdateProfile () {
    const navigate = useNavigate()
    const accesToken = getToken("access_token");
    const { mutate: update, isPending: isloading } = useMutation({

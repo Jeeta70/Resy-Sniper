@@ -1,65 +1,93 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import {  useMemo, useState } from "react";
 import { MyReservationOfResturantCard } from "@/components";
+import { useGetUserReservations } from "@/features/reservation/reservation";
+import { IReservation } from "@/types/reservations";
 // import response from "@/reservation.json";
 
 export interface ITab {
   id: number;
   value: "all" | "active" | "paused" | "completed" | "canceled";
   label: string;
-  count: number;
 }
 
 const Index = () => {
-  // const reservationsArray = useMemo(() => {
-  //   return response.reduce((accumulator, currentValue) => {
-  //     const { active, paused, completed } = currentValue;
-  //     if (active) {
-  //       accumulator["active"].push({ ...currentValue, stauts: "active" })
-  //     } else if (paused) {
-  //       accumulator["paused"].push({ ...currentValue, stauts: "paused" })
-  //     } else if (completed) {
-  //       accumulator["completed"].push({ ...currentValue, status: "completed" });
-  //     }
+  const { userReservations, isLoading } = useGetUserReservations();
 
-  //     return accumulator;
-  //   }, { active: [], paused: [], completed: [] });
-  // }, []);
-
+  const reservationsObject = useMemo(() => {
+    if (!isLoading && userReservations) {
+      return userReservations.data.reduce(
+        (
+          accumulator: { [x: string]: unknown[] },
+          currentValue: { active: []; paused: []; completed: [] }
+        ) => {
+          const { active, paused, completed } = currentValue;
+          accumulator["all"].push({ ...currentValue, status: completed ? "completed" : active ? "active" : "paused" });
+          if (completed) {
+            accumulator["completed"].push({
+              ...currentValue,
+              status: "completed",
+            });
+          }
+          if (active) {
+            accumulator["completed"].push({
+              ...currentValue,
+              status: "completed",
+            });
+          } else if (paused) {
+            accumulator["paused"].push({ ...currentValue, status: "paused" });
+          }
+          return accumulator;
+        },
+        { all: [], active: [], paused: [], completed: [], canceled: [] }
+      );
+    }
+  }, [isLoading, userReservations]);
 
   const [tabs] = useState<ITab[]>([
-    { id: 1, value: "all", label: "All", count: 16 },
-    { id: 2, value: "active", label: "Active", count: 2 },
-    { id: 3, value: "paused", label: "Paused", count: 1 },
-    { id: 4, value: "completed", label: "Completed", count: 12 },
-    { id: 5, value: "canceled", label: "Canceled", count: 1 },
+    { id: 1, value: "all", label: "All" },
+    { id: 2, value: "active", label: "Active" },
+    { id: 3, value: "paused", label: "Paused" },
+    { id: 4, value: "completed", label: "Completed" },
+    { id: 5, value: "canceled", label: "Canceled" },
   ]);
 
   const [activeTab, setActiveTab] = useState<ITab>(tabs[0]);
 
   return (
     <>
-      <Tabs defaultValue="all">
-        <TabsList className="grid grid-cols-5 w-1/2">
-          {tabs.map((tab) => (
-            <TabsTrigger
-              onClick={() => setActiveTab(tab)}
-              key={tab.id}
-              value={tab.value}
-            >
-              {tab.label.concat("(").concat(tab.count.toString()).concat(")")}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        <TabsContent
-          value={activeTab?.value ?? setActiveTab(tabs[0])}
-          className=""
-        >
-          {Array.from({ length: activeTab.count }).map(() => (
-            <MyReservationOfResturantCard />
-          ))}
-        </TabsContent>
-        {/* <TabsContent value="active">
+      {isLoading ? (
+        "Loading"
+      ) : (
+        <Tabs defaultValue="all">
+          <TabsList className="grid grid-cols-5 w-1/2">
+            {tabs.map((tab) => (
+              <TabsTrigger
+                onClick={() => {
+                  setActiveTab(tab);
+                }}
+                key={tab.id}
+                value={tab.value}
+              >
+                {tab.label
+                  .concat("(")
+                  .concat(
+                    typeof reservationsObject === "object"
+                      ? reservationsObject[tab.value].length
+                      : 0
+                  )
+                  .concat(")")}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          <TabsContent value={activeTab?.value} className="">
+            {reservationsObject &&
+              reservationsObject[activeTab.value].map((reservation: IReservation) => <MyReservationOfResturantCard key={reservation.id} reservation={reservation} />)}
+            {/* {reservationsObject} */}
+            {/* {Array.from({ length: activeTab.count }).map(() => (
+          ))} */}
+          </TabsContent>
+          {/* <TabsContent value="active">
           <Card>
             <CardHeader>
               <CardTitle>active</CardTitle>
@@ -82,7 +110,7 @@ const Index = () => {
             </CardFooter>
           </Card>
         </TabsContent> */}
-        {/* <TabsContent value="paused">
+          {/* <TabsContent value="paused">
           <Card>
             <CardHeader>
               <CardTitle>paused</CardTitle>
@@ -105,7 +133,7 @@ const Index = () => {
             </CardFooter>
           </Card>
         </TabsContent> */}
-        {/* <TabsContent value="completed">
+          {/* <TabsContent value="completed">
           <Card>
             <CardHeader>
               <CardTitle>completed</CardTitle>
@@ -128,7 +156,7 @@ const Index = () => {
             </CardFooter>
           </Card>
         </TabsContent> */}
-        {/* <TabsContent value="canceled">
+          {/* <TabsContent value="canceled">
           <Card>
             <CardHeader>
               <CardTitle>canceled</CardTitle>
@@ -151,7 +179,8 @@ const Index = () => {
             </CardFooter>
           </Card>
         </TabsContent> */}
-      </Tabs>
+        </Tabs>
+      )}
     </>
   );
 };

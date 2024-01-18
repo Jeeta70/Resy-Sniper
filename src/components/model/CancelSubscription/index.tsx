@@ -8,11 +8,9 @@ import {
     CredenzaHeader,
 } from "@/components/ui/credenza";
 import { Separator } from "@/components/ui/separator";
-import { useNavigate } from "react-router-dom";
 import { CancelSubscription } from "@/features/subscription/subscription";
 
 const Index = () => {
-    const navigate = useNavigate()
     const { Cancel, isloading } = CancelSubscription()
 
     const handleClick = () => {

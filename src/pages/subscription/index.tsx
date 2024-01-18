@@ -1,6 +1,15 @@
 import { SubscriptionCard } from "@/components";
+import { useCreateSubscribtion } from "@/features/subscription/subscription";
 
-const index = () => {
+
+
+const Index = () => {
+  const { createSubsciption } = useCreateSubscribtion()
+
+  const handleSubscription = (subscriptionType: string) => {
+    return createSubsciption(subscriptionType)
+  }
+
   return (
     <div className="h-svh p-10">
       <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">
@@ -19,6 +28,7 @@ const index = () => {
             { point: "5 active booking requests" },
             { point: "Single date, single venue booking" },
           ]}
+          handleSubscription={handleSubscription}
         />
         <SubscriptionCard
           subscriptionType={"Pro"}
@@ -29,10 +39,11 @@ const index = () => {
             { point: "Same date booking" },
             { point: "Select sitting type" },
           ]}
+          handleSubscription={handleSubscription}
         />
       </div>
     </div>
   );
 };
 
-export default index;
+export default Index;

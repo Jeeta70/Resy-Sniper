@@ -29,20 +29,7 @@ const Index = () => {
             >
               <Menu />
             </Button>
-            {/* hamber icon do it later */}
-            {/* <div
-              className={`bg-inherit  sm:hidden  transition-all absolute cursor-pointer flex flex-col justify-around w-[30px] h-[25px] ${
-                open ? "open" : "close"
-              }`}
-              onClick={() => setOpen(!open)}
-            >
-              <div className="bg-[red] text-[white] h-[3px] transition-all duration-[0.3s] ease-linear line1"></div>
-              <div className="bg-[red] text-[white] h-[3px] transition-all duration-[0.3s] ease-linear line2"></div>
-              <div className="bg-[red] text-[white] h-[3px] transition-all duration-[0.3s] ease-linear line3"></div>
-            </div> */}
           </div>
-
-          <div className="flex-1">
             <ul className="pt-2 pb-4 space-y-1 text-sm">
               {siderBarOptions.map((siderBarOption, indx) => (
                 <li
@@ -70,7 +57,6 @@ const Index = () => {
                 </Link>
               </li>
             </ul>
-          </div>
         </div>
       </div>
     </div>

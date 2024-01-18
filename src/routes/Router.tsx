@@ -40,44 +40,48 @@ const Router = () => {
     <React.Suspense
       fallback={<h1>Loading...</h1>}
     >
-      <UserDetailContextProvider>
-        <Routes>
-          <Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route element={<PresistConnectAccount />}>
-              <Route path="/connect-accounts" element={<ConnectAccount />} />
-            </Route>
-            <Route element={<PersistSubscribtion />}>
-              <Route path="/subscription" element={<Subscription />} />
-              <Route path="/check-subscription" element={<CheckSubscription />} />
-            </Route>
-            <Route
-              path="/reservations/add-reservation"
-              element={<AddReservation />}
-            />
-            <Route path="/restaurant/:venue_id" element={<Restaurant />} />
-
-            <Route path="/" element={<ShowSidebar />}>
-              <Route path="/reservations" element={<Reservation />} />
-              <Route path="restaurants">
-                <Route index element={<Restaurants />} />
-                <Route path="top-picks" element={<TopPick />} />
+      <RestaurantContextProvider>
+        <UserDetailContextProvider>
+          <Routes>
+            <Route>
+              <Route path="/" element={<Navigate to="/login " />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route element={<PresistConnectAccount />}>
+                <Route path="/connect-accounts" element={<ConnectAccount />} />
               </Route>
-              {/* <Route path="/restaurants" element={<Restaurants />} /> */}
-              {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
-              <Route path="/integrations" element={<Integration />} />
-
-              <Route element={<ProtectedRoute />}>
-                <Route path="/profile" element={<Profile />} />
+              <Route element={<PersistSubscribtion />}>
+                <Route path="/subscription" element={<Subscription />} />
               </Route>
-            </Route>
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/newpage" element={<NewPage />} />
+              <Route
+                path="/reservations/add-reservation"
+                element={<AddReservation />}
+              />
+              <Route path="/restaurant/:venue_id" element={<Restaurant />} />
 
-          </Route>
-        </Routes>
-      </UserDetailContextProvider>
+              <Route path="/" element={<ShowSidebar />}>
+                <Route path="/reservations" element={<Reservation />} />
+                <Route path="/check-subscription" element={<CheckSubscription />} />
+
+                <Route path="restaurants">
+                  <Route index element={<Restaurants />} />
+                  <Route path="top-picks" element={<TopPick />} />
+                </Route>
+                {/* <Route path="/restaurants" element={<Restaurants />} /> */}
+                {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
+                <Route path="/integrations" element={<Integration />} />
+
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/profile" element={<Profile />} />
+                </Route>
+              </Route>
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/newpage" element={<NewPage />} />
+
+            </Route>
+          </Routes>
+        </UserDetailContextProvider>
+      </RestaurantContextProvider>
       <Toaster />
     </React.Suspense>
   );

@@ -14,7 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import ResetPasswordModal from "@/components/model/resetPasswordModal"
 import { updateProfileSchema } from "@/utils/formZodSchema";
-import { updateUserProfile } from "@/features/user/user";
+import { useUpdateProfile } from "@/features/user/user";
 
 type IUser = {
   first_name: string
@@ -29,7 +29,7 @@ interface Props {
 }
 
 const Index = ({ user }: Props) => {
-  const { update, isloading } = updateUserProfile()
+  const { update, isloading } = useUpdateProfile()
   const form = useForm<z.infer<typeof updateProfileSchema>>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
