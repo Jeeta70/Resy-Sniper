@@ -39,7 +39,7 @@ const Router = () => {
   return (
     <React.Suspense
       fallback={<h1>Loading...</h1>}
-    >
+    > 
       <RestaurantContextProvider>
         <UserDetailContextProvider>
           <Routes>
