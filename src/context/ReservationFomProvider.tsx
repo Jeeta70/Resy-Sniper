@@ -55,10 +55,7 @@ interface ReservationContextProviderProps {
 export function ReservationContextProvider(
   props: ReservationContextProviderProps
 ) {
-  const [reservationFormState, dispatch] = useReducer(
-    reservationFormReducer,
-    initialState
-  );
+  const [reservationFormState, dispatch] = useReducer(reservationFormReducer, initialState);
 
   return (
     <ReservationContext.Provider value={{ reservationFormState, dispatch }}>

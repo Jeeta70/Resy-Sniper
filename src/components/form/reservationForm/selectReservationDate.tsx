@@ -12,13 +12,14 @@ import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { cn } from "@/lib/utils";
-import { ErrorMessage } from "@/components";
+import { ErrorMessage, FeatureIsForProModel } from "@/components";
 import { X } from "lucide-react";
 import { handleReservationTime } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 
 import ProIcon from "@/assets/ProIcon.svg";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 
 const pastMonth = new Date(2020, 10, 15);
 
@@ -134,18 +135,23 @@ const SelectReservationDateSection = () => {
           </span>
         ))}
         {userDetail.subscription_type === "standard" ? (
-          <span
-            className={cn(buttonVariants({ variant: "outline" }), "relative")}
-          >
-            Custom{" "}
-            {
-              <img
-                src={ProIcon}
-                alt="pro icon"
-                className="absolute right-0 top-0"
-              />
-            }
-          </span>
+          <Credenza>
+            <CredenzaTrigger asChild>
+              <span
+                className={cn(buttonVariants({ variant: "outline" }), "relative cursor-pointer")}
+              >
+                Custom
+                {
+                  <img
+                    src={ProIcon}
+                    alt="pro icon"
+                    className="absolute right-0 top-0"
+                  />
+                }
+              </span>
+            </CredenzaTrigger>
+            <FeatureIsForProModel />
+          </Credenza>
         ) : (
           <Select disabled onValueChange={(e) => console.log(e)}>
             <Popover>

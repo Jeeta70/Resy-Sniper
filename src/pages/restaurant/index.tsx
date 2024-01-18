@@ -1,14 +1,17 @@
-import { MapPin } from "lucide-react";
+import { ChevronLeft, MapPin } from "lucide-react";
 import { Carousel, RestaurantLocationCard } from "@/components";
 import { useGetSingleRestaurant } from "@/features/restaurant/restaurant";
-import { useMemo } from "react";
+import {  useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+// import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
+// import { IRestaurant } from "@/types/restaurants";
 // import { useReservationContext } from "@/context/ReservationFomProvider";
 
 const Index = () => {
-  const { singleResturant, isLoading, isSuccess } =    useGetSingleRestaurant();
+ const navigate =  useNavigate()
+  const { singleResturant, isLoading, isSuccess } = useGetSingleRestaurant();
   // const { reservationFormState: { selectedResturantsForReservation } } = useReservationContext();
   // console.log("thisis=>", selectedResturantsForReservation);
-  
 
 
   const restaurant = useMemo(() => {
@@ -18,20 +21,12 @@ const Index = () => {
   }, [isLoading, isSuccess, singleResturant]);
 
 
-
-  function handleSelectResturant() {
-    // const { venue_id, venue_name, price, cover_image_url } = restaurant;
-    // const restaurantPayload = { venue_id, venue_name, price, cover_image_url };
-    // selectResturantForReservation(dispatch, restaurantPayload);
-  }
-
   const slides = [
     "https://i.ibb.co/ncrXc2V/1.png",
     "https://i.ibb.co/B3s7v4h/5.png",
     "https://i.ibb.co/yg7BSdM/4.png",
     "https://i.ibb.co/yg7BSdM/7.png",
   ];
-
 
   return (
     <>
@@ -40,9 +35,6 @@ const Index = () => {
       ) : (
         <main className="pt-8 max-h-screen sm:overflow-y-hidden">
           <div className="mx-auto max-w-screen-xl px-8 ">
-            <header className="mb-4 lg:mb-6">
-              <p className="text-2xl font-bold"> {restaurant.venue_name}</p>
-            </header>
             <div className="col-span-2 block sm:hidden ">
               <Carousel autoSlide={false}>
                 {slides.map((s, i) => (
@@ -50,8 +42,16 @@ const Index = () => {
                 ))}
               </Carousel>
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
               <article className="format format-sm  col-span-3 sm:p-10 ">
+                  <div className="text-light cursor-pointer" role="button" onClick={() => navigate("/restaurants")} >
+                  <ChevronLeft className="inline" size={20} />
+                  <span className="font-semi-bold text-xs">Back</span>
+                </div>
+                <header className="mb-4 lg:mb-6">
+                  <p className="text-2xl font-bold"> {restaurant.venue_name}</p>
+                </header>
                 <div className="flex justify-between">
                   <p className="my-3 text-xs font-medium text-light ">$$$$</p>
                   <p className="my-3  text-xs font-medium text-light">
@@ -92,8 +92,6 @@ const Index = () => {
                 <div className="mt-3">
                   <RestaurantLocationCard
                     restaurant={restaurant}
-                    handleSelectResturant={handleSelectResturant}
-                    // selectedResturantsForReservation={selectedResturantsForReservation}
                   />
                 </div>
               </div>

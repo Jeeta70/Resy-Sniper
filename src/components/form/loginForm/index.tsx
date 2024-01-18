@@ -9,7 +9,7 @@ import { loginFormSchema } from "@/utils/formZodSchema";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
-import { ForgotPasswordModal } from "@/components";
+import { ButtonLoader, ForgotPasswordModal } from "@/components";
 import { useLogin } from "@/features/authentication/auth";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -85,7 +85,7 @@ const Index = () => {
             <ForgotPasswordModal />
 
             <Button variant="primary" type="submit" className="w-full" disabled={isloading}>
-              Log in
+              {isloading ? <ButtonLoader /> : "Login"}
             </Button>
             <div className="text-center font-normal">
               Don't have an account?{" "}

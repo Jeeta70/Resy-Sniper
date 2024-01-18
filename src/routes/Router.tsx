@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { } from // AddReservation,
   // ConnectAccount,
   // Integration,
@@ -18,13 +18,12 @@ import ProtectedRoute from "./ProtectedRoute";
 import PresistConnectAccount from "./PresistConnectAccount";
 import PersistSubscribtion from "./PersistSubscribtion";
 import { UserDetailContextProvider } from "@/context/UserDetailProvider";
+import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservationProvider";
 
 const Login = React.lazy(() => import("@/pages/login"));
 const SignUp = React.lazy(() => import("@/pages/signup"));
 const ConnectAccount = React.lazy(() => import("@/pages/connectAccount"));
-const AddReservation = React.lazy(
-  () => import("@/pages/reservations/addReservation")
-);
+const AddReservation = React.lazy(() => import("@/pages/reservations/addReservation"));
 const Restaurants = React.lazy(() => import("@/pages/restaurants"));
 const Integration = React.lazy(() => import("@/pages/integration"));
 const Profile = React.lazy(() => import("@/pages/profile"));
