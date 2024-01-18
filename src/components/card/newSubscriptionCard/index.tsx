@@ -1,22 +1,28 @@
-// import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-// import { createAccountCardSchema } from "@/utils/formZodSchema";
 import { CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import { CancelSubscription } from "@/components";
 
-// type SubscriptionCardType = React.ComponentProps<typeof Card>;
 
 type point = { point: string };
 
 interface SubscriptionCardType {
   subscriptionType: string;
   points: point[];
-  handleSubscription: (subscriptionType: string) => void;
+  button: string;
+  buttonColor: string;
+  subscriptionAvailaibility: string;
 }
 
-const Index = ({ subscriptionType, points, handleSubscription, }: SubscriptionCardType) => {
-
+const Index = ({
+  subscriptionType,
+  points,
+  button,
+  buttonColor,
+  subscriptionAvailaibility,
+}: SubscriptionCardType) => {
   return (
     <Card className={"min-w-full sm:min-w-[600px]"}>
       <CardContent className="p-0">
@@ -29,8 +35,9 @@ const Index = ({ subscriptionType, points, handleSubscription, }: SubscriptionCa
                 : "bg-[radial-gradient(ellipse_farthest-corner_at_-246%_0,#D62637_73%,rgba(234,58,75,1)_72%,rgba(214,38,55,1))]"
             )}
           >
-            <div className="font-semibold uppercase leading-6 mb-2 sm:mb-auto">
-              {subscriptionType}
+            <div className="font-semibold  leading-6 mb-2 sm:mb-auto flex justify-between">
+              <p className="uppercase"> {subscriptionType}</p>
+              <p className="text-sm "> {subscriptionAvailaibility}</p>
             </div>
             <div>
               <span className="text-4xl font-semibold">
@@ -53,17 +60,20 @@ const Index = ({ subscriptionType, points, handleSubscription, }: SubscriptionCa
                 );
               })}
             </ul>
-            <Button
-              variant={subscriptionType !== "Pro" ? "default" : "destructive"}
-              className="mt-3 w-full sm:w-auto"
-              onClick={() =>
-                handleSubscription(
-                  subscriptionType === "Pro" ? "premium" : "standard"
-                )
-              }
-            >
-              Subscribe
-            </Button>
+            <Credenza>
+              <CredenzaTrigger asChild>
+                <Button
+                  className={`mt-3 w-full sm:w-auto ${buttonColor}`}
+                >
+                  {button}
+                </Button>
+              </CredenzaTrigger>
+              {button === "Cancel Subscription" && (
+                <>
+                  <CancelSubscription />
+                </>
+              )}
+            </Credenza>
           </div>
         </div>
       </CardContent>

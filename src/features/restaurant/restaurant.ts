@@ -16,17 +16,16 @@ export function useGetAllRestaurants() {
 export function useSearchRestaurants() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-  const { data: searchRestaurants, isPending: isLoading } =
-    useQuery({
-      queryKey: ["resturants", query],
-      queryFn: (): Promise<AxiosResponse> => {
-        if (query)
-          return axios.get(
-            `${baseUrl}/restaurants/search?query=${encodeURI(query)}`
-          );
-        return axios.get(`${baseUrl}/restaurants/all`);
-      },
-    });
+  const { data: searchRestaurants, isPending: isLoading } = useQuery({
+    queryKey: ["resturants", query],
+    queryFn: (): Promise<AxiosResponse> => {
+      if (query)
+        return axios.get(
+          `${baseUrl}/restaurants/search?query=${encodeURI(query)}`
+        );
+      return axios.get(`${baseUrl}/restaurants/all`);
+    },
+  });
 
   return { searchRestaurants, isLoading };
 }
@@ -34,7 +33,7 @@ export function useSearchRestaurants() {
 
 export function useGetSingleRestaurant() {
   const { venue_id } = useParams()
-  
+
   const { data: singleResturant, isPending: isLoading, isSuccess, isError } = useQuery({
     queryKey: ['single_restaurant', venue_id],
     queryFn: (): Promise<AxiosResponse> => {

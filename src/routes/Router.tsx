@@ -31,15 +31,20 @@ const Reservation = React.lazy(() => import("@/pages/reservations"));
 const Restaurant = React.lazy(() => import("@/pages/restaurant"));
 const TopPick = React.lazy(() => import("@/pages/restaurants/topPicks"));
 const Subscription = React.lazy(() => import("@/pages/subscription"));
-const NewPage = React.lazy(() => import("@/pages/newpage"));
+const NewPage = React.lazy(() => import("@/pages/newpage"))
+const ResetPassword = React.lazy(() => import("@/pages/resetPassword"))
+const CheckSubscription = React.lazy(() => import("@/pages/checkSubscription"))
 
 const Router = () => {
   return (
-    <React.Suspense fallback={<h1>Loading...</h1>}>
+    <React.Suspense
+      fallback={<h1>Loading...</h1>}
+    > 
+    
       <RestaurantContextProvider>
         <UserDetailContextProvider>
           <Routes>
-            
+
             <Route>
               <Route path="/" element={<Navigate to="/login " />} />
               <Route path="/login" element={<Login />} />
@@ -50,28 +55,32 @@ const Router = () => {
               <Route element={<PersistSubscribtion />}>
                 <Route path="/subscription" element={<Subscription />} />
               </Route>
+
               <Route
                 path="/reservations/add-reservation"
                 element={<AddReservation />}
               />
               <Route path="/restaurant/:venue_id" element={<Restaurant />} />
+              <Route path="/" element={<ShowSidebar />}>
+                <Route path="/reservations" element={<Reservation />} />
+                <Route path="/check-subscription" element={<CheckSubscription />} />
 
-              <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<ShowSidebar />}>
-                  <Route index   path="/reservations" element={<Reservation />} />
-                  <Route path="restaurants">
-                    <Route index element={<Restaurants />} />
-                    <Route path="top-picks" element={<TopPick />} />
-                  </Route>
-                  {/* <Route path="/restaurants" element={<Restaurants />} /> */}
-                  {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
-                  <Route path="/integrations" element={<Integration />} />
+                <Route path="restaurants">
+                  <Route index element={<Restaurants />} />
+                  <Route path="top-picks" element={<TopPick />} />
+                </Route>
+                {/* <Route path="/restaurants" element={<Restaurants />} /> */}
+                {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
+                <Route path="/integrations" element={<Integration />} />
 
+                <Route element={<ProtectedRoute />}>
                   <Route path="/profile" element={<Profile />} />
                 </Route>
               </Route>
-
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/newpage" element={<NewPage />} />
+
+
             </Route>
           </Routes>
         </UserDetailContextProvider>

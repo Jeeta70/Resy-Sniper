@@ -1,18 +1,17 @@
-
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Card,
-  CardContent,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { GripHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { IReservation } from "@/types/reservations";
 
-} from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { GripHorizontal } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge'
 
-
-
-const index = () => {
-
+const index = ({ reservation }: { reservation :IReservation}) => {
   return (
     <Card className="flex h-[20vh]  my-5">
       <div>
@@ -24,15 +23,16 @@ const index = () => {
       </div>
       <CardContent className="space-y-2 my-auto w-full">
         <div className="space-y-1">
-          <Badge variant="active">Active</Badge>
+          <Badge variant={reservation.status ?? "default"}>{reservation.status.toUpperCase()}</Badge>
         </div>
         <div className="space-y-1 flex justify-between">
           <div>
             <h1 className="text-base font-bold">
-              The Coop at Double Chicken Please
+             {reservation.restaurant_name}
             </h1>
             <p className="font-medium text-xs text-light">
-              Cancel reservation 4  people Dec 23, Dec30 5:00-7:00PM, 10:00-11:00 PM
+              Cancel reservation 4 people Dec 23, Dec30 5:00-7:00PM, 10:00-11:00
+              PM
             </p>
           </div>
           <div>
@@ -54,10 +54,9 @@ const index = () => {
             </DropdownMenu>
           </div>
         </div>
-
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default index
+export default index;

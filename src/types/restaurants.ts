@@ -1,4 +1,5 @@
 export type IRestaurant = {
+  availableSittings?: string;
   about_description: string;
   address_1: string;
   country: string;
@@ -8,6 +9,7 @@ export type IRestaurant = {
   need_to_know_description: string;
   neighborhood: string;
   postal_code: string;
+  premium?: boolean;
   price: number;
   region: string;
   restaurant_website: string;
@@ -15,5 +17,4 @@ export type IRestaurant = {
   seating_types: string[];
   venue_id: number;
   venue_name: string;
-  avilableSittings?:string,
 };
