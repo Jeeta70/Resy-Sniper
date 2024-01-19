@@ -4,9 +4,9 @@ import { UserDetailContext } from "@/context/UserDetailProvider";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
-  // const { subscription_type } = useContext(UserDetailContext);
+  const { subscription_type } = useContext(UserDetailContext);
 
-  const subscription_type = "standard";
+  // const subscription_type = "standard"
 
   
 

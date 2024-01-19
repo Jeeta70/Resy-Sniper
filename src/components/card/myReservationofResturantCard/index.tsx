@@ -14,7 +14,7 @@ import { capitalizeFirstAlphabet } from "@/utils/healper";
 import { usePauseReservation } from "@/features/reservation/reservation";
 
 const Index = ({ reservation }: { reservation: IReservation }) => {
-  const { pauseReservation, isLoading } = usePauseReservation()
+  const { pauseReservation } = usePauseReservation()
 
   const navigate = useNavigate()
   const { venue_id, group_id } = reservation
