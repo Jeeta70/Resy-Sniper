@@ -84,6 +84,7 @@ export enum ResturantReservationStateReducerConstant {
   RESERVATION_FIELD_VALIDATION = "RESERVATION_FIELD_VALIDATION",
   SET_ALL_ERROR_FIELD_TRUE = "SET_ALL_ERROR_FIELD_TRUE",
   SET_RESERVATION_DATE = "SET_RESERVATION_DATE",
+  UPDATE_RESERVATION="UPDATE_RESERVATION"
 }
 
 export interface IAction<T, P> {
@@ -218,6 +219,8 @@ export const reservationFormReducer = (
           reservationDateError: true,
         },
       };
+    case ResturantReservationStateReducerConstant.UPDATE_RESERVATION:
+      return action.payload
 
     default:
       return state;
@@ -237,7 +240,6 @@ export function selectSittingOptions(
   payload: IRestaurant
 ) {
 
-  console.log("payload=>", payload);
 
   dispatch({
     type: ResturantReservationStateReducerConstant.SELECT_SITTING_OPTION,
@@ -353,5 +355,13 @@ export function handleReserveFormValidation(
 export function setAllErrorFieldTrue(dispatch: IUserStateReducerDispatchType) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SET_ALL_ERROR_FIELD_TRUE,
+  });
+}
+
+
+export function updateReservation(dispatch: IUserStateReducerDispatchType,payload:IFormState){
+  dispatch({
+    type: ResturantReservationStateReducerConstant.UPDATE_RESERVATION,
+    payload
   });
 }

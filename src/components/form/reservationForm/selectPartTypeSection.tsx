@@ -34,8 +34,6 @@ const SelectPartySizeSection = () => {
   const userDetail = useContext(UserDetailContext)
   const { dispatch, reservationFormState: { partySize, errors: { partySizeError } } } = useReservationContext();
 
-  console.log(partySize)
-
   const [partySizeArray, setPartySizeArray] = useState<Array<IPartySize>>(DEFAULT_PARTY_SIZE_BUTTONS);
 
   useEffect(() => {

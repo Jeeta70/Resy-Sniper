@@ -1,8 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMemo, useState } from "react";
-import {
-  MyReservationOfResturantCard,
-} from "@/components";
+import { MyReservationOfResturantCard, } from "@/components";
 import { IReservation } from "@/types/reservations";
 
 export interface ITab {

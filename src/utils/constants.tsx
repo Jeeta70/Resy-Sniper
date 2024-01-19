@@ -21,7 +21,7 @@ export const siderBarOptions = [
   },
   {
     title: "Subscription",
-    navigate: "/subscription",
+    navigate: "/check-subscription",
     pathname: "subscription",
     icon: <CircleDollarSign size={18} />,
   },

@@ -9,7 +9,7 @@ import { useMemo } from "react";
 const Index = () => {
   const navigate = useNavigate();
   const { userReservations, isLoading } = useGetUserReservations();
-
+  
   const reservations = useMemo(() => {
     if (!isLoading && userReservations) {
       return userReservations;
@@ -45,8 +45,7 @@ const Index = () => {
           </Button>
         </div>
       ) : (
-        <MyReservationTab
-            userReservations={reservations} isLoading={false} />
+        <MyReservationTab userReservations={reservations} isLoading={false} />
       )}
     </div>
   );

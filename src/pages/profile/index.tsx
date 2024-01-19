@@ -15,6 +15,7 @@ import { ProfileTab } from "@/components";
 import { useGetUser } from "@/features/user/user";
 import { useEffect, useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { capitalizeFirstAlphabet } from "@/utils/healper";
 
 const Index = () => {
   const { userResponse,  isSuccess, isError, error } = useGetUser();
@@ -32,9 +33,7 @@ const Index = () => {
     // console.log("ddssddd", isError);
   }, [error, isError]);
 
-  function capitalizeFirstAlphabet(word: string) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
+
   return (
     <>
       {

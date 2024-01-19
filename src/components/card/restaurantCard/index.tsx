@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 import { IRestaurant } from "@/types/restaurants";
@@ -10,6 +10,9 @@ import {
 } from "@/context/UserDetailProvider";
 import { useContext } from "react";
 import React from "react";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import { FeatureIsForProModel } from "@/components";
+import { cn } from '@/lib/utils';
 
 // type RestaurantProps = {
 //   venue_id: number;
@@ -30,8 +33,6 @@ const Index = ({ restaurant, layout }: Props) => {
   const navigate = useNavigate()
   const user = useContext(UserDetailContext);
   const premium = user.subscription_type === "standard" ? false : true;
-
-
 
   const { restaurants, addRestaurant } = useRestaurantContext();
   const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
@@ -63,7 +64,7 @@ const Index = ({ restaurant, layout }: Props) => {
         {layout.displayFooter && (
           <CardFooter className="flex gap-3">
             {!premium && restaurant.premium ? (
-              <div className="flex bg-black text-white text-lg w-full h-full rounded-sm justify-center  items-center gap-3  px-6 py-2 ">
+              <div className="flex bg-black text-white text-lg w-full h-full rounded-lg justify-center  items-center gap-3  px-6 py-2 ">
                 <span>
                   <img src={ProIcon} className="h-6" />
                 </span>{" "}
@@ -71,7 +72,7 @@ const Index = ({ restaurant, layout }: Props) => {
               </div>
             ) : (
               <>
-                <Button
+                {premium ? <Button
                   variant={selected ? "selected" : "outline"}
                   className="w-full"
                   onClick={(e) => {
@@ -81,6 +82,28 @@ const Index = ({ restaurant, layout }: Props) => {
                 >
                   {selected ? "Selected" : "Select"}
                 </Button>
+                  :
+
+                  <>
+                    <Credenza>
+                      <CredenzaTrigger asChild>
+                        <span
+                          className={cn(
+                            buttonVariants({ variant: "outline" }),
+                            "w-full relative"
+                          )}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          Select <img src={ProIcon} className=" h-5 absolute top-0 right-0" />
+                        </span>
+                      </CredenzaTrigger>
+                      <FeatureIsForProModel />
+                    </Credenza>
+                  </>
+                }
+
                 <Button variant="primary" className="w-full">
                   Reserve
                 </Button>{" "}

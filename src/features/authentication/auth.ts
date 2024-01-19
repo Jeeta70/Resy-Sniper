@@ -53,7 +53,7 @@ export const useLogin = () => {
 
 
 export function useCheckUserIsLogin() {
-   const refreshToken = getToken("refresh_token");   
+   const refreshToken = getToken("refresh_token");
    const { data, isPending: isLoading, isSuccess, isError } = useQuery({
       queryKey: ["checkAuth"],
       retry: false,
@@ -64,3 +64,15 @@ export function useCheckUserIsLogin() {
    })
    return { data, isLoading, isSuccess, isError };
 }
+
+
+
+export const useResetPassword = () => {
+   const { mutate: resetPassword, isPending: isloading } = useMutation({
+      mutationFn: ({ email }: { email: string }) => {
+         return axios.post(`${baseUrl}/api/request_password_reset`, { email });
+      },
+      onSuccess: () => toast({ description: "Link is send", variant: "dark" }),
+   });
+   return { resetPassword, isloading };
+};

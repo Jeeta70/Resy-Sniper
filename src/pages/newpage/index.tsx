@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import backgroundImage from "@/assets/homepage/Hero.png"
 import logo from '@/assets/homepage/Logo.png'
@@ -35,6 +35,7 @@ import Footer from '@/assets/homepage/Footer.png'
 
 
 const NewPage = () => {
+  const navigate =   useNavigate()
     const [activeIndex, setActiveIndex] = useState(0);
     const [show] = useState(false)
     const data = [
@@ -185,7 +186,7 @@ const NewPage = () => {
                                 <p className='hover:text-[#D62637]'><Link to={''} > Pricing</Link></p>
                                 <p className='hover:text-[#D62637]'><Link to={''} > FAQ's</Link></p>
                                 <p className='hover:text-[#D62637]'><Link to={''} > Blog</Link></p>
-                                <button type='button' className='bg-[#EA3A4B] hover:bg-[#D62637] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' >Sign In</button>
+                                <button type='button' className='bg-[#EA3A4B] hover:bg-[#D62637] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' onClick={() => navigate("/login")} >Sign In</button>
                             </div>
                         </div>
                         <div className={`sm:hidden flex justify-between py-5 sm:px-44 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}]`}>

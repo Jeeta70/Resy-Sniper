@@ -19,34 +19,37 @@ import ProIcon from "@/assets/ProIcon.svg";
 import { cn } from "@/lib/utils";
 
 const AddResturantSection = () => {
-  const { reservationFormState: { resturantOptionOnAddReservationPage: { selectedResturantsForReservationOnAddReservationPage }, errors: { resturantsError } }, dispatch, } = useReservationContext();
+  const {
+    reservationFormState: {
+      resturantOptionOnAddReservationPage: {
+        selectedResturantsForReservationOnAddReservationPage,
+      },
+      errors: { resturantsError },
+    },
+    dispatch,
+  } = useReservationContext();
   const userDetail = useContext(UserDetailContext);
 
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Resturants</p>
-      {userDetail.subscription_type === "standard" && selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
-        <Credenza>
-          <CredenzaTrigger asChild>
-            <span className={cn(buttonVariants({ variant: "outline" }), "inline-flex font-semibold text-[11px]  relative cursor-pointer")} >
-              <img
-                src={ProIcon}
-                alt="pro icon"
-                className="absolute right-0 top-0"
-              />
-              <Plus className="mr-3 " /> Add Reservationn
-            </span>
-          </CredenzaTrigger>
-          <FeatureIsForProModel />
-        </Credenza>
-      ) : (
-        <Credenza
-          onOpenChange={() => resetSittingOption(dispatch)}
-        >
+
+      {/* </CredenzaTrigger> */}
+      {
+        <Credenza onOpenChange={() => resetSittingOption(dispatch)}>
           {selectedResturantsForReservationOnAddReservationPage.map(
             (resturant, i) => (
               <Card key={i} className="flex h-[10vh] my-5">
-                <div><img className="rounded-l-lg h-full" src={resturant.cover_image_url ?? "../restaurant/restaurant.png"} alt="" /></div>
+                <div>
+                  <img
+                    className="rounded-l-lg h-full"
+                    src={
+                      resturant.cover_image_url ??
+                      "../restaurant/restaurant.png"
+                    }
+                    alt=""
+                  />
+                </div>
                 <CardContent className="p-0 px-5 space-y-2 my-auto w-full">
                   <div className="space-y-1 flex justify-between">
                     <div>
@@ -59,26 +62,51 @@ const AddResturantSection = () => {
                     </div>
                     <X
                       className="cursor-pointer "
-                      onClick={() => deleteResturantForReservation(dispatch, resturant)}
+                      onClick={() =>
+                        deleteResturantForReservation(dispatch, resturant)
+                      }
                     />
                   </div>
                 </CardContent>
               </Card>
             )
           )}
-          <CredenzaTrigger asChild className="">
-            <Button
-              variant="outline"
-              className="inline-flex font-semibold text-[11px] relative"
-            >
-              <Plus className="mr-3 " /> Add Reservationnmmmm
-            </Button>
-          </CredenzaTrigger>
-          <AddResturantModel />
-        </Credenza>
 
-      )}
-      {/* </CredenzaTrigger> */}
+          {userDetail.subscription_type === "standard" &&
+            selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
+              <Credenza>
+                <CredenzaTrigger asChild>
+                  <span
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "inline-flex font-semibold text-[11px]  relative cursor-pointer"
+                    )}
+                  >
+                    <img
+                      src={ProIcon}
+                      alt="pro icon"
+                      className="absolute right-0 top-0"
+                    />
+                    <Plus className="mr-3 " /> Add Reservationn
+                  </span>
+                </CredenzaTrigger>
+                <FeatureIsForProModel />
+              </Credenza>
+            ) : (
+              <>
+                <CredenzaTrigger asChild className="">
+                  <Button
+                    variant="outline"
+                    className="inline-flex font-semibold text-[11px] relative"
+                  >
+                    <Plus className="mr-3 " /> Add Reservation
+                  </Button>
+                </CredenzaTrigger>
+                <AddResturantModel />
+              </>
+            )}
+        </Credenza>
+      }
 
       {resturantsError &&
         !selectedResturantsForReservationOnAddReservationPage.length && (

@@ -10,14 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { IReservation } from "@/types/reservations";
 import { useNavigate } from "react-router-dom";
+import { capitalizeFirstAlphabet } from "@/utils/healper";
 
-const index = ({ reservation }: { reservation: IReservation }) => {
+const Index = ({ reservation }: { reservation: IReservation }) => {
   const navigate = useNavigate()
-
-  const handleEditClick = (reservation) => {
-    // navigate("/reservations/add-reservation", { state: { reservation } })
-    console.log(reservation.group_id, reservation.venue_id)
-  }
+  const { venue_id, group_id } = reservation
   return (
     <Card className="flex h-[20vh]  my-5">
       <div>
@@ -29,7 +26,7 @@ const index = ({ reservation }: { reservation: IReservation }) => {
       </div>
       <CardContent className="space-y-2 my-auto w-full">
         <div className="space-y-1">
-          <Badge variant={reservation.status ?? "default"}>{reservation.status.toUpperCase()}</Badge>
+          <Badge variant={reservation.status ?? "default"}>{capitalizeFirstAlphabet(reservation.status)}</Badge>
         </div>
         <div className="space-y-1 flex justify-between">
           <div>
@@ -50,8 +47,7 @@ const index = ({ reservation }: { reservation: IReservation }) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem
-                  onClick={() => handleEditClick(reservation)}
-                // onClick={()  => navigator.clipboard.writeText("payment.id")}
+                  onClick={() => navigate(`/reservations/add-reservation/${venue_id}/${group_id}`)}
                 >
                   Edit
                 </DropdownMenuItem>
@@ -66,4 +62,4 @@ const index = ({ reservation }: { reservation: IReservation }) => {
   );
 };
 
-export default index;
+export default Index;

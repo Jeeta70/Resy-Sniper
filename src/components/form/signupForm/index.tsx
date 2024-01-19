@@ -22,7 +22,7 @@ const Index = () => {
       firstName: "",
       lastName: "",
       email: "",
-      countryCode: "+91",
+      countryCode: "+1",
       phoneNumber: "",
       password: "",
       confirmPassword: "",
@@ -101,7 +101,7 @@ const Index = () => {
                       <FormControl>
                         <>
                           <FormLabel className="text-sm font-normal">Phone</FormLabel>
-                          <Select value="+91" onValueChange={field.onChange}>
+                          <Select value="+1" onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>

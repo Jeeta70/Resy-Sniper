@@ -17,6 +17,7 @@ import { updateProfileSchema } from "@/utils/formZodSchema";
 import { useUpdateProfile } from "@/features/user/user";
 
 type IUser = {
+  phone: string | undefined;
   first_name: string
   last_name: string
   email: string
@@ -147,7 +148,7 @@ const Index = ({ user }: Props) => {
                                 <FormLabel className="text-sm font-normal">
                                   Phone
                                 </FormLabel>
-                                <Select onValueChange={field.onChange}>
+                                <Select value="+1" onValueChange={field.onChange}>
                                   <SelectTrigger className="rounded-e-none">
                                     <SelectValue placeholder="Select a prefix" />
                                   </SelectTrigger>
@@ -182,7 +183,7 @@ const Index = ({ user }: Props) => {
                       )}
                     />
                   </div>
-                  <Button variant="primary" className="w-full sm:w-auto" type="submit" disabled={isloading}>
+                  <Button variant="primary" className="w-full sm:w-28" type="submit" disabled={isloading}>
                     Save
                   </Button>
                 </form>
