@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AddReservation, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
   // ConnectAccount,
