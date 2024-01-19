@@ -30,7 +30,7 @@ interface Props {
 }
 
 const Index = ({ user }: Props) => {
-  const { update, isloading } = useUpdateProfile()
+  const { update, isLoading } = useUpdateProfile()
   const form = useForm<z.infer<typeof updateProfileSchema>>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -183,7 +183,7 @@ const Index = ({ user }: Props) => {
                       )}
                     />
                   </div>
-                  <Button variant="primary" className="w-full sm:w-28" type="submit" disabled={isloading}>
+                  <Button variant="primary" className="w-full sm:w-28" type="submit" disabled={isLoading}>
                     Save
                   </Button>
                 </form>

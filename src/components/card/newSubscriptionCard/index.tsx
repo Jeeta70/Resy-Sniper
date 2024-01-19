@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
-import { CancelSubscription } from "@/components";
+import { CancelSubscription, FeatureIsForProModel } from "@/components";
 
 
 type point = { point: string };
@@ -68,11 +68,11 @@ const Index = ({
                   {button}
                 </Button>
               </CredenzaTrigger>
-              {button === "Cancel Subscription" && (
+              {button === "Cancel Subscription" ? (
                 <>
                   <CancelSubscription />
                 </>
-              )}
+              ) : <><FeatureIsForProModel/></>}
             </Credenza>
           </div>
         </div>

@@ -1,11 +1,14 @@
 import { NewSubscriptionCard } from "@/components";
 import { useContext } from "react";
 import { UserDetailContext } from "@/context/UserDetailProvider";
-
+import { cn } from "@/lib/utils";
 
 const Index = () => {
-  const { subscription_type } = useContext(UserDetailContext);
+  // const { subscription_type } = useContext(UserDetailContext);
 
+  const subscription_type = "standard";
+
+  
 
   return (
     <div className="p-10">
@@ -17,7 +20,12 @@ const Index = () => {
           <h2 className="font-bold text-2xl">Subscription</h2>
         </span>
       </div>
-      <div className="flex justify-center items-center flex-col gap-4 sm:gap-10">
+      <div
+        className={cn(
+          "flex justify-center items-center gap-4 sm:gap-10",
+          subscription_type === "standard" ? "flex-col" : "flex-col-reverse"
+        )}
+      >
         <NewSubscriptionCard
           subscriptionType={"Regular"}
           points={[

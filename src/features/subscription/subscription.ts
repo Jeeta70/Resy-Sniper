@@ -6,7 +6,7 @@ import { toast } from "@/components/ui/use-toast";
 
 export const useCreateSubscribtion = () => {
    const accesToken = getToken("access_token");
-   const { mutate: createSubsciption, isPending: isloading } = useMutation({
+   const { mutate: createSubsciption, isPending: isLoading } = useMutation({
       mutationFn: (subscriptionType: string) => {
          return axios.post(`${baseUrl}/api/create-checkout-session`, { subscription_tier: subscriptionType, }, { headers: { Authorization: `Bearer ${accesToken}` } });
       },
@@ -19,12 +19,12 @@ export const useCreateSubscribtion = () => {
          toast({ description: err.response.data.message, variant: "destructive" });
       },
    });
-   return { createSubsciption, isloading };
+   return { createSubsciption, isLoading };
 };
 
 export const CancelSubscription = () => {
    const accesToken = getToken("access_token");
-   const { mutate: Cancel, isPending: isloading } = useMutation({
+   const { mutate: Cancel, isPending: isLoading } = useMutation({
       mutationFn: () => {
          return axios.post(`${baseUrl}/api/cancel-subscription`, {
             headers: { Authorization: `Bearer ${accesToken}` },
@@ -38,5 +38,7 @@ export const CancelSubscription = () => {
          toast({ description: err.response.data.message, variant: "destructive" });
       },
    });
-   return { Cancel, isloading };
+   return { Cancel, isLoading };
 };
+
+

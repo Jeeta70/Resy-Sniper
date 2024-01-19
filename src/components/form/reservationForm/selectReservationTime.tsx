@@ -77,7 +77,7 @@ const SelectReservationTime = () => {
           </PopoverContent>
         </Popover>
       </div>
-      <ErrorMessage message='Please set reservation time' />
+      {/* <ErrorMessage message='Please set reservation time' /> */}
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 import { useParams } from "react-router-dom";
 
-
 export type createReservationPayload = {
   resturants: {
     venue_id: number;
@@ -20,7 +19,7 @@ export type createReservationPayload = {
   start_time: string;
   end_time: string;
   party_size: string | number;
-}
+};
 
 export function useCreateReservation() {
   const accessToken = getToken("access_token");
@@ -58,7 +57,7 @@ export function useGetUserReservations() {
 }
 
 export function useGetSingleReservation() {
-  const { venue_id, group_id } = useParams()
+  const { venue_id, group_id } = useParams();
   const accesToken = getToken("access_token");
   const {
     data: singleReservation,
@@ -80,7 +79,7 @@ export function useGetSingleReservation() {
 
 export function useUpdateReservation() {
   const accessToken = getToken("access_token");
-  const { mutate: booking, isPending: isloading } = useMutation({
+  const { mutate: booking, isPending: isLoading } = useMutation({
     mutationFn: () => {
       return axios.post(
         `${baseUrl}/book`,
@@ -116,5 +115,15 @@ export function useUpdateReservation() {
     },
   });
 
-  return { booking, isloading };
+  return { booking, isLoading };
+}
+
+export function usePauseReservation() {
+  const accessToken = getToken("access_token");
+  const { mutate: pauseReservation, isPending: isLoading } = useMutation({
+    mutationFn: (group_id:string) => {
+      return axios.post(`${baseUrl}/api/pause_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
+    },
+  });
+  return { pauseReservation, isLoading };
 }

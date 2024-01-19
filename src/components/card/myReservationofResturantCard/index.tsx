@@ -11,8 +11,11 @@ import { Badge } from "@/components/ui/badge";
 import { IReservation } from "@/types/reservations";
 import { useNavigate } from "react-router-dom";
 import { capitalizeFirstAlphabet } from "@/utils/healper";
+import { usePauseReservation } from "@/features/reservation/reservation";
 
 const Index = ({ reservation }: { reservation: IReservation }) => {
+  const { pauseReservation, isLoading } = usePauseReservation()
+
   const navigate = useNavigate()
   const { venue_id, group_id } = reservation
   return (
@@ -51,7 +54,7 @@ const Index = ({ reservation }: { reservation: IReservation }) => {
                 >
                   Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem>Pause</DropdownMenuItem>
+                <DropdownMenuItem role="button" onClick={() => pauseReservation(group_id)}>Pause</DropdownMenuItem>
                 <DropdownMenuItem>Cancel</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

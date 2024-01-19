@@ -44,7 +44,7 @@ export function useCheckUserAccountIsConnected(){
 export function useUpdateProfile () {
    const navigate = useNavigate()
    const accesToken = getToken("access_token");
-   const { mutate: update, isPending: isloading } = useMutation({
+   const { mutate: update, isPending: isLoading } = useMutation({
       mutationFn: ({ firstName, lastName, email, countryCode, phoneNumber }: IUser) => {
          return axios.patch(`${baseUrl}/api/update_user`, { first_name: firstName, last_name: lastName, email, phone: `${countryCode}${phoneNumber}`, },{ headers: { "Authorization": `Bearer ${accesToken}` } });
       },
@@ -56,5 +56,5 @@ export function useUpdateProfile () {
       },
       onError: (err: { response: AxiosResponse }) => toast({ description: err.response.data.message, variant: "destructive" }),
    });
-   return { update, isloading };
+   return { update, isLoading };
 }

@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { login, isloading } = useLogin()
+  const { login, isLoading } = useLogin()
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -84,8 +84,8 @@ const Index = () => {
 
             <ForgotPasswordModal />
 
-            <Button variant="primary" type="submit" className="w-full" disabled={isloading}>
-              {isloading ? <ButtonLoader /> : "Login"}
+            <Button variant="primary" type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? <ButtonLoader /> : "Login"}
             </Button>
             <div className="text-center font-normal">
               Don't have an account?{" "}

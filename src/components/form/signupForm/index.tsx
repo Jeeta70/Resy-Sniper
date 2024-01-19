@@ -15,7 +15,7 @@ import { useSignup } from "@/features/authentication/auth";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { signup, isloading } = useSignup()
+  const { signup, isLoading } = useSignup()
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -170,8 +170,8 @@ const Index = () => {
               )}
             />
 
-            <Button variant="primary" type="submit" className="w-full" disabled={isloading}>
-              {isloading ? <ButtonLoader /> : "Sign up"}
+            <Button variant="primary" type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? <ButtonLoader /> : "Sign up"}
             </Button>
             <div className="text-center font-normal">
               Already have an account?{" "}

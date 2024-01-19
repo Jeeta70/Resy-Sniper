@@ -17,7 +17,7 @@ interface IUser {
 
 export const useSignup = () => {
    const navigate = useNavigate()
-   const { mutate: signup, isPending: isloading } = useMutation({
+   const { mutate: signup, isPending: isLoading } = useMutation({
       mutationFn: ({ firstName, lastName, email, countryCode, phoneNumber, password }: IUser) => {
          return axios.post(`${baseUrl}/api/register`, { first_name: firstName, last_name: lastName, email, phone: `${countryCode}${phoneNumber}`, password, });
       },
@@ -29,13 +29,13 @@ export const useSignup = () => {
       },
       onError: (err: { response: AxiosResponse }) => toast({ description: err.response.data.message, variant: "destructive" }),
    });
-   return { signup, isloading };
+   return { signup, isLoading };
 };
 
 
 
 export const useLogin = () => {
-   const { mutate: login, isPending: isloading } = useMutation({
+   const { mutate: login, isPending: isLoading } = useMutation({
       mutationFn: ({ email, password, }: IUser) => {
          return axios.post(`${baseUrl}/api/login`, { email, password });
       },
@@ -48,7 +48,7 @@ export const useLogin = () => {
          toast({ description: err.response.data.message, variant: "destructive" })
       },
    });
-   return { login, isloading };
+   return { login, isLoading };
 };
 
 
@@ -68,11 +68,11 @@ export function useCheckUserIsLogin() {
 
 
 export const useResetPassword = () => {
-   const { mutate: resetPassword, isPending: isloading } = useMutation({
+   const { mutate: resetPassword, isPending: isLoading } = useMutation({
       mutationFn: ({ email }: { email: string }) => {
          return axios.post(`${baseUrl}/api/request_password_reset`, { email });
       },
       onSuccess: () => toast({ description: "Link is send", variant: "dark" }),
    });
-   return { resetPassword, isloading };
+   return { resetPassword, isLoading };
 };

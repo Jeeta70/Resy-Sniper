@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { CancelSubscription } from "@/features/subscription/subscription";
 
 const Index = () => {
-    const { Cancel, isloading } = CancelSubscription()
+    const { Cancel, isLoading } = CancelSubscription()
 
     const handleClick = () => {
         Cancel();
@@ -34,7 +34,7 @@ const Index = () => {
                     </Button>
                 </CredenzaClose>
 
-                <Button variant="primary" className="w-full sm:w-auto" onClick={handleClick} disabled={isloading}>
+                <Button variant="primary" className="w-full sm:w-auto" onClick={handleClick} disabled={isLoading}>
                     Cancel Subscription
                 </Button>
             </CredenzaFooter>

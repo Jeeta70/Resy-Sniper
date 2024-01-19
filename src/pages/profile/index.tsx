@@ -18,7 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { capitalizeFirstAlphabet } from "@/utils/healper";
 
 const Index = () => {
-  const { userResponse,  isSuccess, isError, error } = useGetUser();
+  const { userResponse, isSuccess, isError, error } = useGetUser();
   // const { auth,isLoading } = useCheckUserAuth()
 
   const user = useMemo(() => {
@@ -32,7 +32,6 @@ const Index = () => {
   useEffect(() => {
     // console.log("ddssddd", isError);
   }, [error, isError]);
-
 
   return (
     <>
@@ -97,8 +96,12 @@ const Index = () => {
                   )}
                 </CardDescription>
               </div>
-              <div className=" justify-self-end">
-                <Button variant="primary">PRO</Button>
+              <div className="justify-self-end">
+                {user.subscription_type === "standard" ? (
+                  <Button variant="default">REGULAR</Button>
+                ) : (
+                  <Button variant="primary">PRO</Button>
+                )}
               </div>
             </div>
           </CardContent>
