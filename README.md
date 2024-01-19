@@ -20,15 +20,21 @@ A React + Vite template powered by shadcn/ui.
 Make sure you have the following installed on your development machine:
 
 - Node.js (version 16 or above)
-- pnpm (package manager)
+
+## Quick Overview
+
+```sh
+git clone https://github.com/sicsdev/resy-sniper.git
+cd resy-sniper
+npm install
+npm run dev
+```
 
 
 ## 📜 Available Scripts
 
-- pnpm dev - Starts the development server.
-- pnpm build - Builds the production-ready code.
-- pnpm lint - Runs ESLint to analyze and lint the code.
-- pnpm preview - Starts the Vite development server in preview mode.
+- npm dev - Starts the development server.
+- npm build - Builds the production-ready code.
 
 ## 📂 Project Structure
 
