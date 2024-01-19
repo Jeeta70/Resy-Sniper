@@ -101,7 +101,7 @@ const Index = () => {
                       <FormControl>
                         <>
                           <FormLabel className="text-sm font-normal">Phone</FormLabel>
-                          <Select value="+1" onValueChange={field.onChange}>
+                          <Select  defaultValue="+1" onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>
