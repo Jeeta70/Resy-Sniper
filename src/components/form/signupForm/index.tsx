@@ -9,20 +9,20 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { signupFormSchema } from "@/utils/formZodSchema";
-import { CountryCode } from "@/components";
+import { ButtonLoader, CountryCode } from "@/components";
 import { useSignup } from "@/features/authentication/auth";
 
 
 const Index = () => {
   const navigate = useNavigate();
-  const { signup, isloading } = useSignup()
+  const { signup, isLoading } = useSignup()
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
       email: "",
-      countryCode: "+91",
+      countryCode: "+1",
       phoneNumber: "",
       password: "",
       confirmPassword: "",
@@ -101,7 +101,7 @@ const Index = () => {
                       <FormControl>
                         <>
                           <FormLabel className="text-sm font-normal">Phone</FormLabel>
-                          <Select value="+91" onValueChange={field.onChange}>
+                          <Select  defaultValue="+1" onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>
@@ -147,7 +147,7 @@ const Index = () => {
                   <FormItem className="relative">
                     <FormLabel className="text-sm font-normal">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Create password" {...field} />
+                      <Input type="password" placeholder="Create password" {...field} />
                     </FormControl>
                     <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
@@ -162,7 +162,7 @@ const Index = () => {
                   <FormItem className="relative">
                     <FormLabel className="text-sm font-normal">Repeat password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Repeat Password" {...field} />
+                      <Input type="password" placeholder="Repeat Password" {...field} />
                     </FormControl>
                     <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
@@ -170,8 +170,8 @@ const Index = () => {
               )}
             />
 
-            <Button variant="primary" type="submit" className="w-full" disabled={isloading}>
-              Sign Up
+            <Button variant="primary" type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? <ButtonLoader /> : "Sign up"}
             </Button>
             <div className="text-center font-normal">
               Already have an account?{" "}

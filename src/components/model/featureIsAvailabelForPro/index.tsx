@@ -50,7 +50,9 @@ const Index = () => {
                </Button>
             </CredenzaClose>
 
-            <Button variant="primary" className="w-full sm:w-auto">
+            <Button variant="primary" className="w-full sm:w-auto" onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+               e.stopPropagation()
+            }}>
                Upgrade to PRO
             </Button>
          </CredenzaFooter>

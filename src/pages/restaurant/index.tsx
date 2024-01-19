@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Index = () => {
  const navigate =  useNavigate()
   const { singleResturant, isLoading, isSuccess } = useGetSingleRestaurant();
+
   // const { reservationFormState: { selectedResturantsForReservation } } = useReservationContext();
   // console.log("thisis=>", selectedResturantsForReservation);
 

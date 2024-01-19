@@ -1,16 +1,29 @@
 // import { baseUrl } from "@/config/baseUrl";
+
+import { format } from "date-fns";
+
 // import axios from "axios";
-export function getToken(   tokenType: "access_token" | "refresh_token"): string | null {
-   const storedTokenString = localStorage.getItem("token");
-   if (storedTokenString) {
-      const storedTokenObject = JSON.parse(storedTokenString);
-      const token = storedTokenObject[tokenType];
-      return token;
-   } else {
-      return null;
-   }
+export function getToken(
+  tokenType: "access_token" | "refresh_token"
+): string | null {
+  const storedTokenString = localStorage.getItem("token");
+  if (storedTokenString) {
+    const storedTokenObject = JSON.parse(storedTokenString);
+    const token = storedTokenObject[tokenType];
+    return token;
+  } else {
+    return null;
+  }
 }
 
+export function convertDateTimeFormt(originalDateString: Date | string): string {
+   const originalDate = new Date(originalDateString);
+  return format(originalDate, 'yyyy-MM-dd');
+}
+
+export function capitalizeFirstAlphabet(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
 
 // const axiosApiInstance = axios.create();
 
@@ -49,14 +62,13 @@ export function getToken(   tokenType: "access_token" | "refresh_token"): string
 // axiosApiInstance.interceptors.response.use(
 //    (response) => {
 //       console.log(6);
-      
+
 //       return response;
 //    },
 //    async function (error) {
 //    console.log(1);
-   
-//       const originalRequest = error.config;
 
+//       const originalRequest = error.config;
 
 //       if (error.response.status === 401 && !originalRequest?._retry) {
 //          originalRequest._retry = true;
@@ -66,7 +78,6 @@ export function getToken(   tokenType: "access_token" | "refresh_token"): string
 
 //          //   console.log(JSON.parse(localStorage.getItem("token")))
 // console.log(4);
-
 
 //          const localStorageToken = JSON.parse(localStorage.getItem("token"))
 

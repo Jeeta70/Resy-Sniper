@@ -1,6 +1,5 @@
-# React + Vite + TypeScript Template (react-vite-ui)
+# React + Vite + TypeScript (react-vite-ui)
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Dan5py/react-vite-ui/blob/main/LICENSE)
 
 A React + Vite template powered by shadcn/ui.
 
@@ -21,42 +20,21 @@ A React + Vite template powered by shadcn/ui.
 Make sure you have the following installed on your development machine:
 
 - Node.js (version 16 or above)
-- pnpm (package manager)
 
-## 🚀 Getting Started
+## Quick Overview
 
-Follow these steps to get started with the react-vite-ui template:
+```sh
+git clone https://github.com/sicsdev/resy-sniper.git
+cd resy-sniper
+npm install
+npm run dev
+```
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/dan5py/react-vite-ui.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd react-vite-ui
-   ```
-
-3. Install the dependencies:
-
-   ```bash
-   pnpm install
-   ```
-
-4. Start the development server:
-
-   ```bash
-   pnpm dev
-   ```
 
 ## 📜 Available Scripts
 
-- pnpm dev - Starts the development server.
-- pnpm build - Builds the production-ready code.
-- pnpm lint - Runs ESLint to analyze and lint the code.
-- pnpm preview - Starts the Vite development server in preview mode.
+- npm dev - Starts the development server.
+- npm build - Builds the production-ready code.
 
 ## 📂 Project Structure
 
@@ -80,7 +58,3 @@ react-vite-ui/
   ├── tsconfig.json      # TypeScript configuration
   └── vite.config.ts     # Vite configuration
 ```
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](https://choosealicense.com/licenses/mit/) file for details.

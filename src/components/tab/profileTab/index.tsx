@@ -17,6 +17,7 @@ import { updateProfileSchema } from "@/utils/formZodSchema";
 import { useUpdateProfile } from "@/features/user/user";
 
 type IUser = {
+  phone: string | undefined;
   first_name: string
   last_name: string
   email: string
@@ -29,7 +30,7 @@ interface Props {
 }
 
 const Index = ({ user }: Props) => {
-  const { update, isloading } = useUpdateProfile()
+  const { update, isLoading } = useUpdateProfile()
   const form = useForm<z.infer<typeof updateProfileSchema>>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -37,7 +38,7 @@ const Index = ({ user }: Props) => {
       lastName: user.last_name,
       email: user.email,
       countryCode: user.countryCode,
-      phoneNumber: user.phoneNumber,
+      phoneNumber: user.phone,
     },
   });
 
@@ -147,7 +148,7 @@ const Index = ({ user }: Props) => {
                                 <FormLabel className="text-sm font-normal">
                                   Phone
                                 </FormLabel>
-                                <Select onValueChange={field.onChange}>
+                                <Select  defaultValue="+1" onValueChange={field.onChange}>
                                   <SelectTrigger className="rounded-e-none">
                                     <SelectValue placeholder="Select a prefix" />
                                   </SelectTrigger>
@@ -182,7 +183,7 @@ const Index = ({ user }: Props) => {
                       )}
                     />
                   </div>
-                  <Button variant="primary" className="w-full sm:w-auto" type="submit" disabled={isloading}>
+                  <Button variant="primary" className="w-full sm:w-28" type="submit" disabled={isLoading}>
                     Save
                   </Button>
                 </form>

@@ -25,3 +25,23 @@ export const useConnectResyAccount = () => {
 
    return { connectResyAccount, isLoading }
 }
+
+
+export const useDisconnectConnectResyAccount = () => {
+   const { mutate: discconetResyAccount, isPending: isLoading } = useMutation({
+      mutationFn: ({ email, password }: IAccountDetails) => {
+         return axios.post(`${baseUrl}/api/resysignout`, { email, password }, { headers: { Authorization: `Bearer ${getToken("access_token")}` } })
+      },
+      onSuccess: () => {
+         toast({ description: "sucessfully connected", variant: "dark" })
+      },
+      onError: (error: { response: AxiosResponse }) => {
+         toast({ description: error.response.data.message, variant: "destructive" })
+      }
+   })
+
+   return { discconetResyAccount, isLoading }
+}
+
+
+

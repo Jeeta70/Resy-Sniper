@@ -41,11 +41,13 @@ const RESERVATION_DATE_BUTTONS = [
 
 const SelectReservationDateSection = () => {
   const userDetail = useContext(UserDetailContext);
-  const { dispatch } = useReservationContext();
+  const { dispatch, reservationFormState: { reservationDates, errors: { reservationDateError } }} = useReservationContext();
   const initialDays: Date[] = [];
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
-  const [reservationDates, setReservationDates] = React.useState<Array<IReservationDateSize>>(RESERVATION_DATE_BUTTONS);
+  const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>(RESERVATION_DATE_BUTTONS);
   const [selected, setSelected] = React.useState<Array<Date | string>>([]);
+
+  
 
   useEffect(() => {
     return handleReservationTime(dispatch, selected);
@@ -108,7 +110,7 @@ const SelectReservationDateSection = () => {
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Date</p>
       <div className="flex gap-3">
-        {reservationDates.map((button, i) => (
+        {reservationDate.map((button, i) => (
           <span
             onClick={() => handleSelectedButton(button.value, true)}
             key={i}
@@ -177,7 +179,9 @@ const SelectReservationDateSection = () => {
           </Select>
         )}
       </div>
-      <ErrorMessage message="Please set reservation date" />
+
+      {reservationDateError && !reservationDates.length && <ErrorMessage message="Please set reservation date" />}
+
     </div>
   );
 };

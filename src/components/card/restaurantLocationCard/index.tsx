@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
+import { UserDetailContext } from "@/context/UserDetailProvider";
 import { IRestaurant } from "@/types/restaurants";
 import { Globe, MapPin, Phone } from "lucide-react";
+import { useContext } from "react";
+
+import ProIcon from "@/assets/ProIcon.svg";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import { FeatureIsForProModel } from "@/components";
 
 interface Props {
   restaurant: IRestaurant;
@@ -10,8 +16,11 @@ interface Props {
 
 const Index = ({ restaurant }: Props) => {
   const { restaurants, addRestaurant } = useRestaurantContext();
-  const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
-
+  const user = useContext(UserDetailContext);
+  const premium = user.subscription_type === "standard" ? false : true;
+  const selected = restaurants.some(
+    (singleResturant) => singleResturant.venue_id === restaurant.venue_id
+  );
   return (
     <>
       <Card className="">
@@ -51,22 +60,45 @@ const Index = ({ restaurant }: Props) => {
           </p>
         </CardContent>
         <CardFooter className="flex gap-3">
-          <Button
-            variant={
-              selected
-                ? "selected"
-                : "outline"
-            }
-            className="w-full"
-            onClick={() => addRestaurant(restaurant)}
-          >
-            {selected
-              ? "Selected"
-              : "Select"}
-          </Button>
-          <Button variant="primary" className="w-full">
-            Reserve
-          </Button>
+          {!premium && restaurant.premium ? (
+            <div className="flex bg-black text-white text-lg w-full h-full rounded-lg justify-center  items-center gap-3  px-6 py-2 ">
+              <span>
+                <img src={ProIcon} className="h-6" />
+              </span>{" "}
+              <span>Requires PRO Subscription</span>
+            </div>
+          ) : (
+            <>
+              {premium ? (
+                <Button
+                  variant={selected ? "selected" : "outline"}
+                  className="w-full"
+                  onClick={() => addRestaurant(restaurant)}
+                >
+                  {selected ? "Selected" : "Select"}
+                </Button>
+              ) : (
+                <Credenza>
+                  <CredenzaTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className="w-full relative"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      Select
+                      <img src={ProIcon} className=" h-5 absolute top-0 right-0" />
+                    </Button>
+                  </CredenzaTrigger>
+                  <FeatureIsForProModel />
+                </Credenza>
+              )}
+              <Button variant="primary" className="w-full">
+                Reserve
+              </Button>
+            </>
+          )}
         </CardFooter>
       </Card>
     </>

@@ -10,7 +10,7 @@ export { default as ConnectOpenTabelAccountModel } from "@/components/model/conn
 export { default as DisconnectResyAccountModel } from "@/components/model/disconnectResyAccountModal";
 export { default as AddResturantModel } from "@/components/model/addResturantModel";
 export { default as Model } from "@/components/model/commanModal";
-export {  default as DiscardChangesModal  } from "@/components/model/discardChangesModal"
+export { default as DiscardChangesModal } from "@/components/model/discardChangesModal"
 export { default as FeatureIsForProModel } from "@/components/model/featureIsAvailabelForPro"
 export { default as ResetPasswordModal } from "@/components/model/resetPasswordModal"
 export { default as CancelSubscription } from "@/components/model/CancelSubscription"
@@ -33,7 +33,9 @@ export { default as RestaurantLocationCard } from "@/components/card/restaurantL
 export { default as SearchInputField } from "@/components/inputField/searchInputField";
 export { default as ErrorMessage } from "@/components/errorMessage"
 export { default as ResponseUI } from "@/components/card/connectAccount/responseUI"
+
 export { default as RestaurantCardSkeleton } from "@/components/loader/resturantCardSkeleton"
+export { default as ReservationPageSkeleton } from "@/components/loader/reservationPageSkeleton"
 
 
 export { default as ButtonLoader } from "@/components/loader/buttonLoader"

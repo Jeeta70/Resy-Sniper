@@ -11,8 +11,12 @@ import {
    DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useResetPassword } from "@/features/authentication/auth";
+import { useState } from "react";
 
 const Index = () => {
+   const { resetPassword } = useResetPassword()
+   const [email, setEmail] = useState<string>("")
 
    return (
       <>
@@ -34,7 +38,7 @@ const Index = () => {
                </DialogHeader>
                <div className="grid gap-4 py-4">
                   <div className="">
-                     <Input id="email" placeholder="Your email" />
+                     <Input id="email" type="email" placeholder="Your email" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                   </div>
                </div>
                <DialogFooter>
@@ -43,7 +47,7 @@ const Index = () => {
                         Cancel
                      </Button>
                   </CredenzaClose>
-                  <Button type="submit" variant="primary">
+                  <Button type="submit" variant="primary"  onClick={() => resetPassword({email})}>
                      Reset Password
                   </Button>
                </DialogFooter>

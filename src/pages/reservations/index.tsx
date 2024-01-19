@@ -2,11 +2,19 @@ import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { MyReservationTab } from "@/components";
+import { MyReservationTab, ReservationPageSkeleton } from "@/components";
+import { useGetUserReservations } from "@/features/reservation/reservation";
+import { useMemo } from "react";
 
 const Index = () => {
   const navigate = useNavigate();
-  const flag = false;
+  const { userReservations, isLoading } = useGetUserReservations();
+  
+  const reservations = useMemo(() => {
+    if (!isLoading && userReservations) {
+      return userReservations;
+    }
+  }, [isLoading, userReservations]);
 
   return (
     <div className="w-full h-screen p-10">
@@ -20,7 +28,8 @@ const Index = () => {
           <Plus className="mr-3" /> Add Reservation
         </Button>
       </div>
-      {flag ? (
+      {isLoading && <ReservationPageSkeleton />}
+      {!Array.isArray(reservations?.data) ? (
         <div className="flex flex-col justify-center items-center h-5/6  text-center text-[#12171A] gap-5 ">
           <img src="./Reservation.png" />
           <p>
@@ -36,7 +45,7 @@ const Index = () => {
           </Button>
         </div>
       ) : (
-        <MyReservationTab />
+        <MyReservationTab userReservations={reservations} isLoading={false} />
       )}
     </div>
   );
