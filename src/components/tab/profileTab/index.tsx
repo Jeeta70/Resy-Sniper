@@ -37,7 +37,7 @@ const Index = ({ user }: Props) => {
       lastName: user.last_name,
       email: user.email,
       countryCode: user.countryCode,
-      phoneNumber: user.phoneNumber,
+      phoneNumber: user.phone,
     },
   });
 
