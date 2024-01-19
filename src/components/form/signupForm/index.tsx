@@ -147,7 +147,7 @@ const Index = () => {
                   <FormItem className="relative">
                     <FormLabel className="text-sm font-normal">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Create password" {...field} />
+                      <Input type="password" placeholder="Create password" {...field} />
                     </FormControl>
                     <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
@@ -162,7 +162,7 @@ const Index = () => {
                   <FormItem className="relative">
                     <FormLabel className="text-sm font-normal">Repeat password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Repeat Password" {...field} />
+                      <Input type="password" placeholder="Repeat Password" {...field} />
                     </FormControl>
                     <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>

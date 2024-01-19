@@ -56,7 +56,7 @@ const Index = () => {
                 <FormItem className="relative">
                   <FormLabel className=" font-normal text-sm">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your email" {...field} />
+                    <Input  placeholder="Your email" {...field} />
                   </FormControl>
                   {/* <FormDescription>
                     This is your public display name.
@@ -72,7 +72,7 @@ const Index = () => {
                 <FormItem className="relative">
                   <FormLabel className=" font-normal text-sm ">Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your password" {...field} />
+                    <Input type="password" placeholder="Your password" {...field} />
                   </FormControl>
                   {/* <FormDescription>
                     This is your public display name.
