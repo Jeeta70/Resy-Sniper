@@ -15,7 +15,8 @@ jobs:
             - run:
                 name: Deploy Final
                 command: |
-                  ssh ubuntu@18.219.242.133 "sudo rsync -a /home/centos/reactfrontend/ /usr/share/nginx/html/"
+                  ssh ubuntu@18.219.242.133 "sudo rsync -a ~/reactfrontend/ /usr/share/nginx/html/"
+
 
 workflows:
   build_and_deploy:
