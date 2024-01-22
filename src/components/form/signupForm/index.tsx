@@ -1,7 +1,7 @@
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
+import { Link } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components
 import { signupFormSchema } from "@/utils/formZodSchema";
 import { ButtonLoader, CountryCode } from "@/components";
 import { useSignup } from "@/features/authentication/auth";
+import { baseUrl } from "@/config/baseUrl";
 
 
 const Index = () => {
@@ -32,12 +33,12 @@ const Index = () => {
   function onSubmit(values: z.infer<typeof signupFormSchema>) {
     signup(values, { onSuccess: () => form.reset() })
   }
-
+  console.log("baseUrl", baseUrl)
   return (
     <>
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
         <div className="text-center text-[#F94633] text-5xl font-bold">
-          RESY SNIPER
+          <Link to={'/home'}> RESY SNIPER </Link>
         </div>
         {/* <img src={logo} /> */}
         <Form {...form}>
@@ -101,7 +102,7 @@ const Index = () => {
                       <FormControl>
                         <>
                           <FormLabel className="text-sm font-normal">Phone</FormLabel>
-                          <Select  defaultValue="+1" onValueChange={field.onChange}>
+                          <Select defaultValue="+1" onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>

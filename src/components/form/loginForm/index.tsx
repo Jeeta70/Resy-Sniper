@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import React from "react";
+import { Link } from "react-router-dom";
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -36,7 +37,7 @@ const Index = () => {
     <>
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
         <div className="text-center mt-5 text-primary text-5xl font-bold">
-          RESY SNIPER
+          <Link to={'/home'}> RESY SNIPER </Link>
         </div>
         <Form {...form}>
           <form
@@ -56,7 +57,7 @@ const Index = () => {
                 <FormItem className="relative">
                   <FormLabel className=" font-normal text-sm">Email</FormLabel>
                   <FormControl>
-                    <Input  placeholder="Your email" {...field} />
+                    <Input placeholder="Your email" {...field} />
                   </FormControl>
                   {/* <FormDescription>
                     This is your public display name.
