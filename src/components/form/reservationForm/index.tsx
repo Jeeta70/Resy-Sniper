@@ -13,7 +13,7 @@ import {
 } from "@/context/ReservationFomProvider";
 import { useParams } from "react-router-dom";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { updateReservation } from "@/reducer/reservationFormReducer";
 
 const Index = () => {
@@ -71,7 +71,7 @@ const Index = () => {
           reservationDateError: false,
         },
       };
-      updateReservation(dispatch, state);
+      // updateReservation(dispatch, state);
     }
   }, [singleReservation, isLoading, dispatch]);
   return (

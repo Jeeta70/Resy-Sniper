@@ -10,7 +10,7 @@ const Index = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPassword2, setShowPassword2] = useState<boolean>(false);
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
     if (newPassword.length < 8) {
@@ -19,9 +19,10 @@ const Index = () => {
       setError("");
     }
   };
-    const handleChangePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
     setConfirmPassword(newPassword);
+
     if (confirmPassword != password) {
       setError2("Passwords do not match");
     } else {

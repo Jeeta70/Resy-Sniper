@@ -36,7 +36,7 @@ const Index = () => {
   return (
     <>
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
-        <div className="text-center mt-5 text-primary text-5xl font-bold">
+        <div className="text-center mt-5 text-[#F94633] hover:text-primary text-4xl font-bold">
           <Link to={'/home'}> RESY SNIPER </Link>
         </div>
         <Form {...form}>

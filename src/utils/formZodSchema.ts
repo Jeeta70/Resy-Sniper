@@ -15,7 +15,8 @@ export const loginFormSchema = z.object({
     .string()
     .email("Must be valid email")
     .min(2, { message: "Email must be at least 2 characters." }),
-  password: passwordValidation
+  password: z.string()
+  // passwordValidation
 });
 
 export const signupFormSchema = z

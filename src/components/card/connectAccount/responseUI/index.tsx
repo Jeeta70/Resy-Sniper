@@ -11,7 +11,7 @@ import { useState } from "react";
 import { ButtonLoader } from "@/components";
 
 interface Props {
-   setdisableContinueButton: (boolean:boolean) => void
+   setdisableContinueButton: (boolean: boolean) => void
 }
 
 const Index = ({ setdisableContinueButton }: Props) => {
@@ -21,8 +21,10 @@ const Index = ({ setdisableContinueButton }: Props) => {
    const form = useForm<z.infer<typeof connectResyAccountSchema>>({
       resolver: zodResolver(connectResyAccountSchema),
       defaultValues: {
-         email: "donotreply@resysniper.com",
-         password: "Pa$sw0rd23!25Vv",
+         // email: "donotreply@resysniper.com",
+         // password: "Pa$sw0rd23!25Vv",
+         email: '',
+         password: ''
       },
    });
 
@@ -39,7 +41,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
       });
    }
 
-   
+
 
    return (
       <>
@@ -76,7 +78,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                         )}
                      />
                      <Button className="w-full" type="submit" disabled={isLoading}>
-                       {isLoading ? <ButtonLoader/> : "Connect"}
+                        {isLoading ? <ButtonLoader /> : "Connect"}
                      </Button>
                   </form>
                </Form>

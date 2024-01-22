@@ -37,7 +37,7 @@ const Index = () => {
   return (
     <>
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
-        <div className="text-center text-[#F94633] text-5xl font-bold">
+        <div className="text-center mt-2 text-[#F94633] hover:text-primary text-4xl font-bold">
           <Link to={'/home'}> RESY SNIPER </Link>
         </div>
         {/* <img src={logo} /> */}
@@ -46,7 +46,7 @@ const Index = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 m-auto w-full"
           >
-            <h2 className="text-center font-bold text-2xl">Sign up</h2>
+            <h2 className="text-center font-bold text-2xl mt-2">Sign up</h2>
             <FormField
               control={form.control}
               name="firstName"

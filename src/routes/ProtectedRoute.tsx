@@ -11,8 +11,8 @@ const ProtectedRoute = () => {
    useEffect(() => {
       if (!isLoading && userResponse) {
          const { data: { data }, } = userResponse;
-         console.log("data=>",data);
-         
+         console.log("data=>", data);
+
       }
       if (isError) {
 
