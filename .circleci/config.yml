@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Deploy to Staging 
           command: |
-            ssh -i "$CIRCLECI_SSH_KEY" bitnami@18.219.242.133 "cd /path/to/staging/frontend && git pull origin staging && npm install && npm run build && serve -s build -p 3001"
+            ssh -i "$CIRCLECI_SSH_KEY" ubuntu@18.219.242.133 "cd /path/to/staging/frontend && git pull origin staging && npm install && npm run build && serve -s build -p 3001"
 
 workflows:
   build_and_deploy:
