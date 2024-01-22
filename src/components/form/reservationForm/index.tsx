@@ -71,7 +71,7 @@ const Index = () => {
           reservationDateError: false,
         },
       };
-      // updateReservation(dispatch, state);
+      updateReservation(dispatch, state);
     }
   }, [singleReservation, isLoading, dispatch]);
   return (
