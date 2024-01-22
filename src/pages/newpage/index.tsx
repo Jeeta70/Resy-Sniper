@@ -35,7 +35,7 @@ import Footer from '@/assets/homepage/Footer.png'
 
 
 const NewPage = () => {
-  const navigate =   useNavigate()
+    const navigate = useNavigate()
     const [activeIndex, setActiveIndex] = useState(0);
     const [show] = useState(false)
     const data = [
@@ -180,13 +180,13 @@ const NewPage = () => {
                             <div>
                                 <img src={logo} />
                             </div>
-                            <div className='sm:flex hidden gap-7 items-center font-inter text-sm !font-[600]'>
+                            <div className='sm:flex hidden gap-7 items-center font-inter text-base !font-[600]'>
                                 <p className='hover:text-[#D62637] text-black'><Link to={''} > Features</Link></p>
                                 <p className='hover:text-[#D62637]'><Link to={''} > How it Works</Link></p>
                                 <p className='hover:text-[#D62637]'><Link to={''} > Pricing</Link></p>
                                 <p className='hover:text-[#D62637]'><Link to={''} > FAQ's</Link></p>
                                 <p className='hover:text-[#D62637]'><Link to={''} > Blog</Link></p>
-                                <button type='button' className='bg-[#EA3A4B] hover:bg-[#D62637] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium ' onClick={() => navigate("/login")} >Sign In</button>
+                                <button type='button' className='bg-[#EA3A4B] hover:bg-[#D62637] ml-5 py-2 font-inter px-4 rounded-md text-white text-base font-medium ' onClick={() => navigate("/login")} >Sign In</button>
                             </div>
                         </div>
                         <div className={`sm:hidden flex justify-between py-5 sm:px-44 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}]`}>
@@ -215,7 +215,7 @@ const NewPage = () => {
                             <div className='m-auto sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-24 pl-1'>
                                 <h1 className='sm:text-[60px] text-[45px] !font-[700] leading-snug font-inter'>Never miss a Reservation again<span className='text-[#EA3A4B] font-semibold'>.</span></h1>
                                 <p className='text-[20px] mt-2 text-[#595D5F] font-inter !font-[500]'>Say goodbye to the frustration of restaurant reservations</p>
-                                <button onClick={() => navigate("/login")} type='button' className='font-inter !font-[500] px-8 py-4 mt-10 text-white rounded-md bg-[#EA3A4B] hover:bg-[#D62637] text-[16px] sm:w-auto w-[100%]'>Get Started Now</button>
+                                <button onClick={() => navigate("/sign-up")} type='button' className='font-inter !font-[500] px-8 py-4 mt-10 text-white rounded-md bg-[#EA3A4B] hover:bg-[#D62637] text-[16px] sm:w-auto w-[100%]'>Get Started Now</button>
                             </div>
                             <div className='flex justify-end'>
                                 <img src={Hero} className='mt-10 pl-10 sm:pl-auto'></img>
@@ -231,7 +231,7 @@ const NewPage = () => {
                         <h1 className='text-[40px] !font-[600] leading-snug font-inter'>Features</h1>
                         <p className='font-inter text-[16px] !font-[500] mt-3 text-[#6C6F71]'>Resy Sniper offers everything you need</p>
                     </div>
-                    <div className='sm:flex block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] sm:px-[134px] px-5 sm:mt-10 mt-12'>
+                    <div className='sm:flex justify-between block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] sm:px-[134px] px-5 sm:mt-10 mt-12'>
                         {data.map((ele, key) => (
                             <div className='text-center sm:flex sm:flex-col flex gap-3 sm:items-center items-start' key={key}>
                                 <div>
@@ -276,7 +276,7 @@ const NewPage = () => {
                         <div className='sm:w-[690px] w-[100%] py-24 sm:pl-32 pl-5 pr-5 sm:pr-1'>
                             <h1 className='font-inter sm:text-[52px] text-[36px] !font-[700] leading-snug text-white'>Save your precious time with Resy Sniper</h1>
                             <p className='text-white opacity-[80%] font-inter text-[16px] !font-[500] mt-2'>This tool is particularly valuable for those looking to dine at in-demand locations without the need to constantly check the Resy app themselves.</p>
-                            <button type='button' className='px-[28px] sm:w-auto w-[100%] font-inter py-[16px] mt-10 text-white rounded-md bg-[black] text-[16px]' onClick={() => navigate("/login")}>Get Started Now</button>
+                            <button type='button' className='px-[28px] sm:w-auto w-[100%] font-inter py-[16px] mt-10 text-white rounded-md bg-[black] text-[16px]' onClick={() => navigate("/sign-up")}>Get Started Now</button>
                         </div>
                     </div>
                 </div>
@@ -311,7 +311,7 @@ const NewPage = () => {
                                     ))}
                                 </div>
                                 <div className='flex items-end px-5 pb-5'>
-                                    <button type='button' className={`bg-[${ele.button}] px-[20px] text-[14px] !font-[500] font-inter py-[10px] text-white rounded-md`} onClick={() => navigate("/login")}>Subscribe</button>
+                                    <button type='button' className={`bg-[${ele.button}] px-[20px] text-[14px] !font-[500] font-inter py-[10px] text-white rounded-md`} onClick={() => navigate("/sign-up")}>Subscribe</button>
                                 </div>
                             </div>
                         ))}
@@ -376,7 +376,7 @@ const NewPage = () => {
                                 ))}
                             </div>
                             <div className='mt-10'>
-                                <button className='py-[16px] px-[28px] sm:w-auto w-[100%] border border-[#D0D1D1] text-[16px] !font-[600] text-[#12171A] rounded-md' onClick={() => navigate("/login")}>View All</button>
+                                <button className='py-[16px] px-[28px] sm:w-auto w-[100%] border border-[#D0D1D1] text-[16px] !font-[600] text-[#12171A] rounded-md' onClick={() => navigate("/sign-up")}>View All</button>
                             </div>
                         </div>
                     </div>
@@ -391,14 +391,14 @@ const NewPage = () => {
                         <div className='sm:px-28 px-5 pt-20 pb-10 text-center'>
                             <h1 className='sm:text-[52px] text-[45px] font-inter !font-[700]'>Fast, secure, and easy-to-use</h1>
                             <p className='text-[16px] mt-2 font-inter opacity-[80%] text-[white]'>Try Resy Sniper today and never miss a reservation again!</p>
-                            <button type='button' className='bg-[#EA3A4B] sm:w-auto w-[100%] text-[16px] !font-[500] text-white py-[16px] px-[28px] mt-8 rounded-md' onClick={() => navigate("/login")}>Get started now</button>
+                            <button type='button' className='bg-[#EA3A4B] sm:w-auto w-[100%] text-[16px] !font-[500] text-white py-[16px] px-[28px] mt-8 rounded-md' onClick={() => navigate("/sign-up")}>Get started now</button>
                         </div>
-                        <div className='sm:w-[65%] w-[100%] m-auto'>
+                        <div className='sm:w-[65%]  w-[100%] m-auto'>
                             <img src={Image} ></img>
                         </div>
                     </div>
                     <div className='bg-[#000000]'>
-                        <div className='sm:grid sm:grid-cols-[30%,30%,40%] block border-b border-[gray] sm:mx-[121px] mx-3 sm:py-[60px] text-white py-12'>
+                        <div className='sm:grid sm:grid-cols-[30%,30%,40%] md:grid-cols-[30%,30%,40%] lg:grid-cols-[30%,30%,40%] xl:grid-cols-[30%,40%,30%] block border-b border-[gray] sm:mx-[121px] mx-3 sm:py-[60px] text-white py-12'>
                             <div>
                                 <img src={logo} ></img>
                                 <div className='flex gap-3 mt-5'>
@@ -419,7 +419,7 @@ const NewPage = () => {
                                     <ul>
                                         <li className='font-inter text-[16px] !font-[600]'><p>Help</p></li>
                                         <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>FAQ’s</Link></li>
-                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'#'}>Support</Link></li>
+                                        <li className='my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter'><Link to={'mailto:support@resysniper.com'}>Support</Link></li>
                                     </ul>
                                 </div>
                                 <div>
@@ -434,7 +434,7 @@ const NewPage = () => {
                                 <h1 className='font-inter'>Subscribe to Our Newsletter</h1>
                                 <div className='flex mt-5'>
                                     <input type='text' placeholder='Your Email' className='px-[12px] sm:w-[310px] w-[100%] font-inter bg-[#303538] rounded-l-md text-[14px] text-[#D0D1D1]'></input>
-                                    <button type='button' className='px-6 py-3 bg-[#EA3A4B] font-inter rounded-r-md text-sm text-white' onClick={() => navigate("/login")}>Subscribe</button>
+                                    <button type='button' className='px-6 py-3 bg-[#EA3A4B] font-inter rounded-r-md text-sm text-white' onClick={() => navigate("/sign-up")}>Subscribe</button>
                                 </div>
                             </div>
                         </div>
