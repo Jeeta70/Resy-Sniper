@@ -73,6 +73,9 @@ export const useResetPassword = () => {
          return axios.post(`${baseUrl}/api/request_password_reset`, { email });
       },
       onSuccess: () => toast({ description: "Link is send", variant: "dark" }),
+      onError: (err: { response: AxiosResponse }) => {
+         toast({ description: err.response.data.message, variant: "destructive" })
+      },
    });
    return { resetPassword, isLoading };
 };

@@ -88,6 +88,7 @@ const Index = () => {
                     </Skeleton>
                   ) : (
                     <>
+
                       <Phone className="inline-block" size={17} />
                       <span className="ml-1 font-medium text-xs text-light">
                         {user?.phone ?? "+1 917-728-4685"}

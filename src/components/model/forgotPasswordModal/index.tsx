@@ -47,7 +47,7 @@ const Index = () => {
                         Cancel
                      </Button>
                   </CredenzaClose>
-                  <Button type="submit" variant="primary"  onClick={() => resetPassword({email})}>
+                  <Button type="submit" variant="primary" onClick={() => resetPassword({ email })}>
                      Reset Password
                   </Button>
                </DialogFooter>

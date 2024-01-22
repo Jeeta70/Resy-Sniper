@@ -26,8 +26,8 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
    const form = useForm<z.infer<typeof connectOpenTableAccountSchema>>({
       resolver: zodResolver(connectOpenTableAccountSchema),
       defaultValues: {
-         countryCode:"+91",
-         phoneNumber:""
+         countryCode: "+1",
+         phoneNumber: ""
       },
    });
 
@@ -47,7 +47,7 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
             <Form {...form}>
                <div className="font-medium text-sm text-center mb-4">Your OpenTable phone number</div>
                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
-                 <div className="flex">
+                  <div className="flex">
                      <FormField
                         control={form.control}
                         name="countryCode"
@@ -56,7 +56,7 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
                               <FormItem className="sm:w-1/3 w-2/12 relative">
                                  <FormControl>
                                     <>
-                                       <Select value="+91" onValueChange={field.onChange}>
+                                       <Select defaultValue="+1" onValueChange={field.onChange}>
                                           <SelectTrigger className="rounded-e-none">
                                              <SelectValue placeholder="Select a prefix" />
                                           </SelectTrigger>
@@ -92,7 +92,7 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
                            </>
                         )}
                      />
-                 </div>
+                  </div>
                   <div className="font-normal text-sm text-center text-light">OpenTable will send you a message with a code</div>
                   <Button className="w-full" type="submit">
                      Connect
