@@ -19,9 +19,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Deploy to Staging 
+         steps:
+      - checkout
+      - run:
+          name: Deploy to Staging
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $CIRCLECI_SSH_KEY ubuntu@18.219.242.133 "cd /path/to/staging/frontend && git pull origin staging && npm install && npm run build && serve -s build -p 3001"
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@18.219.242.133 "cd /home/bitnami/resysniperpublic && git pull origin staging && sudo systemctl restart apache2"
 
 workflows:
   build_and_deploy:
