@@ -23,7 +23,7 @@ import Twitter from "@/assets/homepage/TwitterLogo.png";
 import Footer from "@/assets/homepage/Footer.png";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
 
 const NewPage = () => {
     const navigate = useNavigate();
