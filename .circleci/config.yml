@@ -6,22 +6,16 @@ jobs:
       - image: cimg/node:14.17
     steps:
       - checkout
-      - run:
-          name: "Install Dependencies"
-          command: npm install
-      - run:
-          name: "Build Step"
-          command: npm run build
-
-  deploy_staging:
-    docker:
-      - image: cimg/node:14.17
-    steps:
-      - checkout
-      - run:
-          name: Deploy to Staging
-          command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@18.219.242.133 "cd /home/bitnami/resysniperpublic && git pull origin staging && sudo systemctl restart apache2"
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm run build
+            - run: sudo apt-get install rsync && rsync --version
+            - run: rsync -a -e "ssh -o StrictHostKeyChecking=no" dist/ ubuntu@18.219.242.133:~/reactfrontend/
+            - run:
+                name: Deploy Final
+                command: |
+                  ssh ubuntu@18.219.242.133 "sudo rsync -a /home/centos/reactfrontend/ /usr/share/nginx/html/"
 
 workflows:
   build_and_deploy:
