@@ -17,14 +17,11 @@ jobs:
     docker:
       - image: cimg/node:14.17
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "my-credentials"
       - checkout
       - run:
           name: Deploy to Staging 
           command: |
-            ssh ubuntu@18.219.242.133 "cd /path/to/staging/frontend && git pull origin staging && npm install && npm run build && serve -s build -p 3001"
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $CIRCLECI_SSH_KEY ubuntu@18.219.242.133 "cd /path/to/staging/frontend && git pull origin staging && npm install && npm run build && serve -s build -p 3001"
 
 workflows:
   build_and_deploy:
