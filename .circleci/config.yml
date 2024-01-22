@@ -19,9 +19,6 @@ jobs:
     steps:
       - checkout
       - run:
-         steps:
-      - checkout
-      - run:
           name: Deploy to Staging
           command: |
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@18.219.242.133 "cd /home/bitnami/resysniperpublic && git pull origin staging && sudo systemctl restart apache2"
