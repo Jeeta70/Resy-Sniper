@@ -1,6 +1,6 @@
 import { getToken } from "@/utils/healper";
 import axios, { AxiosResponse } from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { baseUrl } from "@/config/baseUrl";
 import { toast } from "@/components/ui/use-toast";
 
@@ -40,5 +40,21 @@ export const CancelSubscription = () => {
    });
    return { Cancel, isLoading };
 };
+
+
+export function useCheckSubscriptionIsCompleted(){
+   const accesToken = getToken("access_token");
+   const { data: response, isPending: isLoading, isSuccess, isError, error } = useQuery({
+      queryKey: ["accesToken"],
+      retry: false,
+      queryFn: (): Promise<AxiosResponse> => {
+         return axios.get(`${baseUrl}/api/subscription-details`, { headers: { "Authorization": `Bearer ${accesToken}` } });
+      },
+   })
+   return { response, isLoading, isSuccess, isError, error };
+}
+
+
+
 
 

@@ -185,7 +185,7 @@ const NewPage = () => {
                         style={{ backgroundImage: `url(${backgroundImage})` }}
                     >
                         <div
-                            className={`sm:flex hidden justify-between py-5 sm:px-44 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}] border-[${navbarStyle.border}]`}
+                            className={`lg:flex md:hidden hidden justify-between py-[24px] lg:px-[134px] md:px-4 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}] border-[${navbarStyle.border}]`}
                         >
                             <div>
                                 <img
@@ -239,7 +239,7 @@ const NewPage = () => {
                             </div>
                         </div>
                         <div
-                            className={`sm:hidden flex justify-between py-5 sm:px-44 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}]`}
+                            className={`lg:hidden md:flex flex justify-between py-5 lg:px-44 md:px-20 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}]`}
                         >
                             <div>
                                 <img
@@ -247,7 +247,7 @@ const NewPage = () => {
                                     onClick={() => scrollToElement('home')}
                                 />
                             </div>
-                            <div className="sm:hidden block">
+                            <div className="lg:hidden md:block block">
                                 {show ? (
                                     <XMarkIcon
                                         className="h-8 w-8 text-[#12171A]"
@@ -313,9 +313,9 @@ const NewPage = () => {
                                 ""
                             )}
                         </div>
-                        <div className="sm:grid block grid-cols-[55%,45%] sm:pl-16 pl-1 pt-16 sm:pt-24">
+                        <div className="sm:grid block grid-cols-[55%,45%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
                             <div className="m-auto sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-24 pl-1">
-                                <h1 className="sm:text-[60px] text-[45px] !font-[700] leading-snug font-inter">
+                                <h1 className="lg:text-[60px] md:text-[40px] text-[45px] !font-[700] leading-snug font-inter">
                                     Never miss a Reservation again
                                     <span className="text-[#EA3A4B] font-semibold">.</span>
                                 </h1>
@@ -348,7 +348,7 @@ const NewPage = () => {
                             Resy Sniper offers everything you need
                         </p>
                     </div>
-                    <div className="sm:flex justify-between block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] sm:px-[134px] px-5 sm:mt-10 mt-12">
+                    <div className="sm:flex justify-between block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] lg:px-[134px] md:px-[50px] px-5 sm:mt-10 mt-12">
                         {data.map((ele, key) => (
                             <div
                                 className="text-center sm:flex sm:flex-col flex gap-3 sm:items-center items-start"
@@ -388,7 +388,7 @@ const NewPage = () => {
                                 Resy Sniper offers everything you need.
                             </p>
                         </div>
-                        <div className="sm:flex grid grid-rows-3 sm:gap-[60px] gap-2">
+                        <div className="lg:flex md:grid grid grid-rows-3 justify-between sm:gap-[60px] gap-2">
                             {cardData.map((ele, key) => (
                                 <div
                                     className="grid grid-rows-2 bg-[#12171A] text-white rounded-md"
@@ -400,7 +400,7 @@ const NewPage = () => {
                                         </h1>
                                         <p className="mt-3 font-inter text-[#D0D1D1]">{ele.text}</p>
                                     </div>
-                                    <div>
+                                    <div className="flex justify-end">
                                         <img src={ele.image} className="h-full"></img>
                                     </div>
                                 </div>
@@ -416,7 +416,7 @@ const NewPage = () => {
                     style={{ backgroundImage: `url(${Banner})` }}
                 >
                     <div>
-                        <div className="sm:w-[690px] w-[100%] py-24 sm:pl-32 pl-5 pr-5 sm:pr-1">
+                        <div className="lg:w-[690px] md:w-auto w-[100%] py-24 lg:pl-32 md:pl-5 pl-5 pr-5 sm:pr-1">
                             <h1 className="font-inter sm:text-[52px] text-[36px] !font-[700] leading-snug text-white">
                                 Save your precious time with Resy Sniper
                             </h1>
@@ -439,7 +439,7 @@ const NewPage = () => {
                 {/* *****************************Fifth Component or Pricing Section************************************** */}
 
                 <div
-                    className="sm:py-[120px] py-[60px] sm:px-[134px] px-5"
+                    className="sm:py-[120px] py-[60px] lg:px-[134px] md:px-[10px] px-5"
                     id="pricing"
                 >
                     <div className="pb-[40px]">
@@ -556,7 +556,7 @@ const NewPage = () => {
                 <div className="" id="blog">
                     <div className="sm:grid sm:grid-cols-[46%,54%] flex flex-col-reverse">
                         <div className="">
-                            <img src={Blog} className="h-[800px] sm:w-[630px] w-auto"></img>
+                            <img src={Blog} className="h-[800px] xl-h-[920px] xl:w-[1300px] sm:w-[630px] w-auto"></img>
                         </div>
                         <div className="sm:py-[100px] py-[30px] sm:pl-[50px] pl-5">
                             <div className="pb-10">
@@ -567,10 +567,10 @@ const NewPage = () => {
                                     Catch up on all our latest news.
                                 </p>
                             </div>
-                            <div className="w-[90%]">
+                            <div className="lg:w-[90%] md:w-[100%]">
                                 {blogData.map((ele, key) => (
                                     <div
-                                        className="flex gap-5 sm:items-center items-start sm:mt-5 mt-8 sm:w-[80%] w-auto"
+                                        className="flex gap-5 sm:items-center items-start sm:mt-5 mt-8 lg:w-[80%] md:w-[auto] w-auto"
                                         key={key}
                                     >
                                         <div>
@@ -634,12 +634,12 @@ const NewPage = () => {
                                 Get started now
                             </button>
                         </div>
-                        <div className="sm:w-[65%]  w-[100%] m-auto">
-                            <img src={Image}></img>
+                        <div className="sm:w-[65%] w-[100%] m-auto">
+                            <img src={Image} className="sm:w-[100%] w-[100%]"></img>
                         </div>
                     </div>
                     <div className="bg-[#000000]">
-                        <div className="sm:grid sm:grid-cols-[30%,30%,40%] md:grid-cols-[30%,30%,40%] lg:grid-cols-[30%,30%,40%] xl:grid-cols-[30%,40%,30%] block border-b border-[gray] sm:mx-[121px] mx-3 sm:py-[60px] text-white py-12">
+                        <div className="sm:grid sm:grid-cols-[30%,30%,40%] md:grid-cols-[30%,30%,40%] lg:grid-cols-[30%,30%,40%] xl:grid-cols-[30%,40%,30%] block border-b border-[gray] lg:mx-[121px] md:mx-[10px] mx-3 sm:py-[60px] text-white py-12">
                             <div>
                                 <img src={logo}></img>
                                 <div className="flex gap-3 mt-5">
@@ -697,7 +697,7 @@ const NewPage = () => {
                                     <input
                                         type="text"
                                         placeholder="Your Email"
-                                        className="px-[12px] sm:w-[310px] w-[100%] font-inter bg-[#303538] rounded-l-md text-[14px] text-[#D0D1D1]"
+                                        className="px-[12px] lg:w-[310px] md:w-auto w-[100%] font-inter bg-[#303538] rounded-l-md text-[14px] text-[#D0D1D1]"
                                     ></input>
                                     <button
                                         type="button"
