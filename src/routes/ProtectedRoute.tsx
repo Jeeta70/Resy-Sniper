@@ -12,10 +12,8 @@ const ProtectedRoute = () => {
       if (!isLoading && userResponse) {
          const { data: { data }, } = userResponse;
          console.log("data=>", data);
-
       }
       if (isError) {
-
          toast({
             description: "You need to Create the account First!",
             variant: "destructive",

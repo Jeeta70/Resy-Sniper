@@ -2,7 +2,7 @@ import { RestaurantCard } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 import { IRestaurant } from "@/types/restaurants";
-import {  X } from "lucide-react";
+import { X } from "lucide-react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const Section = ({ restaurants, sectionTitle }: Props) => {
           See all
         </h1>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
         {restaurants.map((restaurant, i) => (
           <RestaurantCard
             key={i}

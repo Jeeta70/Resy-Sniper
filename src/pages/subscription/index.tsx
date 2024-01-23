@@ -29,7 +29,7 @@ const Index = () => {
             { point: "Single date, single venue booking" },
           ]}
           handleSubscription={handleSubscription}
-          
+
         />
         <SubscriptionCard
           subscriptionType={"Pro"}
