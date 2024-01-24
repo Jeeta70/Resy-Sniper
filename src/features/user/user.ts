@@ -30,7 +30,7 @@ export function useGetUser() {
 export function useCheckUserAccountIsConnected(){
    const accesToken = getToken("access_token");
    const { data: userResponse, isPending: isLoading, isSuccess, isError, error } = useQuery({
-      queryKey: ["accesToken"],
+      queryKey: ['resy',accesToken],
       retry: false,
       queryFn: (): Promise<AxiosResponse> => {
          return axios.get(`${baseUrl}/api/check_resy_auth`, { headers: { "Authorization": `Bearer ${accesToken}` } });

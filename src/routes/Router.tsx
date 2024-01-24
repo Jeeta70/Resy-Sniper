@@ -22,6 +22,7 @@ import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservat
 import CheckSubscription from "@/pages/checkSubscription";
 // import { ResetPasswordModal } from "@/components";
 import NewPage from "@/pages/newpage";
+import PersistDashboard from "./PersistDashboard";
 
 // const Login = React.lazy(() => import("@/pages/login"));
 // const SignUp = React.lazy(() => import("@/pages/signup"));
@@ -54,28 +55,33 @@ const Router = () => {
             {/* <Route element={<PresistConnectAccount />}>
               <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route> */}
-            <Route element={<PersistSubscribtion />}>
-              <Route path="/subscription" element={<Subscription />} />
+            <Route element={<ProtectedRoute />}>
+
               <Route path="/connect-accounts" element={<ConnectAccount />} />
-            </Route>
-            <Route
-              path="/reservations/add-reservation/:venue_id?/:group_id?/"
-              element={<AddReservation />}
-            />
-            <Route path="/restaurant/:venue_id" element={<Restaurant />} />
-            <Route path="/" element={<ShowSidebar />}>
-              <Route path="/reservations" element={<Reservation />} />
-              <Route path="/check-subscription" element={<CheckSubscription />} />
 
-              <Route path="restaurants">
-                <Route index element={<Restaurants />} />
-                <Route path="top-picks" element={<TopPick />} />
+              <Route element={<PersistSubscribtion />}>
+                <Route path="/subscription" element={<Subscription />} />
               </Route>
-              {/* <Route path="/restaurants" element={<Restaurants />} /> */}
-              {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
-              <Route path="/integrations" element={<Integration />} />
+              <Route
+                path="/reservations/add-reservation/:venue_id?/:group_id?/"
+                element={<AddReservation />}
+              />
+              <Route path="/restaurant/:venue_id" element={<Restaurant />} />
+              <Route path="/" element={<ShowSidebar />}>
+                <Route element={<PersistDashboard />}>
+                  <Route path="/reservations" element={<Reservation />} />
+                </Route>
 
-              <Route element={<ProtectedRoute />}>
+                <Route path="/check-subscription" element={<CheckSubscription />} />
+
+                <Route path="restaurants">
+                  <Route index element={<Restaurants />} />
+                  <Route path="top-picks" element={<TopPick />} />
+                </Route>
+                {/* <Route path="/restaurants" element={<Restaurants />} /> */}
+                {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
+                <Route path="/integrations" element={<Integration />} />
+
                 <Route path="/profile" element={<Profile />} />
               </Route>
             </Route>

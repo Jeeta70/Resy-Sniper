@@ -127,10 +127,17 @@ const Index = () => {
                         <>
                           <Input
                             className="border-gray-300  bg-white rounded-s-none"
-                            type="number"
+                            type="text"
                             id="phone"
                             placeholder="000-000-0000"
                             {...field}
+                            onInput={(e) => {
+                              const input = e.target as HTMLInputElement;
+                              input.value = input.value.replace(/[^0-9]/g, '');
+                              if (input.value.length > 10) {
+                                input.value = input.value.slice(0, 10);
+                              }
+                            }}
                           />
                         </>
                       </FormControl>
