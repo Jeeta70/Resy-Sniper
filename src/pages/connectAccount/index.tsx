@@ -31,7 +31,7 @@ const ConnectAccount = () => {
           cardStyle={"w-full sm:w-[450px] mr-0 sm:mr-auto h-96"}
         />
       </div>
-      <Button onClick={() => navigate("/subscription")} className="w-full sm:w-auto mt-4 sm:mt-0 mx-auto" variant={disableContinueButton ? "outline" : "primary"} type="submit" disabled={disableContinueButton}>
+      <Button onClick={() => navigate("/reservations")} className="w-full sm:w-auto mt-4 sm:mt-0 mx-auto" variant={disableContinueButton ? "outline" : "primary"} type="submit" disabled={disableContinueButton}>
         Continue
       </Button>
     </div>
