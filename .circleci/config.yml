@@ -3,28 +3,9 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:14.17
+      - image: node:14  # Use the Node.js version required by your project
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm run build
-            - run: sudo apt-get install rsync && rsync --version
-            - run: rsync -a -e "ssh -o StrictHostKeyChecking=no" dist/ ubuntu@18.219.242.133:~/reactfrontend/
-            - run:
-                name: Deploy Final
-                command: |
-                  ssh ubuntu@18.219.242.133 "sudo rsync -a ~/reactfrontend/ /usr/share/nginx/html/"
-
-
-workflows:
-  build_and_deploy:
-    jobs:
-      - build
-      - deploy_staging:
-          requires:
-            - build
-          filters:
-            branches:
-              only: main
+      - run:
+          name: "Install Dependencies"
+          command: npm install
