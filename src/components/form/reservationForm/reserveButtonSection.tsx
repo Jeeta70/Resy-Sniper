@@ -100,12 +100,13 @@ const ReserveButtonSection = () => {
       </p>
       <div className="flex gap-5">
         <DiscardChangesModal>
-          <Button variant="outline">Cancel</Button>
+          <Button variant="outline" className="sm:block hidden">Cancel</Button>
         </DiscardChangesModal>
 
         {venue_id && group_id ? (
           <Button
             variant="primary"
+            className="sm:block hidden"
             onClick={() => handleReseveAndUpdateButtonClick("update")}
           >
             Update
@@ -114,6 +115,7 @@ const ReserveButtonSection = () => {
           <Button
             disabled={isLoading}
             variant="primary"
+            className="sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("reserve")}
           >
             {isLoading ? <ButtonLoader /> : "Reserve"}

@@ -9,7 +9,7 @@ import { useMemo } from "react";
 const Index = () => {
   const navigate = useNavigate();
   const { userReservations, isLoading } = useGetUserReservations();
-  
+
   const reservations = useMemo(() => {
     if (!isLoading && userReservations) {
       return userReservations;
@@ -17,15 +17,15 @@ const Index = () => {
   }, [isLoading, userReservations]);
 
   return (
-    <div className="w-full h-screen p-10">
-      <div className="flex justify-between">
-        <h1 className=" font-bold text-2xl">My Reservations</h1>
+    <div className="w-full h-screen sm:px-10 px-3 py-1">
+      <div className="flex justify-between items-center sm:my-3 my-8">
+        <h1 className=" font-bold sm:text-2xl text-xl">My Reservations</h1>
         <Button
           variant="primary"
-          className="hidden sm:inline-flex"
+          className="inline-flex"
           onClick={() => navigate("/reservations/add-reservation")}
         >
-          <Plus className="mr-3" /> Add Reservation
+          <Plus className="sm:mr-3 mr-0" /> Add Reservation
         </Button>
       </div>
       {isLoading && <ReservationPageSkeleton />}

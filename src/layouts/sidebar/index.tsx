@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siderBarOptions } from "@/utils/constants";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LogOut, Menu } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 const Index = () => {
@@ -33,11 +33,15 @@ const Index = () => {
       >
         <div className="space-y-3">
           <div className="flex items-center justify-between">
+            <Button className={`bg-inherit ${open ? 'block' : 'hidden'} sm:hidden right-5 absolute p-0 px-0 py-auto`}
+              onClick={() => setOpen(!open)} >
+              <X />
+            </Button>
             <div className="text-center text-primary text-2xl font-bold w-full sm:w-auto p-3">
               RESY SNIPER
             </div>
             <Button
-              className={"bg-inherit block sm:hidden left-5 absolute"}
+              className={`bg-inherit ${open ? 'hidden' : 'block'} sm:hidden left-5 absolute p-0 px-0 py-auto`}
               onClick={() => setOpen(!open)}
             >
               <Menu />

@@ -35,14 +35,14 @@ const Index = () => {
 
   return (
     <>
-      <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
+      <div className="h-full w-full sm:w-6/12 px-8 flex flex-col sm:justify-center">
         <div className="text-center mt-5 text-[#F94633] hover:text-primary text-4xl font-bold">
           <Link to={'/home'}> RESY SNIPER </Link>
         </div>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 m-auto w-full"
+            className="space-y-8 sm:m-auto m-2 w-full"
           >
             <h2 className="text-center font-bold text-2xl" onClick={() => {
               toast({

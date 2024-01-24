@@ -45,7 +45,7 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
          </CardHeader>
          <CardContent>
             <Form {...form}>
-               <div className="font-medium text-sm text-center mb-4">Your OpenTable phone number</div>
+               <div className="font-medium text-sm text-left mb-4">Your OpenTable phone number</div>
                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
                   <div className="flex">
                      <FormField

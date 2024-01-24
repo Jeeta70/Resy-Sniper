@@ -20,6 +20,7 @@ const Index = () => {
 
    return (
       <>
+
          <Dialog>
             <DialogTrigger asChild>
                <Button variant="link" className="w-full text-center text-blue-700 font-medium ">
@@ -27,7 +28,7 @@ const Index = () => {
                </Button>
             </DialogTrigger>
             <DialogContent
-               className="sm:max-w-2xl"
+               className="sm:max-w-2xl absolute top-[84%] sm:top-[40%]"
             >
                <DialogHeader>
                   <DialogTitle>Forgot Password?</DialogTitle>
@@ -41,9 +42,9 @@ const Index = () => {
                      <Input id="email" type="email" placeholder="Your email" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                   </div>
                </div>
-               <DialogFooter>
+               <DialogFooter className="">
                   <CredenzaClose asChild>
-                     <Button variant="outline" className="w-full sm:w-auto">
+                     <Button variant="outline" className="w-auto sm:w-auto">
                         Cancel
                      </Button>
                   </CredenzaClose>
@@ -53,6 +54,7 @@ const Index = () => {
                </DialogFooter>
             </DialogContent>
          </Dialog>
+
       </>
    );
 };
