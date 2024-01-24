@@ -44,14 +44,15 @@ export const CancelSubscription = () => {
 
 export function useCheckSubscriptionIsCompleted(){
    const accesToken = getToken("access_token");
-   const { data: response, isPending: isLoading, isSuccess, isError, error } = useQuery({
-      queryKey: ["accesToken"],
+   
+   const { data: customData, isPending: isLoading, isSuccess: customIsSuccess, isError, error } = useQuery({
+      queryKey: ["subs",accesToken],
       retry: false,
       queryFn: (): Promise<AxiosResponse> => {
          return axios.get(`${baseUrl}/api/subscription-details`, { headers: { "Authorization": `Bearer ${accesToken}` } });
       },
    })
-   return { response, isLoading, isSuccess, isError, error };
+   return { customData, isLoading, customIsSuccess, isError, error };
 }
 
 

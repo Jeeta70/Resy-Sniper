@@ -28,7 +28,7 @@ const Index = () => {
     login(values, {
       onSuccess: () => {
         form.reset()
-        navigate("/connect-accounts")
+        navigate("/reservations")
       }
     })
   }

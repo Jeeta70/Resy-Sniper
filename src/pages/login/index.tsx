@@ -6,7 +6,7 @@ const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem('token') != null) {
-      navigate("/connect-accounts")
+      navigate("/reservations")
     }
 
   }, [])
