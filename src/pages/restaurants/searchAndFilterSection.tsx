@@ -26,10 +26,10 @@ const SearchAndFilterSection = () => {
     <div className="flex gap-4">
       <SearchInputField onChange={onChange} />
       <div>
-        <DropDown placeholder="All Prices" />
+        <DropDown placeholder="All Prices" >All price children</DropDown>
       </div>
       <div>
-        <DropDown placeholder="All Locations" />
+        <DropDown placeholder="All Locations">All location children</DropDown>
       </div>
     </div>
   );

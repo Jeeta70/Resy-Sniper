@@ -11,8 +11,9 @@ const PersistSubscribtion = () => {
          const data = userResponse?.data;
          const { resy_signed_in } = data
          if (!resy_signed_in) {
-            return navigate("/connect-accounts")
+            return navigate("/connect-accounts") 
          }
+         return navigate("/reservations")
       }
 
    }, [isSuccess, navigate, userResponse]);

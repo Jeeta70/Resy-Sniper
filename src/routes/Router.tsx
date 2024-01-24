@@ -15,7 +15,7 @@ import { AddReservation, ConnectAccount, Integration, Login, Profile, Reservatio
 import ShowSidebar from "./ShowSidebar";
 import { Toaster } from "@/components/ui/toaster";
 import ProtectedRoute from "./ProtectedRoute";
-import PresistConnectAccount from "./PresistConnectAccount";
+// import PresistConnectAccount from "./PresistConnectAccount";
 import PersistSubscribtion from "./PersistSubscribtion";
 import { UserDetailContextProvider } from "@/context/UserDetailProvider";
 import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservationProvider";
@@ -48,14 +48,15 @@ const Router = () => {
       <RestaurantContextProvider>
         <UserDetailContextProvider>
           <Routes>
-            <Route path="/" element={<Navigate to="/home " />} />
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
-            <Route element={<PresistConnectAccount />}>
+            {/* <Route element={<PresistConnectAccount />}>
               <Route path="/connect-accounts" element={<ConnectAccount />} />
-            </Route>
+            </Route> */}
             <Route element={<PersistSubscribtion />}>
               <Route path="/subscription" element={<Subscription />} />
+              <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route>
             <Route
               path="/reservations/add-reservation/:venue_id?/:group_id?/"

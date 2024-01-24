@@ -71,7 +71,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                                  Password
                               </FormLabel>
                               <FormControl>
-                                 <Input placeholder="Your password" {...field} />
+                                 <Input placeholder="Your password" type="password" {...field} />
                               </FormControl>
                               <FormMessage className="absolute -bottom-5 text-xs" />
                            </FormItem>
