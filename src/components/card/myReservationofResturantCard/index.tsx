@@ -19,7 +19,7 @@ const Index = ({ reservation }: { reservation: IReservation }) => {
   const navigate = useNavigate()
   const { venue_id, group_id } = reservation
   return (
-    <Card className="flex h-[20vh]  my-5">
+    <Card className="flex sm:h-[20vh] h-auto  my-5">
       <div>
         <img
           className="rounded-l-lg h-full"
@@ -33,7 +33,7 @@ const Index = ({ reservation }: { reservation: IReservation }) => {
         </div>
         <div className="space-y-1 flex justify-between">
           <div>
-            <h1 className="text-base font-bold">
+            <h1 className="sm:text-base text-sm font-bold">
               {reservation.restaurant_name}
             </h1>
             <p className="font-medium text-xs text-light">

@@ -11,9 +11,9 @@ const Index = () => {
   }
 
   return (
-    <div className="h-svh p-10">
+    <div className="h-svh sm:p-10 p-5">
       <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">
-        <h1 className="mb-3 sm:mb-14 text-primary text-5xl font-bold">
+        <h1 className="mb-3 sm:mb-14 text-primary sm:text-4xl text-3xl font-bold">
           RESY SNIPER
         </h1>
         <span>

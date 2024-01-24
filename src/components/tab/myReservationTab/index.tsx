@@ -62,7 +62,7 @@ const Index = ({
   return (
     <>
       <Tabs defaultValue="all">
-        <TabsList className="grid grid-cols-5 w-1/2">
+        <TabsList className="xl:grid xl:grid-cols-5 inline-block xl:w-1/2 w-auto">
           {tabs.map((tab) => (
             <TabsTrigger
               onClick={() => {
@@ -70,6 +70,7 @@ const Index = ({
               }}
               key={tab.id}
               value={tab.value}
+              className="sm:text-sm text-[9px]"
             >
               {tab.label
                 .concat("(")

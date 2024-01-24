@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import backgroundImage from "@/assets/homepage/Hero.png";
+import backgroundImage1 from "@/assets/homepage/Hero.png";
 import logo from "@/assets/homepage/Logo.png";
 import Hero from "@/assets/homepage/Hero_img.png";
 import Speed from "@/assets/homepage/Speed.png";
@@ -11,6 +11,7 @@ import Image1 from "@/assets/homepage/Image1.png";
 import Image2 from "@/assets/homepage/Image2.png";
 import Image3 from "@/assets/homepage/Image3.png";
 import Banner from "@/assets/homepage/Banner.png";
+import Banner2 from "@/assets/homepage/Banner2.png"
 import Card from "@/assets/homepage/Card.png";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/outline";
@@ -174,6 +175,22 @@ const NewPage = () => {
         }
     };
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const backgroundImage = windowWidth <= 767 ? Banner2 : Banner;
+
     return (
         <>
             <div>
@@ -182,7 +199,7 @@ const NewPage = () => {
 
                     <div
                         className="bg-cover"
-                        style={{ backgroundImage: `url(${backgroundImage})` }}
+                        style={{ backgroundImage: `url(${backgroundImage1})` }}
                     >
                         <div
                             className={`lg:flex md:hidden hidden justify-between py-[24px] lg:px-[134px] md:px-4 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}] border-[${navbarStyle.border}]`}
@@ -314,7 +331,7 @@ const NewPage = () => {
                             )}
                         </div>
                         <div className="sm:grid block grid-cols-[55%,45%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
-                            <div className="m-auto sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-24 pl-1">
+                            <div className=" sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-16 pl-1">
                                 <h1 className="lg:text-[60px] md:text-[40px] text-[45px] !font-[700] leading-snug font-inter">
                                     Never miss a Reservation again
                                     <span className="text-[#EA3A4B] font-semibold">.</span>
@@ -376,7 +393,7 @@ const NewPage = () => {
                 {/* *****************************Third Component************************************** */}
 
                 <div
-                    className="bg-[#F3F5F6] sm:py-[120px] py-16 sm:px-[134px] px-5"
+                    className="bg-[#F3F5F6] sm:py-[120px] py-16 xl:px-[134px] lg:px-[10px] px-5"
                     id="how-it-works"
                 >
                     <div className="">
@@ -391,7 +408,7 @@ const NewPage = () => {
                         <div className="lg:flex md:grid grid grid-rows-3 justify-between sm:gap-[60px] gap-2">
                             {cardData.map((ele, key) => (
                                 <div
-                                    className="grid grid-rows-2 bg-[#12171A] text-white rounded-md"
+                                    className="grid grid-rows-2 lg:w-[600px] w-auto bg-[#12171A] text-white rounded-md"
                                     key={key}
                                 >
                                     <div className="p-[40px]">
@@ -411,16 +428,18 @@ const NewPage = () => {
 
                 {/* *****************************Forth Component or Banner************************************** */}
                 <div
-                    className="bg-cover"
+                    className="sm:bg-cover bg-contain sm:h-auto h-[94vh]"
                     id="banner"
-                    style={{ backgroundImage: `url(${Banner})` }}
+                    style={{
+                        backgroundImage: `url(${backgroundImage})`
+                    }}
                 >
                     <div>
                         <div className="lg:w-[690px] md:w-auto w-[100%] py-24 lg:pl-32 md:pl-5 pl-5 pr-5 sm:pr-1">
-                            <h1 className="font-inter sm:text-[52px] text-[36px] !font-[700] leading-snug text-white">
+                            <h1 className="font-inter sm:text-[52px] text-[45px] !font-[700] leading-snug text-white">
                                 Save your precious time with Resy Sniper
                             </h1>
-                            <p className="text-white opacity-[80%] font-inter text-[16px] !font-[500] mt-2">
+                            <p className="text-white opacity-[80%] font-inter text-[16px] !font-[500] lg:mt-2 mt-4">
                                 This tool is particularly valuable for those looking to dine at
                                 in-demand locations without the need to constantly check the
                                 Resy app themselves.
@@ -439,7 +458,7 @@ const NewPage = () => {
                 {/* *****************************Fifth Component or Pricing Section************************************** */}
 
                 <div
-                    className="sm:py-[120px] py-[60px] lg:px-[134px] md:px-[10px] px-5"
+                    className="sm:py-[120px] py-[60px] xl:px-[134px] lg:px-[10px] md:px-[10px] px-5"
                     id="pricing"
                 >
                     <div className="pb-[40px]">
@@ -447,9 +466,9 @@ const NewPage = () => {
                             Pricing Plans
                         </h1>
                     </div>
-                    <div className="sm:grid sm:grid-cols-3 md:grid-cols-3 grid grid-rows sm:gap-8 gap-4">
+                    <div className="lg:flex md:grid lg:justify-between  md:grid-rows block  lg:gap-8 gap-4">
                         <div
-                            className="bg-cover rounded-md"
+                            className="bg-cover rounded-md h-[500px] lg:w-[600px] w-auto "
                             style={{ backgroundImage: `url(${Card})` }}
                         >
                             <div className="text-white py-10 px-5">
@@ -462,7 +481,7 @@ const NewPage = () => {
                             </div>
                         </div>
                         {priceTiles.map((ele, key) => (
-                            <div className="rounded-md border border-[gray]" key={key}>
+                            <div className="rounded-md border border-[gray] w-auto lg:w-[600px] lg:mt-0 mt-2" key={key}>
                                 <div
                                     className={`bg-[${ele.button}] text-white p-5 rounded-t-md`}
                                 >
@@ -474,7 +493,7 @@ const NewPage = () => {
                                         <span className="text-[14px]">.00/month</span>
                                     </p>
                                 </div>
-                                <div className="h-[230px] px-5 mt-8">
+                                <div className="lg:h-[230px] h-auto px-5 mt-8">
                                     {ele.details.map((item, index) => (
                                         <div
                                             key={index}
@@ -487,7 +506,7 @@ const NewPage = () => {
                                         </div>
                                     ))}
                                 </div>
-                                <div className="flex items-end px-5 pb-5">
+                                <div className="flex items-end px-5 py-5">
                                     <button
                                         type="button"
                                         className={`bg-[${ele.button}] px-[20px] text-[14px] !font-[500] font-inter py-[10px] text-white rounded-md`}
@@ -504,9 +523,9 @@ const NewPage = () => {
                 {/* *****************************Sixth Component or FAQ Section************************************** */}
 
                 <div className="bg-[#F3F5F6]" id="faq">
-                    <div className="sm:grid sm:grid-cols-2 block gap-10 sm:w-[80%] w-[100%] sm:m-auto m-auto px-2">
+                    <div className="sm:grid sm:grid-cols-2 block gap-10 xl:w-[90%] w-[100%] sm:m-auto m-auto px-2">
                         <div>
-                            <div className="sm:py-20 py-10 w-[85%] ">
+                            <div className="sm:py-20 py-10 w-[85%] sm:px-0 px-3">
                                 <h1 className="text-[40px] text-[#12171A] font-inter !font-[700] leading-snug">
                                     Frequently asked questions
                                 </h1>
@@ -529,7 +548,7 @@ const NewPage = () => {
                                     key={key}
                                 >
                                     <div
-                                        className="flex items-center justify-between text-[20px] !font-[600] text-[#12171A] cursor-pointer"
+                                        className="flex items-center justify-between xl:text-[20px] text-[16px] !font-[600] text-[#12171A] cursor-pointer"
                                         onClick={() => setActiveIndex(key)}
                                     >
                                         <p className="font-inter">{ele.heading}</p>
@@ -556,7 +575,7 @@ const NewPage = () => {
                 <div className="" id="blog">
                     <div className="sm:grid sm:grid-cols-[46%,54%] flex flex-col-reverse">
                         <div className="">
-                            <img src={Blog} className="h-[800px] xl-h-[920px] xl:w-[1300px] sm:w-[630px] w-auto"></img>
+                            <img src={Blog} className="h-[800px] xl:h-[920px] xl:w-[900px] sm:w-[630px] w-auto"></img>
                         </div>
                         <div className="sm:py-[100px] py-[30px] sm:pl-[50px] pl-5">
                             <div className="pb-10">
@@ -620,7 +639,7 @@ const NewPage = () => {
                         id="footer"
                     >
                         <div className="sm:px-28 px-5 pt-20 pb-10 text-center">
-                            <h1 className="sm:text-[52px] text-[45px] font-inter !font-[700]">
+                            <h1 className="lg:text-[52px] text-[38px] md:text-[45px] font-inter !font-[700]">
                                 Fast, secure, and easy-to-use
                             </h1>
                             <p className="text-[16px] mt-2 font-inter opacity-[80%] text-[white]">
@@ -634,7 +653,7 @@ const NewPage = () => {
                                 Get started now
                             </button>
                         </div>
-                        <div className="sm:w-[65%] w-[100%] m-auto">
+                        <div className="lg:w-[65%] xl:w-[50%] w-[100%] m-auto">
                             <img src={Image} className="sm:w-[100%] w-[100%]"></img>
                         </div>
                     </div>

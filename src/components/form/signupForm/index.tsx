@@ -44,7 +44,7 @@ const Index = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 m-auto w-full"
+            className="space-y-4 sm:m-auto m-2 w-full"
           >
             <h2 className="text-center font-bold text-2xl mt-2">Sign up</h2>
             <FormField

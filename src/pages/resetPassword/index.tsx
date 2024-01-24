@@ -31,12 +31,12 @@ const Index = () => {
   };
   return (
     <>
-      <div className="flex items-center justify-center h-screen w-[100%] font-inter">
+      <div className="flex sm:items-center items-start justify-center h-screen w-[100%] font-inter">
         <div>
           <div className="text-center text-primary text-3xl font-bold w-full sm:w-auto p-3 font-inter">
             RESY SNIPER
           </div>
-          <div className="border border-gray-300 p-[40px] w-[380px] rounded-md mt-3">
+          <div className="sm:border sm:border-gray-300 p-[40px] w-[380px] rounded-md mt-3">
             <div className="text-center text-[24px] !font-[700] mb-3 font-inter">
               <p>Create New Password</p>
             </div>
