@@ -71,11 +71,12 @@ const Index = () => {
           reservationDateError: false,
         },
       };
+      
       updateReservation(dispatch, state);
     }
   }, [singleReservation, isLoading, dispatch]);
   return (
-    <ReservationContextProvider>
+    // <ReservationContextProvider>
       <div className="w-full p-5 sm:p-10 flex flex-col gap-4">
         <h1 className=" font-bold text-2xl">
           {venue_id && group_id ? "Edit" : "Add"} Reservation
@@ -94,7 +95,7 @@ const Index = () => {
         <Separator className="my-4" />
         <ReserveButtonSection />
       </div>
-    </ReservationContextProvider>
+    // </ReservationContextProvider>
   );
 };
 
