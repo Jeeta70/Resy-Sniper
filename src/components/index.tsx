@@ -14,6 +14,8 @@ export { default as DiscardChangesModal } from "@/components/model/discardChange
 export { default as FeatureIsForProModel } from "@/components/model/featureIsAvailabelForPro"
 export { default as ResetPasswordModal } from "@/components/model/resetPasswordModal"
 export { default as CancelSubscription } from "@/components/model/CancelSubscription"
+export { default as AddTimeModal } from "@/components/model/addTimeModal"
+export { default as ReleaseTimeModal } from "@/components/model/releaseTimeModal"
 
 
 export { default as ResyConnectAccountCard } from "@/components/card/connectAccount/resyCard";

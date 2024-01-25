@@ -38,6 +38,9 @@ export interface IFormState {
   };
   partySize: number | string;
   reservationDates: Date[] | string[];
+  releaseDates :  Date[] | string[];
+  reservationTime:string,
+  releaseTime :string;
   finalSnipingDay: string;
   overideCurrentReservationToggleSection: boolean;
   title: string;
@@ -46,8 +49,12 @@ export interface IFormState {
     resturantsError: boolean;
     partySizeError: boolean;
     reservationDateError: boolean;
+    reservationTimeError:boolean;
+    releaseDatesError:boolean;
+    releaseTimeError:boolean;
   };
 }
+
 
 export const initialState: IFormState = {
   reservationType: "cancelReservation",
@@ -58,6 +65,9 @@ export const initialState: IFormState = {
   selectSittingOptions: { ...initialSittingState },
   partySize: 0,
   reservationDates: [],
+  releaseDates: [],
+  reservationTime:"",
+  releaseTime:"",
   finalSnipingDay: "any",
   overideCurrentReservationToggleSection: true,
   title: "",
@@ -66,6 +76,9 @@ export const initialState: IFormState = {
     resturantsError: false,
     partySizeError: false,
     reservationDateError: false,
+    reservationTimeError:false,
+    releaseDatesError:false,
+    releaseTimeError:false,
   },
 };
 
@@ -84,6 +97,9 @@ export enum ResturantReservationStateReducerConstant {
   RESERVATION_FIELD_VALIDATION = "RESERVATION_FIELD_VALIDATION",
   SET_ALL_ERROR_FIELD_TRUE = "SET_ALL_ERROR_FIELD_TRUE",
   SET_RESERVATION_DATE = "SET_RESERVATION_DATE",
+  SET_RESERVATION_TIME="SET_RESERVATION_TIME",
+  RELEASE_RESERVATION_DATE = "RELEASE_RESERVATION_DATE",
+  RELEASE_RESERVATION_TIME="RELEASE_RESERVATION_TIME",
   UPDATE_RESERVATION="UPDATE_RESERVATION"
 }
 
@@ -97,7 +113,9 @@ export interface IAction<T, P> {
 }
 
 export type IActionType = IAction<ResturantReservationStateReducerConstant, IFormState>;
+
 export type IUserStateReducerDispatchType = (value: IActionType) => void;
+
 
 export const reservationFormReducer = (
   state: IFormState,
@@ -183,7 +201,27 @@ export const reservationFormReducer = (
         ...state,
         reservationDates: [...action.payload],
       };
+      case ResturantReservationStateReducerConstant.SET_RESERVATION_TIME:
+        return {
+        ...state,
+        reservationTime: String(action.value),
+      };
 
+      case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_DATE:
+
+      // eslint-disable-next-line no-case-declarations
+      const payloadIsArray2 = Array.isArray(action.payload);
+      if (!payloadIsArray2) return state;
+
+      return {
+        ...state,
+        releaseDates: [...action.payload],
+      };
+      case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_TIME:
+        return {
+        ...state,
+        releaseTime: String(action.value),
+      };
     case ResturantReservationStateReducerConstant.SELECT_FINAL_SNIPING_DAY:
       return {
         ...state,
@@ -217,6 +255,9 @@ export const reservationFormReducer = (
           resturantsError: true,
           partySizeError: true,
           reservationDateError: true,
+          reservationTimeError:true,
+          releaseDatesError:true,
+          releaseTimeError:true,
         },
       };
     case ResturantReservationStateReducerConstant.UPDATE_RESERVATION:
@@ -302,13 +343,39 @@ export function handleButtonClickPartySize(
   });
 }
 
-export function handleReservationTime(
+export function handleReservationDate(
   dispatch: IUserStateReducerDispatchType,
   payload: unknown
 ) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SET_RESERVATION_DATE,
     payload,
+  });
+}
+
+export function handleReleaseDate(
+  dispatch: IUserStateReducerDispatchType,
+  payload: unknown
+) {
+  dispatch({
+    type: ResturantReservationStateReducerConstant.RELEASE_RESERVATION_DATE,
+    payload,
+  });
+}
+
+export function handleReseverationTime( dispatch: IUserStateReducerDispatchType,
+  value:string){
+  dispatch({
+    type: ResturantReservationStateReducerConstant.SET_RESERVATION_TIME,
+    value:value,
+  });
+}
+
+export function handleReleaseTime( dispatch: IUserStateReducerDispatchType,
+  value:string){
+  dispatch({
+    type: ResturantReservationStateReducerConstant.RELEASE_RESERVATION_TIME,
+    value:value,
   });
 }
 

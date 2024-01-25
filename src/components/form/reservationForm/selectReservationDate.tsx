@@ -14,7 +14,7 @@ import { PopoverClose } from "@radix-ui/react-popover";
 import { cn } from "@/lib/utils";
 import { ErrorMessage, FeatureIsForProModel } from "@/components";
 import { X } from "lucide-react";
-import { handleReservationTime } from "@/reducer/reservationFormReducer";
+import { handleReservationDate } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 
@@ -41,16 +41,16 @@ const RESERVATION_DATE_BUTTONS = [
 
 const SelectReservationDateSection = () => {
   const userDetail = useContext(UserDetailContext);
-  const { dispatch, reservationFormState: { reservationDates, errors: { reservationDateError } }} = useReservationContext();
+  const { dispatch, reservationFormState: { reservationDates, errors: { reservationDateError } } } = useReservationContext();
   const initialDays: Date[] = [];
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
   const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>(RESERVATION_DATE_BUTTONS);
   const [selected, setSelected] = React.useState<Array<Date | string>>([]);
 
-  
+
 
   useEffect(() => {
-    return handleReservationTime(dispatch, selected);
+    return handleReservationDate(dispatch, selected);
   }, [selected]);
 
   function handleSelectedButton(checkDate: string | Date, compare: boolean) {
