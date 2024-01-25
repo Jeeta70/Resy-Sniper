@@ -46,7 +46,7 @@ const Router = () => {
     //   fallback={<h1>Loading...</h1>}
     // >
     <>
-
+ 
       <RestaurantContextProvider>
           <UserDetailContextProvider>
         <Routes>
