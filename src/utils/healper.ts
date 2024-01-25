@@ -23,11 +23,14 @@ export function convertDateTimeFormt(originalDateString: Date | string): string 
 
 // convet 'Thu, 25 Jan 2024 00:00:00 GMT', into Thu Jan 25 2024 19:05:06 GMT +0530(India Standard Time) format
 
-export function convertDateFormat(originalDateString: Date):string {
+export function convertDateFormat(originalDateString: Date): string {
   const inputDate = new Date(originalDateString);
 
-  // Getting the formatted date string
- return inputDate.toLocaleString('en-US', {
+  
+// Getting the formatted date strin
+
+
+  const outputDate = inputDate.toLocaleString('en-US', {
     weekday: "short",
     year: 'numeric',
     month: 'short',
@@ -37,7 +40,9 @@ export function convertDateFormat(originalDateString: Date):string {
     second: '2-digit',
     timeZoneName: 'short',
     timeZone: 'IST'
-  }).toString();
+  })
+
+  return outputDate.toString();
 }
 
 export function capitalizeFirstAlphabet(word: string) {

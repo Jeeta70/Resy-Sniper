@@ -6,13 +6,13 @@ import { useReservationContext } from "@/context/ReservationFomProvider";
 import {
   setAllErrorFieldTrue,
 } from "@/reducer/reservationFormReducer";
-import { convertDateFormat, convertDateTimeFormt } from "@/utils/healper";
+import {  convertDateTimeFormt } from "@/utils/healper";
 import { useCreateReservation, useUpdateReservation } from "@/features/reservation/reservation";
 import { useEffect } from "react";
 
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
-import { IReservation } from "@/types/reservations";
+// import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
   const { reservationFormState, dispatch } = useReservationContext();
@@ -60,9 +60,12 @@ const ReserveButtonSection = () => {
       state.partySize = data[0].party_size
       state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false
 
-      data.forEach((data: IReservation) => {
-         state.reservationDates.push(convertDateFormat(data.date));
-      })
+      // data.forEach((data: IReservation) => {
+      //   const date = convertDateFormat(data.date)
+      //   console.log(date);
+        
+      //   state.reservationDates.push(date);
+      // })
       handleUpdateReservation(dispatch, state);
     }
   }, [singleReservation, singleResevationIsLoading, dispatch, venue_id, group_id]);
