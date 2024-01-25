@@ -428,7 +428,7 @@ const NewPage = () => {
 
                 {/* *****************************Forth Component or Banner************************************** */}
                 <div
-                    className="sm:bg-cover bg-contain sm:h-auto h-[94vh]"
+                    className="bg-cover bg-no-repeat  sm:h-auto h-[100vh]"
                     id="banner"
                     style={{
                         backgroundImage: `url(${backgroundImage})`
