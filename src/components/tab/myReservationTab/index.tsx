@@ -16,17 +16,23 @@ const Index = ({
   userReservations: { data: { data: IReservation[] } };
   isLoading: boolean;
 }) => {
+
   const reservationsObject = useMemo(() => {
     if (!isLoading && Array.isArray(userReservations.data)) {
+ 
+      
       return userReservations.data.reduce(
         (
           accumulator: { [x: string]: unknown[] },
-          currentValue: { active: []; paused: []; completed: [] }
+          currentValue: { active: []; paused: []; completed: [], success:[] }
         ) => {
-          const { active, paused, completed } = currentValue;
+          const { active, paused, completed, success } = currentValue;
+          console.log({ success, paused });
+
+
           accumulator["all"].push({
             ...currentValue,
-            status: completed ? "completed" : active ? "active" : "paused",
+            status: !completed && "completed" || !success && !paused && "canceled",
           });
           if (completed) {
             accumulator["completed"].push({
@@ -39,8 +45,8 @@ const Index = ({
               ...currentValue,
               status: "completed",
             });
-          } else if (paused) {
-            accumulator["paused"].push({ ...currentValue, status: "paused" });
+          } else if (!success && !paused) {
+            accumulator["canceled"].push({ ...currentValue, status: "canceled" });
           }
           return accumulator;
         },
@@ -48,6 +54,8 @@ const Index = ({
       );
     }
   }, [isLoading, userReservations]);
+
+  
 
   const [tabs] = useState<ITab[]>([
     { id: 1, value: "all", label: "All" },

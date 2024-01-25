@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
@@ -13,11 +13,21 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from 
 import { ButtonLoader, ForgotPasswordModal } from "@/components";
 import { useLogin } from "@/features/authentication/auth";
 import { useToast } from "@/components/ui/use-toast";
+import { useGetUser } from "@/features/user/user";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { userResponse, isLoading:getUserIsLoading, isSuccess } = useGetUser();
   const { login, isLoading } = useLogin()
   const { toast } = useToast()
+
+  useEffect(() => {
+    if (!getUserIsLoading && isSuccess) {
+      const userDetail = userResponse?.data.data;
+      console.log("==", userDetail)
+      // setUserDetail(userDetail);
+    }
+  }, [getUserIsLoading, isSuccess, userResponse]);
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -28,7 +38,7 @@ const Index = () => {
     login(values, {
       onSuccess: () => {
         form.reset()
-        navigate("/reservations")
+        // navigate("/reservations")
       }
     })
   }

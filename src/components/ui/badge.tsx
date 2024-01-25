@@ -18,7 +18,7 @@ const badgeVariants = cva(
         active: "bg-[#336DDE] text-white rounded-sm",
         paused:"border-transparent bg-black text-primary-foreground rounded-sm",
         completed:"bg-[#45B150] text-white rounded-sm",
-        canceled:""
+        canceled: "rounded-sm bg-[#EA3A4B] text-white"
       },
     },
     defaultVariants: {
