@@ -86,7 +86,7 @@ export function checkStatus(
 
 //       console.log(3);
 //       return response.data;
-//    } catch (error) {
+//    } catch (error) { 
 //       console.log(error);
 
 //       // localStorage.clear();
