@@ -359,7 +359,7 @@ export function setAllErrorFieldTrue(dispatch: IUserStateReducerDispatchType) {
 }
 
 
-export function updateReservation(dispatch: IUserStateReducerDispatchType,payload:IFormState){
+export function handleUpdateReservation(dispatch: IUserStateReducerDispatchType,payload:IFormState){
   dispatch({
     type: ResturantReservationStateReducerConstant.UPDATE_RESERVATION,
     payload

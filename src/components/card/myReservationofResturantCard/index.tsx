@@ -15,9 +15,9 @@ import { usePauseReservation } from "@/features/reservation/reservation";
 
 const Index = ({ reservation }: { reservation: IReservation }) => {
   const { pauseReservation } = usePauseReservation()
-
   const navigate = useNavigate()
-  const { venue_id, group_id } = reservation
+  const { venue_id, group_id, status } = reservation;
+
   return (
     <Card className="flex sm:h-[20vh] h-auto  my-5">
       <div>
@@ -29,7 +29,7 @@ const Index = ({ reservation }: { reservation: IReservation }) => {
       </div>
       <CardContent className="space-y-2 my-auto w-full">
         <div className="space-y-1">
-          <Badge variant={reservation.status ?? "default"}>{capitalizeFirstAlphabet(reservation.status)}</Badge>
+          <Badge variant={status ?? "default"}>{capitalizeFirstAlphabet(status)}</Badge>
         </div>
         <div className="space-y-1 flex justify-between">
           <div>

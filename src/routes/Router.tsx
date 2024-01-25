@@ -23,6 +23,7 @@ import CheckSubscription from "@/pages/checkSubscription";
 // import { ResetPasswordModal } from "@/components";
 import NewPage from "@/pages/newpage";
 import PersistDashboard from "./PersistDashboard";
+import PresistLoginSignUp from "./PresistLoginSignUp";
 
 // const Login = React.lazy(() => import("@/pages/login"));
 // const SignUp = React.lazy(() => import("@/pages/signup"));
@@ -47,18 +48,19 @@ const Router = () => {
     <>
 
       <RestaurantContextProvider>
-        <UserDetailContextProvider>
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
+          <UserDetailContextProvider>
+        <Routes>
+          {/* PUBLIC ROUTE */}
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route element={<PresistLoginSignUp />}>
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
-            {/* <Route element={<PresistConnectAccount />}>
+          </Route>
+          {/* <Route element={<PresistConnectAccount />}>
               <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route> */}
             <Route element={<ProtectedRoute />}>
-
               <Route path="/connect-accounts" element={<ConnectAccount />} />
-
               <Route element={<PersistSubscribtion />}>
                 <Route path="/subscription" element={<Subscription />} />
               </Route>
@@ -85,10 +87,10 @@ const Router = () => {
                 <Route path="/profile" element={<Profile />} />
               </Route>
             </Route>
-            <Route path="/reset-password/:token?" element={<ResetPassword />} />
-            <Route path="/home" element={<NewPage />} />
-          </Routes>
-        </UserDetailContextProvider>
+          <Route path="/reset-password/:token?" element={<ResetPassword />} />
+          <Route path="/home" element={<NewPage />} />
+        </Routes>
+          </UserDetailContextProvider>
       </RestaurantContextProvider>
       <Toaster /></>
     // </React.Suspense>

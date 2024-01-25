@@ -1,10 +1,11 @@
+import { toast } from "@/components/ui/use-toast";
 import { baseUrl } from "@/config/baseUrl";
 import { getToken } from "@/utils/healper";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export type createReservationPayload = {
+export type reservationPayload = {
   resturants: {
     venue_id: number;
     venue_name: string;
@@ -22,14 +23,20 @@ export type createReservationPayload = {
 };
 
 export function useCreateReservation() {
+  const navigate = useNavigate()
   const accessToken = getToken("access_token");
   const { mutate: createReservation, isPending: isLoading } = useMutation({
-    mutationFn: (payload: createReservationPayload) => {
+    mutationFn: (payload: reservationPayload) => {
       return axios.post(
-        `${baseUrl}/book`,
-        { payload },
+        `${baseUrl}/api/book`,
+        { ...payload },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
+    },
+    onSuccess: (user) => {
+      const { data } = user
+      toast({ description: data.msg, variant: "dark" })
+      navigate("/reservations")
     },
   });
 
@@ -78,50 +85,30 @@ export function useGetSingleReservation() {
 }
 
 export function useUpdateReservation() {
+  const navigate = useNavigate()
   const accessToken = getToken("access_token");
-  const { mutate: booking, isPending: isLoading } = useMutation({
-    mutationFn: () => {
+  const { mutate: updateReservation, isPending: isLoading } = useMutation({
+    mutationFn: (payload: reservationPayload) => {
       return axios.post(
-        `${baseUrl}/book`,
-        {
-          reservations: [
-            {
-              restaurant_name: "Humo",
-              venue_id: 60415,
-              date: "2024-01-19",
-              start_time: "10:36:00",
-              end_time: "22:36:00",
-              party_size: 10,
-            },
-            {
-              restaurant_name: "party club",
-              venue_id: 60456,
-              date: "2024-01-19",
-              start_time: "10:36:00",
-              end_time: "22:36:00",
-              party_size: 10,
-            },
-          ],
-
-          override_reservations: 0,
-          final_snipe_date: null,
-          final_snipe_time: null,
-          table_type: null,
-          reservation_source: "resy",
-          snipe_type: "cancel",
-        },
+        `${baseUrl}/api/book`,
+        { ...payload },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
     },
+    onSuccess: (response) => {
+      const { data } = response
+      toast({ description: data.msg, variant: "dark" })
+      navigate("/reservations")
+    },
   });
 
-  return { booking, isLoading };
+  return { updateReservation, isLoading };
 }
 
 export function usePauseReservation() {
   const accessToken = getToken("access_token");
   const { mutate: pauseReservation, isPending: isLoading } = useMutation({
-    mutationFn: (group_id:string) => {
+    mutationFn: (group_id: string) => {
       return axios.post(`${baseUrl}/api/pause_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
     },
   });

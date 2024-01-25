@@ -17,8 +17,32 @@ export function getToken(
 }
 
 export function convertDateTimeFormt(originalDateString: Date | string): string {
-   const originalDate = new Date(originalDateString);
+  const originalDate = new Date(originalDateString);
   return format(originalDate, 'yyyy-MM-dd');
+}
+
+// convet 'Thu, 25 Jan 2024 00:00:00 GMT', into Thu Jan 25 2024 19:05:06 GMT +0530(India Standard Time) format
+
+export function convertDateFormat(originalDateString: Date): string {
+  const inputDate = new Date(originalDateString);
+
+  
+// Getting the formatted date strin
+
+
+  const outputDate = inputDate.toLocaleString('en-US', {
+    weekday: "short",
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'short',
+    timeZone: 'IST'
+  })
+
+  return outputDate.toString();
 }
 
 export function capitalizeFirstAlphabet(word: string) {
