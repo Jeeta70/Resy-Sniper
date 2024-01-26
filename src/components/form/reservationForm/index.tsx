@@ -13,20 +13,15 @@ import ReleaseReservationTime from "./releaseReservationTime";
 // import { UserDetailContext } from "@/context/UserDetailProvider";
 // import { initialState } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
-
-
-const Index = () => {
-  const { venue_id, group_id } = useParams();
-  // const reservationDetails = useContext(initialState);
-  const { reservationFormState: initialState } = useReservationContext()
-
 import { useNavigate, useParams } from "react-router-dom";
 import { X } from "lucide-react";
 import { resetReservationForm } from "@/reducer/reservationFormReducer";
-import { useReservationContext } from "@/context/ReservationFomProvider";
+
+
 
 const Index = () => {
   const { venue_id, group_id } = useParams();
+  const { reservationFormState: initialState } = useReservationContext()
   const { dispatch } = useReservationContext();
   const navigate = useNavigate();
 
