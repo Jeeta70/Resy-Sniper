@@ -34,7 +34,7 @@ const Index = () => {
         </h1>
 
         <X
-          className=" cursor-pointer "
+          className=" cursor-pointer"
           onClick={() => {
             resetReservationForm(dispatch);
             navigate("/reservations");

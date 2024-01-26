@@ -18,7 +18,7 @@ const settings = {
 };
 
 const AddTimeModal = () => {
-    const { dispatch } = useReservationContext();
+    const { dispatch, reservationFormState: initialState } = useReservationContext();
     const time = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     const hours = ['00', '15', '30', '45']
     const format = ['AM', 'PM']
@@ -74,8 +74,12 @@ const AddTimeModal = () => {
         const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
         // console.log('From Time:', fromTimeFormatted);
         // console.log('To Time:', toTimeFormatted);
-        handleReleaseTime(dispatch, reservationTime)
-
+        if (initialState.reservationType === 'cancel') {
+            handleReleaseTime(dispatch, reservationTime);
+        } else {
+            const newTime = reservationTime.split("-");
+            handleReleaseTime(dispatch, newTime[0]);
+        }
     };
     return (
         <>

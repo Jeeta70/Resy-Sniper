@@ -59,15 +59,37 @@ const SelectReservationTime = () => {
   const { dispatch, reservationFormState: { reservationTime, errors: { reservationTimeError } } } = useReservationContext()
 
   const timeOptions = [
-    { label: "Early", value: "5:00 PM - 6:30 PM" },
-    { label: "Prime", value: "6:30 PM - 8:30 PM" },
-    { label: "Late", value: "8:30 PM - 10:30 PM" },
+    { label: "Early", value: "5:00 PM-6:30 PM" },
+    { label: "Prime", value: "6:30 PM-8:30 PM" },
+    { label: "Late", value: "8:30 PM-10:30 PM" },
   ];
 
 
   useEffect(() => {
     if (selected !== null) {
-      handleReseverationTime(dispatch, selected);
+      const newTime = selected.split("-")
+      const convertTo24HourFormat = (timeString: string) => {
+        const [time, period] = timeString.split(" ");
+        const [hours, minutes] = time.split(":");
+        let hours24 = parseInt(hours, 10);
+
+        if (period === "PM" && hours !== "12") {
+          hours24 += 12;
+        }
+        const formattedHours = String(hours24).padStart(2, '0');
+        const formattedMinutes = minutes ? minutes.padStart(2, '0') : '00';
+
+        return `${formattedHours}:${formattedMinutes}:00`;
+      };
+
+      // Convert both from and to times to 24-hour format
+      const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+      const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+
+      // Create the reservation time string
+      const reservationTime = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
+
+      handleReseverationTime(dispatch, reservationTime);
     }
   }, [selected, dispatch]);
 
@@ -98,7 +120,7 @@ const SelectReservationTime = () => {
             buttonVariants({
               variant: reservationTime === '' ? "default" : "outline",
             }),
-            `inline-flex text-black ${reservationTime === '' ? "hidden" : 'bg-black text-white'}`
+            `inline-flex text-black ${reservationTime === '' ? "hidden" : 'bg-black text-white hover:bg-black hover:text-white'}`
           )}
           onClick={() => handleSelectedTime('')}
         >

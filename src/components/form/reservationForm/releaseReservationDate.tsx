@@ -23,29 +23,30 @@ import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 
 const pastMonth = new Date(2020, 10, 15);
 
-interface IReservationDateSize {
-    value: string | Date;
-    label: string | Date;
-    type: string;
-}
-[];
-
-const RESERVATION_DATE_BUTTONS = [
-    { value: new Date(), label: "Today", type: "button" },
-    {
-        value: new Date(+new Date() + 86400000),
-        label: "Tommorow",
-        type: "button",
-    },
-];
-
 const ReleaseReservationDateSection = () => {
     const userDetail = useContext(UserDetailContext);
-    const { dispatch, reservationFormState: { releaseDates, errors: { releaseDatesError } } } = useReservationContext();
+    const {
+        dispatch,
+        reservationFormState: {
+            releaseDates,
+            errors: { releaseDatesError },
+        },
+    } = useReservationContext();
     const initialDays: Date[] = [];
-    const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
-    const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>(RESERVATION_DATE_BUTTONS);
-    const [selected, setSelected] = React.useState<Array<Date | string>>([]);
+    const [days, setDays] = React.useState<Date[]>(initialDays);
+    const [selected, setSelected] = React.useState<string>("");
+    const handleCalendarSelect = (value: Date | undefined) => {
+        if (value instanceof Date) {
+            // value is a single selected date
+            handleSelectedButton(value);
+            setDays([value]); // Update selected to hold a single date
+        } else {
+            // value is undefined, indicating deselection
+            // Handle deselection logic if needed
+            setDays([]); // Update selected to an empty array for deselection
+        }
+    };
+
 
 
 
@@ -53,16 +54,11 @@ const ReleaseReservationDateSection = () => {
         return handleReleaseDate(dispatch, selected);
     }, [selected]);
 
-    function handleSelectedButton(checkDate: string | Date, compare: boolean) {
-        if (compare) {
-            if (selected.includes(checkDate)) {
-                return setSelected((prev) => prev.filter((date) => date !== checkDate));
-            } else {
-                return setSelected((prev) => [...prev, checkDate]);
-            }
-        } else {
-            return setSelected((prev) => [...prev, checkDate]);
-        }
+    const handleSelectedButton = (date: Date) => {
+        setDays([date]);
+        setSelected(format(date, "PP"));
+
+
     }
 
     const footer =
@@ -79,22 +75,7 @@ const ReleaseReservationDateSection = () => {
                         <span
                             className={cn(buttonVariants({ variant: "primary" }))}
                             onClick={() => {
-                                setReservationDates((prev) => {
-                                    days.forEach((day) => {
-                                        const check = prev.some((prev) => prev.value === day);
-                                        if (!check) {
-                                            prev.push({
-                                                value: day,
-                                                label: format(day, "PP"),
-                                                type: "button",
-                                            });
-                                        }
-                                    });
-                                    return [...prev];
-                                });
-                                days.forEach((day) => {
-                                    handleSelectedButton(day, false);
-                                });
+                                handleSelectedButton(days[0]);
                             }}
                         >
                             Confirm
@@ -110,37 +91,41 @@ const ReleaseReservationDateSection = () => {
         <div>
             <p className="mb-2 font-semibold text-sm">Release Date</p>
             <div className="flex gap-3">
-                {reservationDate.map((button, i) => (
-                    <span
-                        onClick={() => handleSelectedButton(button.value, true)}
-                        key={i}
-                        className={cn(
-                            buttonVariants({
-                                variant: selected.includes(button.value)
+                <span
+                    onClick={() => handleSelectedButton(new Date())}
+                    className={cn(
+                        buttonVariants({
+                            variant: selected === format(new Date(), "PP") ? "default" : "outline",
+                        }),
+                        "inline-flex cursor-pointer"
+                    )}
+                >
+                    Today {selected === format(new Date(), "PP") && <X size={15} />}
+                </span>
+                <span
+                    onClick={() =>
+                        handleSelectedButton(new Date(+new Date() + 86400000))
+                    }
+                    className={cn(
+                        buttonVariants({
+                            variant:
+                                selected === format(new Date(+new Date() + 86400000), "PP")
                                     ? "default"
                                     : "outline",
-                            }),
-                            "inline-flex cursor-pointer"
-                        )}
-                    >
-                        {button.label.toLocaleString()}{" "}
-                        {i > 1 && (
-                            <X
-                                onClick={() => {
-                                    setReservationDates((prev) => {
-                                        return prev.filter((p) => p.value !== button.value);
-                                    });
-                                }}
-                                size={15}
-                            />
-                        )}
-                    </span>
-                ))}
+                        }),
+                        "inline-flex cursor-pointer"
+                    )}
+                >
+                    Tomorrow {selected === format(new Date(+new Date() + 86400000), "PP") && <X size={15} />}
+                </span>
                 {userDetail.subscription_type === "standard" ? (
                     <Credenza>
                         <CredenzaTrigger asChild>
                             <span
-                                className={cn(buttonVariants({ variant: "outline" }), "relative cursor-pointer")}
+                                className={cn(
+                                    buttonVariants({ variant: "outline" }),
+                                    "relative cursor-pointer"
+                                )}
                             >
                                 Custom
                                 {
@@ -155,24 +140,30 @@ const ReleaseReservationDateSection = () => {
                         <FeatureIsForProModel />
                     </Credenza>
                 ) : (
-                    <Select disabled onValueChange={(e) => console.log(e)}>
+                    <Select
+                        disabled
+                        onValueChange={(e) => console.log(e)}
+                    >
                         <Popover>
                             <PopoverTrigger
                                 asChild
                                 disabled={userDetail.subscription_type === "standard"}
                             >
-                                <Button variant="outline" className=" text-light relative">
+                                <Button
+                                    variant="outline"
+                                    className=" text-light relative"
+                                >
                                     Custom
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0" align="start">
                                 <Calendar
                                     id="test"
-                                    mode="multiple"
+                                    mode="single"
                                     defaultMonth={pastMonth}
-                                    selected={days}
+                                    selected={days ? days[0] : undefined}
                                     footer={footer}
-                                    onSelect={setDays}
+                                    onSelect={handleCalendarSelect}
                                 />
                             </PopoverContent>
                         </Popover>
@@ -180,8 +171,9 @@ const ReleaseReservationDateSection = () => {
                 )}
             </div>
 
-            {releaseDatesError && !releaseDates.length && <ErrorMessage message="Please set release date" />}
-
+            {releaseDatesError && !releaseDates && (
+                <ErrorMessage message="Please set release date" />
+            )}
         </div>
     );
 };
