@@ -28,7 +28,7 @@ const SearchAndFilterSection = () => {
         return prev
       })
     }, 500);
-    return () => clearInterval(timer)
+    return () => clearInterval(timer) 
   }, [searchQuery, setSeachParams])
 
 
