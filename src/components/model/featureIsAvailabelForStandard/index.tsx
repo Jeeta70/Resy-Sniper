@@ -1,4 +1,4 @@
-import { Model } from "@/components";
+import { ButtonLoader, Model } from "@/components";
 import { Button } from "@/components/ui/button";
 import { CardTitle } from "@/components/ui/card";
 import {
@@ -53,7 +53,7 @@ const Index = () => {
                e.stopPropagation()
                upgrade("standard")
             }}>
-               Upgrade to REGULAR
+               {isLoading ? <ButtonLoader/> : "Upgrade to REGULAR"}
             </Button>
          </CredenzaFooter>
       </Model>

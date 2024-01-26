@@ -13,18 +13,19 @@ import {
   DisconnectResyAccountModel,
 } from "@/components";
 import { useGetUser } from "@/features/user/user";
-import { useMemo } from "react";
 import { capitalizeFirstAlphabet } from "@/utils/healper";
-
+import { useMemo } from "react";
 const Index = () => {
-  const { userResponse, isSuccess } = useGetUser();
+  const { userResponse, isSuccess ,isLoading } = useGetUser();
+
+
+
   const user = useMemo(() => {
-    if (isSuccess) {
+    if (!isLoading && isSuccess) {
       return userResponse?.data.data;
     }
-  }, [isSuccess, userResponse?.data.data]);
+  }, [isLoading, isSuccess, userResponse?.data.data]);
 
-  console.log("user=>", user);
 
   return (
     <>

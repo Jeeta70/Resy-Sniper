@@ -14,6 +14,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import * as z from "zod";
@@ -54,11 +55,14 @@ const Index = () => {
                 name="countryCode"
                 render={({ field }) => (
                   <>
-                    <FormItem className="sm:w-1/3 w-2/12 relative">
+                    <FormItem className="sm:w-1/3 w-2/12">
                       <FormControl>
                         <>
-                          <Select defaultValue="+1" onValueChange={field.onChange}>
-                            <SelectTrigger className="rounded-e-none border-2 border-red-900">
+                          <FormLabel className="text-sm font-normal">
+                            Phone
+                          </FormLabel>
+                          <Select  onValueChange={field.onChange}>
+                            <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>
                             <SelectContent position="popper">
@@ -67,7 +71,7 @@ const Index = () => {
                           </Select>
                         </>
                       </FormControl>
-                      <FormMessage className="absolute -bottom-5 text-xs" />
+                      <FormMessage />
                     </FormItem>
                   </>
                 )}

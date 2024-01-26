@@ -17,8 +17,7 @@ type IUser = {
 export function useGetUser() {
    const accesToken = getToken("access_token")
    const { data: userResponse, isPending: isLoading, isSuccess, isError, error } = useQuery ({
-      queryKey: ['user', accesToken],
-      retry: false,
+      queryKey: ["user",accesToken],
       queryFn: (): Promise<AxiosResponse> => {
          return axios.get(`${baseUrl}/api/current_user`, { headers: { "Authorization": `Bearer ${accesToken}` } });
       },

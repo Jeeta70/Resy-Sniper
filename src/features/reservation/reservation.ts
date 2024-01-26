@@ -52,7 +52,7 @@ export function useGetUserReservations() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["reservations", accesToken],
+    queryKey: ["reservations"],
     retry: false,
     queryFn: (): Promise<AxiosResponse> => {
       return axios.get(`${baseUrl}/api/get_user_reservations`, {
@@ -139,7 +139,7 @@ export function useCancelReservation() {
   const accessToken = getToken("access_token");
   const { mutate: cancelReservation, isPending: isLoading } = useMutation({
     mutationFn: (group_id: string) => {
-      return axios.post(`${baseUrl}/api/delete_group`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
+      return axios.post(`${baseUrl}/api/cancel_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reservations"] })
@@ -162,7 +162,7 @@ export function useGetReservationCount() {
     queryKey: ["reservationCount"],
     retry: false,
     queryFn: (): Promise<AxiosResponse> => {
-      return axios.get(`${baseUrl}/get_user_reservation_count`, {
+      return axios.get(`${baseUrl}/api/get_user_reservation_count`, {
         headers: { Authorization: `Bearer ${accesToken}` },
       });
     },
