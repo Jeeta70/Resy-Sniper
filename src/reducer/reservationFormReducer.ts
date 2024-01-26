@@ -434,7 +434,7 @@ export function setAllErrorFieldTrue(dispatch: IUserStateReducerDispatchType) {
 }
 
 
-export function handleUpdateReservation(dispatch: IUserStateReducerDispatchType, payload: IFormState) {
+export function handleUpdateReservation(dispatch: IUserStateReducerDispatchType, payload: unknown) {
   dispatch({
     type: ResturantReservationStateReducerConstant.UPDATE_RESERVATION,
     payload

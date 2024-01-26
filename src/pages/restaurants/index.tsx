@@ -1,20 +1,14 @@
-import { useEffect, useMemo } from "react";
-import AllResturantSection from "./allRestaurantSection";
+import { useEffect } from "react";
 import SearchAndFilterSection from "./searchAndFilterSection";
-
-import {
-  useSearchRestaurants,
-  useTopPicksRestaurants,
-} from "@/features/restaurant/restaurant";
-import { AllRestaurantSection, RestaurantCardSkeleton, TopPickSection } from "@/components";
+import { AllRestaurantSection, TopPickSection } from "@/components";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 import { useSearchParams } from "react-router-dom";
-import { TopPick } from "..";
+// import { TopPick } from "..";
 
 const Index = () => {
-  const { searchRestaurants, isLoading } = useSearchRestaurants();
+  // const { searchRestaurants, isLoading } = useSearchRestaurants();
   const { removeAllRestaurant } = useRestaurantContext();
-  const { topPickRestaurants, isLoading: topPickIsLoading } = useTopPicksRestaurants()
+  // const { topPickRestaurants, isLoading: topPickIsLoading } = useTopPicksRestaurants()
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
@@ -26,19 +20,19 @@ const Index = () => {
     return () => removeAllRestaurant()
   }, [])
 
-  const topPickkRestaurants = useMemo(() => {
-    if (!topPickIsLoading && topPickRestaurants) {
-      return topPickRestaurants?.data ? topPickRestaurants.data.slice(0, 4) : []
-    }
-  }, [topPickIsLoading, topPickRestaurants])
+  // const topPickkRestaurants = useMemo(() => {
+  //   if (!topPickIsLoading && topPickRestaurants) {
+  //     return topPickRestaurants?.data ? topPickRestaurants.data.slice(0, 4) : []
+  //   }
+  // }, [topPickIsLoading, topPickRestaurants])
 
 
 
-  const filteredRestaurants = useMemo(() => {
-    if (!isLoading) {
-      return searchRestaurants?.data ?? []
-    }
-  }, [isLoading, searchRestaurants?.data])
+  // const filteredRestaurants = useMemo(() => {
+  //   if (!isLoading) {
+  //     return searchRestaurants?.data ?? []
+  //   }
+  // }, [isLoading, searchRestaurants?.data])
 
 
 
@@ -48,7 +42,7 @@ const Index = () => {
       <h1 className="font-bold text-2xl mb-4">Restaurants</h1>
       <SearchAndFilterSection />
       <div className="mt-5">
-        {isLoading && <RestaurantCardSkeleton />}
+        {/* {isLoading && <RestaurantCardSkeleton />} */}
       </div>
 
 

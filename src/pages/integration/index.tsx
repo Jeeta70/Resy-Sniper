@@ -17,7 +17,7 @@ import { useMemo } from "react";
 import { capitalizeFirstAlphabet } from "@/utils/healper";
 
 const Index = () => {
-  const { userResponse, isSuccess, isError, error } = useGetUser();
+  const { userResponse, isSuccess } = useGetUser();
   const user = useMemo(() => {
     if (isSuccess) {
       return userResponse?.data.data;

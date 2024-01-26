@@ -7,7 +7,7 @@ import {
   setAllErrorFieldTrue,
 } from "@/reducer/reservationFormReducer";
 import { convertDateTimeFormt } from "@/utils/healper";
-import { useCreateReservation, useGetReservationCount, useUpdateReservation } from "@/features/reservation/reservation";
+import { useCreateReservation, useUpdateReservation } from "@/features/reservation/reservation";
 import { useEffect } from "react";
 
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
@@ -16,7 +16,7 @@ import { useGetSingleReservation } from "@/features/reservation/reservation";
 
 const ReserveButtonSection = () => {
   const { reservationFormState, dispatch } = useReservationContext();
-  const { reservationCounts } = useGetReservationCount()
+  // const { reservationCounts } = useGetReservationCount()
   const { createReservation, isLoading } = useCreateReservation();
   const { updateReservation } = useUpdateReservation()
   const { venue_id, group_id } = useParams();
@@ -151,7 +151,7 @@ const ReserveButtonSection = () => {
   return (
     <div className="flex justify-between flex-col-reverse sm:flex-row gap-2 text-center">
       <p className="text-xs font-semibold ">
-        {reservationCounts} of 25 reservation requests used
+        1 of 25 reservation requests used
       </p>
       <div className="flex gap-5">
         <DiscardChangesModal>

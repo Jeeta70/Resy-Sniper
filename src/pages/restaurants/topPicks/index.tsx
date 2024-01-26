@@ -1,7 +1,7 @@
 import { RestaurantCard } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
-import { useSearchRestaurants, useTopPicksRestaurants } from "@/features/restaurant/restaurant";
+import {  useTopPicksRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
 import { X } from "lucide-react";

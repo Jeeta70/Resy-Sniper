@@ -1,4 +1,4 @@
-import { FeatureIsForStandardModel, NewSubscriptionCard } from "@/components";
+import { FeatureIsForStandardModel } from "@/components";
 import { useContext } from "react";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 import { cn } from "@/lib/utils";
