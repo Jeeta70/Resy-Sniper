@@ -5,7 +5,7 @@ const index = () => {
 
    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
    return (
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-4 gap-4">
          {array.map((s) => (
             <Card className="h-[42vh]" key={s}> 
                <Skeleton className="rounded-t-lg h-1/2 w-full " />

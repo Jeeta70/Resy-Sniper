@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMemo, useState } from "react";
 import { MyReservationOfResturantCard, } from "@/components";
 import { IReservation } from "@/types/reservations";
+import { checkStatus } from "@/utils/healper";
 
 export interface ITab {
   id: number;
@@ -19,20 +20,19 @@ const Index = ({
 
   const reservationsObject = useMemo(() => {
     if (!isLoading && Array.isArray(userReservations.data)) {
- 
-      
+
+
       return userReservations.data.reduce(
         (
           accumulator: { [x: string]: unknown[] },
-          currentValue: { active: []; paused: []; completed: [], success:[] }
+          currentValue: { active: []; paused: []; completed: [], success: [] }
         ) => {
-          const { active, paused, completed, success } = currentValue;
-          console.log({ success, paused });
+          const { paused, completed, success } = currentValue;
 
 
           accumulator["all"].push({
             ...currentValue,
-            status: !completed && "completed" || !success && !paused && "canceled",
+            status: checkStatus(paused, completed, success)
           });
           if (completed) {
             accumulator["completed"].push({
@@ -40,12 +40,9 @@ const Index = ({
               status: "completed",
             });
           }
-          if (active) {
-            accumulator["completed"].push({
-              ...currentValue,
-              status: "completed",
-            });
-          } else if (!success && !paused) {
+          else if (!success && paused) {
+            accumulator["paused"].push({ ...currentValue, status: "paused" });
+          } else if (!success) {
             accumulator["canceled"].push({ ...currentValue, status: "canceled" });
           }
           return accumulator;
@@ -55,7 +52,7 @@ const Index = ({
     }
   }, [isLoading, userReservations]);
 
-  
+
 
   const [tabs] = useState<ITab[]>([
     { id: 1, value: "all", label: "All" },
@@ -91,7 +88,7 @@ const Index = ({
             </TabsTrigger>
           ))}
         </TabsList>
-        <TabsContent value={activeTab?.value} className="">
+        <TabsContent value={activeTab?.value}>
           {reservationsObject &&
             reservationsObject[activeTab.value].map(
               (reservation: IReservation) => (

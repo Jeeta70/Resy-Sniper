@@ -5,23 +5,31 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const ProtectedRoute = () => {
-   const { userResponse, isLoading, isError } = useGetUser();
+   const { userResponse, isLoading, isSuccess, isError } = useGetUser();
    const navigate = useNavigate();
-
    useEffect(() => {
-      if (!isLoading && userResponse) {
-         const { data: { data }, } = userResponse;
-         console.log(data);
-         
+      if (!isLoading && isSuccess) {
+         const userDetail = userResponse?.data.data;
+         const { email, resy_token, subscription_type } = userDetail;
+         if (!email) {
+            navigate("/login");
+         }
+
+         if (!resy_token) {
+            toast({
+               description: "You need to connect the account",
+               variant: "dark",
+            });
+            navigate("/connect-account");
+         } else if (subscription_type === "none") {
+            toast({
+               description: "You need to take the subscription",
+               variant: "dark",
+            });
+            navigate("/subscription");
+         }
       }
-      if (isError) {
-         toast({
-            description: "You need to Create the account First!",
-            variant: "destructive",
-         });
-         navigate("/login");
-      }
-   }, [userResponse, isLoading, isError, navigate]);
+   }, [isError, isLoading, isSuccess, navigate, userResponse]);
 
 
    return (

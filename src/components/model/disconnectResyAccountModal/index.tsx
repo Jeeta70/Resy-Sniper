@@ -1,4 +1,4 @@
-import { Model } from "@/components";
+import { ButtonLoader, Model } from "@/components";
 import { Button } from "@/components/ui/button";
 import { CardTitle } from "@/components/ui/card";
 import {
@@ -8,8 +8,10 @@ import {
   CredenzaHeader,
 } from "@/components/ui/credenza";
 import { Separator } from "@/components/ui/separator";
+import { useDisconnectConnectResyAccount } from "@/features/authentication/connectAccount";
 
 const Index = () => {
+  const { discconetResyAccount ,isLoading } =  useDisconnectConnectResyAccount()
   return (
     <Model>
       <CredenzaHeader>
@@ -24,13 +26,14 @@ const Index = () => {
       <Separator />
       <CredenzaFooter className="flex flex-row">
         <CredenzaClose asChild>
-          <Button variant="outline" className="w-full sm:w-auto">
+          <Button variant="outline" className="w-full sm:w-auto" id="dissconnetResyConnect">
             Cancel
           </Button>
         </CredenzaClose>
 
-        <Button variant="primary" className="w-full sm:w-auto">
-          Disconnect
+        <Button disabled={isLoading} variant="primary" className="w-full sm:w-auto" onClick={() => discconetResyAccount()}>
+         
+          {isLoading ? <ButtonLoader /> : "Disconnect"}
         </Button>
       </CredenzaFooter>
     </Model>

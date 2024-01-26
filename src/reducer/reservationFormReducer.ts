@@ -10,7 +10,7 @@ import { IRestaurant } from "@/types/restaurants";
 const initialSittingState = {
   showModel: false,
   title: "Add Resturant",
-  restaurantDetail: { cover_image_url: "", price: 0, venue_name :""},
+  restaurantDetail: { cover_image_url: "", price: 0, venue_name: "" },
   availableSittings: "indoor",
 };
 
@@ -57,7 +57,7 @@ export interface IFormState {
 
 
 export const initialState: IFormState = {
-  reservationType: "cancelReservation",
+  reservationType: "cancel",
   resturantOptionOnAddReservationPage: {
     selectedResturant: "",
     selectedResturantsForReservationOnAddReservationPage: [],
@@ -101,6 +101,8 @@ export enum ResturantReservationStateReducerConstant {
   RELEASE_RESERVATION_DATE = "RELEASE_RESERVATION_DATE",
   RELEASE_RESERVATION_TIME="RELEASE_RESERVATION_TIME",
   UPDATE_RESERVATION="UPDATE_RESERVATION"
+  UPDATE_RESERVATION = "UPDATE_RESERVATION",
+  UPDATE_SELECTED_RESTAURANT = "UPDATE_SELECTED_RESTAURANT"
 }
 
 export interface IAction<T, P> {
@@ -262,6 +264,14 @@ export const reservationFormReducer = (
       };
     case ResturantReservationStateReducerConstant.UPDATE_RESERVATION:
       return action.payload
+    case ResturantReservationStateReducerConstant.UPDATE_SELECTED_RESTAURANT:
+      return {
+        ...state,
+        resturantOptionOnAddReservationPage: {
+          ...state.resturantOptionOnAddReservationPage,
+          selectedResturantsForReservationOnAddReservationPage: action.payload
+        }
+      }
 
     default:
       return state;
@@ -303,7 +313,6 @@ export function selectResturantForReservation(
   restaurantPayload: object
 ) {
 
-  console.log("payload=>", restaurantPayload);
 
   dispatch({
     type: ResturantReservationStateReducerConstant.SET_SELECT_RESTAURANTS_FOR_RESERVATION,
@@ -426,9 +435,13 @@ export function setAllErrorFieldTrue(dispatch: IUserStateReducerDispatchType) {
 }
 
 
-export function handleUpdateReservation(dispatch: IUserStateReducerDispatchType,payload:IFormState){
+export function handleUpdateReservation(dispatch: IUserStateReducerDispatchType, payload: IFormState) {
   dispatch({
     type: ResturantReservationStateReducerConstant.UPDATE_RESERVATION,
     payload
   });
+}
+
+export function handleUpdateSelectedRestaurant(dispatch: IUserStateReducerDispatchType, payload: IRestaurant[]) {
+  dispatch({ type: ResturantReservationStateReducerConstant.UPDATE_SELECTED_RESTAURANT, payload })
 }

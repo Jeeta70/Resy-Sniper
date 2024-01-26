@@ -9,12 +9,14 @@ import { useContext } from "react";
 import ProIcon from "@/assets/ProIcon.svg";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   restaurant: IRestaurant;
 }
 
 const Index = ({ restaurant }: Props) => {
+  const navigate = useNavigate();
   const { restaurants, addRestaurant } = useRestaurantContext();
   const user = useContext(UserDetailContext);
   const premium = user.subscription_type === "standard" ? false : true;
@@ -94,7 +96,10 @@ const Index = ({ restaurant }: Props) => {
                   <FeatureIsForProModel />
                 </Credenza>
               )}
-              <Button variant="primary" className="w-full">
+                <Button variant="primary" className="w-full" onClick={(e) => {
+                  e.stopPropagation()
+                  navigate("/reservations/add-reservation", { state: { selectedRestaurants: restaurants } })
+                }}>
                 Reserve
               </Button>
             </>

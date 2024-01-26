@@ -11,10 +11,11 @@ import { Badge } from "@/components/ui/badge";
 import { IReservation } from "@/types/reservations";
 import { useNavigate } from "react-router-dom";
 import { capitalizeFirstAlphabet } from "@/utils/healper";
-import { usePauseReservation } from "@/features/reservation/reservation";
+import { useCancelReservation, usePauseReservation } from "@/features/reservation/reservation";
 
 const Index = ({ reservation }: { reservation: IReservation }) => {
   const { pauseReservation } = usePauseReservation()
+  const { cancelReservation } = useCancelReservation()
   const navigate = useNavigate()
   const { venue_id, group_id, status } = reservation;
 
@@ -54,8 +55,9 @@ const Index = ({ reservation }: { reservation: IReservation }) => {
                 >
                   Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem role="button" onClick={() => pauseReservation(group_id)}>Pause</DropdownMenuItem>
-                <DropdownMenuItem>Cancel</DropdownMenuItem>
+                {status !== "paused" && <DropdownMenuItem role="button" onClick={() => pauseReservation(group_id)}>Pause</DropdownMenuItem>}
+                {status === "paused" && <DropdownMenuItem role="button" onClick={() => pauseReservation(group_id)}>Unpause</DropdownMenuItem>}
+                <DropdownMenuItem role="button" onClick={() => cancelReservation(group_id)} >Cancel</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

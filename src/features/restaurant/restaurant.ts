@@ -31,6 +31,24 @@ export function useSearchRestaurants() {
 }
 
 
+export function useTopPicksRestaurants() {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
+  const { data: topPickRestaurants, isPending: isLoading } = useQuery({
+    queryKey: ["topPick", query],
+    queryFn: (): Promise<AxiosResponse> => {
+      if (query)
+        return axios.get(
+          `${baseUrl}/restaurants/search?query=${encodeURI(query)}`
+        );
+      return axios.get(`${baseUrl}/restaurants/featured`);
+    },
+  });
+
+  return { topPickRestaurants, isLoading };
+}
+
+
 export function useGetSingleRestaurant() {
   const { venue_id } = useParams()
 

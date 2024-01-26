@@ -8,10 +8,11 @@ import {
     CredenzaHeader,
 } from "@/components/ui/credenza";
 import { Separator } from "@/components/ui/separator";
-import { CancelSubscription } from "@/features/subscription/subscription";
+import { CancelSubscription, useUpgradeSubscription } from "@/features/subscription/subscription";
 
 const Index = () => {
     const { Cancel, isLoading } = CancelSubscription()
+    // const { upgrade, isLoading } = useUpgradeSubscription()
 
     const handleClick = () => {
         Cancel();

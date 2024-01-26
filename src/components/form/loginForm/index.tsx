@@ -24,10 +24,27 @@ const Index = () => {
   useEffect(() => {
     if (!getUserIsLoading && isSuccess) {
       const userDetail = userResponse?.data.data;
-      console.log("==", userDetail)
-      // setUserDetail(userDetail);
+      const { resy_token, subscription_type } = userDetail;
+
+      if (!resy_token) {
+        toast({
+          description: "You need to connect the account",
+          variant: "dark",
+        });
+        navigate("/connect-account");
+      } else if (subscription_type === "none") {
+        toast({
+          description: "You need to take the subscription",
+          variant: "dark",
+        });
+        navigate("/subscription");
+      } else {
+        toast({ description: localStorage.getItem("token") ? "You are already login " : "Successfull login", variant: "destructive", });
+        navigate("/reservations");
+      }
     }
-  }, [getUserIsLoading, isSuccess, userResponse]);
+  }, [getUserIsLoading, isSuccess, navigate, toast, userResponse?.data.data]);
+
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
