@@ -140,3 +140,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.slick-slider {
+  height: 400px; 
+  overflow: visible !important;
+}
+.slick-list{
+  overflow: visible !important;
+}
+.slick-track{
+  overflow: visible !important;
+}
+.slick-current{
+  font-weight: 800;
+}
