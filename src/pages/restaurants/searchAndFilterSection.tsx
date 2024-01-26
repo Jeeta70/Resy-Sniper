@@ -25,14 +25,14 @@ const SearchAndFilterSection = () => {
   return (
     <div className="sm:flex block gap-4">
       <SearchInputField onChange={onChange} />
-      <div className="grid grid-cols-2 gap-2 mt-3 sm:mt-0">
+      {/* <div className="grid grid-cols-2 gap-2 mt-3 sm:mt-0">
         <div>
           <DropDown placeholder="All Prices" >All price children</DropDown>
         </div>
         <div>
           <DropDown placeholder="All Locations">All location children</DropDown>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

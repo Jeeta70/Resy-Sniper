@@ -13,11 +13,8 @@ import { CheckCircle2 } from "lucide-react";
 const Index = () => {
    const { upgrade, isLoading } = useUpgradeSubscription()
    const points = [
-      { point: "25 active booking requests" },
+      { point: "5 active booking requests" },
       { point: "Priority booking" },
-      { point: "Multiple dates and venues booking" },
-      { point: "Same date booking" },
-      { point: "Select sitting type" },
    ];
    return (
       <Model className="border-none max-w-xl">
@@ -52,11 +49,11 @@ const Index = () => {
                </Button>
             </CredenzaClose>
 
-            <Button disabled={isLoading}  variant="primary" className="w-full sm:w-auto" onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            <Button disabled={isLoading}  variant="default" className="w-full sm:w-auto" onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                e.stopPropagation()
-               upgrade("premium")
+               upgrade("standard")
             }}>
-               Upgrade to PRO
+               Upgrade to REGULAR
             </Button>
          </CredenzaFooter>
       </Model>

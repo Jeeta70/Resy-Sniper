@@ -51,7 +51,7 @@ const SelectFinalSnipingDaySection = () => {
         {userDetail.subscription_type === "standard" ? (
           <>
             {partySizeArray.map((button, i) => (
-              <Credenza key={i}>
+              <Credenza key={i} >
                 <CredenzaTrigger asChild>
                   <span
                     className={cn(

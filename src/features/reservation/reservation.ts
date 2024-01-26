@@ -1,7 +1,7 @@
 import { toast } from "@/components/ui/use-toast";
 import { baseUrl } from "@/config/baseUrl";
 import { getToken } from "@/utils/healper";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -52,7 +52,7 @@ export function useGetUserReservations() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["reservation", accesToken],
+    queryKey: ["reservations", accesToken],
     retry: false,
     queryFn: (): Promise<AxiosResponse> => {
       return axios.get(`${baseUrl}/api/get_user_reservations`, {
@@ -106,11 +106,66 @@ export function useUpdateReservation() {
 }
 
 export function usePauseReservation() {
+  const queryClient = useQueryClient()
   const accessToken = getToken("access_token");
   const { mutate: pauseReservation, isPending: isLoading } = useMutation({
     mutationFn: (group_id: string) => {
       return axios.post(`${baseUrl}/api/pause_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reservations"] })
+    },
   });
   return { pauseReservation, isLoading };
+}
+
+export function useUnPauseReservation() {
+  const queryClient = useQueryClient()
+  const accessToken = getToken("access_token");
+  const { mutate: unPauseReservation, isPending: isLoading } = useMutation({
+    mutationFn: (group_id: string) => {
+      return axios.post(`${baseUrl}/api/unpause_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reservations"] })
+    },
+  });
+  return { unPauseReservation, isLoading };
+}
+
+
+export function useCancelReservation() {
+  const queryClient = useQueryClient()
+  const accessToken = getToken("access_token");
+  const { mutate: cancelReservation, isPending: isLoading } = useMutation({
+    mutationFn: (group_id: string) => {
+      return axios.post(`${baseUrl}/api/delete_group`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reservations"] })
+    },
+  });
+  return { cancelReservation, isLoading };
+}
+
+
+
+export function useGetReservationCount() {
+  const accesToken = getToken("access_token");
+  const {
+    data: reservationCounts,
+    isPending: isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["reservationCount"],
+    retry: false,
+    queryFn: (): Promise<AxiosResponse> => {
+      return axios.get(`${baseUrl}/get_user_reservation_count`, {
+        headers: { Authorization: `Bearer ${accesToken}` },
+      });
+    },
+  });
+  return { reservationCounts, isLoading, isSuccess, isError, error };
 }

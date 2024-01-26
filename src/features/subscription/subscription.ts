@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { baseUrl } from "@/config/baseUrl";
 import { toast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useCreateSubscribtion = () => {
    const accesToken = getToken("access_token");
@@ -23,16 +24,18 @@ export const useCreateSubscribtion = () => {
 };
 
 export const CancelSubscription = () => {
+   const navigate = useNavigate()
    const accesToken = getToken("access_token");
    const { mutate: Cancel, isPending: isLoading } = useMutation({
       mutationFn: () => {
-         return axios.post(`${baseUrl}/api/cancel-subscription`, {
+         return axios.post(`${baseUrl}/api/cancel-subscription`, {}, {
             headers: { Authorization: `Bearer ${accesToken}` },
          });
       },
       onSuccess: (user) => {
          const { data } = user;
          toast({ description: data.message, variant: "dark" });
+         navigate("/subscription")
       },
       onError: (err: { response: AxiosResponse }) => {
          toast({ description: err.response.data.message, variant: "destructive" });
@@ -42,11 +45,11 @@ export const CancelSubscription = () => {
 };
 
 
-export function useCheckSubscriptionIsCompleted(){
+export function useCheckSubscriptionIsCompleted() {
    const accesToken = getToken("access_token");
-   
+
    const { data: customData, isPending: isLoading, isSuccess: customIsSuccess, isError, error } = useQuery({
-      queryKey: ["subs",accesToken],
+      queryKey: ["subs", accesToken],
       retry: false,
       queryFn: (): Promise<AxiosResponse> => {
          return axios.get(`${baseUrl}/api/subscription-details`, { headers: { "Authorization": `Bearer ${accesToken}` } });
@@ -55,7 +58,22 @@ export function useCheckSubscriptionIsCompleted(){
    return { customData, isLoading, customIsSuccess, isError, error };
 }
 
+export function useUpgradeSubscription() {
+   const accesToken = getToken("access_token");
+   const { mutate: upgrade, isPending: isLoading } = useMutation({
+      mutationFn: (subscription: "premium" | "standard") => {
+         return axios.post(`${baseUrl}/api/change-subscription`, { "new_subscription_tier": subscription }, {
+            headers: { Authorization: `Bearer ${accesToken}` },
+         });
+      },
+      onSuccess: () => {
+         document.getElementById("closeProModel")?.click()
+         window.location.reload()
+      },
 
+   });
+   return { upgrade, isLoading, };
+}
 
 
 

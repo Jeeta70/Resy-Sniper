@@ -10,13 +10,14 @@ const PresistLoginSignUp = () => {
       if (!isLoading && isSuccess) {
          const userDetail = userResponse?.data.data;
          const { resy_token, subscription_type } = userDetail;
+         
          if (!resy_token) {
             toast({
                description: "You need to connect the account",
                variant: "dark",
             });
             navigate("/connect-account");
-         } else if (!subscription_type) {
+         } else if (subscription_type === "none") {
             toast({
                description: "You need to take the subscription",
                variant: "dark",

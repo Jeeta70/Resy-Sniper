@@ -6,6 +6,7 @@ interface RestaurantContextProps {
   restaurants: IRestaurant[];
   addRestaurant: (newRestaurant: IRestaurant) => void;
   removeRestaurant: (Restaurant: IRestaurant) => void;
+  removeAllRestaurant: () => void
 }
 
 
@@ -53,10 +54,15 @@ export function RestaurantContextProvider(props: { children: ReactNode }) {
     })
   }
 
+  const removeAllRestaurant = () => {
+    setRestaurants([])
+  }
+
   const contextValue: RestaurantContextProps = {
     restaurants,
     addRestaurant,
-    removeRestaurant
+    removeRestaurant,
+    removeAllRestaurant
   };
 
   return (

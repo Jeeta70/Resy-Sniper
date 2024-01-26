@@ -51,7 +51,6 @@ const Index = ({ user }: Props) => {
     }
 
     )
-    console.log(values);
   }
 
   return (

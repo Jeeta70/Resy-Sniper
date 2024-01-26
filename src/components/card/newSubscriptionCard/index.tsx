@@ -64,7 +64,7 @@ const Index = ({
               <CredenzaTrigger asChild>
                 <Button
                   className={`mt-3 w-full sm:w-auto ${buttonColor}`}
-                >
+                > 
                   {button}
                 </Button>
               </CredenzaTrigger>
