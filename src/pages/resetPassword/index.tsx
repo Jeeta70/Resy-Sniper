@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { EyeOff } from "lucide-react";
 import { Eye } from "lucide-react";
-import { useParams, useSearchParams } from "react-router-dom";
+import {  useSearchParams } from "react-router-dom";
 import * as z from "zod";
 
 import { useForm } from "react-hook-form";
 import { resetPasswordSchema } from "@/utils/formZodSchema";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,55 +17,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { signupFormSchema } from "@/utils/formZodSchema";
-import { ButtonLoader, CountryCode } from "@/components";
+import { ButtonLoader} from "@/components";
 import {
   useChangePassword,
-  useResetPassword,
   useVerifyResetPassword,
 } from "@/features/authentication/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const Index = () => {
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [error2, setError2] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPassword2, setShowPassword2] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const { verifyResetPassword, isLoading } = useVerifyResetPassword();
-  const { changePassword, isLoading: resetPasswordisLoading } =
-    useChangePassword();
+  const { changePassword } =    useChangePassword();
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    if (newPassword.length < 8) {
-      setError("Password is too short");
-    } else {
-      setError("");
-    }
-  };
-  const handleChangePassword = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newPassword = e.target.value;
-    setConfirmPassword(newPassword);
-
-    if (confirmPassword != password) {
-      setError2("Passwords do not match");
-    } else {
-      setError2("");
-    }
-  };
 
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
@@ -76,7 +41,7 @@ const Index = () => {
 
   function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
     if (!token) {
-      changePassword({ password });
+      changePassword({ password:values.password });
     } else {
       verifyResetPassword({ password: values.password, token });
     }
@@ -220,7 +185,7 @@ const Index = () => {
                                   size={18}
                                   color="gray"
                                   onClick={() =>
-                                    setShowPassword(!showPassword2)
+                                    setShowPassword2(!showPassword2)
                                   }
                                 />
                               ) : (
@@ -228,7 +193,7 @@ const Index = () => {
                                   size={18}
                                   color="gray"
                                   onClick={() =>
-                                    setShowPassword(!showPassword2)
+                                    setShowPassword2(!showPassword2)
                                   }
                                 />
                               )}

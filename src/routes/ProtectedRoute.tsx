@@ -7,10 +7,12 @@ const ProtectedRoute = () => {
   const { userResponse, isLoading, isSuccess, isError, error } = useGetUser();
   const navigate = useNavigate();
   useEffect(() => {
-    if (isError && error?.response) {
-      if (error.response.data.msg === "Not enough segments") {
+    if (isError && error) {
+      const errorWithResponse = error as { response?: { data?: { msg?: string } } };
+
+      if (errorWithResponse.response && errorWithResponse.response.data && errorWithResponse.response.data.msg === "Not enough segments") {
         toast({
-          description: "You token is expired",
+          description: "Your token has expired",
           variant: "destructive",
         });
         navigate("/login");

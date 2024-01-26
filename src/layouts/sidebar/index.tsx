@@ -5,7 +5,6 @@ import { siderBarOptions } from "@/utils/constants";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LogOut, Menu, X } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import SidebarImage from "@/assets/SidebarImage.png";
 import { useGetReservationCount } from "@/features/reservation/reservation";
 
 const Index = () => {

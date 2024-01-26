@@ -1,14 +1,10 @@
 import {
   Select,
   SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { ReactNode } from "react";
-import { Input } from "@/components/ui/input";
 
 interface Props {
   children:ReactNode;

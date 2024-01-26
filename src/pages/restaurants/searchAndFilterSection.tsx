@@ -1,10 +1,7 @@
 import { DropDown, SearchInputField } from "@/components";
-import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
-  Select,
-  SelectContent,
   SelectGroup,
 
 } from "@/components/ui/select";

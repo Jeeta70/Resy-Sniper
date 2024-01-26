@@ -69,7 +69,6 @@ export function useUpgradeSubscription() {
          });
       },
       onSuccess: () => {
-         document.getElementById("closeProModel")?.click()
          queryClient.invalidateQueries({ queryKey: ["user"] })
       },
 
