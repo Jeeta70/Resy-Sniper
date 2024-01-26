@@ -48,9 +48,9 @@ const Index = () => {
       <AddResturantSection />
       <SelectPartSizeSection />
       <SelectReservationDateSection />
-      {initialState.reservationType === "releaseReservation" && <ReleaseReservationDateSection />}
+      {initialState.reservationType === "release" && <ReleaseReservationDateSection />}
       <SelectReservationTime />
-      {initialState.reservationType === "releaseReservation" && <ReleaseReservationTime />}
+      {initialState.reservationType === "release" && <ReleaseReservationTime />}
       <SelectFinalSnipingDaySection />
       <OverideCurrentReservationToggleSection />
       <Separator className="my-4" />
