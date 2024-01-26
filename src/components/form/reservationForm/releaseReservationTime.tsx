@@ -67,7 +67,8 @@ const ReleaseReservationTime = () => {
 
     useEffect(() => {
         if (selected !== null) {
-            handleReleaseTime(dispatch, selected);
+            const newTime = selected.split("-")
+            handleReleaseTime(dispatch, newTime[0]);
         }
     }, [selected, dispatch]);
 
@@ -98,7 +99,7 @@ const ReleaseReservationTime = () => {
                         buttonVariants({
                             variant: releaseTime === '' ? "default" : "outline",
                         }),
-                        `inline-flex text-black ${releaseTime === '' ? "hidden" : 'bg-black text-white'}`
+                        `inline-flex text-black ${releaseTime === '' ? "hidden" : 'bg-black text-white hover:bg-black hover:text-white'}`
                     )}
                     onClick={() => handleSelectedTime('')}
                 >

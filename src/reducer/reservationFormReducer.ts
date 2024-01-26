@@ -38,7 +38,7 @@ export interface IFormState {
   };
   partySize: number | string;
   reservationDates: Date[] | string[];
-  releaseDates :  Date[] | string[];
+  releaseDates :  string;
   reservationTime:string,
   releaseTime :string;
   finalSnipingDay: string;
@@ -65,7 +65,7 @@ export const initialState: IFormState = {
   selectSittingOptions: { ...initialSittingState },
   partySize: 0,
   reservationDates: [],
-  releaseDates: [],
+  releaseDates: "",
   reservationTime:"",
   releaseTime:"",
   finalSnipingDay: "any",
@@ -209,14 +209,9 @@ export const reservationFormReducer = (
       };
 
       case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_DATE:
-
-      // eslint-disable-next-line no-case-declarations
-      const payloadIsArray2 = Array.isArray(action.payload);
-      if (!payloadIsArray2) return state;
-
       return {
         ...state,
-        releaseDates: [...action.payload],
+        releaseDates: String(action.value),
       };
       case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_TIME:
         return {
@@ -363,11 +358,11 @@ export function handleReservationDate(
 
 export function handleReleaseDate(
   dispatch: IUserStateReducerDispatchType,
-  payload: unknown
+  value:string
 ) {
   dispatch({
     type: ResturantReservationStateReducerConstant.RELEASE_RESERVATION_DATE,
-    payload,
+    value:value,
   });
 }
 

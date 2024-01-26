@@ -15,7 +15,7 @@ import { useGetSingleReservation } from "@/features/reservation/reservation";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
-  const { reservationFormState, dispatch } = useReservationContext();
+  const { reservationFormState, reservationFormState: { reservationType }, dispatch } = useReservationContext();
   // const { reservationCounts } = useGetReservationCount()
   const { createReservation, isLoading } = useCreateReservation();
   const { updateReservation } = useUpdateReservation()
@@ -37,6 +37,7 @@ const ReserveButtonSection = () => {
     selectSittingOptions: { ...initialSittingState },
     partySize: 0,
     reservationDates: [],
+    reservationTime: "",
     finalSnipingDay: "any",
     overideCurrentReservationToggleSection: false,
     title: "",
@@ -45,6 +46,7 @@ const ReserveButtonSection = () => {
       resturantsError: false,
       partySizeError: false,
       reservationDateError: false,
+      reservationTimeError: false,
     },
   };
 
@@ -52,11 +54,15 @@ const ReserveButtonSection = () => {
 
 
   useEffect(() => {
-
     // This useffect is for update reservations
     if (!singleResevationIsLoading && singleReservation && venue_id && group_id) {
       const { data } = singleReservation;
+      const formattedStartTime = convertTo12HourFormat(data[0].start_time);
+      const formattedEndTime = convertTo12HourFormat(data[0].end_time);
+      const reservationTimeNew = `${formattedStartTime} - ${formattedEndTime}`;
       state.partySize = data[0].party_size
+      state.reservationTime = reservationTimeNew
+      state.reservationDates = data[0].date;
       state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false
 
       // data.forEach((data: IReservation) => {
@@ -69,63 +75,195 @@ const ReserveButtonSection = () => {
     }
   }, [singleReservation, singleResevationIsLoading, dispatch, venue_id, group_id]);
 
+
+
+  const convertTo12HourFormat = (timeString: string) => {
+    const [hours, minutes] = timeString.split(":");
+    let formattedHours = parseInt(hours, 10);
+    let period = "AM";
+
+    if (formattedHours > 12) {
+      formattedHours -= 12;
+      period = "PM";
+    } else if (formattedHours === 12) {
+      period = "PM";
+    } else if (formattedHours === 0) {
+      formattedHours = 12;
+    }
+
+    const formattedMinutes = minutes.padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes} ${period}`;
+  };
+
+
   function handleReseveAndUpdateButtonClick(
     buttonClickType: "update" | "reserve"
   ): void {
     setAllErrorFieldTrue(dispatch);
+
     if (buttonClickType === "reserve") {
-      const {
-        resturantOptionOnAddReservationPage: {
-          selectedResturantsForReservationOnAddReservationPage,
-        },
-        partySize,
-        reservationDates,
-      } = reservationFormState;
-      if (
-        !selectedResturantsForReservationOnAddReservationPage.length ||
-        !partySize ||
-        !reservationDates.length
-      ) {
-        return console.log("invalid");
-      } else {
+      if (reservationType === "cancel") {
         const {
+          reservationType,
+          resturantOptionOnAddReservationPage: {
+            selectedResturantsForReservationOnAddReservationPage,
+          },
           partySize,
           reservationDates,
+          reservationTime,
+        } = reservationFormState;
+        if (
+          !selectedResturantsForReservationOnAddReservationPage.length ||
+          !partySize ||
+          !reservationDates.length || !reservationTime || !reservationType
+        ) {
+          return console.log("invalid");
+        } else {
+          const {
+            reservationType,
+            partySize,
+            reservationDates,
+            reservationTime,
+            resturantOptionOnAddReservationPage: {
+              selectedResturantsForReservationOnAddReservationPage,
+            },
+            overideCurrentReservationToggleSection,
+          } = reservationFormState;
+          const splitTime = reservationTime.split(" - ");
+          // coverted states into formated payload
+          const payload = {
+            resturants: selectedResturantsForReservationOnAddReservationPage.map(
+              (venue) => {
+                return { venue_id: venue.venue_id, venue_name: venue.venue_name };
+              }
+            ),
+            date: reservationDates.map((date) => convertDateTimeFormt(date)),
+            override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
+            final_snipe_date: null,
+            final_snipe_time: null,
+            table_type: null,
+            reservation_source: "resy",
+            snipe_type: reservationType as string,
+            start_time: splitTime[0],
+            end_time: splitTime[1],
+            party_size: partySize,
+          };
+          createReservation(payload);
+        }
+      }
+      else if (reservationType === "release") {
+        const {
+          reservationType,
+          resturantOptionOnAddReservationPage: {
+            selectedResturantsForReservationOnAddReservationPage,
+          },
+          partySize,
+          reservationDates,
+          releaseDates,
+          reservationTime,
+          releaseTime,
+        } = reservationFormState;
+        if (
+          !selectedResturantsForReservationOnAddReservationPage.length ||
+          !partySize ||
+          !reservationDates.length || !releaseDates.length || !reservationTime || !reservationType || !releaseTime
+        ) {
+          return console.log("invalid");
+        } else {
+          const {
+            reservationType,
+            partySize,
+            reservationDates,
+            releaseDates,
+            reservationTime,
+            releaseTime,
+            resturantOptionOnAddReservationPage: {
+              selectedResturantsForReservationOnAddReservationPage,
+            },
+            overideCurrentReservationToggleSection,
+          } = reservationFormState;
+          const splitTime = reservationTime.split(" - ");
+          const newSplitTime = releaseTime.split(" - ");
+          // coverted states into formated payload
+          const payload = {
+            resturants: selectedResturantsForReservationOnAddReservationPage.map(
+              (venue) => {
+                return { venue_id: venue.venue_id, venue_name: venue.venue_name };
+              }
+            ),
+            date: reservationDates.map((date) => convertDateTimeFormt(date)),
+            release_date: releaseDates,
+            override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
+            final_snipe_date: null,
+            final_snipe_time: null,
+            table_type: null,
+            reservation_source: "resy",
+            snipe_type: reservationType as string,
+            start_time: splitTime[0],
+            end_time: splitTime[1],
+            release_start_time: newSplitTime[0],
+            release_end_time: newSplitTime[1],
+            party_size: partySize,
+          };
+          createReservation(payload);
+        }
+      }
+    } else if (buttonClickType === "update") {
+      if (reservationType === "cancel") {
+        const {
+          reservationType,
+          partySize,
+          reservationDates,
+          releaseDates,
+          reservationTime,
+          releaseTime,
           resturantOptionOnAddReservationPage: {
             selectedResturantsForReservationOnAddReservationPage,
           },
           overideCurrentReservationToggleSection,
         } = reservationFormState;
-
-        // coverted states into formated payload
+        const splitTime = reservationTime.split(" - ");
+        const newSplitTime = releaseTime.split(" - ");
         const payload = {
+          group_id,
           resturants: selectedResturantsForReservationOnAddReservationPage.map(
             (venue) => {
               return { venue_id: venue.venue_id, venue_name: venue.venue_name };
             }
           ),
           date: reservationDates.map((date) => convertDateTimeFormt(date)),
+          release_date: releaseDates,
           override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
           final_snipe_date: null,
           final_snipe_time: null,
           table_type: null,
           reservation_source: "resy",
-          snipe_type: "cancel",
-          start_time: "15:00:00",
-          end_time: "18:00:00",
+          snipe_type: reservationType as string,
+          start_time: splitTime[0],
+          end_time: splitTime[1],
+          release_start_time: newSplitTime[0],
+          release_end_time: newSplitTime[1],
           party_size: partySize,
         };
-        createReservation(payload);
+        updateReservation(payload);
       }
-    } else if (buttonClickType === "update") {
+    }
+    else if (reservationType === "release") {
       const {
+        reservationType,
         partySize,
         reservationDates,
+        releaseDates,
+        reservationTime,
+        releaseTime,
         resturantOptionOnAddReservationPage: {
           selectedResturantsForReservationOnAddReservationPage,
         },
         overideCurrentReservationToggleSection,
       } = reservationFormState;
+      const splitTime = reservationTime.split(" - ");
+      const newSplitTime = releaseTime.split(" - ");
       const payload = {
         group_id,
         resturants: selectedResturantsForReservationOnAddReservationPage.map(
@@ -134,14 +272,17 @@ const ReserveButtonSection = () => {
           }
         ),
         date: reservationDates.map((date) => convertDateTimeFormt(date)),
+        release_date: releaseDates,
         override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
         final_snipe_date: null,
         final_snipe_time: null,
         table_type: null,
         reservation_source: "resy",
-        snipe_type: "cancel",
-        start_time: "15:00:00",
-        end_time: "18:00:00",
+        snipe_type: reservationType as string,
+        start_time: splitTime[0],
+        end_time: splitTime[1],
+        release_start_time: newSplitTime[0],
+        release_end_time: newSplitTime[1],
         party_size: partySize,
       };
       updateReservation(payload);
