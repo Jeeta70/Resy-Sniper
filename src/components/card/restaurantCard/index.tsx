@@ -104,7 +104,10 @@ const Index = ({ restaurant, layout }: Props) => {
                   </>
                 }
 
-                <Button variant="primary" className="w-full">
+                  <Button variant="primary" className="w-full" onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/reservations/add-reservation", { state: { selectedRestaurants: [restaurants] } })
+                  }}>
                   Reserve
                 </Button>{" "}
               </>

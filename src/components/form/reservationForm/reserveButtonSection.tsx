@@ -6,8 +6,8 @@ import { useReservationContext } from "@/context/ReservationFomProvider";
 import {
   setAllErrorFieldTrue,
 } from "@/reducer/reservationFormReducer";
-import {  convertDateTimeFormt } from "@/utils/healper";
-import { useCreateReservation, useUpdateReservation } from "@/features/reservation/reservation";
+import { convertDateTimeFormt } from "@/utils/healper";
+import { useCreateReservation, useGetReservationCount, useUpdateReservation } from "@/features/reservation/reservation";
 import { useEffect } from "react";
 
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
@@ -16,8 +16,7 @@ import { useGetSingleReservation } from "@/features/reservation/reservation";
 
 const ReserveButtonSection = () => {
   const { reservationFormState, dispatch } = useReservationContext();
-  console.log(reservationFormState);
-
+  const { reservationCounts } = useGetReservationCount()
   const { createReservation, isLoading } = useCreateReservation();
   const { updateReservation } = useUpdateReservation()
   const { venue_id, group_id } = useParams();
@@ -30,7 +29,7 @@ const ReserveButtonSection = () => {
     availableSittings: "indoor",
   };
   const state = {
-    reservationType: "cancelReservation",
+    reservationType: "cancel",
     resturantOptionOnAddReservationPage: {
       selectedResturant: "",
       selectedResturantsForReservationOnAddReservationPage: [],
@@ -63,7 +62,7 @@ const ReserveButtonSection = () => {
       // data.forEach((data: IReservation) => {
       //   const date = convertDateFormat(data.date)
       //   console.log(date);
-        
+
       //   state.reservationDates.push(date);
       // })
       handleUpdateReservation(dispatch, state);
@@ -152,7 +151,7 @@ const ReserveButtonSection = () => {
   return (
     <div className="flex justify-between flex-col-reverse sm:flex-row gap-2 text-center">
       <p className="text-xs font-semibold ">
-        2 of 25 reservation requests used
+        {reservationCounts} of 25 reservation requests used
       </p>
       <div className="flex gap-5">
         <DiscardChangesModal>

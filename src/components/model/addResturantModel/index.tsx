@@ -17,6 +17,7 @@ import {
 } from "@/reducer/reservationFormReducer";
 import { IRestaurant } from "@/types/restaurants";
 import { UserDetailContext } from "@/context/UserDetailProvider";
+import searchIcon from "@/assets/Search.svg";
 
 import ProIcon from "@/assets/ProIcon.svg";
 
@@ -31,7 +32,7 @@ const AddResturantModel = () => {
   const { reservationFormState, dispatch } = useReservationContext();
   const { searchRestaurants, isLoading } = useSearchRestaurants();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSeachParams] = useSearchParams({ query: "" });
+  const [query, setSeachParams] = useSearchParams({ query: "" });
   const [searchQuery, setsearchQuery] = useState("");
 
   useEffect(() => {
@@ -80,18 +81,28 @@ const AddResturantModel = () => {
         <>
           <SearchInputField onChange={onChange} />
           {/* <CredenzaDescription className=""> */}
+          {filteredRestaurants && !filteredRestaurants.length && (
+            <div className=" flex justify-center items-center h-[calc(10rem)] flex-col ">
+              <div>
+                <img src={searchIcon} alt="" />
+              </div>
+              <div className="text-light"> No results found for {query}.Please consider trying a different name.</div>
+            </div>
+          )}
           <ScrollArea className="sm:h-80 rounded-md">
             <span className="flex flex-col gap-4">
               {!isLoading &&
-                filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => {
-                  return (
-                    <AddRestaurantCard
-                      key={i}
-                      restaurant={restaurant}
-                      onResturantCardClick={onResturantCardClick}
-                    />
-                  );
-                })}
+                filteredRestaurants.map(
+                  (restaurant: IRestaurant, i: Key | null | undefined) => {
+                    return (
+                      <AddRestaurantCard
+                        key={i}
+                        restaurant={restaurant}
+                        onResturantCardClick={onResturantCardClick}
+                      />
+                    );
+                  }
+                )}
             </span>
           </ScrollArea>
           {/* </CredenzaDescription> */}
@@ -144,7 +155,6 @@ const AddResturantModel = () => {
 
               {userDetail.subscription_type === "standard" ? (
                 <>
-                  {" "}
                   {selectAvailableSittingsButtons.map((button, i) => (
                     <Button
                       key={i}
@@ -194,7 +204,6 @@ const AddResturantModel = () => {
           <Button variant="outline" className="">
             Cancel
           </Button>
-
         </CredenzaClose>
 
         <CredenzaClose className="">

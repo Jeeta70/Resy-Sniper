@@ -11,15 +11,15 @@ const SelectReservationTypeSection = () => {
         <Button
           className="font-semibold text-[11px]  rounded-r-none w-full sm:w-auto"
           type="button"
-          variant={reservationFormState.reservationType === "cancelReservation" ? "default" : "outline"}
-          onClick={() => handleButtonClickReservationType(dispatch, "cancelReservation")}        >
+          variant={reservationFormState.reservationType === "cancel" ? "default" : "outline"}
+          onClick={() => handleButtonClickReservationType(dispatch, "cancel")}        >
           Canceled Reservation
         </Button>
         <Button
           className="font-semibold text-[11px] rounded-l-none w-full sm:w-auto"
           type="button"
-          variant={reservationFormState.reservationType === "releaseReservation" ? "default" : "outline"}
-          onClick={() => handleButtonClickReservationType(dispatch, "releaseReservation")}>
+          variant={reservationFormState.reservationType === "release" ? "default" : "outline"}
+          onClick={() => handleButtonClickReservationType(dispatch, "release")}>
           Release Reservation
         </Button>
       </div>

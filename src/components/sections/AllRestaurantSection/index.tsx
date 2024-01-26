@@ -1,35 +1,54 @@
 import { RestaurantCard } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
+import { useSearchRestaurants } from "@/features/restaurant/restaurant";
+// import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
 import { X } from "lucide-react";
+import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-interface Props {
-  restaurants: IRestaurant[];
-  sectionTitle: string;
-}
 
-const Section = ({ restaurants, sectionTitle }: Props) => {
+const Section = () => {
   const navigate = useNavigate();
+  const { searchRestaurants, isLoading } = useSearchRestaurants();
+  const { removeAllRestaurant } = useRestaurantContext();
+
   const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
+
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
+
+
+  useEffect(() => {
+
+    return () => removeAllRestaurant()
+  }, [])
+
+
+  const filteredRestaurants = useMemo(() => {
+    if (!isLoading) {
+      return searchRestaurants?.data ?? []
+    }
+  }, [isLoading, searchRestaurants?.data])
+
 
 
   return (
     <div>
       <div className="flex justify-between">
-        <h1 className="my-4 text-lg font-semibold	">{sectionTitle}</h1>
+        <h1 className="my-4 text-lg font-semibold	">All Restaurants</h1>
         <h1
           className="my-4 text-primary"
           role="button"
-          onClick={() => navigate("/restaurants/top-picks")}
+          onClick={() => navigate("/restaurants/all-restaurants")}
         >
           See all
         </h1>
       </div>
       <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
-        {restaurants.map((restaurant, i) => (
+        {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard
             key={i}
             restaurant={restaurant}
@@ -38,7 +57,7 @@ const Section = ({ restaurants, sectionTitle }: Props) => {
         ))}
       </div>
       <div className="fixed bottom-0 w-[calc(100%_-_22rem)] transition-all flex justify-between p-5 bg-white gap-3">
-       <div className="flex gap-3">
+        <div className="flex gap-3">
           {selectedRestaurants.map((restaurant, i) => (
             <div className={buttonVariants({ variant: "outline" })} key={i}>
               {restaurant.venue_name}
@@ -50,7 +69,7 @@ const Section = ({ restaurants, sectionTitle }: Props) => {
               />
             </div>
           ))}
-       </div>
+        </div>
 
         {!!selectedRestaurants.length && <Button onClick={(e) => {
           e.stopPropagation()

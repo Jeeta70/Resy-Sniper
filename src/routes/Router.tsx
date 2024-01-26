@@ -1,6 +1,6 @@
 // import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AddReservation, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
+import { AddReservation, AllRestaurants, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
   // ConnectAccount,
   // Integration,
   // Login,
@@ -15,7 +15,7 @@ import { AddReservation, ConnectAccount, Integration, Login, Profile, Reservatio
 import ShowSidebar from "./ShowSidebar";
 import { Toaster } from "@/components/ui/toaster";
 import ProtectedRoute from "./ProtectedRoute";
-// import PresistConnectAccount from "./PresistConnectAccount";
+import PresistConnectAccount from "./PresistConnectAccount";
 import PersistSubscribtion from "./PersistSubscribtion";
 import { UserDetailContextProvider } from "@/context/UserDetailProvider";
 import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservationProvider";
@@ -56,14 +56,14 @@ const Router = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
           </Route>
-          {/* <Route element={<PresistConnectAccount />}>
+          <Route element={<PresistConnectAccount />}>
               <Route path="/connect-accounts" element={<ConnectAccount />} />
-            </Route> */}
+            </Route>
+            <Route element={<PersistSubscribtion />}>
+              <Route path="/subscription" element={<Subscription />} />
+            </Route>
             <Route element={<ProtectedRoute />}>
-              <Route path="/connect-accounts" element={<ConnectAccount />} />
-              <Route element={<PersistSubscribtion />}>
-                <Route path="/subscription" element={<Subscription />} />
-              </Route>
+              {/* <Route path="/connect-accounts" element={<ConnectAccount />} /> */}
               <Route
                 path="/reservations/add-reservation/:venue_id?/:group_id?/"
                 element={<AddReservation />}
@@ -79,6 +79,7 @@ const Router = () => {
                 <Route path="restaurants">
                   <Route index element={<Restaurants />} />
                   <Route path="top-picks" element={<TopPick />} />
+                  <Route path="all-restaurants" element={<AllRestaurants />} />
                 </Route>
                 {/* <Route path="/restaurants" element={<Restaurants />} /> */}
                 {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}

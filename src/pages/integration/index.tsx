@@ -12,8 +12,20 @@ import {
   ConnectOpenTabelAccountModel,
   DisconnectResyAccountModel,
 } from "@/components";
+import { useGetUser } from "@/features/user/user";
+import { useMemo } from "react";
+import { capitalizeFirstAlphabet } from "@/utils/healper";
 
 const Index = () => {
+  const { userResponse, isSuccess, isError, error } = useGetUser();
+  const user = useMemo(() => {
+    if (isSuccess) {
+      return userResponse?.data.data;
+    }
+  }, [isSuccess, userResponse?.data.data]);
+
+  console.log("user=>", user);
+
   return (
     <>
       <div className="m-6 sm:m-auto">
@@ -32,26 +44,36 @@ const Index = () => {
                   className="h-[30px] w-16"
                 />
                 <CardDescription className="font-bold text-black text-sm ">
-                  John Doe
+                  {capitalizeFirstAlphabet(user.first_name)}
+                  {capitalizeFirstAlphabet(user.last_name)}
                 </CardDescription>
                 <CardDescription>
-                  {" "}
                   <span className="ml-1  font-medium text-xs">
-                    {" "}
-                    johndoe@example.com
+                    {user?.email}
                   </span>
                 </CardDescription>
               </div>
-              <div className=" justify-self-end w-full">
+              {user.resy_token ? (
+                <div className=" justify-self-end w-full">
+                  <Credenza>
+                    <CredenzaTrigger asChild>
+                      <Button variant="outline" className="w-full">
+                        Disconnect
+                      </Button>
+                    </CredenzaTrigger>
+                    <DisconnectResyAccountModel />
+                  </Credenza>
+                </div>
+              ) : (
                 <Credenza>
                   <CredenzaTrigger asChild>
                     <Button variant="outline" className="w-full">
-                      Disconnect
+                      Connect
                     </Button>
                   </CredenzaTrigger>
                   <DisconnectResyAccountModel />
                 </Credenza>
-              </div>
+              )}
             </div>
           </CardContent>
         </Card>

@@ -1,145 +1,85 @@
 import { RestaurantCard } from "@/components";
-import SearchAndFilterSection from "../searchAndFilterSection";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
+import { useSearchRestaurants, useTopPicksRestaurants } from "@/features/restaurant/restaurant";
+// import { IRestaurant } from "@/types/filteredRestaurants";
+import { IRestaurant } from "@/types/restaurants";
+import { X } from "lucide-react";
+import { Key, useEffect, useMemo } from "react";
+// import { RestaurantProps } from "@/components/card/restaurantCard";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-const index = () => {
-  const topPickResturants = [
-    {
-      about_description: "",
-      address_1: "",
-      country: "",
-      cover_image_url: "",
-      cuisine_type: "",
-      locality: "",
-      need_to_know_description: "",
-      neighborhood: "",
-      postal_code: "",
-      price: 11,
-      region: "",
-      restaurant_website: "",
-      restuarant_phone_number: "",
-      seating_types: [""],
-      venue_id: 11,
-      venue_name: "",
-    },
-    {
-      about_description: "",
-      address_1: "",
-      country: "",
-      cover_image_url: "",
-      cuisine_type: "",
-      locality: "",
-      need_to_know_description: "",
-      neighborhood: "",
-      postal_code: "",
-      price: 11,
-      region: "",
-      restaurant_website: "",
-      restuarant_phone_number: "",
-      seating_types: [""],
-      venue_id: 11,
-      venue_name: "",
-    },
-    {
-      about_description: "",
-      address_1: "",
-      country: "",
-      cover_image_url: "",
-      cuisine_type: "",
-      locality: "",
-      need_to_know_description: "",
-      neighborhood: "",
-      postal_code: "",
-      price: 11,
-      region: "",
-      restaurant_website: "",
-      restuarant_phone_number: "",
-      seating_types: [""],
-      venue_id: 11,
-      venue_name: "",
-    },
-    {
-      about_description: "",
-      address_1: "",
-      country: "",
-      cover_image_url: "",
-      cuisine_type: "",
-      locality: "",
-      need_to_know_description: "",
-      neighborhood: "",
-      postal_code: "",
-      price: 11,
-      region: "",
-      restaurant_website: "",
-      restuarant_phone_number: "",
-      seating_types: [""],
-      venue_id: 11,
-      venue_name: "",
-    },
-    {
-      about_description: "",
-      address_1: "",
-      country: "",
-      cover_image_url: "",
-      cuisine_type: "",
-      locality: "",
-      need_to_know_description: "",
-      neighborhood: "",
-      postal_code: "",
-      price: 11,
-      region: "",
-      restaurant_website: "",
-      restuarant_phone_number: "",
-      seating_types: [""],
-      venue_id: 11,
-      venue_name: "",
-    },
-  ];
+
+const Section = () => {
+  const navigate = useNavigate();
+  // const { searchRestaurants, isLoading } = useSearchRestaurants();
+  const { removeAllRestaurant } = useRestaurantContext();
+
+  const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
+  const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
+
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
+  console.log(query);
+
+
+  useEffect(() => {
+
+    return () => removeAllRestaurant()
+  }, [])
+
+
+  const filteredRestaurants = useMemo(() => {
+    if (!isLoading) {
+      return searchRestaurants?.data ?? []
+    }
+  }, [isLoading, searchRestaurants?.data])
+
+
 
   return (
-    <div className="w-full h-screen p-10">
-      <h1 className="font-bold text-3xl mb-4">Top pick</h1>
-      <SearchAndFilterSection />
-      <div className="grid grid-cols-4 gap-4 mt-4">
-        {topPickResturants.map((restaurant, i) => (
+    <div>
+      <div className="flex justify-between">
+        <h1 className="my-4 text-lg font-semibold	">Top Picks</h1>
+        {/* <h1
+          className="my-4 text-primary"
+          role="button"
+          onClick={() => navigate("/restaurants/top-picks")}
+        >
+          See all
+        </h1> */}
+      </div>
+      <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
+        {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard
-            restaurant={restaurant}
             key={i}
+            restaurant={restaurant}
             layout={{ displayFooter: true }}
           />
         ))}
       </div>
-      {/* <div>
-        <div className="flex justify-between">
-          <h1 className="my-4">Top Picks</h1>
-          <h1 className="my-4 text-[#EA3A4B]">See all</h1>
-        </div>
-        <div className="grid grid-cols-4 gap-4">
-          {topPicks.map((restaurant, i) => (
-            <RestaurantCard key={i} />
+      <div className="fixed bottom-0 w-[calc(100%_-_22rem)] transition-all flex justify-between p-5 bg-white gap-3">
+        <div className="flex gap-3">
+          {selectedRestaurants.map((restaurant, i) => (
+            <div className={buttonVariants({ variant: "outline" })} key={i}>
+              {restaurant.venue_name}
+              <X className="cursor-pointer bg-gray-400 text-white rounded-full h-[20px] w-[20px] ml-2"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeRestaurant(restaurant);
+                }}
+              />
+            </div>
           ))}
         </div>
+
+        {!!selectedRestaurants.length && <Button onClick={(e) => {
+          e.stopPropagation()
+          navigate("/reservations/add-reservation", { state: { selectedRestaurants } })
+        }} variant="primary">Reserve</Button>}
       </div>
-      <div>
-        <div className="flex justify-between">
-          <h1 className="my-4">Near You</h1>
-          <h1 className="my-4 text-[#EA3A4B]">See all</h1>
-        </div>
-        <div className="grid grid-cols-4 gap-4">
-          {nearYou.map((restaurant, i) => (
-            <RestaurantCard key={i} />
-          ))}
-        </div>
-      </div>
-      <div>
-        <h1 className="my-4">All Restaurants</h1>
-        <div className="grid grid-cols-4 gap-4">
-          {allResturants.map((restaurant, i) => (
-            <RestaurantCard key={i} />
-          ))}
-        </div>
-      </div> */}
     </div>
   );
 };
 
-export default index;
+export default Section;

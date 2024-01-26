@@ -14,7 +14,7 @@ const PersistSubscribtion = () => {
             return navigate("/connect-accounts")
          }
       }
-
+      
    }, [isSuccess, navigate, userResponse]);
 
    return <Outlet />;

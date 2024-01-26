@@ -12,8 +12,11 @@ export { default as AddResturantModel } from "@/components/model/addResturantMod
 export { default as Model } from "@/components/model/commanModal";
 export { default as DiscardChangesModal } from "@/components/model/discardChangesModal"
 export { default as FeatureIsForProModel } from "@/components/model/featureIsAvailabelForPro"
+export { default as FeatureIsForStandardModel } from "@/components/model/featureIsAvailabelForStandard"
 export { default as ResetPasswordModal } from "@/components/model/resetPasswordModal"
 export { default as CancelSubscription } from "@/components/model/CancelSubscription"
+export { default as AddTimeModal } from "@/components/model/addTimeModal"
+export { default as ReleaseTimeModal } from "@/components/model/releaseTimeModal"
 
 
 export { default as ResyConnectAccountCard } from "@/components/card/connectAccount/resyCard";
@@ -39,3 +42,8 @@ export { default as ReservationPageSkeleton } from "@/components/loader/reservat
 
 
 export { default as ButtonLoader } from "@/components/loader/buttonLoader"
+
+// Sections
+export { default as TopPickSection } from "@/components/sections/TopPickSection"
+export { default as AllRestaurantSection } from "@/components/sections/AllRestaurantSection"
+

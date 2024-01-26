@@ -13,7 +13,7 @@ interface IAccountDetails {
 export const useConnectResyAccount = () => {
    const { mutate: connectResyAccount, isPending: isLoading } = useMutation({
       mutationFn: ({ email, password }: IAccountDetails) => {
-         return axios.post(`${baseUrl}/api/resylogin`, { email, password },{headers:{Authorization:`Bearer ${getToken("access_token")}`}})
+         return axios.post(`${baseUrl}/api/resylogin`, { email, password }, { headers: { Authorization: `Bearer ${getToken("access_token")}` } })
       },
       onSuccess: () => {
          toast({ description: "sucessfully connected", variant: "dark" })
@@ -28,12 +28,15 @@ export const useConnectResyAccount = () => {
 
 
 export const useDisconnectConnectResyAccount = () => {
+
+
    const { mutate: discconetResyAccount, isPending: isLoading } = useMutation({
-      mutationFn: ({ email, password }: IAccountDetails) => {
-         return axios.post(`${baseUrl}/api/resysignout`, { email, password }, { headers: { Authorization: `Bearer ${getToken("access_token")}` } })
+      mutationFn: (): any => {
+         return axios.post(`${baseUrl}/api/resysignout`, {}, { headers: { Authorization: `Bearer ${getToken("access_token")}` } })
       },
       onSuccess: () => {
          toast({ description: "sucessfully connected", variant: "dark" })
+         document.getElementById("dissconnetResyConnect")?.click()
       },
       onError: (error: { response: AxiosResponse }) => {
          toast({ description: error.response.data.message, variant: "destructive" })
