@@ -1,4 +1,4 @@
-import { Model } from "@/components";
+import { ButtonLoader, Model } from "@/components";
 import { Button } from "@/components/ui/button";
 import { CardTitle } from "@/components/ui/card";
 import {
@@ -56,7 +56,7 @@ const Index = () => {
                e.stopPropagation()
                upgrade("premium")
             }}>
-               Upgrade to PRO
+               {isLoading ? <ButtonLoader /> : "Upgrade to PRO"}
             </Button>
          </CredenzaFooter>
       </Model>

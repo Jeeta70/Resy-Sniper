@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siderBarOptions } from "@/utils/constants";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LogOut, Menu, X } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { useGetReservationCount } from "@/features/reservation/reservation";
 
 const Index = () => {
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate()
+  const { reservationCounts, isLoading } = useGetReservationCount();
+  const navigate = useNavigate();
   // const [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
   const isMobile = useMediaQuery("(max-width: 673px)");
   const handleOpen = async () => {
     if (isMobile) {
-      setOpen(!open)
+      setOpen(!open);
     }
-  }
+  };
 
   const handleClick = () => {
-    localStorage.removeItem('token')
-    navigate("/login")
-  }
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const resCount = useMemo(() => {
+    if (!isLoading && reservationCounts) {
+      return reservationCounts.data.total_reservations;
+    }
+    return 0;
+  }, [isLoading, reservationCounts]);
 
   return (
     <div className="flex z-10 fixed top-0 left-0">
@@ -33,15 +42,21 @@ const Index = () => {
       >
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <Button className={`bg-inherit ${open ? 'block' : 'hidden'} sm:hidden right-5 absolute p-0 px-0 py-auto`}
-              onClick={() => setOpen(!open)} >
+            <Button
+              className={`bg-inherit ${
+                open ? "block" : "hidden"
+              } sm:hidden right-5 absolute p-0 px-0 py-auto`}
+              onClick={() => setOpen(!open)}
+            >
               <X />
             </Button>
             <div className="text-center text-primary text-2xl font-bold w-full sm:w-auto p-3">
               RESY SNIPER
             </div>
             <Button
-              className={`bg-inherit ${open ? 'hidden' : 'block'} sm:hidden left-5 absolute p-0 px-0 py-auto`}
+              className={`bg-inherit ${
+                open ? "hidden" : "block"
+              } sm:hidden left-5 absolute p-0 px-0 py-auto`}
               onClick={() => setOpen(!open)}
             >
               <Menu />
@@ -52,7 +67,7 @@ const Index = () => {
               <li
                 className={cn(
                   pathname.includes(siderBarOption.pathname) &&
-                  " border-l-2 border-primary "
+                    " border-l-2 border-primary "
                 )}
                 key={indx}
               >
@@ -61,18 +76,34 @@ const Index = () => {
                   className="flex items-center p-2 space-x-3 rounded-md text-white"
                 >
                   <p>{siderBarOption.icon}</p>
-                  <span className="" onClick={() => handleOpen()}>{siderBarOption.title}</span>
+                  <span className="" onClick={() => handleOpen()}>
+                    {siderBarOption.title}
+                  </span>
                 </Link>
               </li>
             ))}
             <li>
-              <Button className="flex font-normal items-center p-2 space-x-3 rounded-md text-white text-sm" onClick={handleClick}>
+              <Button
+                className="flex font-normal items-center p-2 space-x-3 rounded-md text-white text-sm"
+                onClick={handleClick}
+              >
                 {/* {siderBarOption.icon} */}
                 <LogOut size={18} />
                 <span className="">Logout</span>
               </Button>
             </li>
           </ul>
+        </div>
+        <div
+          className={`text-white mt-auto bg-[url(@/assets/SidebarImage.png)] bg-no-repeat  bg-cover bg-bottom h-1/2 flex justify-center flex-col items-center`}
+        >
+          <div>
+            <span className="font-extrabold text-10 text-6xl">{resCount}</span>
+            <span className="font-extrabold text-10 text-2xl">/25</span>
+          </div>
+          <span className=" font-medium text-sm">
+            Reservation requests used
+          </span>
         </div>
       </div>
     </div>

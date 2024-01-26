@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormSchema } from "@/utils/formZodSchema";
 import { Input } from "@/components/ui/input";
@@ -31,7 +30,7 @@ const Index = () => {
           description: "You need to connect the account",
           variant: "dark",
         });
-        navigate("/connect-account");
+        navigate("/connect-accounts");
       } else if (subscription_type === "none") {
         toast({
           description: "You need to take the subscription",

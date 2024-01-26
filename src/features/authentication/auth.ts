@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { baseUrl } from "@/config/baseUrl";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +35,7 @@ export const useSignup = () => {
 
 
 export const useLogin = () => {
+   const queryClient = useQueryClient()
    const { mutate: login, isPending: isLoading } = useMutation({
       mutationFn: ({ email, password, }: IUser) => {
          return axios.post(`${baseUrl}/api/login`, { email, password });
@@ -46,6 +47,9 @@ export const useLogin = () => {
       },
       onError: (err: { response: AxiosResponse }) => {
          toast({ description: err.response.data.message, variant: "destructive" })
+         queryClient.invalidateQueries({ queryKey: ["user"] })
+         console.log("ss");
+
       },
    });
    return { login, isLoading };
@@ -72,10 +76,52 @@ export const useResetPassword = () => {
       mutationFn: ({ email }: { email: string }) => {
          return axios.post(`${baseUrl}/api/request_password_reset`, { email });
       },
-      onSuccess: () => toast({ description: "Link is send", variant: "dark" }),
+      onSuccess: () => toast({ description: "Link is send to your email", variant: "dark" }),
       onError: (err: { response: AxiosResponse }) => {
          toast({ description: err.response.data.message, variant: "destructive" })
       },
    });
    return { resetPassword, isLoading };
 };
+
+
+
+export const useVerifyResetPassword = () => {
+  const navigate =  useNavigate()
+   const { mutate: verifyResetPassword, isPending: isLoading } = useMutation({
+      mutationFn: ({ password, token }: { password: string, token: string | null }) => {
+         return axios.post(`${baseUrl}/api/verify_reset_password/${token}`, { password });
+      },
+      onSuccess: () => {
+         toast({ description: "Password reset successfully", variant: "dark" })
+         navigate("/login")
+      },
+      onError: (err: { response: AxiosResponse }) => {
+         toast({ description: err.response.data.message, variant: "destructive" })
+      },
+   });
+   return { verifyResetPassword, isLoading };
+};
+
+
+
+export const useChangePassword = () => {
+   const accessToken = getToken("access_token")
+   const navigate = useNavigate()
+   const { mutate: changePassword, isPending: isLoading } = useMutation({
+      mutationFn: ({ password}: { password: string}) => {
+         return axios.post(`${baseUrl}/api/change_password`, { password }, { headers: { "Authorization": `Bearer ${accessToken}` }});
+      },
+      onSuccess: () => {
+         toast({ description: "Password change successfully", variant: "dark" })
+         navigate("/profile")
+      },
+      onError: (err: { response: AxiosResponse }) => {
+         toast({ description: err.response.data.message, variant: "destructive" })
+      },
+   });
+   return { changePassword, isLoading };
+};
+
+
+

@@ -63,7 +63,6 @@ const Router = () => {
               <Route path="/subscription" element={<Subscription />} />
             </Route>
             <Route element={<ProtectedRoute />}>
-              {/* <Route path="/connect-accounts" element={<ConnectAccount />} /> */}
               <Route
                 path="/reservations/add-reservation/:venue_id?/:group_id?/"
                 element={<AddReservation />}
@@ -73,7 +72,6 @@ const Router = () => {
                 <Route element={<PersistDashboard />}>
                   <Route path="/reservations" element={<Reservation />} />
                 </Route>
-
                 <Route path="/check-subscription" element={<CheckSubscription />} />
 
                 <Route path="restaurants">
@@ -84,11 +82,12 @@ const Router = () => {
                 {/* <Route path="/restaurants" element={<Restaurants />} /> */}
                 {/* <Route path="/restaurants/top-picks" element={<TopPick />} /> */}
                 <Route path="/integrations" element={<Integration />} />
-
                 <Route path="/profile" element={<Profile />} />
               </Route>
             </Route>
-          <Route path="/reset-password/:token?" element={<ResetPassword />} />
+          <Route path="/forget-password/:token?" element={<ResetPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
           <Route path="/home" element={<NewPage />} />
         </Routes>
           </UserDetailContextProvider>

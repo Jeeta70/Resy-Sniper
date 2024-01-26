@@ -16,7 +16,7 @@ const PresistLoginSignUp = () => {
                description: "You need to connect the account",
                variant: "dark",
             });
-            navigate("/connect-account");
+            navigate("/connect-accounts");
          } else if (subscription_type === "none") {
             toast({
                description: "You need to take the subscription",

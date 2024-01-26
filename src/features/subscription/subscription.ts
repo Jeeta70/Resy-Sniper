@@ -1,6 +1,6 @@
 import { getToken } from "@/utils/healper";
 import axios, { AxiosResponse } from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { baseUrl } from "@/config/baseUrl";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -59,6 +59,8 @@ export function useCheckSubscriptionIsCompleted() {
 }
 
 export function useUpgradeSubscription() {
+
+   const queryClient = useQueryClient()
    const accesToken = getToken("access_token");
    const { mutate: upgrade, isPending: isLoading } = useMutation({
       mutationFn: (subscription: "premium" | "standard") => {
@@ -67,8 +69,7 @@ export function useUpgradeSubscription() {
          });
       },
       onSuccess: () => {
-         document.getElementById("closeProModel")?.click()
-         window.location.reload()
+         queryClient.invalidateQueries({ queryKey: ["user"] })
       },
 
    });

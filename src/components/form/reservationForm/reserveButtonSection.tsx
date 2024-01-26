@@ -3,24 +3,39 @@ import { useParams } from "react-router-dom";
 import { ButtonLoader, DiscardChangesModal } from "@/components";
 import { Button } from "@/components/ui/button";
 import { useReservationContext } from "@/context/ReservationFomProvider";
-import {
-  setAllErrorFieldTrue,
-} from "@/reducer/reservationFormReducer";
+import { setAllErrorFieldTrue } from "@/reducer/reservationFormReducer";
 import { convertDateTimeFormt } from "@/utils/healper";
-import { useCreateReservation, useUpdateReservation } from "@/features/reservation/reservation";
-import { useEffect } from "react";
+import {
+  useCreateReservation,
+  useGetReservationCount,
+  useUpdateReservation,
+} from "@/features/reservation/reservation";
+import { useContext, useEffect, useMemo } from "react";
 
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
+import { UserDetailContext } from "@/context/UserDetailProvider";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
+
+  const { reservationCounts, isLoading: countIsLoading } = useGetReservationCount();
+
   const { reservationFormState, reservationFormState: { reservationType }, dispatch } = useReservationContext();
   // const { reservationCounts } = useGetReservationCount()
   const { createReservation, isLoading } = useCreateReservation();
-  const { updateReservation } = useUpdateReservation()
+  const { updateReservation } = useUpdateReservation();
   const { venue_id, group_id } = useParams();
-  const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
+  const { singleReservation, isLoading: singleResevationIsLoading } =
+    useGetSingleReservation();
+  const { subscription_type } = useContext(UserDetailContext);
+
+  const resCount = useMemo(() => {
+    if (!countIsLoading && reservationCounts) {
+      return reservationCounts.data.total_reservations;
+    }
+    return 0;
+  }, [countIsLoading, reservationCounts]);
 
   const initialSittingState = {
     showModel: false,
@@ -50,13 +65,16 @@ const ReserveButtonSection = () => {
     },
   };
 
-
-
-
   useEffect(() => {
     // This useffect is for update reservations
-    if (!singleResevationIsLoading && singleReservation && venue_id && group_id) {
+    if (
+      !singleResevationIsLoading &&
+      singleReservation &&
+      venue_id &&
+      group_id
+    ) {
       const { data } = singleReservation;
+
       const formattedStartTime = convertTo12HourFormat(data[0].start_time);
       const formattedEndTime = convertTo12HourFormat(data[0].end_time);
       const reservationTimeNew = `${formattedStartTime} - ${formattedEndTime}`;
@@ -73,7 +91,13 @@ const ReserveButtonSection = () => {
       // })
       handleUpdateReservation(dispatch, state);
     }
-  }, [singleReservation, singleResevationIsLoading, dispatch, venue_id, group_id]);
+  }, [
+    singleReservation,
+    singleResevationIsLoading,
+    dispatch,
+    venue_id,
+    group_id,
+  ]);
 
 
 
@@ -291,12 +315,34 @@ const ReserveButtonSection = () => {
 
   return (
     <div className="flex justify-between flex-col-reverse sm:flex-row gap-2 text-center">
-      <p className="text-xs font-semibold ">
-        1 of 25 reservation requests used
-      </p>
+      {subscription_type === "standard" && resCount > 5 ? (
+        <p className="text-xs font-semibold text-red-400">
+          {resCount} of 5 reservation requests used
+        </p>
+      ) : (
+        subscription_type === "standard" && <p className="text-xs font-semibold ">
+          {resCount} of 5 reservation requests used
+        </p>
+      )}
+
+      {subscription_type === "premium" && resCount > 25 ? (
+        <p className="text-xs font-semibold text-red-400">
+          {resCount} of 25 reservation requests used
+        </p>
+      ) : (
+        subscription_type === "premium" && <p className="text-xs font-semibold ">
+          {resCount} of 25 reservation requests used
+        </p>
+
+      )}
+      {/* <p className="text-xs font-semibold ">
+        {resCount} of 25 reservation requests used
+      </p> */}
       <div className="flex gap-5">
         <DiscardChangesModal>
-          <Button variant="outline" className="sm:block hidden">Cancel</Button>
+          <Button variant="outline" className="sm:block hidden">
+            Cancel
+          </Button>
         </DiscardChangesModal>
 
         {venue_id && group_id ? (
