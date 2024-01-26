@@ -1,4 +1,5 @@
 
+import { ButtonLoader } from "@/components";
 import { Button } from "@/components/ui/button";
 import { CredenzaClose } from "@/components/ui/credenza";
 import {
@@ -15,8 +16,10 @@ import { useResetPassword } from "@/features/authentication/auth";
 import { useState } from "react";
 
 const Index = () => {
-   const { resetPassword } = useResetPassword()
+   const { resetPassword ,isLoading } = useResetPassword()
    const [email, setEmail] = useState<string>("")
+   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   console.log(emailRegex.test(email));
 
    return (
       <>
@@ -48,8 +51,8 @@ const Index = () => {
                         Cancel
                      </Button>
                   </CredenzaClose>
-                  <Button type="submit" variant="primary" onClick={() => resetPassword({ email })}>
-                     Reset Password
+                  <Button type="submit" disabled={!emailRegex.test(email) || isLoading} variant="primary" onClick={() => resetPassword({ email })}>
+                     {isLoading ? <ButtonLoader /> : "Reset Password"}
                   </Button>
                </DialogFooter>
             </DialogContent>

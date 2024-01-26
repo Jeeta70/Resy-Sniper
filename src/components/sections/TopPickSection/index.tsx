@@ -1,4 +1,4 @@
-import { RestaurantCard } from "@/components";
+import { RestaurantCard, RestaurantCardSkeleton } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 import { useTopPicksRestaurants } from "@/features/restaurant/restaurant";
@@ -36,11 +36,11 @@ const Section = () => {
   }, [isLoading, searchRestaurants?.data])
 
 
-
   return (
     <div>
       <div className="flex justify-between">
         <h1 className="my-4 text-lg font-semibold	">Top Picks</h1>
+       
         <h1
           className="my-4 text-primary"
           role="button"
@@ -49,6 +49,7 @@ const Section = () => {
           See all
         </h1>
       </div>
+      {isLoading && <RestaurantCardSkeleton />}
       <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard

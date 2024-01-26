@@ -79,7 +79,7 @@ const AddResturantModel = () => {
 
       {!reservationFormState.selectSittingOptions.showModel ? (
         <>
-          <SearchInputField onChange={onChange} />
+          <SearchInputField onChange={onChange} placeholder=""/>
           {/* <CredenzaDescription className=""> */}
           {filteredRestaurants && !filteredRestaurants.length && (
             <div className=" flex justify-center items-center h-[calc(10rem)] flex-col ">

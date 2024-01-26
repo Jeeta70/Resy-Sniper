@@ -1,46 +1,63 @@
 import { useState } from "react";
 import { EyeOff } from "lucide-react";
 import { Eye } from "lucide-react";
+import {  useSearchParams } from "react-router-dom";
+import * as z from "zod";
+
+import { useForm } from "react-hook-form";
+import { resetPasswordSchema } from "@/utils/formZodSchema";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { ButtonLoader} from "@/components";
+import {
+  useChangePassword,
+  useVerifyResetPassword,
+} from "@/features/authentication/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Index = () => {
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [error2, setError2] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPassword2, setShowPassword2] = useState<boolean>(false);
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  const { verifyResetPassword, isLoading } = useVerifyResetPassword();
+  const { changePassword } =    useChangePassword();
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    if (newPassword.length < 8) {
-      setError("Password is too short");
-    } else {
-      setError("");
-    }
-  };
-  const handleChangePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = e.target.value;
-    setConfirmPassword(newPassword);
 
-    if (confirmPassword != password) {
-      setError2("Passwords do not match");
+  const form = useForm<z.infer<typeof resetPasswordSchema>>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: { password: "", confirmPassword: "" },
+  });
+
+  function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
+    if (!token) {
+      changePassword({ password:values.password });
     } else {
-      setError2("");
+      verifyResetPassword({ password: values.password, token });
     }
-  };
+  }
   return (
     <>
       <div className="flex sm:items-center items-start justify-center h-screen w-[100%] font-inter">
-        <div>
+        <div className="w-3/12">
           <div className="text-center text-primary text-3xl font-bold w-full sm:w-auto p-3 font-inter">
             RESY SNIPER
           </div>
-          <div className="sm:border sm:border-gray-300 p-[40px] w-[380px] rounded-md mt-3">
+          <div className="sm:border sm:border-gray-300 p-[40px] w-full rounded-md mt-3">
             <div className="text-center text-[24px] !font-[700] mb-3 font-inter">
               <p>Create New Password</p>
             </div>
-            <div className="my-3">
+            {/* <div className="my-3">
               <p className="text-[#12171A] text-[14px] !font-[400]">
                 New Password
               </p>
@@ -102,15 +119,99 @@ const Index = () => {
                 </div>
               </div>
               <p className="text-xs text-primary">{error2}</p>
-            </div>
-            <div className="mt-3">
-              <button
-                type="button"
-                className="w-[100%] text-white rounded-md bg-primary py-[12px] px-[24px] text-sm font-inter"
+            </div> */}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4 sm:m-auto m-2 w-full"
               >
-                Confirm
-              </button>
-            </div>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="relative">
+                        <FormLabel className="text-sm font-normal">
+                          New Password
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              placeholder="Create new password"
+                              type={`${showPassword ? "text" : "password"}`}
+                              {...field}
+                            />
+                            <div className="absolute right-3 top-3">
+                              {showPassword ? (
+                                <Eye
+                                  size={18}
+                                  color="gray"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                />
+                              ) : (
+                                <EyeOff
+                                  size={18}
+                                  color="gray"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="absolute -bottom-5 text-xs" />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="relative">
+                        <FormLabel className="text-sm font-normal">
+                          Repeat Passwordd
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              placeholder="Repeat new password"
+                              type={`${showPassword2 ? "text" : "password"}`}
+                              {...field}
+                            />
+                            <div className="absolute right-3 top-3">
+                              {showPassword2 ? (
+                                <Eye
+                                  size={18}
+                                  color="gray"
+                                  onClick={() =>
+                                    setShowPassword2(!showPassword2)
+                                  }
+                                />
+                              ) : (
+                                <EyeOff
+                                  size={18}
+                                  color="gray"
+                                  onClick={() =>
+                                    setShowPassword2(!showPassword2)
+                                  }
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="absolute -bottom-5 text-xs text-error" />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <div className="mt-3">
+                  <Button type="submit" variant="primary" className="w-full">
+                    {isLoading ? <ButtonLoader /> : "Confirm"}
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

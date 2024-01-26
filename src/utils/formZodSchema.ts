@@ -60,3 +60,12 @@ export const updateProfileSchema = z.object({
     .length(10, "Phone number must have exactly 10 digits.")
     .regex(/^[0-9]+/),
 });
+
+
+export const resetPasswordSchema = z.object({
+  password: passwordValidation,
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
