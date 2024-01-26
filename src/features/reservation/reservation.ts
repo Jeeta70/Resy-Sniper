@@ -23,7 +23,7 @@ export type reservationPayload = {
 };
 
 export function useCreateReservation() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const accessToken = getToken("access_token");
   const { mutate: createReservation, isPending: isLoading } = useMutation({
     mutationFn: (payload: reservationPayload) => {
@@ -34,9 +34,9 @@ export function useCreateReservation() {
       );
     },
     onSuccess: (user) => {
-      const { data } = user
-      toast({ description: data.msg, variant: "dark" })
-      navigate("/reservations")
+      const { data } = user;
+      toast({ description: data.msg, variant: "dark" });
+      navigate("/reservations");
     },
   });
 
@@ -85,7 +85,7 @@ export function useGetSingleReservation() {
 }
 
 export function useUpdateReservation() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const accessToken = getToken("access_token");
   const { mutate: updateReservation, isPending: isLoading } = useMutation({
     mutationFn: (payload: reservationPayload) => {
@@ -96,9 +96,9 @@ export function useUpdateReservation() {
       );
     },
     onSuccess: (response) => {
-      const { data } = response
-      toast({ description: data.msg, variant: "dark" })
-      navigate("/reservations")
+      const { data } = response;
+      toast({ description: data.msg, variant: "dark" });
+      navigate("/reservations");
     },
   });
 
@@ -106,49 +106,54 @@ export function useUpdateReservation() {
 }
 
 export function usePauseReservation() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const accessToken = getToken("access_token");
   const { mutate: pauseReservation, isPending: isLoading } = useMutation({
     mutationFn: (group_id: string) => {
-      return axios.post(`${baseUrl}/api/pause_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
+      return axios.post(
+        `${baseUrl}/api/pause_group_reservations`,
+        { group_id },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] })
+      queryClient.invalidateQueries({ queryKey: ["reservations"] });
     },
   });
   return { pauseReservation, isLoading };
 }
 
 export function useUnPauseReservation() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const accessToken = getToken("access_token");
   const { mutate: unPauseReservation, isPending: isLoading } = useMutation({
     mutationFn: (group_id: string) => {
-      return axios.post(`${baseUrl}/api/unpause_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
+      return axios.post(
+        `${baseUrl}/api/unpause_group_reservations`,
+        { group_id },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] })
+      queryClient.invalidateQueries({ queryKey: ["reservations"] });
     },
   });
   return { unPauseReservation, isLoading };
 }
 
-
 export function useCancelReservation() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const accessToken = getToken("access_token");
   const { mutate: cancelReservation, isPending: isLoading } = useMutation({
     mutationFn: (group_id: string) => {
       return axios.post(`${baseUrl}/api/cancel_group_reservations`, { group_id }, { headers: { Authorization: `Bearer ${accessToken}` } });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] })
+      queryClient.invalidateQueries({ queryKey: ["reservations"] });
     },
   });
   return { cancelReservation, isLoading };
 }
-
-
 
 export function useGetReservationCount() {
   const accesToken = getToken("access_token");
