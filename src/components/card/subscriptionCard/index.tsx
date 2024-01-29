@@ -42,7 +42,7 @@ const Index = ({ subscriptionType, points, handleSubscription }: SubscriptionCar
                 return (
                   <li className="flex" key={index}>
                     <CheckCircle2 />
-                    <span className="ml-2 font-semibold text-sm">
+                    <span className="ml-2 font-semibold text-sm my-auto">
                       {point.point}
                     </span>
                   </li>

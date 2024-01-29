@@ -20,7 +20,7 @@ const ConnectAccount = () => {
           </p>
         </span>
       </div>
-      <div className="flex flex-col justify-center items-center sm:flex-row gap-4 sm:gap-10">
+      <div className="flex flex-col justify-center items-center sm:flex-row gap-4 sm:gap-10 ">
         <ResyConnectAccountCard
           image={"./connectAccount/resy.svg"}
           cardStyle={"w-full sm:w-[450px] mr-0 sm:ml-auto h-96"}
@@ -31,7 +31,7 @@ const ConnectAccount = () => {
           cardStyle={"w-full sm:w-[450px] mr-0 sm:mr-auto h-96"}
         />
       </div>
-      <Button onClick={() => navigate("/reservations")} className="w-full sm:w-auto mt-4 sm:mt-0 mx-auto" variant={disableContinueButton ? "outline" : "primary"} type="submit" disabled={disableContinueButton}>
+      <Button onClick={() => navigate("/reservations")} size="lg" className="w-full sm:w-auto mt-4 sm:mt-0 mx-auto" variant={disableContinueButton ? "grey" : "primary"} type="submit" disabled={disableContinueButton}>
         Continue
       </Button>
     </div>

@@ -54,7 +54,6 @@ export function checkStatus(
   completed: number[],
   success: number[]
 ): string {
-  console.log({ success, paused });
 
   if (completed) {
     return "completed";

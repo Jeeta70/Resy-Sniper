@@ -2,16 +2,21 @@ import { useGetUser } from "@/features/user/user";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "@/components/ui/use-toast";
+import { getToken } from "@/utils/healper";
 
 const PresistLoginSignUp = () => {
    const { userResponse, isLoading, isSuccess, isError } = useGetUser();
    const navigate = useNavigate();
+   
+
    useEffect(() => {
+
       if (!isLoading && isSuccess) {
          const userDetail = userResponse?.data.data;
          const { resy_token, subscription_type } = userDetail;
-         
-         if (!resy_token) {
+         if (getToken("access_token") === null) {
+            navigate("/login");
+         } else if (!resy_token) {
             toast({
                description: "You need to connect the account",
                variant: "dark",
@@ -19,7 +24,7 @@ const PresistLoginSignUp = () => {
             navigate("/connect-accounts");
          } else if (subscription_type === "none") {
             toast({
-               description: "You need to take the subscription",
+               description: "You must subscribe to proceed",
                variant: "dark",
             });
             navigate("/subscription");

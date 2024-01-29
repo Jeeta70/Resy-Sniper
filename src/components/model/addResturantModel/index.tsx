@@ -2,7 +2,6 @@ import { MapPin, X } from "lucide-react";
 
 import { AddRestaurantCard, Model, SearchInputField } from "@/components";
 import { Button } from "@/components/ui/button";
-import { CardTitle } from "@/components/ui/card";
 import { CredenzaClose, CredenzaHeader } from "@/components/ui/credenza";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -35,6 +34,7 @@ const AddResturantModel = () => {
   const [query, setSeachParams] = useSearchParams({ query: "" });
   const [searchQuery, setsearchQuery] = useState("");
 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setSeachParams((prev) => {
@@ -59,41 +59,53 @@ const AddResturantModel = () => {
     selectSittingOptions(dispatch, restauratCardDetail);
   }
 
+
+
   return (
     <Model
       className={cn(
-        "max-w-2xl h-screen sm:h-auto",
+        "max-w-2xl h-full sm:h-auto pb-0 p-4 sm:p-6 ",
         reservationFormState.selectSittingOptions.showModel && "p-4"
       )}
     >
-      <CredenzaHeader className="">
-        <CardTitle className=" mb-0 sm:mb-5 text-start font-bold text-2xl flex justify-between">
-          <span> {reservationFormState.selectSittingOptions.title}</span>
-          <CredenzaClose className="sm:hidden">
-            <span role="button">
-              <X />
-            </span>
-          </CredenzaClose>
-        </CardTitle>
+      <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-auto p-0">
+        {/* <CardTitle className=""> */}
+        <span> {reservationFormState.selectSittingOptions.title}</span>
+        <CredenzaClose className="sm:hidden">
+          <span role="button">
+            <X />
+          </span>
+        </CredenzaClose>
+        {/* </CardTitle>  */}
       </CredenzaHeader>
 
       {!reservationFormState.selectSittingOptions.showModel ? (
         <>
-          <SearchInputField onChange={onChange} placeholder=""/>
+          <SearchInputField
+            onChange={onChange}
+            placeholder="Search restaurant"
+            searchIcon={true}
+            className=""
+
+          />
           {/* <CredenzaDescription className=""> */}
           {filteredRestaurants && !filteredRestaurants.length && (
             <div className=" flex justify-center items-center h-[calc(10rem)] flex-col ">
               <div>
                 <img src={searchIcon} alt="" />
               </div>
-              <div className="text-light"> No results found for {query}.Please consider trying a different name.</div>
+              <div className="text-light">
+
+                No results found for {query}.Please consider trying a different
+                name.
+              </div>
             </div>
           )}
-          <ScrollArea className="sm:h-80 rounded-md">
+          <ScrollArea className="sm:h-96 rounded-md">
             <span className="flex flex-col gap-4">
               {!isLoading &&
                 filteredRestaurants.map(
-                  (restaurant: IRestaurant, i: Key | null | undefined) => {
+                  (restaurant: IRestaurant, i: Key) => {
                     return (
                       <AddRestaurantCard
                         key={i}
@@ -108,22 +120,22 @@ const AddResturantModel = () => {
           {/* </CredenzaDescription> */}
         </>
       ) : (
-        <div className="flex flex-col justify-between">
-          <div>
+        <div className="flex flex-col justify-evenly">
+          {/* <span> {reservationFormState.selectSittingOptions.title}fffff</span> */}
+          <div className="h-64">
             <img
-              className="rounded-lg w-full object-cover"
-              src={
-                reservationFormState.selectSittingOptions.restaurantDetail
-                  .cover_image_url ?? "../reservation/AddReservation/Img.png"
-              }
+              className="rounded-lg w-full h-full"
+              src={reservationFormState.selectSittingOptions.restaurantDetail.cover_image_url ?? "../reservation/AddReservation/Img.png"}
               alt=""
             />
           </div>
-          <div>
-            <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400">
-              {reservationFormState.selectSittingOptions.restaurantDetail.price}
-              $
-            </p>
+          <div className="py-2">
+            <div>
+              <p className=" text-xs font-normal text-gray-700 dark:text-gray-400">
+                {reservationFormState.selectSittingOptions.restaurantDetail.price}
+                $
+              </p>
+            </div>
             <h5 className="mb-2 text-base font-bold tracking-tight ">
               {
                 reservationFormState.selectSittingOptions.restaurantDetail
@@ -134,12 +146,7 @@ const AddResturantModel = () => {
               <MapPin className="inline-block" /> Prospective height
             </p>
             <p className="font-normal text-xs text-light">
-              Talk about returning to your roots: Though known for his
-              sophisticated high-end French cuisine, Daniel Boulud is from the
-              great gastronomic capital of Lyon and with Le Gratin, he pays
-              tribute to the hearty, homey cooking of the convivial Lyonnais
-              bistros known as bouchons. The defining dish here? The creamy
-              potato extravaganza that is the gratin dauphinois, of course.
+              {reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.slice(0, 700) + (((reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.length > 700)) ? "..." : "")}
             </p>
             <h2 className="font-semibold text-sm my-3">Available sittings</h2>
             <div className="flex w-1/2 gap-2">
@@ -196,37 +203,78 @@ const AddResturantModel = () => {
               )}
             </div>
           </div>
+          <Separator className="my-2" />
+          <div className="flex justify-end gap-4 mt-auto">
+            <CredenzaClose className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full">
+                Cancel
+              </Button>
+            </CredenzaClose>
+            <CredenzaClose className="w-full sm:w-auto">
+              <Button
+                variant="primary"
+                className="w-full"
+                onClick={() => {
+                  const restaurantPayload =
+                    reservationFormState.selectSittingOptions.restaurantDetail;
+                  Object.defineProperty(
+                    restaurantPayload,
+                    "availableSittings",
+                    {
+                      value: avilableSittings,
+                      writable: false,
+                      enumerable: true,
+                      configurable: true,
+                    }
+                  );
+
+                  selectResturantForReservation(dispatch, restaurantPayload);
+                }}
+              >
+                Confirm
+              </Button>
+            </CredenzaClose>{" "}
+          </div>
         </div>
       )}
-      <Separator />
-      <div className="flex justify-end gap-4">
-        <CredenzaClose className="">
-          <Button variant="outline" className="">
-            Cancel
-          </Button>
-        </CredenzaClose>
 
-        <CredenzaClose className="">
-          <Button
-            variant="primary"
-            className=""
-            onClick={() => {
-              const restaurantPayload =
-                reservationFormState.selectSittingOptions.restaurantDetail;
-              Object.defineProperty(restaurantPayload, "availableSittings", {
-                value: avilableSittings,
-                writable: false,
-                enumerable: true,
-                configurable: true,
-              });
+      {/* {reservationFormState.selectSittingOptions.showModel &&  <Separator className=" my-5 sm:mt-0" />}
+      
+        {reservationFormState.selectSittingOptions.showModel && (
+          <>
+          <div className="flex justify-end gap-4 ">
+            <CredenzaClose className="w-full">
+              <Button variant="outline" className="w-full">
+                Cancel
+              </Button>
+            </CredenzaClose>
+            <CredenzaClose className="w-full">
+              <Button
+                variant="primary"
+                className="w-full"
+                onClick={() => {
+                  const restaurantPayload =
+                    reservationFormState.selectSittingOptions.restaurantDetail;
+                  Object.defineProperty(
+                    restaurantPayload,
+                    "availableSittings",
+                    {
+                      value: avilableSittings,
+                      writable: false,
+                      enumerable: true,
+                      configurable: true,
+                    }
+                  );
 
-              selectResturantForReservation(dispatch, restaurantPayload);
-            }}
-          >
-            Confirm
-          </Button>
-        </CredenzaClose>
-      </div>
+                  selectResturantForReservation(dispatch, restaurantPayload);
+                }}
+              >
+                Confirm
+              </Button>
+            </CredenzaClose>{" "}
+          </div>
+          </>
+        )} */}
     </Model>
   );
 };

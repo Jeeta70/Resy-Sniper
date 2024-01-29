@@ -173,6 +173,8 @@ const SelectReservationDateSection = () => {
                   selected={days}
                   footer={footer}
                   onSelect={setDays}
+                  month={new Date()}
+                  
                 />
               </PopoverContent>
             </Popover>

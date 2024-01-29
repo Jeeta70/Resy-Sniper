@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +16,10 @@ import { useGetUser } from "@/features/user/user";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { userResponse, isLoading:getUserIsLoading, isSuccess } = useGetUser();
+  const { userResponse, isLoading: getUserIsLoading, isSuccess } = useGetUser();
   const { login, isLoading } = useLogin()
   const { toast } = useToast()
+  const [fetchUser, setFetchUser] = useState(false)
 
   useEffect(() => {
     if (!getUserIsLoading && isSuccess) {
@@ -33,7 +34,7 @@ const Index = () => {
         navigate("/connect-accounts");
       } else if (subscription_type === "none") {
         toast({
-          description: "You need to take the subscription",
+          description: "You must subscribe to proceed",
           variant: "dark",
         });
         navigate("/subscription");
@@ -42,7 +43,10 @@ const Index = () => {
         navigate("/reservations");
       }
     }
-  }, [getUserIsLoading, isSuccess, navigate, toast, userResponse?.data.data]);
+  }, [getUserIsLoading, isSuccess, navigate, toast, userResponse?.data.data, fetchUser]);
+
+
+
 
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -53,8 +57,10 @@ const Index = () => {
   function onSubmit(values: z.infer<typeof loginFormSchema>) {
     login(values, {
       onSuccess: () => {
-        form.reset()
-        // navigate("/reservations")
+        form.reset();
+        setFetchUser(prev => !prev)
+
+
       }
     })
   }
