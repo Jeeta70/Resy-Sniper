@@ -43,21 +43,21 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
          <CardHeader className="">
             <img src={image} alt="" className="h-10 w-24 mx-auto" />
          </CardHeader>
-         <CardContent>
+         <CardContent className="pt-7 flex flex-col gap-4">
             <Form {...form}>
-               <div className="font-medium text-sm text-left mb-4">Your OpenTable phone number</div>
-               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
+               <div className="font-medium  text-base text-left mb-4 text-light">Your OpenTable phone number</div>
+               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
                   <div className="flex">
                      <FormField
                         control={form.control}
                         name="countryCode"
                         render={({ field }) => (
                            <>
-                              <FormItem className="sm:w-1/3 w-2/12 relative">
-                                 <FormControl>
+                              <FormItem className="relative h-12">
+                                 <FormControl className="">
                                     <>
-                                       <Select defaultValue="+1" onValueChange={field.onChange}>
-                                          <SelectTrigger className="rounded-e-none">
+                                       <Select defaultValue="+1"  onValueChange={field.onChange}>
+                                          <SelectTrigger className="rounded-e-none h-full">
                                              <SelectValue placeholder="Select a prefix" />
                                           </SelectTrigger>
                                           <SelectContent position="popper">
@@ -76,11 +76,11 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
                         name="phoneNumber"
                         render={({ field }) => (
                            <>
-                              <FormItem className="w-full mt-auto relative">
+                              <FormItem className="w-1/2 sm:w-auto mt-auto relative h-12">
                                  <FormControl>
                                     <>
                                        <Input
-                                          className="border-gray-300  bg-white rounded-s-none"
+                                          className="border-gray-300  bg-white rounded-s-none h-full"
                                           id="phone"
                                           placeholder="000-000-0000"
                                           {...field}
@@ -93,7 +93,7 @@ const Index = ({ image, cardStyle }: ResyConnectAccountCardType) => {
                         )}
                      />
                   </div>
-                  <div className="font-normal text-sm text-center text-light">OpenTable will send you a message with a code</div>
+                  <div className="font-normal  text-base w-4/5 mx-auto text-center text-light">OpenTable will send you a message with a code</div>
                   <Button className="w-full" type="submit">
                      Connect
                   </Button>

@@ -55,107 +55,53 @@ const Index = ({ user }: Props) => {
 
   return (
     <>
-      <TabsList className="grid sm:w-2/4 grid-cols-3 gap-20 sm:gap-10 bg-white">
-        <TabsTrigger
-          value="account"
-          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start  text-sm font-medium rounded-none"
-        >
-          Personal info
-        </TabsTrigger>
-        <TabsTrigger
-          value="password"
-          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium rounded-none"
-        >
-          Reset Password
-        </TabsTrigger>
-        <TabsTrigger
-          value="notications"
-          className="data-[state=active]:border-b-2 data-[state=active]:border-primary justify-start text-sm font-medium rounded-none"
-        >
-          Notifications
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="account" className="mt-0">
-        <Card className="border-none">
-          <CardContent className="space-y-2 pt-6">
-            <div className="h-full w-full flex flex-col justify-center">
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className=" m-auto w-full grid sm:grid-cols-2 gap-x-8 gap-y-4 sm:gap-y-7"
-                >
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="">
-                          <FormLabel className="text-sm font-normal">
-                            First name
-                          </FormLabel>
-                          <FormControl>
-                            <Input placeholder="First name" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="">
-                          <FormLabel className="text-sm font-normal">
-                            Last name
-                          </FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="">
-                          <FormLabel className="text-sm font-normal">
-                            Email
-                          </FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <div className="flex items-end space-y-2">
+      <div className="">
+        <TabsList className="grid border-b-2 sm:pr-[220px] grid-cols-3 gap-10 sm:gap-10 bg-white ">
+          <div className="flex flex-col m-0 p-0">
+            <TabsTrigger
+              value="account"
+              className="data-[state=active]:border-b-4 data-[state=active]:border-primary justify-start text-base font-medium pl-0 rounded-t-sm"
+            >
+              Personal info
+            </TabsTrigger>
+          </div>
+          <div className="flex flex-col m-0 p-0">
+            <TabsTrigger
+              value="password"
+              className="data-[state=active]:border-b-4 data-[state=active]:border-primary justify-start text-base font-medium pl-0 rounded-t-sm"
+            >
+              Reset Password
+            </TabsTrigger>
+          </div>
+          <div className="flex flex-col m-0 p-0">
+            <TabsTrigger
+              value="notications"
+              className="data-[state=active]:border-b-4 data-[state=active]:border-primary justify-start text-base font-medium pl-0 rounded-t-sm"
+            >
+              Notifications
+            </TabsTrigger>
+         </div>
+        </TabsList>
+        <TabsContent value="account" className="mt-0">
+          <Card className="border-none">
+            <CardContent className="space-y-2 pt-6 px-0">
+              <div className="h-full w-full flex flex-col justify-center">
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className=" m-auto w-full grid sm:grid-cols-2 gap-x-8 gap-y-4 sm:gap-y-7"
+                  >
                     <FormField
                       control={form.control}
-                      name="countryCode"
+                      name="firstName"
                       render={({ field }) => (
                         <>
-                          <FormItem className="sm:w-1/3 w-2/12">
+                          <FormItem className="">
+                            <FormLabel className="text-sm font-normal">
+                              First name
+                            </FormLabel>
                             <FormControl>
-                              <>
-                                <FormLabel className="text-sm font-normal">
-                                  Phone
-                                </FormLabel>
-                                <Select  defaultValue="+1" onValueChange={field.onChange}>
-                                  <SelectTrigger className="rounded-e-none">
-                                    <SelectValue placeholder="Select a prefix" />
-                                  </SelectTrigger>
-                                  <SelectContent position="popper">
-                                    <CountryCode />
-                                  </SelectContent>
-                                </Select>
-                              </>
+                              <Input placeholder="First name" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -164,70 +110,132 @@ const Index = ({ user }: Props) => {
                     />
                     <FormField
                       control={form.control}
-                      name="phoneNumber"
+                      name="lastName"
                       render={({ field }) => (
                         <>
-                          <FormItem className="w-full">
+                          <FormItem className="">
+                            <FormLabel className="text-sm font-normal">
+                              Last name
+                            </FormLabel>
                             <FormControl>
+                              <Input placeholder="Your email" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        </>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <>
+                          <FormItem className="">
+                            <FormLabel className="text-sm font-normal">
+                              Email
+                            </FormLabel>
+                            <FormControl>
+                              <Input placeholder="Your email" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        </>
+                      )}
+                    />
+                    <div className="flex items-end space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="countryCode"
+                        render={({ field }) => (
+                          <>
+                            <FormItem className="sm:w-6/12 w-3/12">
+                              <FormControl>
+                                <>
+                                  <FormLabel className="text-sm font-normal">
+                                    Phone
+                                  </FormLabel>
+                                  <Select defaultValue="+1" onValueChange={field.onChange}>
+                                    <SelectTrigger className="rounded-e-none">
+                                      <SelectValue placeholder="Select a prefix" />
+                                    </SelectTrigger>
+                                    <SelectContent position="popper">
+                                      <CountryCode />
+                                    </SelectContent>
+                                  </Select>
+                                </>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          </>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="phoneNumber"
+                        render={({ field }) => (
+                          <>
+                            <FormItem className="w-full">
+                              <FormControl>
 
-                              <Input
-                                className="border-gray-300  bg-white rounded-s-none"
-                                placeholder="000-000-0000"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        </>
-                      )}
-                    />
-                  </div>
-                  <Button variant="primary" className="w-full sm:w-28" type="submit" disabled={isLoading}>
-                    Save
+                                <Input
+                                  className="border-gray-300  bg-white rounded-s-none"
+                                  placeholder="000-000-0000"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          </>
+                        )}
+                      />
+                    </div>
+                    <Button variant="primary" className="w-full sm:w-28" type="submit" disabled={isLoading}>
+                      Save
+                    </Button>
+                  </form>
+                </Form>
+              </div>
+            </CardContent>
+            <CardFooter>
+
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        <TabsContent value="password" className="mt-0">
+          <Card className="border-none">
+            <CardContent className="space-y-2 pt-6 px-0">
+              <CardDescription>
+                You can reset your password by pressing a button below
+              </CardDescription>
+            </CardContent>
+            <CardFooter className="px-0">
+              <Credenza>
+                <CredenzaTrigger asChild>
+                  <Button variant="primary" className="w-full sm:w-auto">
+                    Reset Password
                   </Button>
-                </form>
-              </Form>
-            </div>
-          </CardContent>
-          <CardFooter>
-
-          </CardFooter>
-        </Card>
-      </TabsContent>
-      <TabsContent value="password" className="mt-0">
-        <Card className="border-none">
-          <CardContent className="space-y-2 pt-6 ">
-            <CardDescription>
-              You can reset your password by pressing a button below
-            </CardDescription>
-          </CardContent>
-          <CardFooter>
-            <Credenza>
-              <CredenzaTrigger asChild>
-                <Button variant="primary" className="w-full sm:w-auto">
-                  Reset Password
-                </Button>
-              </CredenzaTrigger>
-              <ResetPasswordModal />
-              {/* <DisconnectResyAccountModel /> */}
-            </Credenza>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-      <TabsContent value="notications" className="mt-10">
-        <div className="flex items-center space-x-2 my-3">
-          <Switch id="airplane-mode" />
-          <Label htmlFor="airplane-mode" className="text-xl">
-            Email notications
-          </Label>
-        </div>
-        <div className="flex items-center space-x-2  my-3">
-          <Switch id="airplane-mode" />
-          <Label htmlFor="airplane-mode" className="text-xl">
-            SMS notifications
-          </Label>
-        </div>
-      </TabsContent>
+                </CredenzaTrigger>
+                <ResetPasswordModal />
+                {/* <DisconnectResyAccountModel /> */}
+              </Credenza>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        <TabsContent value="notications" className="mt-10">
+          <div className="flex items-center space-x-2 my-3">
+            <Switch id="airplane-mode" />
+            <Label htmlFor="airplane-mode" className="text-xl">
+              Email notications
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2  my-3">
+            <Switch id="airplane-mode" />
+            <Label htmlFor="airplane-mode" className="text-xl">
+              SMS notifications
+            </Label>
+          </div>
+        </TabsContent>
+      </div>
     </>
   );
 };

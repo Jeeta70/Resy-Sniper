@@ -22,7 +22,7 @@ import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservat
 import CheckSubscription from "@/pages/checkSubscription";
 // import { ResetPasswordModal } from "@/components";
 import NewPage from "@/pages/newpage";
-import PersistDashboard from "./PersistDashboard";
+// import PersistDashboard from "./PersistDashboard";
 import PresistLoginSignUp from "./PresistLoginSignUp";
 
 // const Login = React.lazy(() => import("@/pages/login"));
@@ -69,9 +69,9 @@ const Router = () => {
               />
               <Route path="/restaurant/:venue_id" element={<Restaurant />} />
               <Route path="/" element={<ShowSidebar />}>
-                <Route element={<PersistDashboard />}>
+                {/* <Route element={<PersistDashboard />}> */}
                   <Route path="/reservations" element={<Reservation />} />
-                </Route>
+                {/* </Route> */}
                 <Route path="/check-subscription" element={<CheckSubscription />} />
 
                 <Route path="restaurants">

@@ -13,12 +13,12 @@ import { Button } from "@/components/ui/button";
 // import { signupFormSchema } from "@/utils/formZodSchema";
 import { ProfileTab } from "@/components";
 import { useGetUser } from "@/features/user/user";
-import { useEffect, useMemo } from "react";
+import {  useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { capitalizeFirstAlphabet } from "@/utils/healper";
 
 const Index = () => {
-  const { userResponse, isSuccess, isError, error } = useGetUser();
+  const { userResponse, isSuccess } = useGetUser();
   // const { auth,isLoading } = useCheckUserAuth()
 
   const user = useMemo(() => {
@@ -29,18 +29,27 @@ const Index = () => {
 
   // user = false;
 
-  useEffect(() => {
-    // console.log("ddssddd", isError);
-  }, [error, isError]);
+  // useEffect(() => {
+  //   // console.log("ddssddd", isError);
+  // }, [error, isError]);
+
+  // const user = {
+  //   first_name:"Ajeet",
+  //   last_name: "Singh",
+  //   email:"ajrana70@gmail.com",
+  //   phone:"+1 917-728-4685",
+  //   subscription_type:"f"
+
+  // }
 
   return (
     <>
       {
-        <Tabs defaultValue="account" className="sm:w-8/12 mx-auto">
-          <CardHeader>
+        <Tabs defaultValue="account" className="container sm:px-80 pt-5 sm:pt-0">
+          <CardHeader className="px-0">
             <CardTitle className="font-bold text-2xl">Profile </CardTitle>
           </CardHeader>
-          <CardContent className="">
+          <CardContent className="px-0">
             <div className="grid grid-cols-[20%,auto,20%] sm:grid-cols-[12%,auto,10%] items-center gap-4 border-3">
               <div className=" bg-black h-full text-white rounded-md flex justify-center items-center text-4xl">
                 {!user ? (
@@ -74,7 +83,7 @@ const Index = () => {
                     </Skeleton>
                   ) : (
                     <>
-                      <AtSign className="inline-block" size={17} />
+                      <AtSign className="inline-block" size={12} />
                       <span className="ml-1 font-medium text-xs text-light">
                         {user?.email ?? " johndoe@example.com"}
                       </span>
@@ -89,7 +98,7 @@ const Index = () => {
                   ) : (
                     <>
 
-                      <Phone className="inline-block" size={17} />
+                      <Phone className="inline-block" size={12} />
                       <span className="ml-1 font-medium text-xs text-light">
                         {user?.phone ?? "+1 917-728-4685"}
                       </span>
@@ -99,9 +108,9 @@ const Index = () => {
               </div>
               <div className="justify-self-end">
                 {user.subscription_type === "standard" ? (
-                  <Button variant="default">REGULAR</Button>
+                  <Button variant="default" size="sm">REGULAR</Button>
                 ) : (
-                  <Button variant="primary">PRO</Button>
+                  <Button variant="primary" size="sm">PRO</Button>
                 )}
               </div>
             </div>

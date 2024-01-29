@@ -44,11 +44,10 @@ export const useLogin = () => {
          const { data } = user
          localStorage.setItem('token', JSON.stringify(data.data))
          toast({ description: data.message, variant: "dark" })
+         queryClient.invalidateQueries({ queryKey: ["user"] })
       },
       onError: (err: { response: AxiosResponse }) => {
          toast({ description: err.response.data.message, variant: "destructive" })
-         queryClient.invalidateQueries({ queryKey: ["user"] })
-         console.log("ss");
 
       },
    });

@@ -85,8 +85,8 @@ const Index = ({ setdisableContinueButton }: Props) => {
             </CardContent>
          )}
          {responseState === "success" && (
-            <CardContent className="grid gap-4 h-4/6">
-               <div className="item-center space-y-10">
+            <CardContent className="grid gap-14 h-4/6">
+               {/* <div className="item-center"> */}
                   <img
                      src="./connectAccount/connectedTick.svg"
                      alt=""
@@ -108,13 +108,13 @@ const Index = ({ setdisableContinueButton }: Props) => {
                   >
                      Connected
                   </Button>
-               </div>
+               {/* </div> */}
             </CardContent>
          )}
 
          {responseState === "error" && (
-            <CardContent className="grid gap-4 h-4/6">
-               <div className="item-center space-y-10">
+            <CardContent className="grid gap-14 h-4/6">
+               {/* <div className="item-center space-y-10"> */}
                   <img
                      src="./connectAccount/incorrectPasswordIcon.svg"
                      alt=""
@@ -136,7 +136,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                   >
                      TryAgain
                   </Button>
-               </div>
+               {/* </div> */}
             </CardContent>
          )}
       </>

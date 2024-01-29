@@ -109,7 +109,7 @@ const SelectReservationDateSection = () => {
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Date</p>
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
         {reservationDate.map((button, i) => (
           <span
             onClick={() => handleSelectedButton(button.value, true)}
@@ -173,6 +173,8 @@ const SelectReservationDateSection = () => {
                   selected={days}
                   footer={footer}
                   onSelect={setDays}
+                  month={new Date()}
+                  
                 />
               </PopoverContent>
             </Popover>
