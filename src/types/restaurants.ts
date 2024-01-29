@@ -1,4 +1,5 @@
 export type IRestaurant = {
+  source: string;
   availableSittings?: string;
   about_description: string;
   address_1: string;

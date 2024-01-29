@@ -60,6 +60,9 @@ export default {
         blue: {
           DEFAULT: "hsl(var(--blue))",
         },
+        orange:{
+          DEFAULT:"hsl(var(--warning-orange))"
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

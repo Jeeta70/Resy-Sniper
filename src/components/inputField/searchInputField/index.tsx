@@ -1,14 +1,16 @@
 import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder:string
   searchIcon?:boolean
+  className?:string
 }
 
-const SearchInputField = ({ onChange, placeholder, searchIcon=false }: Props) => {
+const SearchInputField = ({ onChange, placeholder, searchIcon=false,className }: Props) => {
   return (
-    <div className="relative">
+    <div className={cn("relative flex items-center",className)}>
       {searchIcon && <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
         <svg
           className="w-4 h-4 text-gray-500 dark:text-gray-400"

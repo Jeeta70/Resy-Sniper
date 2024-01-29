@@ -44,7 +44,6 @@ const AddResturantSection = () => {
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Resturants</p>
-
       {/* </CredenzaTrigger> */}
       {
         <Credenza onOpenChange={() => resetSittingOption(dispatch)}>

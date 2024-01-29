@@ -1,16 +1,32 @@
 import { IRestaurant } from "@/types/restaurants";
 
-// type InitialSittingState = {
-//   showModel: boolean;
-//   title: string;
-//   restaurantDetail: IRestaurant;
-//   availableSittings: string;
-// };
+type InitialSittingState = {
+  showModel: boolean;
+  title: string;
+  restaurantDetail: IRestaurant;
+  availableSittings: string;
+};
 
-const initialSittingState = {
+const initialSittingState: InitialSittingState = {
   showModel: false,
   title: "Add Resturant",
-  restaurantDetail: { cover_image_url: "", price: 0, venue_name: "" },
+  restaurantDetail: {
+    cover_image_url: "", price: 0, venue_name: "",
+    source: "",
+    about_description: "",
+    address_1: "",
+    country: "",
+    cuisine_type: "",
+    locality: "",
+    need_to_know_description: "",
+    neighborhood: "",
+    postal_code: "",
+    region: "",
+    restaurant_website: "",
+    restuarant_phone_number: "",
+    seating_types: [],
+    venue_id: 0
+  },
   availableSittings: "indoor",
 };
 
@@ -33,7 +49,9 @@ export interface IFormState {
   selectSittingOptions: {
     showModel: boolean;
     title: string;
-    restaurantDetail: { cover_image_url: string, price: number, venue_name: string };
+    restaurantDetail: {
+      need_to_know_description: string; cover_image_url: string, price: number, venue_name: string 
+};
     availableSittings: string;
   };
   partySize: number | string;

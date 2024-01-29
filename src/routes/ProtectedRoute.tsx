@@ -9,7 +9,6 @@ const ProtectedRoute = () => {
   useEffect(() => {
     if (isError && error) {
       const errorWithResponse = error as { response?: { data?: { msg?: string } } };
-
       if (errorWithResponse.response && errorWithResponse.response.data && errorWithResponse.response.data.msg === "Not enough segments") {
         toast({
           description: "Your token has expired",
@@ -33,7 +32,7 @@ const ProtectedRoute = () => {
         navigate("/connect-accounts");
       } else if (subscription_type === "none") {
         toast({
-          description: "You need to take the subscription",
+          description: "You must subscribe to proceed",
           variant: "dark",
         });
         navigate("/subscription");
