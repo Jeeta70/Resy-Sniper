@@ -163,8 +163,8 @@ const NewPage = () => {
     }, []);
 
     const navbarStyle = {
-        backgroundColor: scrolling ? "white" : "transparent",
-        border: scrolling ? "2px solid black" : "transparent",
+        backgroundColor: scrolling || show ? "white" : "transparent",
+        border: scrolling || show ? "2px solid black" : "transparent",
     };
 
     const scrollToElement = (elementId: string) => {
@@ -279,7 +279,7 @@ const NewPage = () => {
                             </div>
                             {show ? (
                                 <>
-                                    <div className="absolute w-[100%] p-10 text-center top-[72px] left-0 right-0 bg-white">
+                                    <div className="absolute w-[100%] p-10 text-left top-[72px] left-0 right-0 bg-white">
                                         <div className="grid grid-rows gap-5 font-inter text-sm !font-[600]">
                                             <p
                                                 className="hover:text-[#D62637] text-black cursor-pointer"
@@ -318,7 +318,7 @@ const NewPage = () => {
                                             </p>
                                             <button
                                                 type="button"
-                                                className="bg-[#EA3A4B] hover:bg-[#D62637] ml-5 py-2 font-inter px-4 rounded-md text-white text-sm font-medium "
+                                                className="bg-[#EA3A4B] hover:bg-[#D62637] w-[70%]  py-2 font-inter px-4 rounded-md text-white text-sm font-medium "
                                                 onClick={() => navigate("/login")}
                                             >
                                                 Sign In
@@ -330,8 +330,8 @@ const NewPage = () => {
                                 ""
                             )}
                         </div>
-                        <div className="sm:grid block grid-cols-[55%,45%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
-                            <div className=" sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-16 pl-1">
+                        <div className="md:grid block lg:grid-cols-[55%,45%] md:grid-cols-[50%,50%] sm:grid-cols-[50%,50%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
+                            <div className=" sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-5 md:pl-16 pl-1">
                                 <h1 className="lg:text-[60px] md:text-[40px] text-[45px] !font-[700] leading-snug font-inter">
                                     Never miss a Reservation again
                                     <span className="text-[#EA3A4B] font-semibold">.</span>
@@ -346,12 +346,16 @@ const NewPage = () => {
                                 >
                                     Get Started Now
                                 </button>
+
                             </div>
                             <div className="flex justify-end">
-                                <img src={Hero} className="mt-10 pl-10 sm:pl-auto"></img>
+                                <img src={Hero} className="mt-10 lg:pl-10 md:pl-2 sm:pl-2 pl-10 "></img>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="sm:block hidden">
+                    <p className="text-center flex justify-center text-[20px] mt-2 text-[#595D5F] font-inter !font-[500]"> We are not associated with resy opentable or any other brands</p>
                 </div>
 
                 {/* *****************************Second Component or Icons************************************** */}
@@ -374,7 +378,7 @@ const NewPage = () => {
                                 <div>
                                     <img
                                         src={ele.image}
-                                        className="h-[100px] sm:w-[100px] w-[120px]"
+                                        className="h-[100px] sm:w-[100px] w-[140px]"
                                     ></img>
                                 </div>
                                 <div>
@@ -575,7 +579,7 @@ const NewPage = () => {
                 <div className="" id="blog">
                     <div className="sm:grid sm:grid-cols-[46%,54%] flex flex-col-reverse">
                         <div className="">
-                            <img src={Blog} className="h-[800px] xl:h-[920px] xl:w-[900px] sm:w-[630px] w-auto"></img>
+                            <img src={Blog} className="h-[800px] md:h-[100%] sm:h-[100%] lg:h-[100%] xl:h-[920px] xl:w-[900px] sm:w-[630px] w-auto"></img>
                         </div>
                         <div className="sm:py-[100px] py-[30px] sm:pl-[50px] pl-5">
                             <div className="pb-10">
@@ -620,7 +624,7 @@ const NewPage = () => {
                             </div>
                             <div className="mt-10">
                                 <button
-                                    className="py-[16px] px-[28px] sm:w-auto w-[100%] border border-[#D0D1D1] text-[16px] !font-[600] text-[#12171A] rounded-md"
+                                    className="py-[16px] px-[28px] sm:w-auto w-[95%] border border-[#D0D1D1] text-[16px] !font-[600] text-[#12171A] rounded-md"
                                     onClick={() => navigate("/sign-up")}
                                 >
                                     View All
@@ -662,7 +666,7 @@ const NewPage = () => {
                             <div>
                                 <img src={logo}></img>
                                 <div className="flex gap-3 mt-5">
-                                    <img src={Instagram}></img>
+                                    <a href="https://www.instagram.com/resysniper/" target="_blank"><img src={Instagram}></img></a>
                                     <img src={Twitter}></img>
                                 </div>
                             </div>
@@ -673,13 +677,13 @@ const NewPage = () => {
                                             <p>About</p>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>Features</Link>
+                                            <Link to={"#"} onClick={() => scrollToElement('features')}>Features</Link>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>How it works</Link>
+                                            <Link to={"#"} onClick={() => scrollToElement('how-it-works')}>How it works</Link>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>Pricing</Link>
+                                            <Link to={"#"} onClick={() => scrollToElement('pricing')}>Pricing</Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -689,7 +693,7 @@ const NewPage = () => {
                                             <p>Help</p>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>FAQ’s</Link>
+                                            <Link to={"#"} onClick={() => scrollToElement('faq')}>FAQ’s</Link>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
                                             <Link to={"mailto:support@resysniper.com"}>Support</Link>
@@ -710,7 +714,7 @@ const NewPage = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="mt-8 sm:mt-0">
+                            {/* <div className="mt-8 sm:mt-0">
                                 <h1 className="font-inter">Subscribe to Our Newsletter</h1>
                                 <div className="flex mt-5">
                                     <input
@@ -726,7 +730,7 @@ const NewPage = () => {
                                         Subscribe
                                     </button>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="sm:py-16 py-8 text-center px-10 text-[#D0D1D1] text-[12px]">
                             <p className="font-inter">
