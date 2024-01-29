@@ -110,7 +110,7 @@ const AddTimeModal = () => {
                 <div className="">
                     <p className="text-sm font-semibold">From</p>
                     <div className="flex gap-5 mt-5">
-                        <div className="h-[120px] w-[50px]  overflow-hidden flex relative gap-5">
+                        <div className="h-[120px] sm:w-[50px] w-[30px]  overflow-hidden flex relative gap-5">
                             <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
                                 <Slider {...settings} afterChange={(index: number) => handleSliderChange('fromTime', index)} >
                                     {time.map((ele, key) => (
@@ -123,7 +123,7 @@ const AddTimeModal = () => {
                             </div>
 
                         </div>
-                        <div className="h-[120px] w-[50px] overflow-hidden flex relative gap-5">
+                        <div className="h-[120px] sm:w-[50px] w-[30px] overflow-hidden flex relative gap-5">
                             <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
                                 <Slider {...settings} afterChange={(index: number) => handleSliderChange('fromHour', index)}>
                                     {hours.map((ele, key) => (
@@ -136,7 +136,7 @@ const AddTimeModal = () => {
                             </div>
 
                         </div>
-                        <div className="h-[120px] w-[50px] overflow-hidden flex relative gap-5">
+                        <div className="h-[120px] sm:w-[50px] w-[30px] overflow-hidden flex relative gap-5">
                             <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
                                 <Slider {...settings} afterChange={(index: number) => handleSliderChange('fromFormat', index)}>
                                     {format.map((ele, key) => (
@@ -156,7 +156,7 @@ const AddTimeModal = () => {
                 <div className="">
                     <p className="text-sm font-semibold">To</p>
                     <div className="flex gap-5 mt-5">
-                        <div className="h-[120px] w-[50px]  overflow-hidden flex relative gap-5">
+                        <div className="h-[120px] sm:w-[50px] w-[30px]  overflow-hidden flex relative gap-5">
                             <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
                                 <Slider {...settings} afterChange={(index: number) => handleSliderChange('toTime', index)}>
                                     {time.map((ele, key) => (
@@ -169,7 +169,7 @@ const AddTimeModal = () => {
                             </div>
 
                         </div>
-                        <div className="h-[120px] w-[50px] overflow-hidden flex relative gap-5">
+                        <div className="h-[120px] sm:w-[50px] w-[30px] overflow-hidden flex relative gap-5">
                             <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
                                 <Slider {...settings} afterChange={(index: number) => handleSliderChange('toHour', index)}>
                                     {hours.map((ele, key) => (
@@ -182,7 +182,7 @@ const AddTimeModal = () => {
                             </div>
 
                         </div>
-                        <div className="h-[120px] w-[50px] overflow-hidden flex relative gap-5">
+                        <div className="h-[120px] sm:w-[50px] w-[30px] overflow-hidden flex relative gap-5">
                             <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
                                 <Slider {...settings} afterChange={(index: number) => handleSliderChange('toFormat', index)} >
                                     {format.map((ele, key) => (

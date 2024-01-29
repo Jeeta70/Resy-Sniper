@@ -100,7 +100,7 @@ const SelectReservationTime = () => {
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Time</p>
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
         {timeOptions.map((option) => (
           <Button
             key={option.label}
