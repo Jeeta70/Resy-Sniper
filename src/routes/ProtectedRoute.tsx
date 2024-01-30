@@ -19,12 +19,12 @@ const ProtectedRoute = () => {
     }
     if (!isLoading && isSuccess) {
       const userDetail = userResponse?.data.data;
-      const { email, resy_token, subscription_type } = userDetail;
+      const { email, resy_token, subscription_type, ot_access_token } = userDetail;
       if (!email) {
         navigate("/login");
       }
 
-      if (!resy_token) {
+      if (!resy_token || ot_access_token) {
         toast({
           description: "You need to connect the account",
           variant: "dark",

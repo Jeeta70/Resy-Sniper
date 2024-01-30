@@ -13,6 +13,7 @@ const PresistLoginSignUp = () => {
 
       if (!isLoading && isSuccess) {
          const userDetail = userResponse?.data.data;
+         
          const { resy_token, subscription_type } = userDetail;
          if (getToken("access_token") === null) {
             navigate("/login");

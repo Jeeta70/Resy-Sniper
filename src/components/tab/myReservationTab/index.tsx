@@ -1,58 +1,115 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMemo, useState } from "react";
-import { MyReservationOfResturantCard, } from "@/components";
+import { MyReservationOfResturantCard } from "@/components";
 import { IReservation } from "@/types/reservations";
 import { checkStatus } from "@/utils/healper";
 
 export interface ITab {
   id: number;
-  value: "all" | "active" | "paused" | "completed" | "canceled";
+  value: string;
   label: string;
+}
+
+interface Reservation {
+  created_date: string;
+  // ... other properties
+  status: string;
+}
+
+// interface TabObject {
+//   groupId: string;
+//   data: Reservation[];
+//   status: string;
+// }
+
+// interface Tabs {
+//   all: TabObject[];
+//   active: TabObject[];
+//   paused: TabObject[];
+//   completed: TabObject[];
+//   canceled: TabObject[];
+//   [key: string]: TabObject[];
+// }
+
+interface TabObject {
+  groupId: string;
+  data: IReservation[];
+  status: string;
+}
+
+interface TabsType {
+  all: TabObject[];
+  active: TabObject[];
+  paused: TabObject[];
+  completed: TabObject[];
+  canceled: TabObject[];
+}
+
+interface MyObject {
+  completed: number;
+  created_date: string;
+  date: string;
+  final_snipe_date: string | null;
+  final_snipe_time: string | null;
+  group_id: string;
+  id: number;
+  override_reservations: number;
+  party_size: number;
+  paused: number;
+  release_date: string | null;
+  release_time: string | null;
+  reservation_source: string;
+  restaurant_name: string;
+  snipe_type: string;
+  success: number;
+  table_type: string;
+  user_id: number;
+  venue_id: number;
+  status: string;
+  data:any
+}
+
+interface MyData {
+  [key: string]: MyObject[];
 }
 
 const Index = ({
   userReservations,
   isLoading,
 }: {
-  userReservations: { data: { data: IReservation[] } };
+  userReservations: { data: MyData };
   isLoading: boolean;
 }) => {
+  const { data } = userReservations;
 
-  const reservationsObject = useMemo(() => {
-    if (!isLoading && Array.isArray(userReservations.data)) {
+  const filter = useMemo(() => {
+    const tabs: TabsType = {
+      all: [],
+      active: [],
+      paused: [],
+      completed: [],
+      canceled: [],
+    };
 
+    Object.entries(data).forEach(([key, value]) => {
+      const object: TabObject = {
+        groupId: key,
+        data: value,
+        status: value[0]?.status,
+      };
+      tabs.all.push(object);
 
-      return userReservations.data.reduce(
-        (
-          accumulator: { [x: string]: unknown[] },
-          currentValue: { active: []; paused: []; completed: [], success: [] }
-        ) => {
-          const { paused, completed, success } = currentValue;
+      const status = value[0]?.status;
+      if (status && Object.prototype.hasOwnProperty.call(tabs, status)) {
+        tabs[status as keyof TabsType].push(object);
+      }
+    });
 
+    return tabs;
+  }, [data]);
 
-          accumulator["all"].push({
-            ...currentValue,
-            status: checkStatus(paused, completed, success)
-          });
-          if (completed) {
-            accumulator["completed"].push({
-              ...currentValue,
-              status: "completed",
-            });
-          }
-          else if (!success && paused) {
-            accumulator["paused"].push({ ...currentValue, status: "paused" });
-          } else if (!success) {
-            accumulator["canceled"].push({ ...currentValue, status: "canceled" });
-          }
-          return accumulator;
-        },
-        { all: [], active: [], paused: [], completed: [], canceled: [] }
-      );
-    }
-  }, [isLoading, userReservations]);
-
-
+  console.log(filter);
+  
 
   const [tabs] = useState<ITab[]>([
     { id: 1, value: "all", label: "All" },
@@ -77,27 +134,18 @@ const Index = ({
               value={tab.value}
               className="sm:text-sm text-[9px]"
             >
-              {tab.label
-                .concat("(")
-                .concat(
-                  typeof reservationsObject === "object"
-                    ? reservationsObject[tab.value].length
-                    : 0
-                )
-                .concat(")")}
+              {tab.label.concat("(").concat(filter[tab.value as keyof TabsType]?.length ??  0).concat(")")}
             </TabsTrigger>
           ))}
         </TabsList>
         <TabsContent value={activeTab?.value}>
-          {reservationsObject &&
-            reservationsObject[activeTab.value].map(
-              (reservation: IReservation) => (
-                <MyReservationOfResturantCard
-                  key={reservation.id}
-                  reservation={reservation}
-                />
-              )
-            )}
+          {filter &&
+            filter[activeTab.value].map((reservation: IReservation) => (
+              <MyReservationOfResturantCard
+                key={reservation.id}
+                reservation={reservation}
+              />
+            ))}
           {/* {reservationsObject} */}
           {/* {Array.from({ length: activeTab.count }).map(() => (
           ))} */}

@@ -49,12 +49,12 @@ const Index = () => {
   return (
     <>
       <div className="flex sm:items-center items-start justify-center h-screen w-[100%] font-inter">
-        <div className="w-3/12">
+        <div className="container sm:w-3/12">
           <div className="text-center text-primary text-3xl font-bold w-full sm:w-auto p-3 font-inter">
             RESY SNIPER
           </div>
-          <div className="sm:border sm:border-gray-300 p-[40px] w-full rounded-md mt-3">
-            <div className="text-center text-[24px] !font-[700] mb-3 font-inter">
+          <div className="sm:border sm:border-gray-300 sm:p-[40px] w-full rounded-md mt-3">
+            <div className="text-center text-[24px] font-bold mb-3 font-inter">
               <p>Create New Password</p>
             </div>
             {/* <div className="my-3">
@@ -123,7 +123,7 @@ const Index = () => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4 sm:m-auto m-2 w-full"
+                className="space-y-10 sm:m-auto w-full"
               >
                 <FormField
                   control={form.control}
@@ -205,11 +205,11 @@ const Index = () => {
                     </>
                   )}
                 />
-                <div className="mt-3">
+                {/* <div className="mt-3"> */}
                   <Button type="submit" variant="primary" className="w-full">
                     {isLoading ? <ButtonLoader /> : "Confirm"}
                   </Button>
-                </div>
+                {/* </div> */}
               </form>
             </Form>
           </div>
