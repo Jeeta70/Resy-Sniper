@@ -48,7 +48,7 @@ const Section = () => {
         </h1>
       </div>
       {isLoading && <RestaurantCardSkeleton />}
-      <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
+      <div className="lg:grid md:flex sm:flex  grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard
             key={i}
@@ -58,7 +58,7 @@ const Section = () => {
         ))}
       </div>
       <div className="fixed bottom-0 w-[calc(100%_-_22rem)] transition-all flex justify-between p-5 bg-white gap-3">
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           {selectedRestaurants.map((restaurant, i) => (
             <div className={buttonVariants({ variant: "outline" })} key={i}>
               {restaurant.venue_name}

@@ -83,7 +83,7 @@ const AddResturantSection = () => {
           )}
 
           {userDetail.subscription_type === "standard" &&
-          selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
+            selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
             <Credenza>
               <CredenzaTrigger asChild>
                 <span
@@ -97,7 +97,7 @@ const AddResturantSection = () => {
                     alt="pro icon"
                     className="absolute right-0 top-0"
                   />
-                  <Plus className="mr-3 " /> Add Reservation
+                  <Plus className="mr-3 " /> Add Restaurant
                 </span>
               </CredenzaTrigger>
               <FeatureIsForProModel />
@@ -109,7 +109,7 @@ const AddResturantSection = () => {
                   variant="outline"
                   className="inline-flex font-semibold text-[11px] relative"
                 >
-                  <Plus className="mr-3 " /> Add Reservation
+                  <Plus className="mr-3 " /> Add Restaurant
                 </Button>
               </CredenzaTrigger>
               <AddResturantModel />

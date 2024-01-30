@@ -52,7 +52,7 @@ const Index = () => {
                </Button>
             </CredenzaClose>
 
-            <Button disabled={isLoading}  variant="primary" className="w-full sm:w-auto" onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            <Button disabled={isLoading} variant="primary" className="w-full sm:w-auto" onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                e.stopPropagation()
                upgrade("premium")
             }}>

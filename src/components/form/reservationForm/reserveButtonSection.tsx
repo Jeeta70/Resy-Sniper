@@ -247,12 +247,15 @@ const ReserveButtonSection = () => {
           // Convert both from and to times to 24-hour format
           const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
           const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+          const fromTime24HourFormatNew = convertTo24HourFormat(releaseTime);
+          // const toTime24HourFormatNew = convertTo24HourFormat(newTime[1]);
 
           // Create the reservation time string
           const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
 
           const splitTime = reservationTimeNew.split(" - ");
-          const newSplitTime = releaseTime.split(" - ");
+
+          // const newSplitTime = releaseTime.split(" - ");
           // coverted states into formated payload
           const payload = {
             resturants: selectedResturantsForReservationOnAddReservationPage.map(
@@ -270,8 +273,8 @@ const ReserveButtonSection = () => {
             snipe_type: reservationType as string,
             start_time: splitTime[0],
             end_time: splitTime[1],
-            release_start_time: newSplitTime[0],
-            release_end_time: newSplitTime[1],
+            release_start_time: fromTime24HourFormatNew,
+            // release_end_time: newSplitTime[1],
             party_size: partySize,
           };
           createReservation(payload);

@@ -37,6 +37,13 @@ const Index = ({ restaurant, layout }: Props) => {
   const { restaurants, addRestaurant } = useRestaurantContext();
   const selected = restaurants.some((singleResturant) => singleResturant.venue_id === restaurant.venue_id)
 
+  const renderDollarSigns = () => {
+    const dollarSigns = Array.from({ length: restaurant.price }, (_, index) => (
+      <span key={index} className="text-[#12171A] opacity-[60%] text-[11px] !font-[600]">&#36;</span>
+    ));
+    return dollarSigns;
+  };
+
 
   return (
     <>
@@ -45,24 +52,24 @@ const Index = ({ restaurant, layout }: Props) => {
         onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)}
       >
         <img
-          className="rounded-t-lg object-cover h-48 w-96"
+          className="rounded-t-lg object-cover h-36 w-[100%]"
           src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
           alt=""
           loading="lazy"
         />
-        <CardContent>
-          <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400">
-            {restaurant.price}$
+        <CardContent className="p-0 px-6 h-auto">
+          <p className="mt-3 mb-1  text-xs font-normal text-gray-700 dark:text-gray-400">
+            {renderDollarSigns()}
           </p>
-          <h5 className="mb-2 text-base font-bold tracking-tight ">
+          <h5 className="mb-1 text-[16px] !font-[700] tracking-tight ">
             {restaurant.venue_name}
           </h5>
-          <p className="mb-3  text-xs font-normal text-gray-700 dark:text-gray-400">
-            <MapPin className="inline-block" /> {restaurant.locality}
+          <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A]">
+            <MapPin className="inline-block h-4 w-4" /> {restaurant.locality}
           </p>
         </CardContent>
         {layout.displayFooter && (
-          <CardFooter className="flex gap-3">
+          <CardFooter className="sm:flex sm:gap-3 mt-3 grid gap-3">
             {!premium && restaurant.premium ? (
               <div className="flex bg-black text-white text-lg w-full h-full rounded-lg justify-center  items-center gap-3  px-6 py-2 ">
                 <span>
@@ -96,7 +103,7 @@ const Index = ({ restaurant, layout }: Props) => {
                             e.stopPropagation();
                           }}
                         >
-                          Select <img src={ProIcon} className=" h-5 absolute top-0 right-0" />
+                          Select <img src={ProIcon} className=" h-[15px] absolute top-0 right-0" />
                         </span>
                       </CredenzaTrigger>
                       <FeatureIsForProModel />
@@ -104,10 +111,10 @@ const Index = ({ restaurant, layout }: Props) => {
                   </>
                 }
 
-                  <Button variant="primary" className="w-full" onClick={(e) => {
-                    e.stopPropagation();
-                    navigate("/reservations/add-reservation", { state: { selectedRestaurants: [restaurants] } })
-                  }}>
+                <Button variant="primary" className="w-full" onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/reservations/add-reservation", { state: { selectedRestaurants: [restaurants] } })
+                }}>
                   Reserve
                 </Button>{" "}
               </>
