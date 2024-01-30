@@ -35,7 +35,9 @@ export { default as Carousel } from "@/components/carousel";
 export { default as RestaurantLocationCard } from "@/components/card/restaurantLocationCard";
 export { default as SearchInputField } from "@/components/inputField/searchInputField";
 export { default as ErrorMessage } from "@/components/errorMessage"
-export { default as ResponseUI } from "@/components/card/connectAccount/responseUI"
+export { default as ResponseUiForResy } from "@/components/card/connectAccount/resyCard/responseUIForResy"
+export { default as ResponseUiForOpenTable } from "@/components/card/connectAccount/openTable/responseUIForOpenTable"
+
 
 export { default as RestaurantCardSkeleton } from "@/components/loader/resturantCardSkeleton"
 export { default as ReservationPageSkeleton } from "@/components/loader/reservationPageSkeleton"

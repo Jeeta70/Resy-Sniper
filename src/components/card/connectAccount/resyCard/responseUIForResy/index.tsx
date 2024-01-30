@@ -53,7 +53,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                         control={form.control}
                         name="email"
                         render={({ field }) => (
-                           <FormItem className="relative">
+                           <FormItem className="relative mt-5">
                               <FormLabel className="text-sm font-normal">Email</FormLabel>
                               <FormControl>
                                  <Input placeholder="Your email" {...field} />

@@ -4,7 +4,7 @@ import { useRestaurantContext } from "@/context/SelectRestaurantForReservationPr
 import {  useTopPicksRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
-import { X } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -39,6 +39,10 @@ const Section = () => {
 
   return (
     <div>
+      <div role="button" onClick={() => navigate("/restaurants")}>
+        <ChevronLeft className="inline" size={20} />
+        <span className="font-semi-bold text-xs">Back</span>
+      </div>
       <div className="flex justify-between">
         <h1 className="my-4 text-lg font-semibold	">Top Picks</h1>
 

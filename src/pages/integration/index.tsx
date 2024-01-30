@@ -26,16 +26,10 @@ const Index = () => {
     }
   }, [isLoading, isSuccess, userResponse?.data.data]);
 
-  // const user = {
-  //   first_name:"ajeet",
-  //   last_name:"singh",
-  //   email: "ajeetsingh@gmail.com",
-  //   resy_token:"444",
-  // }
 
   return (
     <>
-      <div className="container sm:px-80 pt-5 sm:pt-0">
+      <div className="container sm:px-60 pt-5 sm:pt-0">
         <CardHeader className="px-0">
           <CardTitle className="text-2xl font-bold">Integrations</CardTitle>
         </CardHeader>
@@ -94,13 +88,14 @@ const Index = () => {
               </div>
               <div className="justify-self-end w-full">
                 <Credenza>
-                  <CredenzaTrigger asChild>
+                  <CredenzaTrigger>
                     <Button variant="primary" className="w-full">
                       Connect
                     </Button>
                   </CredenzaTrigger>
                   <ConnectOpenTabelAccountModel />
                 </Credenza>
+                
               </div>
             </div>
           </CardContent>

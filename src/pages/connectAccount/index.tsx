@@ -31,6 +31,7 @@ const ConnectAccount = () => {
         <OpenTableConnectAccountCard
           image={OpenTableIcon}
           cardStyle={"w-full sm:w-[450px] mr-0 sm:mr-auto h-96"}
+          setdisableContinueButton={setdisableContinueButton}
         />
       </div>
       <Button onClick={() => navigate("/reservations")} size="lg" className="w-full sm:w-auto mt-4 sm:mt-0 mx-auto" variant={disableContinueButton ? "grey" : "primary"} type="submit" disabled={disableContinueButton}>

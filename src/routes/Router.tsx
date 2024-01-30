@@ -73,7 +73,6 @@ const Router = () => {
                   <Route path="/reservations" element={<Reservation />} />
                 {/* </Route> */}
                 <Route path="/check-subscription" element={<CheckSubscription />} />
-
                 <Route path="restaurants">
                   <Route index element={<Restaurants />} />
                   <Route path="top-picks" element={<TopPick />} />

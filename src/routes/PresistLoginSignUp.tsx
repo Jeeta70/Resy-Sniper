@@ -5,12 +5,10 @@ import { toast } from "@/components/ui/use-toast";
 import { getToken } from "@/utils/healper";
 
 const PresistLoginSignUp = () => {
-   const { userResponse, isLoading, isSuccess, isError } = useGetUser();
    const navigate = useNavigate();
+   const { userResponse, isLoading, isSuccess, isError } = useGetUser();
    
-
    useEffect(() => {
-
       if (!isLoading && isSuccess) {
          const userDetail = userResponse?.data.data;
          

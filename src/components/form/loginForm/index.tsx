@@ -13,19 +13,26 @@ import { ButtonLoader, ForgotPasswordModal } from "@/components";
 import { useLogin } from "@/features/authentication/auth";
 import { useToast } from "@/components/ui/use-toast";
 import { useGetUser } from "@/features/user/user";
+import { getToken } from "@/utils/healper";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { userResponse, isLoading: getUserIsLoading, isSuccess } = useGetUser();
   const { login, isLoading } = useLogin()
   const { toast } = useToast()
+  const { userResponse, isLoading:getUserIsLoading, isSuccess, isError } = useGetUser();
+
+
 
   useEffect(() => {
+
     if (!getUserIsLoading && isSuccess) {
       const userDetail = userResponse?.data.data;
-      const { resy_token, subscription_type } = userDetail;
+      console.log(userResponse);
 
-      if (!resy_token) {
+      const { resy_token, subscription_type } = userDetail;
+      if (getToken("access_token") === null) {
+        navigate("/login");
+      } else if (!resy_token) {
         toast({
           description: "You need to connect the account",
           variant: "dark",
@@ -42,7 +49,7 @@ const Index = () => {
         navigate("/reservations");
       }
     }
-  }, [getUserIsLoading, isSuccess, navigate, toast, userResponse?.data.data]);
+  }, [isError, getUserIsLoading, isSuccess, navigate, userResponse, toast]);
 
 
 

@@ -16,8 +16,6 @@ const Index = () => {
     }
   }, [isLoading, userReservations]);
 
-
-
   return (
     <div className="w-full h-screen sm:px-10 px-3 py-1">
       <div className="flex justify-between items-center sm:my-3 my-8">

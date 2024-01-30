@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useState,useMemo } from "react";
 // import { MyReservationOfResturantCard } from "@/components";
-// import { IReservation } from "@/types/reservations";
+import { IReservation } from "@/types/reservations";
 // import { checkStatus } from "@/utils/healper";
 
 export interface ITab {
@@ -10,67 +10,25 @@ export interface ITab {
   label: string;
 }
 
-// interface Reservation {
-//   created_date: string;
-//   // ... other properties
-//   status: string;
-// }
 
-// interface TabObject {
-//   groupId: string;
-//   data: Reservation[];
-//   status: string;
-// }
-
-// interface Tabs {
-//   all: TabObject[];
-//   active: TabObject[];
-//   paused: TabObject[];
-//   completed: TabObject[];
-//   canceled: TabObject[];
-//   [key: string]: TabObject[];
-// }
-
-// interface TabObject {
-//   groupId: string;
-//   data: IReservation[];
-//   status: string;
-// }
-
-// interface TabsType {
-//   all: TabObject[];
-//   active: TabObject[];
-//   paused: TabObject[];
-//   completed: TabObject[];
-//   canceled: TabObject[];
-// }
-
-interface MyObject {
-  completed: number;
-  created_date: string;
-  date: string;
-  final_snipe_date: string | null;
-  final_snipe_time: string | null;
-  group_id: string;
-  id: number;
-  override_reservations: number;
-  party_size: number;
-  paused: number;
-  release_date: string | null;
-  release_time: string | null;
-  reservation_source: string;
-  restaurant_name: string;
-  snipe_type: string;
-  success: number;
-  table_type: string;
-  user_id: number;
-  venue_id: number;
+interface TabObject {
+  groupId: string;
+  data: IReservation[];
   status: string;
-  data:any[]
 }
 
+
+type TabsType =  {
+  all: TabObject[];
+  active: TabObject[];
+  paused: TabObject[];
+  completed: TabObject[];
+  canceled: TabObject[];
+}
+
+
 interface MyData {
-  [key: string]: MyObject[];
+  [key: string]: IReservation[];
 }
 
 const Index = ({
@@ -80,35 +38,34 @@ const Index = ({
   isLoading: boolean;
 }) => {
   const { data } = userReservations;
-  console.log(data);
   
 
-  // const filter = useMemo(() => {
-  //   const tabs: TabsType = {
-  //     all: [],
-  //     active: [],
-  //     paused: [],
-  //     completed: [],
-  //     canceled: [],
-  //   };
 
-  //   Object.entries(data).forEach(([key, value]) => {
-  //     const object: TabObject = {
-  //       groupId: key,
-  //       data: value,
-  //       status: value[0]?.status,
-  //     };
-  //     tabs.all.push(object);
+  const filter = useMemo(() => {
+    const tabs: TabsType = {
+      all: [],
+      active: [],
+      paused: [],
+      completed: [],
+      canceled: [],
+    };
 
-  //     const status = value[0]?.status;
-  //     if (status && Object.prototype.hasOwnProperty.call(tabs, status)) {
-  //       tabs[status as keyof TabsType].push(object);
-  //     }
-  //   });
+    Object.entries(data).forEach(([key, value]) => {
+      const object: TabObject = {
+        groupId: key,
+        data: value,
+        status: value[0]?.status,
+      };
+      tabs.all.push(object);
+      const status = value[0]?.status;
+      if (status && Object.prototype.hasOwnProperty.call(tabs, status)) {
+       return  tabs[status as keyof TabsType].push(object);
+      }
+    });
 
-  //   return tabs;
-  // }, [data]);
+  }, [data]);
 
+  console.log(filter);
   
 
   const [tabs] = useState<ITab[]>([
@@ -134,7 +91,7 @@ const Index = ({
               value={tab.value}
               className="sm:text-sm text-[9px]"
             >
-              {/* {tab.label.concat("(").concat(filter[tab.value as keyof TabsType]?.length ??  0).concat(")")} */}dd
+              {tab.label.concat("(").concat(String(filter[tab.value as keyof TabsType]?.length ?? 0)).concat(")")}
             </TabsTrigger>
           ))}
         </TabsList>
