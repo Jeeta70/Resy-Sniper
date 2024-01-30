@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ const Index = () => {
   const { userResponse, isLoading: getUserIsLoading, isSuccess } = useGetUser();
   const { login, isLoading } = useLogin()
   const { toast } = useToast()
-  const [fetchUser, setFetchUser] = useState(false)
 
   useEffect(() => {
     if (!getUserIsLoading && isSuccess) {
@@ -43,7 +42,7 @@ const Index = () => {
         navigate("/reservations");
       }
     }
-  }, [getUserIsLoading, isSuccess, navigate, toast, userResponse?.data.data, fetchUser]);
+  }, [getUserIsLoading, isSuccess, navigate, toast, userResponse?.data.data]);
 
 
 
@@ -58,8 +57,6 @@ const Index = () => {
     login(values, {
       onSuccess: () => {
         form.reset();
-        setFetchUser(prev => !prev)
-
 
       }
     })

@@ -11,7 +11,7 @@ import { CancelSubscription, FeatureIsForProModel } from "@/components";
 const Index = () => {
   const { subscription_type } = useContext(UserDetailContext);
 
-  
+
 
 
   return (
@@ -30,6 +30,8 @@ const Index = () => {
           subscription_type === "standard" ? "flex-col" : "flex-col-reverse"
         )}
       >
+
+        {/* REGULAR CARD */}
         <Card className={"min-w-full sm:min-w-[600px]"}>
           <CardContent className="p-0">
             <div className="sm:flex">
@@ -84,6 +86,8 @@ const Index = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* PRO CARD */}
         <Card className={"min-w-full sm:min-w-[600px]"}>
           <CardContent className="p-0">
             <div className="sm:flex">

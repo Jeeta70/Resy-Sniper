@@ -11,11 +11,15 @@ import { useUpgradeSubscription } from "@/features/subscription/subscription";
 import { CheckCircle2 } from "lucide-react";
 
 const Index = () => {
-   const { upgrade, isLoading } = useUpgradeSubscription()
+   const { upgrade, isLoading} = useUpgradeSubscription()
    const points = [
       { point: "5 active booking requests" },
       { point: "Priority booking" },
    ];
+
+
+
+
    return (
       <Model className="border-none max-w-xl">
          <CredenzaHeader>
@@ -23,7 +27,7 @@ const Index = () => {
                This Feature is Available for Pro Subscribers
             </CardTitle>
             <div>
-               <span className="text-4xl font-semibold">$50</span>
+               <span className="text-4xl font-semibold">$25</span>
                <span>.00</span> <span>/month</span>
             </div>
             <div className="p-4 flex-1">
@@ -53,7 +57,7 @@ const Index = () => {
                e.stopPropagation()
                upgrade("standard")
             }}>
-               {isLoading ? <ButtonLoader/> : "Upgrade to REGULAR"}
+               {isLoading ? <ButtonLoader/> : "Switch to REGULAR"}
             </Button>
          </CredenzaFooter>
       </Model>

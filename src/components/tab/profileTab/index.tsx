@@ -23,6 +23,8 @@ type IUser = {
   email: string
   countryCode: string
   phoneNumber: string
+  country_code:string
+  national_number:string
 }
 
 interface Props {
@@ -37,8 +39,8 @@ const Index = ({ user }: Props) => {
       firstName: user.first_name,
       lastName: user.last_name,
       email: user.email,
-      countryCode: user.countryCode,
-      phoneNumber: user.phone,
+      countryCode: `+${user.country_code}`,
+      phoneNumber: user.national_number,
     },
   });
 
@@ -148,13 +150,13 @@ const Index = ({ user }: Props) => {
                         name="countryCode"
                         render={({ field }) => (
                           <>
-                            <FormItem className="sm:w-6/12 w-3/12">
+                            <FormItem className="sm:w-6/12 w-5/12">
                               <FormControl>
                                 <>
-                                  <FormLabel className="text-sm font-normal">
+                                  <FormLabel  className="text-sm font-normal">
                                     Phone
                                   </FormLabel>
-                                  <Select defaultValue="+1" onValueChange={field.onChange}>
+                                  <Select  value={field.value} onValueChange={field.onChange}>
                                     <SelectTrigger className="rounded-e-none">
                                       <SelectValue placeholder="Select a prefix" />
                                     </SelectTrigger>

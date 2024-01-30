@@ -9,7 +9,11 @@ export const useCreateSubscribtion = () => {
    const accesToken = getToken("access_token");
    const { mutate: createSubsciption, isPending: isLoading } = useMutation({
       mutationFn: (subscriptionType: string) => {
-         return axios.post(`${baseUrl}/api/create-checkout-session`, { subscription_tier: subscriptionType, }, { headers: { Authorization: `Bearer ${accesToken}` } });
+         return axios.post(
+            `${baseUrl}/api/create-checkout-session`,
+            { subscription_tier: subscriptionType },
+            { headers: { Authorization: `Bearer ${accesToken}` } }
+         );
       },
       onSuccess: (user) => {
          const { data } = user;
@@ -24,18 +28,22 @@ export const useCreateSubscribtion = () => {
 };
 
 export const CancelSubscription = () => {
-   const navigate = useNavigate()
+   const navigate = useNavigate();
    const accesToken = getToken("access_token");
    const { mutate: Cancel, isPending: isLoading } = useMutation({
       mutationFn: () => {
-         return axios.post(`${baseUrl}/api/cancel-subscription`, {}, {
-            headers: { Authorization: `Bearer ${accesToken}` },
-         });
+         return axios.post(
+            `${baseUrl}/api/cancel-subscription`,
+            {},
+            {
+               headers: { Authorization: `Bearer ${accesToken}` },
+            }
+         );
       },
       onSuccess: (user) => {
          const { data } = user;
          toast({ description: data.message, variant: "dark" });
-         navigate("/subscription")
+         navigate("/subscription");
       },
       onError: (err: { response: AxiosResponse }) => {
          toast({ description: err.response.data.message, variant: "destructive" });
@@ -44,37 +52,39 @@ export const CancelSubscription = () => {
    return { Cancel, isLoading };
 };
 
-
 export function useCheckSubscriptionIsCompleted() {
    const accesToken = getToken("access_token");
 
-   const { data: customData, isPending: isLoading, isSuccess: customIsSuccess, isError, error } = useQuery({
+   const {
+      data: customData,
+      isPending: isLoading,
+      isSuccess: customIsSuccess,
+      isError,
+      error,
+   } = useQuery({
       queryKey: ["subs", accesToken],
       retry: false,
       queryFn: (): Promise<AxiosResponse> => {
-         return axios.get(`${baseUrl}/api/subscription-details`, { headers: { "Authorization": `Bearer ${accesToken}` } });
+         return axios.get(`${baseUrl}/api/subscription-details`, {
+            headers: { Authorization: `Bearer ${accesToken}` },
+         });
       },
-   })
+   });
    return { customData, isLoading, customIsSuccess, isError, error };
 }
 
 export function useUpgradeSubscription() {
-
-   const queryClient = useQueryClient()
+   const queryClient = useQueryClient();
    const accesToken = getToken("access_token");
-   const { mutate: upgrade, isPending: isLoading } = useMutation({
+   const { mutate: upgrade, isPending: isLoading ,isSuccess } = useMutation({
       mutationFn: (subscription: "premium" | "standard") => {
-         return axios.post(`${baseUrl}/api/change-subscription`, { "new_subscription_tier": subscription }, {
-            headers: { Authorization: `Bearer ${accesToken}` },
-         });
+         return axios.post(
+            `${baseUrl}/api/change-subscription`,
+            { new_subscription_tier: subscription },
+            { headers: { Authorization: `Bearer ${accesToken}` }, }
+         );
       },
-      onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ["user"] })
-      },
-
+      onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["user"] }); },
    });
-   return { upgrade, isLoading, };
+   return { upgrade, isLoading,isSuccess };
 }
-
-
-

@@ -13,12 +13,12 @@ import {
   DisconnectResyAccountModel,
 } from "@/components";
 import { useGetUser } from "@/features/user/user";
-import { capitalizeFirstAlphabet } from "@/utils/healper";
 import { useMemo } from "react";
+import ResyIcon from "@/assets/resy.svg";
+import OpenTableIcon from "@/assets/openTable.svg";
+import { Skeleton } from "@/components/ui/skeleton";
 const Index = () => {
-  const { userResponse, isSuccess ,isLoading } = useGetUser();
-
-
+  const { userResponse, isSuccess, isLoading } = useGetUser();
 
   const user = useMemo(() => {
     if (!isLoading && isSuccess) {
@@ -26,67 +26,71 @@ const Index = () => {
     }
   }, [isLoading, isSuccess, userResponse?.data.data]);
 
+  // const user = {
+  //   first_name:"ajeet",
+  //   last_name:"singh",
+  //   email: "ajeetsingh@gmail.com",
+  //   resy_token:"444",
+  // }
 
   return (
     <>
-      <div className="m-6 sm:m-auto">
-        <div className="sm:w-8/12 mx-auto ">
-          <CardHeader className="px-0">
-            <CardTitle className="text-2xl font-bold">Integrations</CardTitle>
-          </CardHeader>
-        </div>
-        <Card className="sm:w-8/12 mx-auto mb-3">
-          <CardContent className="p-6">
-            <div className="grid sm:grid-cols-[auto,15%] items-center gap-4 border-3">
-              <div className=" flex flex-col gap-1">
-                <img
-                  src="./connectAccount/resy.svg"
-                  alt=""
-                  className="h-[30px] w-16"
-                />
-                <CardDescription className="font-bold text-black text-sm ">
-                  {capitalizeFirstAlphabet(user.first_name)}
-                  {capitalizeFirstAlphabet(user.last_name)}
-                </CardDescription>
-                <CardDescription>
-                  <span className="ml-1  font-medium text-xs">
-                    {user?.email}
-                  </span>
-                </CardDescription>
-              </div>
-              {user.resy_token ? (
-                <div className=" justify-self-end w-full">
+      <div className="container sm:px-80 pt-5 sm:pt-0">
+        <CardHeader className="px-0">
+          <CardTitle className="text-2xl font-bold">Integrations</CardTitle>
+        </CardHeader>
+        <Card className="mb-3">
+          {isLoading ? (
+            <CardContent>
+              <Skeleton className="my-3">
+                <Skeleton className="inline-block" />
+              </Skeleton>
+              <Skeleton className="my-2">
+                <Skeleton className="inline-block" />
+              </Skeleton>
+              <Skeleton className="mb-3">
+                <Skeleton className="inline-block" />
+              </Skeleton>
+            </CardContent>
+          ) : (
+            <CardContent className="p-6">
+              <div className="grid sm:grid-cols-[auto,15%] items-center gap-4 border-3">
+                <div className=" flex flex-col gap-1">
+                  <img src={ResyIcon} alt="" className="h-[30px] w-16" />
+                  <CardDescription>
+                    <span className="  font-medium text-xs">{user?.email}</span>
+                  </CardDescription>
+                </div>
+                {user.resy_token ? (
+                  <div className=" justify-self-end w-full">
+                    <Credenza>
+                      <CredenzaTrigger asChild>
+                        <Button variant="outline" className="w-full">
+                          Disconnect
+                        </Button>
+                      </CredenzaTrigger>
+                      <DisconnectResyAccountModel />
+                    </Credenza>
+                  </div>
+                ) : (
                   <Credenza>
                     <CredenzaTrigger asChild>
                       <Button variant="outline" className="w-full">
-                        Disconnect
+                        Connect
                       </Button>
                     </CredenzaTrigger>
                     <DisconnectResyAccountModel />
                   </Credenza>
-                </div>
-              ) : (
-                <Credenza>
-                  <CredenzaTrigger asChild>
-                    <Button variant="outline" className="w-full">
-                      Connect
-                    </Button>
-                  </CredenzaTrigger>
-                  <DisconnectResyAccountModel />
-                </Credenza>
-              )}
-            </div>
-          </CardContent>
+                )}
+              </div>
+            </CardContent>
+          )}
         </Card>
-        <Card className="sm:w-8/12 mx-auto">
+        <Card className="">
           <CardContent className="p-6">
             <div className="grid  sm:grid-cols-[auto,15%] items-center gap-4 border-3">
               <div className=" flex flex-col gap-1">
-                <img
-                  src="./connectAccount/openTable.svg"
-                  alt=""
-                  className="h-[30px] w-24"
-                />
+                <img src={OpenTableIcon} alt="" className="h-[30px] w-24" />
               </div>
               <div className="justify-self-end w-full">
                 <Credenza>

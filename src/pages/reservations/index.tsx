@@ -1,4 +1,4 @@
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,8 @@ const Index = () => {
     }
   }, [isLoading, userReservations]);
 
+
+
   return (
     <div className="w-full h-screen sm:px-10 px-3 py-1">
       <div className="flex justify-between items-center sm:my-3 my-8">
@@ -29,7 +31,7 @@ const Index = () => {
         </Button>
       </div>
       {isLoading && <ReservationPageSkeleton />}
-      {!Array.isArray(reservations?.data) ? (
+      {typeof reservations?.data !== "object" ? (
         <div className="flex flex-col justify-center items-center h-5/6  text-center text-[#12171A] gap-5 ">
           <img src="./Reservation.png" />
           <p>

@@ -20,6 +20,7 @@ import {
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { connectOpenTableAccountSchema } from "@/utils/formZodSchema";
+import openTable from "@/assets/openTable.svg"
 
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -43,7 +44,7 @@ const Index = () => {
   return (
     <Model>
       <CredenzaHeader>
-        <img src={"./connectAccount/openTable.svg"} alt="" className="h-10 w-24 mx-auto" />
+        <img src={openTable} alt="" className="h-10 w-24 mx-auto" />
       </CredenzaHeader>
       <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left">
         <Form {...form}>
@@ -61,7 +62,7 @@ const Index = () => {
                           <FormLabel className="text-sm font-normal">
                             Phone
                           </FormLabel>
-                          <Select  onValueChange={field.onChange}>
+                          <Select defaultValue="+1"  onValueChange={field.onChange}>
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>

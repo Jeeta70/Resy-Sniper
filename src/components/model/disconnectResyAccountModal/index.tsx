@@ -12,6 +12,7 @@ import { useDisconnectConnectResyAccount } from "@/features/authentication/conne
 
 const Index = () => {
   const { discconetResyAccount ,isLoading } =  useDisconnectConnectResyAccount()
+  
   return (
     <Model>
       <CredenzaHeader>
