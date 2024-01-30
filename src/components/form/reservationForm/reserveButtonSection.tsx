@@ -154,7 +154,29 @@ const ReserveButtonSection = () => {
             },
             overideCurrentReservationToggleSection,
           } = reservationFormState;
-          const splitTime = reservationTime.split(" - ");
+          const newTime = reservationTime.split("-")
+          const convertTo24HourFormat = (timeString: string) => {
+            const [time, period] = timeString.split(" ");
+            const [hours, minutes] = time.split(":");
+            let hours24 = parseInt(hours, 10);
+
+            if (period === "PM" && hours !== "12") {
+              hours24 += 12;
+            }
+            const formattedHours = String(hours24).padStart(2, '0');
+            const formattedMinutes = minutes ? minutes.padStart(2, '0') : '00';
+
+            return `${formattedHours}:${formattedMinutes}:00`;
+          };
+
+          // Convert both from and to times to 24-hour format
+          const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+          const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+
+          // Create the reservation time string
+          const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
+
+          const splitTime = reservationTimeNew.split(" - ");
           // coverted states into formated payload
           const payload = {
             resturants: selectedResturantsForReservationOnAddReservationPage.map(
@@ -207,7 +229,29 @@ const ReserveButtonSection = () => {
             },
             overideCurrentReservationToggleSection,
           } = reservationFormState;
-          const splitTime = reservationTime.split(" - ");
+          const newTime = reservationTime.split("-")
+          const convertTo24HourFormat = (timeString: string) => {
+            const [time, period] = timeString.split(" ");
+            const [hours, minutes] = time.split(":");
+            let hours24 = parseInt(hours, 10);
+
+            if (period === "PM" && hours !== "12") {
+              hours24 += 12;
+            }
+            const formattedHours = String(hours24).padStart(2, '0');
+            const formattedMinutes = minutes ? minutes.padStart(2, '0') : '00';
+
+            return `${formattedHours}:${formattedMinutes}:00`;
+          };
+
+          // Convert both from and to times to 24-hour format
+          const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+          const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+
+          // Create the reservation time string
+          const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
+
+          const splitTime = reservationTimeNew.split(" - ");
           const newSplitTime = releaseTime.split(" - ");
           // coverted states into formated payload
           const payload = {

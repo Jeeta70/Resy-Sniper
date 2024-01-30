@@ -75,27 +75,8 @@ const AddTimeModal = () => {
         // Format to time
         const toTimeFormatted = formatTime(selectedTimes.toTime, selectedTimes.toHour, selectedTimes.toFormat);
 
-        // Convert from time to 24-hour format
-        const convertTo24HourFormat = (timeString: string) => {
-            const [time, period] = timeString.split(" ");
-            const [hours, minutes] = time.split(":");
-            let hours24 = parseInt(hours, 10);
-
-            if (period === "PM" && hours !== "12") {
-                hours24 += 12;
-            }
-            const formattedHours = String(hours24).padStart(2, '0');
-            const formattedMinutes = minutes.padStart(2, '0');
-
-            return `${formattedHours}:${formattedMinutes}:00`;
-        };
-
-        // Convert both from and to times to 24-hour format
-        const fromTime24HourFormat = convertTo24HourFormat(fromTimeFormatted);
-        const toTime24HourFormat = convertTo24HourFormat(toTimeFormatted);
-
         // Create the reservation time string
-        const reservationTime = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
+        const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
 
         // Dispatch the reservation time
         handleReseverationTime(dispatch, reservationTime);
