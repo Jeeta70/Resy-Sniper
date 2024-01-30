@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { baseUrl } from "@/config/baseUrl";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";

@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMemo, useState } from "react";
-import { MyReservationOfResturantCard } from "@/components";
-import { IReservation } from "@/types/reservations";
-import { checkStatus } from "@/utils/healper";
+import { useState } from "react";
+// import { MyReservationOfResturantCard } from "@/components";
+// import { IReservation } from "@/types/reservations";
+// import { checkStatus } from "@/utils/healper";
 
 export interface ITab {
   id: number;
@@ -10,11 +10,11 @@ export interface ITab {
   label: string;
 }
 
-interface Reservation {
-  created_date: string;
-  // ... other properties
-  status: string;
-}
+// interface Reservation {
+//   created_date: string;
+//   // ... other properties
+//   status: string;
+// }
 
 // interface TabObject {
 //   groupId: string;
@@ -31,19 +31,19 @@ interface Reservation {
 //   [key: string]: TabObject[];
 // }
 
-interface TabObject {
-  groupId: string;
-  data: IReservation[];
-  status: string;
-}
+// interface TabObject {
+//   groupId: string;
+//   data: IReservation[];
+//   status: string;
+// }
 
-interface TabsType {
-  all: TabObject[];
-  active: TabObject[];
-  paused: TabObject[];
-  completed: TabObject[];
-  canceled: TabObject[];
-}
+// interface TabsType {
+//   all: TabObject[];
+//   active: TabObject[];
+//   paused: TabObject[];
+//   completed: TabObject[];
+//   canceled: TabObject[];
+// }
 
 interface MyObject {
   completed: number;
@@ -66,7 +66,7 @@ interface MyObject {
   user_id: number;
   venue_id: number;
   status: string;
-  data:any
+  data:any[]
 }
 
 interface MyData {
@@ -75,40 +75,40 @@ interface MyData {
 
 const Index = ({
   userReservations,
-  isLoading,
 }: {
   userReservations: { data: MyData };
   isLoading: boolean;
 }) => {
   const { data } = userReservations;
+  console.log(data);
+  
 
-  const filter = useMemo(() => {
-    const tabs: TabsType = {
-      all: [],
-      active: [],
-      paused: [],
-      completed: [],
-      canceled: [],
-    };
+  // const filter = useMemo(() => {
+  //   const tabs: TabsType = {
+  //     all: [],
+  //     active: [],
+  //     paused: [],
+  //     completed: [],
+  //     canceled: [],
+  //   };
 
-    Object.entries(data).forEach(([key, value]) => {
-      const object: TabObject = {
-        groupId: key,
-        data: value,
-        status: value[0]?.status,
-      };
-      tabs.all.push(object);
+  //   Object.entries(data).forEach(([key, value]) => {
+  //     const object: TabObject = {
+  //       groupId: key,
+  //       data: value,
+  //       status: value[0]?.status,
+  //     };
+  //     tabs.all.push(object);
 
-      const status = value[0]?.status;
-      if (status && Object.prototype.hasOwnProperty.call(tabs, status)) {
-        tabs[status as keyof TabsType].push(object);
-      }
-    });
+  //     const status = value[0]?.status;
+  //     if (status && Object.prototype.hasOwnProperty.call(tabs, status)) {
+  //       tabs[status as keyof TabsType].push(object);
+  //     }
+  //   });
 
-    return tabs;
-  }, [data]);
+  //   return tabs;
+  // }, [data]);
 
-  console.log(filter);
   
 
   const [tabs] = useState<ITab[]>([
@@ -134,18 +134,18 @@ const Index = ({
               value={tab.value}
               className="sm:text-sm text-[9px]"
             >
-              {tab.label.concat("(").concat(filter[tab.value as keyof TabsType]?.length ??  0).concat(")")}
+              {/* {tab.label.concat("(").concat(filter[tab.value as keyof TabsType]?.length ??  0).concat(")")} */}dd
             </TabsTrigger>
           ))}
         </TabsList>
         <TabsContent value={activeTab?.value}>
-          {filter &&
+          {/* {filter &&
             filter[activeTab.value].map((reservation: IReservation) => (
               <MyReservationOfResturantCard
                 key={reservation.id}
                 reservation={reservation}
               />
-            ))}
+            ))} */}
           {/* {reservationsObject} */}
           {/* {Array.from({ length: activeTab.count }).map(() => (
           ))} */}
