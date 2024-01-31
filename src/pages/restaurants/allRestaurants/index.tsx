@@ -1,24 +1,28 @@
 import { RestaurantCard, RestaurantCardSkeleton } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
-import { useGetAllRestaurants} from "@/features/restaurant/restaurant";
+import { useGetAllRestaurants, useSearchRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
 import { ChevronLeft, X } from "lucide-react";
 import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import SearchAndFilterSection from "../searchAndFilterSection";
 
 
 const Section = () => {
    const navigate = useNavigate();
-   // const { searchRestaurants, isLoading } = useSearchRestaurants();
    const { removeAllRestaurant } = useRestaurantContext();
-   const { restaurants: searchRestaurants, isLoading } = useGetAllRestaurants()
+   // const { restaurants: searchRestaurants, isLoading } = useGetAllRestaurants()
+   const { searchRestaurants, isLoading } = useSearchRestaurants();
 
    const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
    // const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
+
+   console.log(searchRestaurants);
+   
 
    const [searchParams] = useSearchParams();
    const query = searchParams.get("query");
@@ -26,7 +30,6 @@ const Section = () => {
 
 
    useEffect(() => {
-
       return () => removeAllRestaurant()
    }, [])
 
@@ -47,6 +50,9 @@ const Section = () => {
          </div>
          <div className="flex justify-between">
             <h1 className="my-4 text-lg font-semibold	">All Restaurants</h1>
+         </div>
+         <div className="mb-7">
+            <SearchAndFilterSection />
          </div>
          {isLoading && <RestaurantCardSkeleton />}
          <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">

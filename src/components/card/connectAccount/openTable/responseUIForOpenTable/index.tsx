@@ -30,13 +30,13 @@ import {
 } from "@/components/ui/select";
 
 interface Props {
-   setdisableContinueButton: (boolean: boolean) => void;
+   setdisableContinueButton?: (boolean: boolean) => void;
 }
 
 const Index = ({ setdisableContinueButton }: Props) => {
    const [responseState, setResponseState] = useState<
       "default" | "entercode" | "error" | "success"
-   >("default");
+   >("entercode");
 
    const { connectOpenTableAccount, isLoading } = useConnectOpenTableAccount();
    const { openTableCode, isLoading: openTableCodeisLoading } =
@@ -71,7 +71,6 @@ const Index = ({ setdisableContinueButton }: Props) => {
    }
 
    function onCodeSubmit(values: z.infer<typeof enterCodeSechema>) {
-      console.log(values);
       openTableCode(values, {
          onSuccess: () => {
             enterCodeForm.reset();

@@ -56,10 +56,10 @@ const Index = () => {
                   </CardDescription>
                 </div>
                 {user.resy_token ? (
-                  <div className=" justify-self-end w-full">
+                  <div className="justify-self-end w-full">
                     <Credenza>
-                      <CredenzaTrigger asChild>
-                        <Button variant="outline" className="w-full">
+                        <CredenzaTrigger asChild>
+                          <Button variant="outline" className="w-full ">
                           Disconnect
                         </Button>
                       </CredenzaTrigger>
@@ -88,8 +88,8 @@ const Index = () => {
               </div>
               <div className="justify-self-end w-full">
                 <Credenza>
-                  <CredenzaTrigger>
-                    <Button variant="primary" className="w-full">
+                  <CredenzaTrigger className="w-full">
+                    <Button variant="primary" className="w-full ">
                       Connect
                     </Button>
                   </CredenzaTrigger>

@@ -6,16 +6,24 @@ import { getToken } from "@/utils/healper";
 
 const PresistLoginSignUp = () => {
    const navigate = useNavigate();
-   const { userResponse, isLoading, isSuccess, isError } = useGetUser();
+   const { userResponse, isLoading, isSuccess, isError,error } = useGetUser();
    
    useEffect(() => {
+
+      if (isError || error) {
+         const errorWithResponse = error as { response?: { data?: { msg?: string } } };
+         if (errorWithResponse.response && errorWithResponse.response.data && errorWithResponse.response.data.msg === "Not enough segments") {
+            navigate("/login");
+         }
+      }
       if (!isLoading && isSuccess) {
          const userDetail = userResponse?.data.data;
-         
-         const { resy_token, subscription_type } = userDetail;
-         if (getToken("access_token") === null) {
+         const { email, resy_token, subscription_type, ot_access_token } = userDetail;
+         if (!email) {
             navigate("/login");
-         } else if (!resy_token) {
+         }
+
+         if (!resy_token || ot_access_token) {
             toast({
                description: "You need to connect the account",
                variant: "dark",
@@ -27,13 +35,9 @@ const PresistLoginSignUp = () => {
                variant: "dark",
             });
             navigate("/subscription");
-         } else {
-            toast({ description: localStorage.getItem("token") ? "You are already login " : "Successfull login", variant: "destructive", });
-            navigate("/reservations");
          }
       }
-   }, [isError, isLoading, isSuccess, navigate, userResponse]);
-
+   }, [error, isError, isLoading, isSuccess, navigate, userResponse]);
    return (
       <>
          <Outlet />

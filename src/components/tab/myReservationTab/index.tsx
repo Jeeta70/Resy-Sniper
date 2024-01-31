@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState,useMemo } from "react";
-// import { MyReservationOfResturantCard } from "@/components";
+import { useState, useMemo } from "react";
+import { MyReservationOfResturantCard } from "@/components";
 import { IReservation } from "@/types/reservations";
 // import { checkStatus } from "@/utils/healper";
 
@@ -18,7 +18,7 @@ interface TabObject {
 }
 
 
-type TabsType =  {
+type TabsType = {
   all: TabObject[];
   active: TabObject[];
   paused: TabObject[];
@@ -38,7 +38,6 @@ const Index = ({
   isLoading: boolean;
 }) => {
   const { data } = userReservations;
-  
 
 
   const filter = useMemo(() => {
@@ -51,6 +50,7 @@ const Index = ({
     };
 
     Object.entries(data).forEach(([key, value]) => {
+
       const object: TabObject = {
         groupId: key,
         data: value,
@@ -59,14 +59,17 @@ const Index = ({
       tabs.all.push(object);
       const status = value[0]?.status;
       if (status && Object.prototype.hasOwnProperty.call(tabs, status)) {
-       return  tabs[status as keyof TabsType].push(object);
+         tabs[status as keyof TabsType].push(object);
       }
     });
 
+    return tabs
+
   }, [data]);
 
-  console.log(filter);
+
   
+
 
   const [tabs] = useState<ITab[]>([
     { id: 1, value: "all", label: "All" },
@@ -78,128 +81,73 @@ const Index = ({
 
   const [activeTab, setActiveTab] = useState<ITab>(tabs[0]);
 
+  
+
   return (
     <>
       <Tabs defaultValue="all">
-        <TabsList className="xl:grid xl:grid-cols-5 inline-block xl:w-1/2 w-auto">
-          {tabs.map((tab) => (
-            <TabsTrigger
-              onClick={() => {
-                setActiveTab(tab);
-              }}
-              key={tab.id}
-              value={tab.value}
-              className="sm:text-sm text-[9px]"
-            >
-              {tab.label.concat("(").concat(String(filter[tab.value as keyof TabsType]?.length ?? 0)).concat(")")}
-            </TabsTrigger>
-          ))}
+        <TabsList className="xl:grid xl:grid-cols-5 inline-block xl:w-1/2 w-auto bg-transparent">
+          <TabsTrigger className="sm:text-sm block  text-[9px] data-[state=active]:bg-black border-[1px] border-light  data-[state=active]:text-white rounded-r-none" value="all">All({filter["all"].length})
+          </TabsTrigger>
+          <TabsTrigger className="sm:text-sm block text-[9px] data-[state=active]:bg-black border-[1px] border-light  data-[state=active]:text-white rounded-none" value="active">Active({filter["active"].length})
+          </TabsTrigger>
+          <TabsTrigger className="sm:text-sm block text-[9px] data-[state=active]:bg-black border-[1px] border-light  data-[state=active]:text-white rounded-none" value="paused">Paused({filter["paused"].length})
+          </TabsTrigger>
+          <TabsTrigger className="sm:text-sm block text-[9px] data-[state=active]:bg-black border-[1px] border-light data-[state=active]:text-white rounded-none" value="completed">Completed({filter["completed"].length})
+          </TabsTrigger>
+          <TabsTrigger className="sm:text-sm block text-[9px] data-[state=active]:bg-black border-[1px] border-light  data-[state=active]:text-white rounded-s-none" value="canceled">Canceled({filter["canceled"].length})
+          </TabsTrigger>
         </TabsList>
-        <TabsContent value={activeTab?.value}>
-          {/* {filter &&
-            filter[activeTab.value].map((reservation: IReservation) => (
-              <MyReservationOfResturantCard
-                key={reservation.id}
-                reservation={reservation}
-              />
-            ))} */}
-          {/* {reservationsObject} */}
-          {/* {Array.from({ length: activeTab.count }).map(() => (
-          ))} */}
+        <TabsContent value="all">
+          {filter["all"].map((reservation,i)=>(
+            <MyReservationOfResturantCard
+              reservation={reservation.data}
+              groupId={reservation.groupId}
+              status={reservation.status}
+              key={i}
+            />
+          ))}
         </TabsContent>
-        {/* <TabsContent value="active">
-
-          <Card>
-            <CardHeader>
-              <CardTitle>active</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you'll be logged out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="current">Current password</Label>
-                <Input id="current" type="password" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="new">New password</Label>
-                <Input id="new" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent> */}
-        {/* <TabsContent value="paused">
-          <Card>
-            <CardHeader>
-              <CardTitle>paused</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you'll be logged out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="current">Current password</Label>
-                <Input id="current" type="password" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="new">New password</Label>
-                <Input id="new" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent> */}
-        {/* <TabsContent value="completed">
-          <Card>
-            <CardHeader>
-              <CardTitle>completed</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you'll be logged out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="current">Current password</Label>
-                <Input id="current" type="password" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="new">New password</Label>
-                <Input id="new" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent> */}
-        {/* <TabsContent value="canceled">
-          <Card>
-            <CardHeader>
-              <CardTitle>canceled</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you'll be logged out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="current">Current password</Label>
-                <Input id="current" type="password" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="new">New password</Label>
-                <Input id="new" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent> */}
+        <TabsContent value="active">
+          {filter["active"].map((reservation, i) => (
+            <MyReservationOfResturantCard
+              reservation={reservation.data}
+              groupId={reservation.groupId}
+              status={reservation.status}
+              key={i}
+            />
+          ))}
+        </TabsContent>
+        <TabsContent value="paused">
+          {filter["paused"].map((reservation, i) => (
+            <MyReservationOfResturantCard
+              reservation={reservation.data}
+              groupId={reservation.groupId}
+              status={reservation.status}
+              key={i}
+            />
+          ))}
+        </TabsContent>
+        <TabsContent value="completed">
+          {filter["completed"].map((reservation, i) => (
+            <MyReservationOfResturantCard
+              reservation={reservation.data}
+              groupId={reservation.groupId}
+              status={reservation.status}
+              key={i}
+            />
+          ))}
+        </TabsContent>
+        <TabsContent value="canceled">
+          {filter["canceled"].map((reservation, i) => (
+            <MyReservationOfResturantCard
+              reservation={reservation.data}
+              groupId={reservation.groupId}
+              status={reservation.status}
+              key={i}
+            />
+          ))}
+        </TabsContent>
       </Tabs>
     </>
   );

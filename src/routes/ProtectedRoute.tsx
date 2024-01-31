@@ -9,9 +9,8 @@ const ProtectedRoute = () => {
   const navigate = useNavigate();
   useEffect(() => {
     
-    console.log(error);
     if (isError || error) {
-      
+
       const errorWithResponse = error as { response?: { data?: { msg?: string } } };
       if (errorWithResponse.response && errorWithResponse.response.data && errorWithResponse.response.data.msg === "Not enough segments") {
         toast({

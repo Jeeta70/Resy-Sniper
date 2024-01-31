@@ -53,9 +53,8 @@ export function useGetUserReservations() {
     error,
   } = useQuery({
     queryKey: ["reservations"],
-    retry: false,
     queryFn: (): Promise<AxiosResponse> => {
-      return axios.get(`${baseUrl}/api/get_user_reservations`, {
+      return axios.get(`${baseUrl}/api/get_user_reservations_group`, {
         headers: { Authorization: `Bearer ${accesToken}` },
       });
     },
@@ -64,7 +63,7 @@ export function useGetUserReservations() {
 }
 
 export function useGetSingleReservation() {
-  const { venue_id, group_id } = useParams();
+  const { group_id } = useParams();
   const accesToken = getToken("access_token");
   const {
     data: singleReservation,
@@ -73,7 +72,7 @@ export function useGetSingleReservation() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["singleReservation", venue_id, group_id],
+    queryKey: ["singleReservation", group_id],
     retry: false,
     queryFn: (): Promise<AxiosResponse> => {
       return axios.get(`${baseUrl}/api/view_group?group_id=${group_id}`, {
