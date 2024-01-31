@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { MyReservationOfResturantCard } from "@/components";
 import { IReservation } from "@/types/reservations";
 // import { checkStatus } from "@/utils/healper";
@@ -71,15 +71,6 @@ const Index = ({
   
 
 
-  const [tabs] = useState<ITab[]>([
-    { id: 1, value: "all", label: "All" },
-    { id: 2, value: "active", label: "Active" },
-    { id: 3, value: "paused", label: "Paused" },
-    { id: 4, value: "completed", label: "Completed" },
-    { id: 5, value: "canceled", label: "Canceled" },
-  ]);
-
-  const [activeTab, setActiveTab] = useState<ITab>(tabs[0]);
 
   
 

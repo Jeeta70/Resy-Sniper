@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { toast } from "@/components/ui/use-toast";
 import { baseUrl } from "@/config/baseUrl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getToken } from "@/utils/healper";
+import { getToken, getresyloginDetail } from "@/utils/healper";
 
 interface IAccountDetails {
   email?: string;
@@ -100,14 +100,15 @@ export const useOpenTableCode = () => {
   const access_token = getToken("access_token");
   const { mutate: openTableCode, isPending: isLoading } = useMutation({
     mutationFn: ({ code }: { code: string }) => {
-      const resyLoginDetail: { correlation_id: string; message: string } = JSON.parse(localStorage.getItem("resyloginDetail") ?? "");
+      
+      const resyLoginDetail =  getresyloginDetail()
 
       return axios.post(
         `${baseUrl}/api/verify-phone-2fa`,
         {
           code: code,
           correlation_id: resyLoginDetail.correlation_id,
-          phone: `+${resyLoginDetail.message.match(/(\d+)/)[0]}`,
+          phone: `+${resyLoginDetail?.message?.match(/(\d+)/)[0]}`,
         },
         { headers: { Authorization: `Bearer ${access_token}` } }
       );

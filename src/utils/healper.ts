@@ -16,6 +16,16 @@ export function getToken(
   }
 }
 
+export function getresyloginDetail(){
+  const resyloginDetailString = localStorage.getItem("resyloginDetail");
+  if (resyloginDetailString) {
+    const resyloginDetailStringObject = JSON.parse(resyloginDetailString);
+    return resyloginDetailStringObject;
+  } else {
+    return null;
+  }
+}
+
 export function convertDateTimeFormt(
   originalDateString: Date | string
 ): string {

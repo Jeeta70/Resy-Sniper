@@ -1,7 +1,7 @@
 import { RestaurantCard, RestaurantCardSkeleton } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
-import { useGetAllRestaurants, useSearchRestaurants } from "@/features/restaurant/restaurant";
+import {useSearchRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
 import { ChevronLeft, X } from "lucide-react";

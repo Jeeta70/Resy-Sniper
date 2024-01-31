@@ -16,7 +16,7 @@ import ShowSidebar from "./ShowSidebar";
 import { Toaster } from "@/components/ui/toaster";
 import ProtectedRoute from "./ProtectedRoute";
 import PresistConnectAccount from "./PresistConnectAccount";
-import PersistSubscribtion from "./PersistSubscribtion";
+// import PersistSubscribtion from "./PersistSubscribtion";
 import { UserDetailContextProvider } from "@/context/UserDetailProvider";
 import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservationProvider";
 import CheckSubscription from "@/pages/checkSubscription";

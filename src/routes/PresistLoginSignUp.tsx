@@ -2,7 +2,7 @@ import { useGetUser } from "@/features/user/user";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "@/components/ui/use-toast";
-import { getToken } from "@/utils/healper";
+// import { getToken } from "@/utils/healper";
 
 const PresistLoginSignUp = () => {
    const navigate = useNavigate();

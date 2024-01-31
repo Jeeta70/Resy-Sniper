@@ -75,7 +75,9 @@ const Index = ({ setdisableContinueButton }: Props) => {
          onSuccess: () => {
             enterCodeForm.reset();
             setResponseState("success");
-            setdisableContinueButton(false);
+            if(setdisableContinueButton){
+               setdisableContinueButton(false);
+            }
          },
          onError:() =>{
             setResponseState("error");

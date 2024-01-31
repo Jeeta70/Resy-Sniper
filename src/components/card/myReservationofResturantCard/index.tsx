@@ -50,7 +50,7 @@ const Index = ({
 
       <CardContent className="space-y-2 my-auto w-full">
         <div className="space-y-1">
-          <Badge variant={status ?? "default"}>
+          <Badge variant={"default"}>
             {capitalizeFirstAlphabet(status)}
           </Badge>
         </div>
