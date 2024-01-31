@@ -83,27 +83,27 @@ const AddResturantSection = () => {
           )}
 
           {userDetail.subscription_type === "standard" &&
-          selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
-           <>
-                {/* <Credenza> */}
-                  <CredenzaTrigger asChild>
-                    <span
-                      className={cn(
-                        buttonVariants({ variant: "outline" }),
-                        "inline-flex font-semibold text-[11px]  relative cursor-pointer"
-                      )}
-                    >
-                      <img
-                        src={ProIcon}
-                        alt="pro icon"
-                        className="absolute right-0 top-0"
-                      />
-                      <Plus className="mr-3 " /> Add Reservation
-                    </span>
-                  </CredenzaTrigger>
-                  <FeatureIsForProModel />
-                {/* </Credenza> */}
-
+            selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
+            <>
+              {/* <Credenza> */}
+              <CredenzaTrigger asChild>
+                <span
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "inline-flex font-semibold text-[11px]  relative cursor-pointer"
+                  )}
+                >
+                  <img
+                    src={ProIcon}
+                    alt="pro icon"
+                    className="absolute right-0 top-0"
+                  />
+                  <Plus className="mr-3 " /> Add Reservation
+                </span>
+              </CredenzaTrigger>
+              <FeatureIsForProModel />
+              {/* </Credenza> */}
+            </>
           ) : (
             <>
               <CredenzaTrigger asChild className="">
