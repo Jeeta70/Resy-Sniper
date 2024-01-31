@@ -67,35 +67,18 @@ const SelectReservationTime = () => {
 
   useEffect(() => {
     if (selected !== null) {
-      const newTime = selected.split("-")
-      const convertTo24HourFormat = (timeString: string) => {
-        const [time, period] = timeString.split(" ");
-        const [hours, minutes] = time.split(":");
-        let hours24 = parseInt(hours, 10);
-
-        if (period === "PM" && hours !== "12") {
-          hours24 += 12;
-        }
-        const formattedHours = String(hours24).padStart(2, '0');
-        const formattedMinutes = minutes ? minutes.padStart(2, '0') : '00';
-
-        return `${formattedHours}:${formattedMinutes}:00`;
-      };
-
-      // Convert both from and to times to 24-hour format
-      const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
-      const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
-
-      // Create the reservation time string
-      const reservationTime = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
-
-      handleReseverationTime(dispatch, reservationTime);
+      handleReseverationTime(dispatch, selected);
     }
   }, [selected, dispatch]);
 
-  const handleSelectedTime = (time: string) => {
+  const handleSelectedTime = (time: any) => {
     setSelected((prev) => (prev === time ? null : time));
   };
+
+  const handleSelectedTimeNew = () => {
+    const reservationTime = "";
+    handleReseverationTime(dispatch, reservationTime);
+  }
 
   return (
     <div>
@@ -118,11 +101,11 @@ const SelectReservationTime = () => {
         <Button
           className={cn(
             buttonVariants({
-              variant: reservationTime === '' ? "default" : "outline",
+              variant: reservationTime === '' || reservationTime === null ? "default" : "outline",
             }),
-            `inline-flex text-black ${reservationTime === '' ? "hidden" : 'bg-black text-white hover:bg-black hover:text-white'}`
+            `inline-flex text-black ${reservationTime === null || reservationTime === '' ? "hidden" : 'bg-black text-white hover:bg-black hover:text-white'}`
           )}
-          onClick={() => handleSelectedTime('')}
+          onClick={() => handleSelectedTimeNew()}
         >
           {reservationTime} {<X size={15} className='ml-1' />}
         </Button>
@@ -166,7 +149,7 @@ const SelectReservationTime = () => {
             </PopoverContent>
           </Popover>}
       </div>
-      {reservationTimeError && <ErrorMessage message="Please set reservation time" />}
+      {reservationTimeError && !reservationTime && <ErrorMessage message="Please set reservation time" />}
       {/* <ErrorMessage message='Please set reservation time' /> */}
     </div>
   );

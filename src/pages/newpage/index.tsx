@@ -331,7 +331,7 @@ const NewPage = () => {
                             )}
                         </div>
                         <div className="md:grid block lg:grid-cols-[55%,45%] md:grid-cols-[50%,50%] sm:grid-cols-[50%,50%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
-                            <div className=" sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-5 md:pl-16 pl-1">
+                            <div className=" sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-5 md:pl-16 pl-3">
                                 <h1 className="lg:text-[60px] md:text-[40px] text-[45px] !font-[700] leading-snug font-inter">
                                     Never miss a Reservation again
                                     <span className="text-[#EA3A4B] font-semibold">.</span>
@@ -369,10 +369,10 @@ const NewPage = () => {
                             Resy Sniper offers everything you need
                         </p>
                     </div>
-                    <div className="sm:flex justify-between block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] lg:px-[134px] md:px-[50px] px-5 sm:mt-10 mt-12">
+                    <div className="sm:flex justify-between block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] lg:px-[134px] md:px-[50px] px-5 sm:mt-10 mt-8">
                         {data.map((ele, key) => (
                             <div
-                                className="text-center sm:flex sm:flex-col flex gap-3 sm:items-center items-start"
+                                className="text-center sm:flex sm:flex-col grid grid-cols-[28%,72%] gap-3 sm:items-center items-end"
                                 key={key}
                             >
                                 <div>
@@ -382,10 +382,10 @@ const NewPage = () => {
                                     ></img>
                                 </div>
                                 <div>
-                                    <h1 className="mt-5 text-[24px] font-inter !font-[600] sm:text-center text-left text-[#12171A]">
+                                    <h1 className="sm:mt-5 mt-2 text-[24px] font-inter !font-[600] sm:text-center text-left text-[#12171A]">
                                         {ele.heading}
                                     </h1>
-                                    <p className="text-[14px] mt-2 sm:text-center text-left font-inter text-[#6C6F71]">
+                                    <p className="text-[14px] mt-2 !font-[500] sm:text-center text-left font-inter text-[#6C6F71]">
                                         {ele.text}
                                     </p>
                                 </div>

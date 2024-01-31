@@ -28,7 +28,7 @@ const SearchAndFilterSection = () => {
         return prev
       })
     }, 500);
-    return () => clearInterval(timer) 
+    return () => clearInterval(timer)
   }, [searchQuery, setSeachParams])
 
 
@@ -48,7 +48,7 @@ const SearchAndFilterSection = () => {
   return (
     <div className="sm:flex block gap-4">
       <SearchInputField onChange={onChange} placeholder="Search restaurant" searchIcon={true} />
-      <div className="grid grid-cols-2 gap-2 mt-3 sm:mt-0">
+      <div className="sm:grid sm:grid-cols-2 flex gap-2 mt-3 sm:mt-0">
 
         <DropDown placeholder="All Prices" >All price children</DropDown>
         <DropDown placeholder="All Locations">

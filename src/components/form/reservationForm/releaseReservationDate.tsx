@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { format } from "date-fns";
 
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -12,19 +12,19 @@ import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { cn } from "@/lib/utils";
-import { ErrorMessage, FeatureIsForProModel } from "@/components";
-import { X } from "lucide-react";
+import { ErrorMessage } from "@/components";
+// import { X } from "lucide-react";
 import { handleReleaseDate } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
-import { UserDetailContext } from "@/context/UserDetailProvider";
+// import { UserDetailContext } from "@/context/UserDetailProvider";
 
-import ProIcon from "@/assets/ProIcon.svg";
-import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+// import ProIcon from "@/assets/ProIcon.svg";
+// import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 
-const pastMonth = new Date(2020, 10, 15);
+const pastMonth = new Date();
 
 const ReleaseReservationDateSection = () => {
-    const userDetail = useContext(UserDetailContext);
+    // const userDetail = useContext(UserDetailContext);
     const {
         dispatch,
         reservationFormState: {
@@ -91,7 +91,7 @@ const ReleaseReservationDateSection = () => {
         <div>
             <p className="mb-2 font-semibold text-sm">Release Date</p>
             <div className="flex gap-3">
-                <span
+                {/* <span
                     onClick={() => handleSelectedButton(new Date())}
                     className={cn(
                         buttonVariants({
@@ -117,8 +117,8 @@ const ReleaseReservationDateSection = () => {
                     )}
                 >
                     Tomorrow {selected === format(new Date(+new Date() + 86400000), "PP") && <X size={15} />}
-                </span>
-                {userDetail.subscription_type === "standard" ? (
+                </span> */}
+                {/* {userDetail.subscription_type === "standard" ? (
                     <Credenza>
                         <CredenzaTrigger asChild>
                             <span
@@ -139,36 +139,36 @@ const ReleaseReservationDateSection = () => {
                         </CredenzaTrigger>
                         <FeatureIsForProModel />
                     </Credenza>
-                ) : (
-                    <Select
-                        disabled
-                        onValueChange={(e) => console.log(e)}
-                    >
-                        <Popover>
-                            <PopoverTrigger
-                                asChild
-                                disabled={userDetail.subscription_type === "standard"}
+                ) : ( */}
+                <Select
+                    disabled
+                    onValueChange={(e) => console.log(e)}
+                >
+                    <Popover>
+                        <PopoverTrigger
+                            asChild
+                        // disabled={userDetail.subscription_type === "standard"}
+                        >
+                            <Button
+                                variant="outline"
+                                className=" text-light relative"
                             >
-                                <Button
-                                    variant="outline"
-                                    className=" text-light relative"
-                                >
-                                    Custom
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                    id="test"
-                                    mode="single"
-                                    defaultMonth={pastMonth}
-                                    selected={days ? days[0] : undefined}
-                                    footer={footer}
-                                    onSelect={handleCalendarSelect}
-                                />
-                            </PopoverContent>
-                        </Popover>
-                    </Select>
-                )}
+                                Custom
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                                id="test"
+                                mode="single"
+                                defaultMonth={pastMonth}
+                                selected={days ? days[0] : undefined}
+                                footer={footer}
+                                onSelect={handleCalendarSelect}
+                            />
+                        </PopoverContent>
+                    </Popover>
+                </Select>
+                {/* )} */}
             </div>
 
             {releaseDatesError && !releaseDates && (

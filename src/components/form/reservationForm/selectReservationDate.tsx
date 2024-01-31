@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { format } from "date-fns";
 
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -12,14 +12,14 @@ import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { cn } from "@/lib/utils";
-import { ErrorMessage, FeatureIsForProModel } from "@/components";
+import { ErrorMessage } from "@/components";
 import { X } from "lucide-react";
 import { handleReservationDate } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
-import { UserDetailContext } from "@/context/UserDetailProvider";
+// import { UserDetailContext } from "@/context/UserDetailProvider";
 
-import ProIcon from "@/assets/ProIcon.svg";
-import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+// import ProIcon from "@/assets/ProIcon.svg";
+// import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 
 const pastMonth = new Date(2020, 10, 15);
 
@@ -30,21 +30,21 @@ interface IReservationDateSize {
 }
 [];
 
-const RESERVATION_DATE_BUTTONS = [
-  { value: new Date(), label: "Today", type: "button" },
-  {
-    value: new Date(+new Date() + 86400000),
-    label: "Tommorow",
-    type: "button",
-  },
-];
+// const RESERVATION_DATE_BUTTONS = [
+//   { value: new Date(), label: "Today", type: "button" },
+//   {
+//     value: new Date(+new Date() + 86400000),
+//     label: "Tommorow",
+//     type: "button",
+//   },
+// ];
 
 const SelectReservationDateSection = () => {
-  const userDetail = useContext(UserDetailContext);
+  // const userDetail = useContext(UserDetailContext);
   const { dispatch, reservationFormState: { reservationDates, errors: { reservationDateError } } } = useReservationContext();
   const initialDays: Date[] = [];
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
-  const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>(RESERVATION_DATE_BUTTONS);
+  const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>([]);
   const [selected, setSelected] = React.useState<Array<Date | string>>([]);
 
 
@@ -124,7 +124,7 @@ const SelectReservationDateSection = () => {
             )}
           >
             {button.label.toLocaleString()}{" "}
-            {i > 1 && (
+            {i >= 0 && (
               <X
                 onClick={() => {
                   setReservationDates((prev) => {
@@ -136,7 +136,7 @@ const SelectReservationDateSection = () => {
             )}
           </span>
         ))}
-        {userDetail.subscription_type === "standard" ? (
+        {/* {userDetail.subscription_type === "standard" ? (
           <Credenza>
             <CredenzaTrigger asChild>
               <span
@@ -154,32 +154,32 @@ const SelectReservationDateSection = () => {
             </CredenzaTrigger>
             <FeatureIsForProModel />
           </Credenza>
-        ) : (
-          <Select disabled onValueChange={(e) => console.log(e)}>
-            <Popover>
-              <PopoverTrigger
-                asChild
-                disabled={userDetail.subscription_type === "standard"}
-              >
-                <Button variant="outline" className=" text-light relative">
-                  Custom
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  id="test"
-                  mode="multiple"
-                  defaultMonth={pastMonth}
-                  selected={days}
-                  footer={footer}
-                  onSelect={setDays}
-                  month={new Date()}
-                  
-                />
-              </PopoverContent>
-            </Popover>
-          </Select>
-        )}
+        ) : ( */}
+        <Select disabled onValueChange={(e) => console.log(e)}>
+          <Popover>
+            <PopoverTrigger
+              asChild
+            // disabled={userDetail.subscription_type === "standard"}
+            >
+              <Button variant="outline" className=" text-light relative">
+                Custom
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                id="test"
+                mode="multiple"
+                defaultMonth={pastMonth}
+                selected={days}
+                footer={footer}
+                onSelect={setDays}
+                month={new Date()}
+
+              />
+            </PopoverContent>
+          </Popover>
+        </Select>
+        {/* )} */}
       </div>
 
       {reservationDateError && !reservationDates.length && <ErrorMessage message="Please set reservation date" />}

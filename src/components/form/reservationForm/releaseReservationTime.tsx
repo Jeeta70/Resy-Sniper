@@ -146,7 +146,7 @@ const ReleaseReservationTime = () => {
                         </PopoverContent>
                     </Popover>}
             </div>
-            {releaseTimeError && <ErrorMessage message="Please set release time" />}
+            {releaseTimeError && !releaseTime && <ErrorMessage message="Please set release time" />}
             {/* <ErrorMessage message='Please set reservation time' /> */}
         </div>
     );

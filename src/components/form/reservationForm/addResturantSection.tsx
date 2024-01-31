@@ -103,7 +103,7 @@ const AddResturantSection = () => {
                   </CredenzaTrigger>
                   <FeatureIsForProModel />
                 {/* </Credenza> */}
-                </>
+
           ) : (
             <>
               <CredenzaTrigger asChild className="">
@@ -111,7 +111,7 @@ const AddResturantSection = () => {
                   variant="outline"
                   className="inline-flex font-semibold text-[11px] relative"
                 >
-                  <Plus className="mr-3 " /> Add Reservation
+                  <Plus className="mr-3 " /> Add Restaurant
                 </Button>
               </CredenzaTrigger>
               <AddResturantModel />

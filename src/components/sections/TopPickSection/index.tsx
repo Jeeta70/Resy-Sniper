@@ -31,7 +31,7 @@ const Section = () => {
 
   const filteredRestaurants = useMemo(() => {
     if (!isLoading) {
-      return searchRestaurants?.data.slice(0,4) ?? []
+      return searchRestaurants?.data.slice(0, 4) ?? []
     }
   }, [isLoading, searchRestaurants?.data])
 
@@ -40,7 +40,7 @@ const Section = () => {
     <div>
       <div className="flex justify-between">
         <h1 className="my-4 text-lg font-semibold	">Top Picks</h1>
-       
+
         <h1
           className="my-4 text-primary"
           role="button"
@@ -50,7 +50,7 @@ const Section = () => {
         </h1>
       </div>
       {isLoading && <RestaurantCardSkeleton />}
-      <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
+      <div className="lg:grid md:flex sm:flex grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard
             key={i}

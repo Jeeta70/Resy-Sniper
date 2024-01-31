@@ -44,6 +44,7 @@ const Section = () => {
         </h1>
       </div>
       {isLoading && <RestaurantCardSkeleton />}
+
       <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
         {!isLoading &&
           filteredRestaurants.map(

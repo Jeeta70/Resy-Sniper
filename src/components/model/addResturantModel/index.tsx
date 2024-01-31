@@ -60,6 +60,13 @@ const AddResturantModel = () => {
   }
 
 
+  const renderDollarSigns = () => {
+    const dollarSigns = Array.from({ length: reservationFormState.selectSittingOptions.restaurantDetail.price }, (_, index) => (
+      <span key={index} className="text-[#12171A] opacity-[60%] text-[11px] !font-[600]">&#36;</span>
+    ));
+    return dollarSigns;
+  };
+
 
   return (
     <Model
@@ -68,7 +75,9 @@ const AddResturantModel = () => {
         reservationFormState.selectSittingOptions.showModel && "p-4"
       )}
     >
-      <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-auto p-0">
+      <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-5 p-0">
+        {/* <CardTitle className=""> */}
+
         <span> {reservationFormState.selectSittingOptions.title}</span>
         <CredenzaClose className="sm:hidden">
           <span role="button">
@@ -88,7 +97,7 @@ const AddResturantModel = () => {
           />
           {/* <CredenzaDescription className=""> */}
           {filteredRestaurants && !filteredRestaurants.length && (
-            <div className=" flex justify-center items-center h-[calc(10rem)] flex-col ">
+            <div className=" flex justify-center items-center h-[calc(10rem)] flex-col">
               <div>
                 <img src={searchIcon} alt="" />
               </div>
@@ -99,7 +108,7 @@ const AddResturantModel = () => {
               </div>
             </div>
           )}
-          <ScrollArea className="sm:h-96 rounded-md">
+          <ScrollArea className="sm:h-96 rounded-md mt-3">
             <span className="flex flex-col gap-4">
               {!isLoading &&
                 filteredRestaurants.map(
@@ -130,8 +139,7 @@ const AddResturantModel = () => {
           <div className="py-2">
             <div>
               <p className=" text-xs font-normal text-gray-700 dark:text-gray-400">
-                {reservationFormState.selectSittingOptions.restaurantDetail.price}
-                $
+                {renderDollarSigns()}
               </p>
             </div>
             <h5 className="mb-2 text-base font-bold tracking-tight ">
@@ -140,7 +148,7 @@ const AddResturantModel = () => {
                   .venue_name
               }
             </h5>
-            <p className="mb-3  text-xs font-normal ">
+            <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A] ">
               <MapPin className="inline-block" /> Prospective height
             </p>
             <p className="font-normal text-xs text-light">
