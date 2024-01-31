@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Deploy 
           command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 "cd /home/bitnami/resy-sniper-frontend && git pull origin main && sudo systemctl restart apache2"
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 "cd /home/bitnami/resy-sniper-frontend && git stash && git pull origin main && sudo systemctl restart apache2"
 
 workflows:
   version: 2

@@ -10,25 +10,33 @@ interface Props {
 }
 
 const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
-  
+
+
+  const renderDollarSigns = () => {
+    const dollarSigns = Array.from({ length: restaurant.price }, (_, index) => (
+      <span key={index} className="text-[#12171A] opacity-[60%] text-[11px] !font-[600]">&#36;</span>
+    ));
+    return dollarSigns;
+  };
 
   return (
     <>
       <Card
-        className="flex cursor-pointer "
+        className="flex cursor-pointer items-center"
         role="button"
         onClick={() => onResturantCardClick(restaurant)}
       >
         <img
-          className="rounded-l-lg min-w-36 w- h-24 my-auto"
+          className="rounded-l-lg min-w-36 w-20 h-32 my-auto"
+
           src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
           alt=""
           loading="lazy"
         />
-        <CardContent className="w-full h-20">
+        <CardContent className="w-full h-auto p-0 px-3">
 
           <p className="my-1 text-xs font-normal text-gray-700 dark:text-gray-400">
-            ${restaurant.price}
+            {renderDollarSigns()}
           </p>
 
           <div className="flex">
@@ -37,7 +45,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
             </h5>
             {restaurant.source === "Resy" ? <img src={ResyIcon} alt="resyIcon" className="ml-auto rounded-sm" /> : <img src={OpenTableIcon} alt="Open table icon" className="ml-auto rounded-sm" />}
           </div>
-          <p className="mb-1  text-xs font-normal text-gray-700 dark:text-gray-400">
+          <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A]">
             <MapPin className="inline-block" /> {restaurant.locality}
           </p>
         </CardContent>

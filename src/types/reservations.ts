@@ -1,6 +1,7 @@
 import { IRestaurant } from "@/types/restaurants";
 export type IReservation = {
-  status: "active" | "paused" | "completed" | "canceled";
+  status: string;
+  // status: "active" | "paused" | "completed" | "canceled";
   completed: number;
   created_date: string;
   date: Date;

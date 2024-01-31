@@ -20,8 +20,9 @@ import { resetReservationForm } from "@/reducer/reservationFormReducer";
 
 
 const Index = () => {
-  const { venue_id, group_id } = useParams();
+  const { group_id } = useParams();
   const { reservationFormState: initialState } = useReservationContext()
+
   const { dispatch } = useReservationContext();
   const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const Index = () => {
     <div className="w-full p-5 sm:p-10 flex flex-col gap-4">
       <div className="flex  justify-between">
         <h1 className=" font-bold text-2xl">
-          {venue_id && group_id ? "Edit" : "Add"} Reservation
+          {group_id ? "Edit" : "Add"} Reservation
         </h1>
 
         <X
@@ -48,10 +49,10 @@ const Index = () => {
       <AddResturantSection />
       <SelectPartSizeSection />
       <SelectReservationDateSection />
-      {initialState.reservationType === "release" && <ReleaseReservationDateSection />}
       <SelectReservationTime />
+      {initialState.reservationType === "release" && <ReleaseReservationDateSection />}
       {initialState.reservationType === "release" && <ReleaseReservationTime />}
-      <SelectFinalSnipingDaySection />
+      {initialState.reservationType === "cancel" && <SelectFinalSnipingDaySection />}
       <OverideCurrentReservationToggleSection />
       <Separator className="my-4" />
       <ReserveButtonSection />

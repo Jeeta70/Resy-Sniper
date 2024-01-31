@@ -11,7 +11,9 @@ const initialSittingState: InitialSittingState = {
   showModel: false,
   title: "Add Resturant",
   restaurantDetail: {
-    cover_image_url: "", price: 0, venue_name: "",
+    cover_image_url: "",
+    price: 0,
+    venue_name: "",
     source: "",
     about_description: "",
     address_1: "",
@@ -25,7 +27,7 @@ const initialSittingState: InitialSittingState = {
     restaurant_website: "",
     restuarant_phone_number: "",
     seating_types: [],
-    venue_id: 0
+    venue_id: 0,
   },
   availableSittings: "indoor",
 };
@@ -50,15 +52,18 @@ export interface IFormState {
     showModel: boolean;
     title: string;
     restaurantDetail: {
-      need_to_know_description: string; cover_image_url: string, price: number, venue_name: string 
-};
+      need_to_know_description: string;
+      cover_image_url: string;
+      price: number;
+      venue_name: string;
+    };
     availableSittings: string;
   };
   partySize: number | string;
   reservationDates: Date[] | string[];
-  releaseDates :  string;
-  reservationTime:string,
-  releaseTime :string;
+  releaseDates: string;
+  reservationTime: string;
+  releaseTime: string;
   finalSnipingDay: string;
   overideCurrentReservationToggleSection: boolean;
   title: string;
@@ -67,12 +72,11 @@ export interface IFormState {
     resturantsError: boolean;
     partySizeError: boolean;
     reservationDateError: boolean;
-    reservationTimeError:boolean;
-    releaseDatesError:boolean;
-    releaseTimeError:boolean;
+    reservationTimeError: boolean;
+    releaseDatesError: boolean;
+    releaseTimeError: boolean;
   };
 }
-
 
 export const initialState: IFormState = {
   reservationType: "cancel",
@@ -84,19 +88,19 @@ export const initialState: IFormState = {
   partySize: 0,
   reservationDates: [],
   releaseDates: "",
-  reservationTime:"",
-  releaseTime:"",
+  reservationTime: "",
+  releaseTime: "",
   finalSnipingDay: "any",
-  overideCurrentReservationToggleSection: true,
+  overideCurrentReservationToggleSection: false,
   title: "",
   description: "",
   errors: {
     resturantsError: false,
     partySizeError: false,
     reservationDateError: false,
-    reservationTimeError:false,
-    releaseDatesError:false,
-    releaseTimeError:false,
+    reservationTimeError: false,
+    releaseDatesError: false,
+    releaseTimeError: false,
   },
 };
 
@@ -115,11 +119,11 @@ export enum ResturantReservationStateReducerConstant {
   RESERVATION_FIELD_VALIDATION = "RESERVATION_FIELD_VALIDATION",
   SET_ALL_ERROR_FIELD_TRUE = "SET_ALL_ERROR_FIELD_TRUE",
   SET_RESERVATION_DATE = "SET_RESERVATION_DATE",
-  SET_RESERVATION_TIME="SET_RESERVATION_TIME",
+  SET_RESERVATION_TIME = "SET_RESERVATION_TIME",
   RELEASE_RESERVATION_DATE = "RELEASE_RESERVATION_DATE",
-  RELEASE_RESERVATION_TIME="RELEASE_RESERVATION_TIME",
-  UPDATE_RESERVATION="UPDATE_RESERVATION",
-  UPDATE_SELECTED_RESTAURANT = "UPDATE_SELECTED_RESTAURANT"
+  RELEASE_RESERVATION_TIME = "RELEASE_RESERVATION_TIME",
+  UPDATE_RESERVATION = "UPDATE_RESERVATION",
+  UPDATE_SELECTED_RESTAURANT = "UPDATE_SELECTED_RESTAURANT",
 }
 
 export interface IAction<T, P> {
@@ -128,13 +132,14 @@ export interface IAction<T, P> {
   type: T;
   // payload?: Partial<P> | IRestaurant | number | Date[] | string[] | string;
   payload?: any | Partial<P>;
-
 }
 
-export type IActionType = IAction<ResturantReservationStateReducerConstant, IFormState>;
+export type IActionType = IAction<
+  ResturantReservationStateReducerConstant,
+  IFormState
+>;
 
 export type IUserStateReducerDispatchType = (value: IActionType) => void;
-
 
 export const reservationFormReducer = (
   state: IFormState,
@@ -162,18 +167,18 @@ export const reservationFormReducer = (
           ...state.resturantOptionOnAddReservationPage,
           selectedResturantsForReservationOnAddReservationPage: currentVenueId
             ? state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage.some(
-              (o) => currentVenueId === o.venue_id
-            )
-              ? state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage.filter(
-                (o) => currentVenueId !== o.venue_id
+                (o) => currentVenueId === o.venue_id
               )
+              ? state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage.filter(
+                  (o) => currentVenueId !== o.venue_id
+                )
               : [
-                ...state.resturantOptionOnAddReservationPage
-                  .selectedResturantsForReservationOnAddReservationPage,
-                action.payload,
-              ]
+                  ...state.resturantOptionOnAddReservationPage
+                    .selectedResturantsForReservationOnAddReservationPage,
+                  action.payload,
+                ]
             : state.resturantOptionOnAddReservationPage
-              .selectedResturantsForReservationOnAddReservationPage,
+                .selectedResturantsForReservationOnAddReservationPage,
         },
       };
 
@@ -211,7 +216,6 @@ export const reservationFormReducer = (
         partySize: Number(action.value),
       };
     case ResturantReservationStateReducerConstant.SET_RESERVATION_DATE:
-
       // eslint-disable-next-line no-case-declarations
       const payloadIsArray = Array.isArray(action.payload);
       if (!payloadIsArray) return state;
@@ -220,19 +224,19 @@ export const reservationFormReducer = (
         ...state,
         reservationDates: [...action.payload],
       };
-      case ResturantReservationStateReducerConstant.SET_RESERVATION_TIME:
-        return {
+    case ResturantReservationStateReducerConstant.SET_RESERVATION_TIME:
+      return {
         ...state,
         reservationTime: String(action.value),
       };
 
-      case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_DATE:
+    case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_DATE:
       return {
         ...state,
         releaseDates: String(action.value),
       };
-      case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_TIME:
-        return {
+    case ResturantReservationStateReducerConstant.RELEASE_RESERVATION_TIME:
+      return {
         ...state,
         releaseTime: String(action.value),
       };
@@ -269,29 +273,31 @@ export const reservationFormReducer = (
           resturantsError: true,
           partySizeError: true,
           reservationDateError: true,
-          reservationTimeError:true,
-          releaseDatesError:true,
-          releaseTimeError:true,
+          reservationTimeError: true,
+          releaseDatesError: true,
+          releaseTimeError: true,
         },
       };
     case ResturantReservationStateReducerConstant.UPDATE_RESERVATION:
-      return action.payload
+      return action.payload;
     case ResturantReservationStateReducerConstant.UPDATE_SELECTED_RESTAURANT:
       return {
         ...state,
         resturantOptionOnAddReservationPage: {
           ...state.resturantOptionOnAddReservationPage,
-          selectedResturantsForReservationOnAddReservationPage: action.payload
-        }
-      }
+          selectedResturantsForReservationOnAddReservationPage: action.payload,
+        },
+      };
 
     default:
       return state;
   }
 };
 
-export function selectResturant(dispatch: IUserStateReducerDispatchType, value: string) {
-
+export function selectResturant(
+  dispatch: IUserStateReducerDispatchType,
+  value: string
+) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SELECT_RESTURANT,
     value: value,
@@ -302,8 +308,6 @@ export function selectSittingOptions(
   dispatch: IUserStateReducerDispatchType,
   payload: IRestaurant
 ) {
-
-
   dispatch({
     type: ResturantReservationStateReducerConstant.SELECT_SITTING_OPTION,
     payload,
@@ -324,8 +328,6 @@ export function selectResturantForReservation(
   dispatch: IUserStateReducerDispatchType,
   restaurantPayload: object
 ) {
-
-
   dispatch({
     type: ResturantReservationStateReducerConstant.SET_SELECT_RESTAURANTS_FOR_RESERVATION,
     payload: restaurantPayload,
@@ -376,27 +378,31 @@ export function handleReservationDate(
 
 export function handleReleaseDate(
   dispatch: IUserStateReducerDispatchType,
-  value:string
+  value: string
 ) {
   dispatch({
     type: ResturantReservationStateReducerConstant.RELEASE_RESERVATION_DATE,
-    value:value,
+    value: value,
   });
 }
 
-export function handleReseverationTime( dispatch: IUserStateReducerDispatchType,
-  value:string){
+export function handleReseverationTime(
+  dispatch: IUserStateReducerDispatchType,
+  value: string
+) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SET_RESERVATION_TIME,
-    value:value,
+    value: value,
   });
 }
 
-export function handleReleaseTime( dispatch: IUserStateReducerDispatchType,
-  value:string){
+export function handleReleaseTime(
+  dispatch: IUserStateReducerDispatchType,
+  value: string
+) {
   dispatch({
     type: ResturantReservationStateReducerConstant.RELEASE_RESERVATION_TIME,
-    value:value,
+    value: value,
   });
 }
 
@@ -446,14 +452,22 @@ export function setAllErrorFieldTrue(dispatch: IUserStateReducerDispatchType) {
   });
 }
 
-
-export function handleUpdateReservation(dispatch: IUserStateReducerDispatchType, payload: unknown) {
+export function handleUpdateReservation(
+  dispatch: IUserStateReducerDispatchType,
+  payload: unknown
+) {
   dispatch({
     type: ResturantReservationStateReducerConstant.UPDATE_RESERVATION,
-    payload
+    payload,
   });
 }
 
-export function handleUpdateSelectedRestaurant(dispatch: IUserStateReducerDispatchType, payload: IRestaurant[]) {
-  dispatch({ type: ResturantReservationStateReducerConstant.UPDATE_SELECTED_RESTAURANT, payload })
+export function handleUpdateSelectedRestaurant(
+  dispatch: IUserStateReducerDispatchType,
+  payload: IRestaurant[]
+) {
+  dispatch({
+    type: ResturantReservationStateReducerConstant.UPDATE_SELECTED_RESTAURANT,
+    payload,
+  });
 }

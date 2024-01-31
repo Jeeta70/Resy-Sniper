@@ -40,7 +40,7 @@ export function useTopPicksRestaurants() {
     queryFn: (): Promise<AxiosResponse> => {
       if (query)
         return axios.get(
-          `${baseUrl}/restaurants/search?query=${encodeURI(query)}`
+          `${baseUrl}/restaurants/search?venue_name=${encodeURI(query)}`
         );
       return axios.get(`${baseUrl}/restaurants/featured`);
     },

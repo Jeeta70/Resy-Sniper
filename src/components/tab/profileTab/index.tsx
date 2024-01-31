@@ -1,4 +1,9 @@
-import { Card, CardContent, CardDescription, CardFooter, } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,33 +11,51 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 // import { signupFormSchema } from "@/utils/formZodSchema";
-import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CountryCode } from "@/components";
 import { Switch } from "@/components/ui/switch";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
-import ResetPasswordModal from "@/components/model/resetPasswordModal"
+import ResetPasswordModal from "@/components/model/resetPasswordModal";
 import { updateProfileSchema } from "@/utils/formZodSchema";
-import { useUpdateProfile } from "@/features/user/user";
+import { useGetEmailNotification, useGetPhoneNotification, useUpdateEmailNotification, useUpdatePhoneNotification, useUpdateProfile } from "@/features/user/user";
 
 type IUser = {
   phone: string | undefined;
-  first_name: string
-  last_name: string
-  email: string
-  countryCode: string
-  phoneNumber: string
-  country_code:string
-  national_number:string
-}
+  first_name: string;
+  last_name: string;
+  email: string;
+  countryCode: string;
+  phoneNumber: string;
+  country_code: string;
+  national_number: string;
+};
 
 interface Props {
-  user: IUser
+  user: IUser;
 }
 
 const Index = ({ user }: Props) => {
-  const { update, isLoading } = useUpdateProfile()
+  const { update, isLoading } = useUpdateProfile();
+  const { updateEmailNotification, isLoading: updateEmailNotificationisLoading } = useUpdateEmailNotification()
+  const { updatePhoneNotification, isLoading: updatePhoneNotificationisLoading } = useUpdatePhoneNotification()
+  const { getEmailNotification, isLoading: getEmailNotificationisLoading } = useGetEmailNotification()
+  const { getPhoneNotification, isLoading: useGetPhoneNotificationisLoading } = useGetPhoneNotification()
+
+
   const form = useForm<z.infer<typeof updateProfileSchema>>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -48,11 +71,9 @@ const Index = ({ user }: Props) => {
   function onSubmit(values: z.infer<typeof updateProfileSchema>) {
     update(values, {
       onSuccess: () => {
-        form.reset()
-      }
-    }
-
-    )
+        form.reset();
+      },
+    });
   }
 
   return (
@@ -82,7 +103,7 @@ const Index = ({ user }: Props) => {
             >
               Notifications
             </TabsTrigger>
-         </div>
+          </div>
         </TabsList>
         <TabsContent value="account" className="mt-0">
           <Card className="border-none">
@@ -153,10 +174,13 @@ const Index = ({ user }: Props) => {
                             <FormItem className="sm:w-6/12 w-5/12">
                               <FormControl>
                                 <>
-                                  <FormLabel  className="text-sm font-normal">
+                                  <FormLabel className="text-sm font-normal">
                                     Phone
                                   </FormLabel>
-                                  <Select  value={field.value} onValueChange={field.onChange}>
+                                  <Select
+                                    value={field.value}
+                                    onValueChange={field.onChange}
+                                  >
                                     <SelectTrigger className="rounded-e-none">
                                       <SelectValue placeholder="Select a prefix" />
                                     </SelectTrigger>
@@ -178,7 +202,6 @@ const Index = ({ user }: Props) => {
                           <>
                             <FormItem className="w-full">
                               <FormControl>
-
                                 <Input
                                   className="border-gray-300  bg-white rounded-s-none"
                                   placeholder="000-000-0000"
@@ -191,16 +214,19 @@ const Index = ({ user }: Props) => {
                         )}
                       />
                     </div>
-                    <Button variant="primary" className="w-full sm:w-28" type="submit" disabled={isLoading}>
+                    <Button
+                      variant="primary"
+                      className="w-full sm:w-28"
+                      type="submit"
+                      disabled={isLoading}
+                    >
                       Save
                     </Button>
                   </form>
                 </Form>
               </div>
             </CardContent>
-            <CardFooter>
-
-            </CardFooter>
+            <CardFooter></CardFooter>
           </Card>
         </TabsContent>
         <TabsContent value="password" className="mt-0">
@@ -225,13 +251,13 @@ const Index = ({ user }: Props) => {
         </TabsContent>
         <TabsContent value="notications" className="mt-10">
           <div className="flex items-center space-x-2 my-3">
-            <Switch id="airplane-mode" />
+            <Switch id="airplane-mode" defaultChecked={!!getEmailNotification?.data?.email_notifications} disabled={getEmailNotificationisLoading || updateEmailNotificationisLoading} onCheckedChange={(e: boolean) => updateEmailNotification(e)} />
             <Label htmlFor="airplane-mode" className="text-xl">
               Email notications
             </Label>
           </div>
           <div className="flex items-center space-x-2  my-3">
-            <Switch id="airplane-mode" />
+            <Switch id="airplane-mode" defaultChecked={getPhoneNotification?.data?.phone_notifications} disabled={useGetPhoneNotificationisLoading || updatePhoneNotificationisLoading} onCheckedChange={(e: boolean) => updatePhoneNotification(e)} />
             <Label htmlFor="airplane-mode" className="text-xl">
               SMS notifications
             </Label>

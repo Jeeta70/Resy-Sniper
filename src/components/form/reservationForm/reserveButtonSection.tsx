@@ -18,17 +18,21 @@ import { UserDetailContext } from "@/context/UserDetailProvider";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
+  const { reservationCounts, isLoading: countIsLoading } =
+    useGetReservationCount();
 
-  const { reservationCounts, isLoading: countIsLoading } = useGetReservationCount();
-
-  const { reservationFormState, reservationFormState: { reservationType }, dispatch } = useReservationContext();
+  const {
+    reservationFormState,
+    reservationFormState: { reservationType },
+    dispatch,
+  } = useReservationContext();
   // const { reservationCounts } = useGetReservationCount()
   const { createReservation, isLoading } = useCreateReservation();
   const { updateReservation } = useUpdateReservation();
-  const { venue_id, group_id } = useParams();
-  const { singleReservation, isLoading: singleResevationIsLoading } =
-    useGetSingleReservation();
+  const { group_id } = useParams();
+  const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
   const { subscription_type } = useContext(UserDetailContext);
+  console.log(reservationFormState);
 
   const resCount = useMemo(() => {
     if (!countIsLoading && reservationCounts) {
@@ -67,21 +71,18 @@ const ReserveButtonSection = () => {
 
   useEffect(() => {
     // This useffect is for update reservations
-    if (
-      !singleResevationIsLoading &&
-      singleReservation &&
-      venue_id &&
-      group_id
-    ) {
+
+    if (!singleResevationIsLoading && singleReservation && group_id) {
       const { data } = singleReservation;
+      console.log(data);
 
       const formattedStartTime = convertTo12HourFormat(data[0].start_time);
       const formattedEndTime = convertTo12HourFormat(data[0].end_time);
       const reservationTimeNew = `${formattedStartTime} - ${formattedEndTime}`;
-      state.partySize = data[0].party_size
-      state.reservationTime = reservationTimeNew
+      state.partySize = data[0].party_size;
+      state.reservationTime = reservationTimeNew;
       state.reservationDates = data[0].date;
-      state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false
+      state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false;
 
       // data.forEach((data: IReservation) => {
       //   const date = convertDateFormat(data.date)
@@ -95,11 +96,8 @@ const ReserveButtonSection = () => {
     singleReservation,
     singleResevationIsLoading,
     dispatch,
-    venue_id,
     group_id,
   ]);
-
-
 
   const convertTo12HourFormat = (timeString: string) => {
     const [hours, minutes] = timeString.split(":");
@@ -115,11 +113,10 @@ const ReserveButtonSection = () => {
       formattedHours = 12;
     }
 
-    const formattedMinutes = minutes.padStart(2, '0');
+    const formattedMinutes = minutes.padStart(2, "0");
 
     return `${formattedHours}:${formattedMinutes} ${period}`;
   };
-
 
   function handleReseveAndUpdateButtonClick(
     buttonClickType: "update" | "reserve"
@@ -140,7 +137,9 @@ const ReserveButtonSection = () => {
         if (
           !selectedResturantsForReservationOnAddReservationPage.length ||
           !partySize ||
-          !reservationDates.length || !reservationTime || !reservationType
+          !reservationDates.length ||
+          !reservationTime ||
+          !reservationType
         ) {
           return console.log("invalid");
         } else {
@@ -179,13 +178,19 @@ const ReserveButtonSection = () => {
           const splitTime = reservationTimeNew.split(" - ");
           // coverted states into formated payload
           const payload = {
-            resturants: selectedResturantsForReservationOnAddReservationPage.map(
-              (venue) => {
-                return { venue_id: venue.venue_id, venue_name: venue.venue_name };
-              }
-            ),
+            resturants:
+              selectedResturantsForReservationOnAddReservationPage.map(
+                (venue) => {
+                  return {
+                    venue_id: venue.venue_id,
+                    venue_name: venue.venue_name,
+                  };
+                }
+              ),
             date: reservationDates.map((date) => convertDateTimeFormt(date)),
-            override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
+            override_reservations: overideCurrentReservationToggleSection
+              ? 1
+              : 0,
             final_snipe_date: null,
             final_snipe_time: null,
             table_type: null,
@@ -197,8 +202,7 @@ const ReserveButtonSection = () => {
           };
           createReservation(payload);
         }
-      }
-      else if (reservationType === "release") {
+      } else if (reservationType === "release") {
         const {
           reservationType,
           resturantOptionOnAddReservationPage: {
@@ -213,7 +217,11 @@ const ReserveButtonSection = () => {
         if (
           !selectedResturantsForReservationOnAddReservationPage.length ||
           !partySize ||
-          !reservationDates.length || !releaseDates.length || !reservationTime || !reservationType || !releaseTime
+          !reservationDates.length ||
+          !releaseDates.length ||
+          !reservationTime ||
+          !reservationType ||
+          !releaseTime
         ) {
           return console.log("invalid");
         } else {
@@ -247,22 +255,31 @@ const ReserveButtonSection = () => {
           // Convert both from and to times to 24-hour format
           const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
           const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+          const fromTime24HourFormatNew = convertTo24HourFormat(releaseTime);
+          // const toTime24HourFormatNew = convertTo24HourFormat(newTime[1]);
 
           // Create the reservation time string
           const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
 
           const splitTime = reservationTimeNew.split(" - ");
-          const newSplitTime = releaseTime.split(" - ");
+
+          // const newSplitTime = releaseTime.split(" - ");
           // coverted states into formated payload
           const payload = {
-            resturants: selectedResturantsForReservationOnAddReservationPage.map(
-              (venue) => {
-                return { venue_id: venue.venue_id, venue_name: venue.venue_name };
-              }
-            ),
+            resturants:
+              selectedResturantsForReservationOnAddReservationPage.map(
+                (venue) => {
+                  return {
+                    venue_id: venue.venue_id,
+                    venue_name: venue.venue_name,
+                  };
+                }
+              ),
             date: reservationDates.map((date) => convertDateTimeFormt(date)),
             release_date: releaseDates,
-            override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
+            override_reservations: overideCurrentReservationToggleSection
+              ? 1
+              : 0,
             final_snipe_date: null,
             final_snipe_time: null,
             table_type: null,
@@ -270,8 +287,8 @@ const ReserveButtonSection = () => {
             snipe_type: reservationType as string,
             start_time: splitTime[0],
             end_time: splitTime[1],
-            release_start_time: newSplitTime[0],
-            release_end_time: newSplitTime[1],
+            release_start_time: fromTime24HourFormatNew,
+            // release_end_time: newSplitTime[1],
             party_size: partySize,
           };
           createReservation(payload);
@@ -316,8 +333,7 @@ const ReserveButtonSection = () => {
         };
         updateReservation(payload);
       }
-    }
-    else if (reservationType === "release") {
+    } else if (reservationType === "release") {
       const {
         reservationType,
         partySize,
@@ -364,9 +380,11 @@ const ReserveButtonSection = () => {
           {resCount} of 5 reservation requests used
         </p>
       ) : (
-        subscription_type === "standard" && <p className="text-xs font-semibold ">
-          {resCount} of 5 reservation requests used
-        </p>
+        subscription_type === "standard" && (
+          <p className="text-xs font-semibold ">
+            {resCount} of 5 reservation requests used
+          </p>
+        )
       )}
 
       {subscription_type === "premium" && resCount > 25 ? (
@@ -374,10 +392,11 @@ const ReserveButtonSection = () => {
           {resCount} of 25 reservation requests used
         </p>
       ) : (
-        subscription_type === "premium" && <p className="text-xs font-semibold ">
-          {resCount} of 25 reservation requests used
-        </p>
-
+        subscription_type === "premium" && (
+          <p className="text-xs font-semibold ">
+            {resCount} of 25 reservation requests used
+          </p>
+        )
       )}
       {/* <p className="text-xs font-semibold ">
         {resCount} of 25 reservation requests used
@@ -389,7 +408,7 @@ const ReserveButtonSection = () => {
           </Button>
         </DiscardChangesModal>
 
-        {venue_id && group_id ? (
+        {group_id ? (
           <Button
             variant="primary"
             className="sm:block hidden"

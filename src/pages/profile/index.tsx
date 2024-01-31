@@ -19,36 +19,18 @@ import { capitalizeFirstAlphabet } from "@/utils/healper";
 
 const Index = () => {
   const { userResponse, isSuccess, isLoading } = useGetUser();
-
-  console.log(userResponse);
-  // const { auth,isLoading } = useCheckUserAuth()
-
+  
   const user = useMemo(() => {
     if (isSuccess) {
       return userResponse?.data.data;
     }
+
   }, [isSuccess, userResponse?.data.data]);
 
 
-
-  // user = false;
-
-  // useEffect(() => {
-  //   // console.log("ddssddd", isError);
-  // }, [error, isError]);
-
-  // const user = {
-  //   first_name:"Ajeet",
-  //   last_name: "Singh",
-  //   email:"ajrana70@gmail.com",
-  //   phone:"+1 917-728-4685",
-  //   subscription_type:"f"
-
-  // }
-
   return (
     <>
-      <Tabs defaultValue="account" className="container sm:px-80 pt-5 sm:pt-0">
+      <Tabs defaultValue="account" className="container sm:px-60 pt-5 sm:pt-0">
         <CardHeader className="px-0">
           <CardTitle className="font-bold text-2xl">Profile </CardTitle>
         </CardHeader>
@@ -109,8 +91,8 @@ const Index = () => {
                 )}
               </CardDescription>
             </div>
-            {isLoading ? 
-              
+            {isLoading ?
+
               <> <Skeleton className="my-3 w-5/5 ">
                 <Skeleton className="inline-block" />
               </Skeleton>

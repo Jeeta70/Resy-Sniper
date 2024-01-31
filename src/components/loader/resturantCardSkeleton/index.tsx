@@ -7,10 +7,10 @@ const index = () => {
    return (
       <div className="grid sm:grid-cols-4 gap-4">
          {array.map((s) => (
-            <Card className="h-[42vh]" key={s}> 
+            <Card className="h-[50vh]" key={s}>
                <Skeleton className="rounded-t-lg h-1/2 w-full " />
                <CardContent>
-                  <Skeleton className="my-3 w-1/5 ">
+                  <Skeleton className="my-2 w-1/5 ">
                      <Skeleton className="inline-block" />
                   </Skeleton>
                   <Skeleton className="my-2">
