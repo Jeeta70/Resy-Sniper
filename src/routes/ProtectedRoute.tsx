@@ -6,6 +6,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 const ProtectedRoute = () => {
   const { userResponse, isLoading, isSuccess, isError, error } = useGetUser();
   
+  
   const navigate = useNavigate();
   useEffect(() => {
     
@@ -26,8 +27,8 @@ const ProtectedRoute = () => {
       if (!email) {
         navigate("/login");
       }
-
-      if (!resy_token || ot_access_token) {
+      
+      if (!resy_token && !ot_access_token) {
         toast({
           description: "You need to connect the account",
           variant: "dark",

@@ -16,7 +16,7 @@ import ShowSidebar from "./ShowSidebar";
 import { Toaster } from "@/components/ui/toaster";
 import ProtectedRoute from "./ProtectedRoute";
 import PresistConnectAccount from "./PresistConnectAccount";
-// import PersistSubscribtion from "./PersistSubscribtion";
+import PersistSubscribtion from "./PersistSubscribtion";
 import { UserDetailContextProvider } from "@/context/UserDetailProvider";
 import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservationProvider";
 import CheckSubscription from "@/pages/checkSubscription";
@@ -40,6 +40,7 @@ import PresistLoginSignUp from "./PresistLoginSignUp";
 // const ResetPassword = React.lazy(() => import("@/pages/resetPassword"))
 // const CheckSubscription = React.lazy(() => import("@/pages/checkSubscription"))
 
+
 const Router = () => {
   return (
     // <React.Suspense
@@ -59,9 +60,9 @@ const Router = () => {
             <Route element={<PresistConnectAccount />}>
               <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route>
-            {/* <Route element={<PersistSubscribtion />}> */}
+            <Route element={<PersistSubscribtion />}>
             <Route path="/subscription" element={<Subscription />} />
-            {/* </Route> */}
+            </Route>
             <Route element={<ProtectedRoute />}>
               <Route
                 path="/reservations/add-reservation/:group_id?/"
