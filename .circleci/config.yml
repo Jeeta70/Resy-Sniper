@@ -17,9 +17,10 @@ jobs:
             ssh bitnami@54.172.183.153 "sudo rsync -a /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/"
             ssh bitnami@54.172.183.153 "sudo pm2 reload all"
 workflows:
+  version: 2
   build-and-deploy:
     jobs:
       - build-and-deploy:
           filters:
             branches:
-              only: master
+              only: main
