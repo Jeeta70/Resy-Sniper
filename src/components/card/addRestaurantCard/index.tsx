@@ -28,6 +28,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
       >
         <img
           className="rounded-l-lg min-w-36 w-20 h-32 my-auto"
+
           src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
           alt=""
           loading="lazy"

@@ -21,6 +21,8 @@ const Index = () => {
     return [...new Map(data.map((item) => [item["phoneCode"], item])).values()];
   };
 
+  
+
   return (
     <SelectGroup>
       {getCountryDetails().map((country, index) => (

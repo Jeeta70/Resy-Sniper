@@ -77,13 +77,13 @@ const AddResturantModel = () => {
     >
       <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-5 p-0">
         {/* <CardTitle className=""> */}
+
         <span> {reservationFormState.selectSittingOptions.title}</span>
         <CredenzaClose className="sm:hidden">
           <span role="button">
             <X />
           </span>
         </CredenzaClose>
-        {/* </CardTitle>  */}
       </CredenzaHeader>
 
       {!reservationFormState.selectSittingOptions.showModel ? (

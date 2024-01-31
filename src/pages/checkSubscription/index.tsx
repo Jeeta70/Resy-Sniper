@@ -15,15 +15,11 @@ const Index = () => {
 
 
   return (
-    <div className="p-10">
-      <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">
-        <h1 className="mb-3 sm:mb-14 text-primary text-5xl font-bold">
-          RESY SNIPER
-        </h1>
-        <span>
-          <h2 className="font-bold text-2xl">Subscription</h2>
-        </span>
-      </div>
+    <div className="container sm:px-60  mt-5 pt-10">
+     
+          <h2 className="font-bold text-2xl mb-5">Subscription</h2>
+       
+     
       <div
         className={cn(
           "flex justify-center items-center gap-4 sm:gap-10",
@@ -32,7 +28,7 @@ const Index = () => {
       >
 
         {/* REGULAR CARD */}
-        <Card className={"min-w-full sm:min-w-[600px]"}>
+        <Card className={"min-w-full"}>
           <CardContent className="p-0">
             <div className="sm:flex">
               <div
@@ -76,7 +72,7 @@ const Index = () => {
                 </Credenza>
                 <Credenza>
                   <CredenzaTrigger asChild>
-                    {subscription_type === "premium" && <Button variant="outline" className={`mt-3 w-full sm:w-auto`}>
+                    {subscription_type === "premium" && <Button variant="default" className={`mt-3 w-full sm:w-auto`}>
                       Switch to Regular
                     </Button>}
                   </CredenzaTrigger>
@@ -88,7 +84,7 @@ const Index = () => {
         </Card>
 
         {/* PRO CARD */}
-        <Card className={"min-w-full sm:min-w-[600px]"}>
+        <Card className={"min-w-full"}>
           <CardContent className="p-0">
             <div className="sm:flex">
               <div
@@ -144,15 +140,15 @@ const Index = () => {
                 </ul>
                 <Credenza>
                   <CredenzaTrigger asChild>
-                    {subscription_type === "standard" && <Button className={`mt-3 w-full sm:w-auto`}>
-                      Switch to Pro
+                    {subscription_type === "standard" && <Button variant="primary" className={`mt-3 w-full sm:w-auto`}>
+                      Upgrade to Pro
                     </Button>}
                   </CredenzaTrigger>
                   {subscription_type === "standard" && <FeatureIsForProModel />}
                 </Credenza>
                 <Credenza>
                   <CredenzaTrigger asChild>
-                    {subscription_type === "premium" && <Button className={`mt-3 w-full sm:w-auto`}>
+                    {subscription_type === "premium" && <Button variant="outline" className={`mt-3 w-full sm:w-auto`}>
                       Cancel Subscription
                     </Button>}
                   </CredenzaTrigger>

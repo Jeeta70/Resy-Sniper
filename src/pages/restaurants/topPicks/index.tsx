@@ -4,10 +4,11 @@ import { useRestaurantContext } from "@/context/SelectRestaurantForReservationPr
 import {  useTopPicksRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
-import { X } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import SearchAndFilterSection from "../searchAndFilterSection";
 
 
 const Section = () => {
@@ -15,12 +16,14 @@ const Section = () => {
   // const { searchRestaurants, isLoading } = useSearchRestaurants();
   const { removeAllRestaurant } = useRestaurantContext();
 
+  // const { searchRestaurants, isLoading:searchRestaurantIsLoading } = useSearchRestaurants();
   const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
   const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
   console.log(query);
+  
 
 
   useEffect(() => {
@@ -39,10 +42,16 @@ const Section = () => {
 
   return (
     <div>
+      <div role="button" onClick={() => navigate("/restaurants")}>
+        <ChevronLeft className="inline" size={20} />
+        <span className="font-semi-bold text-xs">Back</span>
+      </div>
       <div className="flex justify-between">
         <h1 className="my-4 text-lg font-semibold	">Top Picks</h1>
-
       </div>
+     <div className="mb-7">
+        <SearchAndFilterSection />
+     </div>
       {isLoading && <RestaurantCardSkeleton />}
       <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (

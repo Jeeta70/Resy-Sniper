@@ -1,14 +1,14 @@
 import { ChevronLeft, MapPin } from "lucide-react";
 import { Carousel, RestaurantLocationCard } from "@/components";
 import { useGetSingleRestaurant } from "@/features/restaurant/restaurant";
-import {  useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 // import { IRestaurant } from "@/types/restaurants";
 // import { useReservationContext } from "@/context/ReservationFomProvider";
 
 const Index = () => {
- const navigate =  useNavigate()
+  const navigate = useNavigate()
   const { singleResturant, isLoading, isSuccess } = useGetSingleRestaurant();
 
   // const { reservationFormState: { selectedResturantsForReservation } } = useReservationContext();
@@ -46,7 +46,7 @@ const Index = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
               <article className="format format-sm  col-span-3 sm:p-10 ">
-                  <div className="text-light cursor-pointer" role="button" onClick={() => navigate("/restaurants")} >
+                <div className="text-light cursor-pointer" role="button" onClick={() => navigate("/restaurants")} >
                   <ChevronLeft className="inline" size={20} />
                   <span className="font-semi-bold text-xs">Back</span>
                 </div>
