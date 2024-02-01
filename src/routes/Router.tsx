@@ -1,6 +1,6 @@
 // import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AddReservation, AllRestaurants, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
+import { AddReservation, AllRestaurants, Blogs, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
   // ConnectAccount,
   // Integration,
   // Login,
@@ -61,7 +61,7 @@ const Router = () => {
               <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route>
             <Route element={<PersistSubscribtion />}>
-            <Route path="/subscription" element={<Subscription />} />
+              <Route path="/subscription" element={<Subscription />} />
             </Route>
             <Route element={<ProtectedRoute />}>
               <Route
@@ -89,6 +89,8 @@ const Router = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
 
             <Route path="/home" element={<NewPage />} />
+            <Route path="/blogs" element={<Blogs />} />
+
           </Routes>
         </UserDetailContextProvider>
       </RestaurantContextProvider>

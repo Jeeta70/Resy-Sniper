@@ -15,12 +15,12 @@ const Index = () => {
       return userReservations;
     }
   }, [isLoading, userReservations]);
-  
+
 
   return (
-    <div className="w-full h-screen sm:px-10 px-3 py-1">
-      <div className="flex justify-between items-center sm:my-3 my-8">
-        <h1 className=" font-bold sm:text-2xl text-xl">My Reservations</h1>
+    <div className="w-full h-screen sm:px-10 px-3 py-1  mt-24 sm:mt-0 ">
+      <div className="justify-between items-center sm:my-3 my-8 sm:flex hidden">
+        <div className=" font-bold sm:text-2xl text-xl ">My Reservations</div>
         <Button
           variant="primary"
           className="inline-flex"
