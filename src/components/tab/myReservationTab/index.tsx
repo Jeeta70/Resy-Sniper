@@ -91,7 +91,7 @@ const Index = ({
         </Button>
       </div>
       <Tabs defaultValue="all">
-        <TabsList className="xl:grid xl:grid-cols-5  xl:w-1/2 w-auto bg-transparent hidden sm:grid">
+        <TabsList className="xl:grid xl:grid-cols-5  xl:w-[70%] lg:grid lg:grid-cols-5 lg:w-[100%] w-auto bg-transparent hidden sm:grid sm:grid-cols-5">
           <TabsTrigger
             className="sm:text-sm block  text-[9px] data-[state=active]:bg-black border-[1px] border-light  data-[state=active]:text-white rounded-r-none"
             value="all"
@@ -152,23 +152,23 @@ const Index = ({
         </div>
 
         <div className="sm:hidden block">
-              {filter[tab as keyof TabsType].map(
-                  (
-                    reservation: {
-                      data: IReservation[];
-                      groupId: string;
-                      status: string;
-                    },
-                    i: React.Key 
-                  ) => (
-                    <MyReservationOfResturantCard
-                      reservation={reservation.data}
-                      groupId={reservation.groupId}
-                      status={reservation.status}
-                      key={i}
-                    />
-                  )
-                )}
+          {filter[tab as keyof TabsType].map(
+            (
+              reservation: {
+                data: IReservation[];
+                groupId: string;
+                status: string;
+              },
+              i: React.Key
+            ) => (
+              <MyReservationOfResturantCard
+                reservation={reservation.data}
+                groupId={reservation.groupId}
+                status={reservation.status}
+                key={i}
+              />
+            )
+          )}
         </div>
       </Tabs>
     </>

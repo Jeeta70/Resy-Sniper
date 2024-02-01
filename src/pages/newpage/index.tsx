@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Key } from "react";
 import backgroundImage1 from "@/assets/homepage/Hero.png";
 import logo from "@/assets/homepage/Logo.png";
 import Hero from "@/assets/homepage/Hero_img.png";
@@ -26,6 +26,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { animateScroll as scroll } from "react-scroll";
 import { useGetAllblogs } from "@/features/blog/blog";
+import { any } from "zod";
 
 const NewPage = () => {
     const navigate = useNavigate();
@@ -194,6 +195,20 @@ const NewPage = () => {
     }, []);
 
     const backgroundImage = windowWidth <= 767 ? Banner2 : Banner;
+
+    const getDate = (image: Date) => {
+        const originalDateString = image;
+        const originalDate = new Date(originalDateString);
+
+        const options: any = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        const formattedDate = originalDate.toLocaleDateString('en-US', options);
+        return formattedDate
+    }
 
     return (
         <>
@@ -594,12 +609,41 @@ const NewPage = () => {
                                     Catch up on all our latest news.
                                 </p>
                             </div>
-                            <div className="lg:w-[90%] md:w-[100%]">
+                            <div className="lg:w-[90%] md:w-[100%] w-[96%]">
                                 {console.log(blogs?.data)}
-                                {blogs?.data.map((blog: any)=>{
+                                {blogs?.data.slice(0, 3).map((blog: any, key: Key) => {
+                                    // return <div
+                                    //     dangerouslySetInnerHTML={{ __html: blog.body }}
+                                    // /> 
                                     return <div
-                                        dangerouslySetInnerHTML={{ __html: blog.body }}
-                                    /> 
+                                        className="flex gap-5 sm:items-center items-start sm:mt-7 mt-8 lg:w-[80%] md:w-[auto] w-auto"
+                                        key={key}
+                                    >
+                                        <div>
+                                            <img
+                                                src={`https://resysniperblog.s3.amazonaws.com/${blog?.image_url}`}
+                                                className="!max-w-[92px]  rounded-lg h-[92px]"
+                                                alt={blog?.image_alt}
+                                            ></img>
+                                        </div>
+                                        <div>
+                                            <div className="sm:flex grid sm:gap-[12px] gap-2 items-center">
+                                                <p
+                                                    className={` ${key === 0 ? 'bg-[#F69046]' : ''} ${key === 1 ? 'bg-[#E2C00B]' : ''} ${key === 2 ? 'bg-[#22C376]' : ''} w-[fit-content] rounded-xl font-inter px-[8px] py-[4px] text-white text-[12px]`}
+                                                >
+                                                    {blog.category}
+                                                </p>
+                                                <p className="text-[14px] text-[#6C6F71] font-inter">
+                                                    {getDate(blog.created_at)}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p className="pt-3 font-inter text-[20px] !font-[600] text-[#12171A]">
+                                                    {blog.title}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 })}
                                 {/* {blogData.map((ele, key) => (
                                     <div
@@ -635,7 +679,7 @@ const NewPage = () => {
                             <div className="mt-10">
                                 <button
                                     className="py-[16px] px-[28px] sm:w-auto w-[95%] border border-[#D0D1D1] text-[16px] !font-[600] text-[#12171A] rounded-md"
-                                    onClick={() => navigate("/sign-up")}
+                                    onClick={() => navigate("/blogs")}
                                 >
                                     View All
                                 </button>
