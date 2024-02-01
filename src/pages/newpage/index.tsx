@@ -26,6 +26,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { animateScroll as scroll } from "react-scroll";
 import { useGetAllblogs } from "@/features/blog/blog";
+import { IBlog } from "@/types/blog";
 // import { any } from "zod";
 
 const NewPage = () => {
@@ -196,17 +197,11 @@ const NewPage = () => {
 
     const backgroundImage = windowWidth <= 767 ? Banner2 : Banner;
 
-    const getDate = (image: Date) => {
+    const getDate = (image: string):string => {
         const originalDateString = image;
         const originalDate = new Date(originalDateString);
 
-        const options: any = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
-
-        const formattedDate = originalDate.toLocaleDateString('en-US', options);
+        const formattedDate = originalDate.toLocaleDateString('en-US', {year:"numeric",month:"long",day:"numeric"});
         return formattedDate
     }
 
@@ -610,11 +605,7 @@ const NewPage = () => {
                                 </p>
                             </div>
                             <div className="lg:w-[90%] md:w-[100%] w-[96%]">
-                                {console.log(blogs?.data)}
-                                {blogs?.data.slice(0, 3).map((blog: any, key: Key) => {
-                                    // return <div
-                                    //     dangerouslySetInnerHTML={{ __html: blog.body }}
-                                    // /> 
+                                {blogs?.data.slice(0, 3).map((blog: IBlog, key: Key) => {
 
                                     return <div
                                         className="flex gap-5 sm:items-center items-start sm:mt-7 mt-8 lg:w-[80%] md:w-[auto] w-auto"
