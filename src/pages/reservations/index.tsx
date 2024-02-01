@@ -10,21 +10,26 @@ import { UserDetailContext } from "@/context/UserDetailProvider";
 const Index = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false)
-  const { userReservations, isLoading } = useGetUserReservations();
+  const { userReservations, isLoading, isSuccess } = useGetUserReservations();
   const { reservationCounts, isSuccess: countIsLoading } =
     useGetReservationCount();
   const { subscription_type } = useContext(UserDetailContext);
 
 
   const reservations = useMemo(() => {
-    if (!isLoading && userReservations) {
-      return userReservations;
+    if (isSuccess) {
+      if (userReservations && userReservations.data && userReservations.data.message === "no record found!") {
+        return userReservations.data.message;
+      } else if (userReservations) {
+        return userReservations;
+      }
     }
-  }, [isLoading, userReservations]);
+    return null;
+  }, [isSuccess, userReservations]);
 
 
   useEffect(() => {
-    if (countIsLoading && reservationCounts && reservationCounts.data) {
+    if (countIsLoading && reservationCounts) {
       const count = reservationCounts?.data?.total_reservations;
       if (count >= 5 && subscription_type === 'standard') {
         setShow(true);
