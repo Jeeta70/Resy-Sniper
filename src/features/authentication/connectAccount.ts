@@ -11,6 +11,7 @@ interface IAccountDetails {
 }
 
 export const useConnectResyAccount = () => {
+  const queryClient = useQueryClient();
   const { mutate: connectResyAccount, isPending: isLoading } = useMutation({
     mutationFn: ({ email, password }: IAccountDetails) => {
       return axios.post(
@@ -21,6 +22,7 @@ export const useConnectResyAccount = () => {
     },
     onSuccess: () => {
       toast({ description: "sucessfully connected", variant: "dark" });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error: { response: AxiosResponse }) => {
       toast({

@@ -19,7 +19,6 @@ const Index = () => {
    const { resetPassword ,isLoading } = useResetPassword()
    const [email, setEmail] = useState<string>("")
    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   console.log(emailRegex.test(email));
 
    return (
       <>

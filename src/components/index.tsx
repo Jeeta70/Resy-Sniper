@@ -30,6 +30,7 @@ export { default as MyReservationOfResturantCard } from "@/components/card/myRes
 export { default as CountryCode } from "@/components/countryComponent";
 export { default as ProfileTab } from "@/components/tab/profileTab";
 export { default as MyReservationTab } from "@/components/tab/myReservationTab";
+export { default as MyReservationTabDropDown } from "@/components/tab/myReservationTabDropDown";
 export { default as NewSubscriptionCard } from '@/components/card/newSubscriptionCard'
 
 export { default as DropDown } from "@/components/dropDown";

@@ -1,6 +1,6 @@
 // import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AddReservation, AllRestaurants, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
+import { AddReservation, AllRestaurants, Blogs, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
   // ConnectAccount,
   // Integration,
   // Login,
@@ -16,7 +16,7 @@ import ShowSidebar from "./ShowSidebar";
 import { Toaster } from "@/components/ui/toaster";
 import ProtectedRoute from "./ProtectedRoute";
 import PresistConnectAccount from "./PresistConnectAccount";
-// import PersistSubscribtion from "./PersistSubscribtion";
+import PersistSubscribtion from "./PersistSubscribtion";
 import { UserDetailContextProvider } from "@/context/UserDetailProvider";
 import { RestaurantContextProvider } from "@/context/SelectRestaurantForReservationProvider";
 import CheckSubscription from "@/pages/checkSubscription";
@@ -40,6 +40,7 @@ import PresistLoginSignUp from "./PresistLoginSignUp";
 // const ResetPassword = React.lazy(() => import("@/pages/resetPassword"))
 // const CheckSubscription = React.lazy(() => import("@/pages/checkSubscription"))
 
+
 const Router = () => {
   return (
     // <React.Suspense
@@ -59,9 +60,9 @@ const Router = () => {
             <Route element={<PresistConnectAccount />}>
               <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route>
-            {/* <Route element={<PersistSubscribtion />}> */}
-            <Route path="/subscription" element={<Subscription />} />
-            {/* </Route> */}
+            <Route element={<PersistSubscribtion />}>
+              <Route path="/subscription" element={<Subscription />} />
+            </Route>
             <Route element={<ProtectedRoute />}>
               <Route
                 path="/reservations/add-reservation/:group_id?/"
@@ -88,6 +89,8 @@ const Router = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
 
             <Route path="/home" element={<NewPage />} />
+            <Route path="/blogs" element={<Blogs />} />
+
           </Routes>
         </UserDetailContextProvider>
       </RestaurantContextProvider>
