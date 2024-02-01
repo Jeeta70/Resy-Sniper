@@ -595,7 +595,6 @@ const NewPage = () => {
                                 </p>
                             </div>
                             <div className="lg:w-[90%] md:w-[100%]">
-                                {console.log(blogs?.data)}
                                 {blogs?.data.map((blog: any)=>{
                                     return <div
                                         dangerouslySetInnerHTML={{ __html: blog.body }}

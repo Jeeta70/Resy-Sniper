@@ -24,7 +24,7 @@ import { useReservationContext } from "@/context/ReservationFomProvider";
 const pastMonth = new Date(2020, 10, 15);
 
 interface IReservationDateSize {
-  value: string | Date;
+  value:  Date;
   label: string | Date;
   type: string;
 }
@@ -47,11 +47,11 @@ const SelectReservationDateSection = () => {
 
 
   const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>([]);
-  const [selected, setSelected] = React.useState<Array<Date | string>>([]);
+  const [selected, setSelected] = React.useState<Array<Date>>([]);
 
-  useEffect(() => {
-    selected.length && setSelected((prev) => prev.filter((dateOnButton) => days?.includes(dateOnButton as Date)))
-  }, [days])
+  // useEffect(() => {
+  //   if (selected.length !== 0 ) setSelected((prev) => prev.filter((dateOnButton) => days?.includes(dateOnButton as Date)))
+  // }, [days])
 
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const SelectReservationDateSection = () => {
     return handleReservationDate(dispatch, selected);
   }, [dispatch, selected]);
 
-  function handleSelectedButton(checkDate: string | Date, compare: boolean) {
+  function handleSelectedButton(checkDate:  Date, compare: boolean) {
     if (compare) {
       if (selected.includes(checkDate)) {
         return setSelected((prev) => prev.filter((date) => date !== checkDate));
@@ -116,8 +116,8 @@ const SelectReservationDateSection = () => {
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Date</p>
       <div className="flex gap-3 flex-wrap">
-        {reservationDate.map((button, i) =>{
-          if (selected.includes(button.value)){
+        {reservationDate.map((button, i) => {
+          if (selected.includes(button.value)) {
             return (
               <span
                 key={i}
@@ -145,7 +145,7 @@ const SelectReservationDateSection = () => {
               </span>
             )
           }
-          
+
         })}
         {/* {userDetail.subscription_type === "standard" ? (
           <Credenza>
@@ -178,6 +178,17 @@ const SelectReservationDateSection = () => {
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
+                onDayClick={(e) => {
+                  setSelected((d)=>{
+                    const indexToRemove = d.findIndex(date => date.getDate() === e.getDate());
+                    if (indexToRemove !== -1) {
+                      d.splice(indexToRemove, 1)
+                    }
+                    return d
+                  })
+
+                  // If the date is found, remove it from the array
+                 }}
                 id="test"
                 mode="multiple"
                 defaultMonth={pastMonth}
