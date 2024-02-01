@@ -16,6 +16,7 @@ import { ErrorMessage } from "@/components";
 // import { X } from "lucide-react";
 import { handleReleaseDate } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
+import { X } from "lucide-react";
 // import { UserDetailContext } from "@/context/UserDetailProvider";
 
 // import ProIcon from "@/assets/ProIcon.svg";
@@ -37,29 +38,38 @@ const ReleaseReservationDateSection = () => {
     const [selected, setSelected] = React.useState<string>("");
     const handleCalendarSelect = (value: Date | undefined) => {
         if (value instanceof Date) {
-            // value is a single selected date
             handleSelectedButton(value);
-            setDays([value]); // Update selected to hold a single date
+            setDays([value]);
         } else {
-            // value is undefined, indicating deselection
-            // Handle deselection logic if needed
-            setDays([]); // Update selected to an empty array for deselection
+            setDays([]);
         }
     };
 
 
 
 
+    // useEffect(() => {
+    //     return handleReleaseDate(dispatch, selected);
+    // }, [selected]);
+
+    // const handleSelectedButton = (date: Date) => {
+    //     setDays([date]);
+    //     const formattedDate = format(date, "yyyy-MM-dd");
+    //     setSelected(formattedDate);
+    // }
+
     useEffect(() => {
-        return handleReleaseDate(dispatch, selected);
-    }, [selected]);
+        // Update the release date in the state when selectedDate changes
+        if (selected) {
+            handleReleaseDate(dispatch, format(selected, "yyyy-MM-dd"));
+        }
+    }, [dispatch, selected]);
 
-    const handleSelectedButton = (date: Date) => {
-        setDays([date]);
-        setSelected(format(date, "PP"));
-
-
-    }
+    const handleSelectedButton = (date: Date | string) => {
+        const formattedDate = format(date, "yyyy-MM-dd");
+        // Update the selected date when the calendar selection changes
+        setSelected(formattedDate);
+    };
 
     const footer =
         days && days.length > 0 ? (
@@ -91,18 +101,18 @@ const ReleaseReservationDateSection = () => {
         <div>
             <p className="mb-2 font-semibold text-sm">Release Date</p>
             <div className="flex gap-3">
-                {/* <span
-                    onClick={() => handleSelectedButton(new Date())}
+                <span
+                    onClick={() => setSelected("")}
                     className={cn(
                         buttonVariants({
-                            variant: selected === format(new Date(), "PP") ? "default" : "outline",
+                            variant: selected === releaseDates ? "default" : "outline",
                         }),
-                        "inline-flex cursor-pointer"
+                        `inline-flex cursor-pointer ${releaseDates === '' ? 'hidden' : ''}`
                     )}
                 >
-                    Today {selected === format(new Date(), "PP") && <X size={15} />}
+                    {releaseDates} {selected === releaseDates && <X size={15} />}
                 </span>
-                <span
+                {/* <span
                     onClick={() =>
                         handleSelectedButton(new Date(+new Date() + 86400000))
                     }

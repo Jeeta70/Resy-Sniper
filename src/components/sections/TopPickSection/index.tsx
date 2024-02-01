@@ -50,7 +50,7 @@ const Section = () => {
         </h1>
       </div>
       {isLoading && <RestaurantCardSkeleton />}
-      <div className="lg:grid md:flex sm:flex grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
+      <div className="lg:grid  md:grid md:grid-cols-2 grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard
             key={i}

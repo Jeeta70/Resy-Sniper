@@ -10,9 +10,9 @@ import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
 
 const DEFAULT_PARTY_SIZE_BUTTONS = [
-  { value: "same_day", label: "Same day", type: "button" },
+  { value: "1_days_before", label: "1 days before", type: "button" },
   { value: "2_days_before", label: "2 days before", type: "button" },
-  { value: "3_days_before", label: "3 days before", type: "button" },
+  { value: "5_days_before", label: "Custom", type: "button" },
 ];
 
 interface IPartySize {
@@ -25,7 +25,7 @@ interface IPartySize {
 const SelectFinalSnipingDaySection = () => {
   const {
     dispatch,
-    reservationFormState: { finalSnipingDay },
+    reservationFormState: { finalSnipingDay, reservationDates },
   } = useReservationContext();
 
   const userDetail = useContext(UserDetailContext);
@@ -34,18 +34,27 @@ const SelectFinalSnipingDaySection = () => {
     DEFAULT_PARTY_SIZE_BUTTONS
   );
 
+  const setTheSnipingDay = (value: string) => {
+    handleFinalSnipingDay(dispatch, value);
+  }
+  const calculateFinalSnipingDate = (daysBefore: number): string => {
+    const currentDate = new Date(reservationDates[0]);
+    currentDate.setDate(currentDate.getDate() - daysBefore);
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    return formattedDate;
+  };
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Final Sniping Day</p>
       <div className="flex gap-1 sm:gap-3 ">
         <Button
-          variant={finalSnipingDay === "any" ? "default" : "outline"}
+          variant={finalSnipingDay === "none" ? "default" : "outline"}
           className="inline-flex"
           onClick={() => {
-            handleFinalSnipingDay(dispatch, "any");
+            handleFinalSnipingDay(dispatch, "none");
           }}
         >
-          Any
+          None
         </Button>
 
         {userDetail.subscription_type === "standard" ? (
@@ -89,7 +98,10 @@ const SelectFinalSnipingDaySection = () => {
                 className="inline-flex"
                 key={i}
                 onClick={() => {
-                  handleFinalSnipingDay(dispatch, button.value);
+                  const daysBefore = parseInt(button?.value.split('_')[0]);
+                  const calculatedDate = calculateFinalSnipingDate(daysBefore);
+                  console.log(calculatedDate);
+                  setTheSnipingDay(calculatedDate);
                 }}
               >
                 {button.label}

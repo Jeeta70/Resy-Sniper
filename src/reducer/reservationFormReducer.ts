@@ -90,7 +90,7 @@ export const initialState: IFormState = {
   releaseDates: "",
   reservationTime: "",
   releaseTime: "",
-  finalSnipingDay: "any",
+  finalSnipingDay: "none",
   overideCurrentReservationToggleSection: false,
   title: "",
   description: "",
