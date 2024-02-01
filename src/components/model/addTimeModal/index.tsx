@@ -4,6 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import { handleReseverationTime } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
+// import { Model } from "@/components";
+// import { Credenza, CredenzaClose } from "@/components/ui/credenza";
 const settings = {
     infinite: false,
     speed: 500,
@@ -87,6 +89,10 @@ const AddTimeModal = () => {
 
     return (
         <>
+            {/* <Model> */}
+            {/* <Credenza> */}
+
+
             <div className="flex gap-5 p-4">
                 <div className="">
                     <p className="text-sm font-semibold">From</p>
@@ -179,9 +185,13 @@ const AddTimeModal = () => {
                 </div>
             </div>
             <div className="border-t border-[gray] p-2 flex justify-end gap-3">
+                {/* <CredenzaClose> */}
                 <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black">Cancel</button>
+                {/* </CredenzaClose> */}
                 <button className="bg-[black] border-2 rounded-md py-2 px-4 text-white" onClick={handleConfirm}>Submit</button>
             </div>
+            {/* </Credenza> */}
+            {/* </Model> */}
         </>
     )
 }
