@@ -1,8 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { IRestaurant } from '@/types/restaurants';
-import ResyIcon from "@/assets/resy.svg"
-import OpenTableIcon from "@/assets/openTable.svg"
+import ResyIcon from "@/assets/resy-logo-circle.png"
+import OpenTableIcon from "@/assets/opentable.png"
 
 interface Props {
   restaurant: IRestaurant,
@@ -26,13 +26,16 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
         role="button"
         onClick={() => onResturantCardClick(restaurant)}
       >
-        <img
-          className="rounded-l-lg min-w-36 w-20 h-32 my-auto"
+        <div className="relative">
+          {restaurant.source === "Resy" ? <img src={ResyIcon} alt="resyIcon" className="ml-auto rounded-sm absolute h-10 top-1 left-1" /> : <img src={OpenTableIcon} alt="Open table icon" className="ml-auto rounded-sm absolute h-10 top-1 left-1" />}
+          <img
+            className="rounded-l-lg min-w-36 w-20 h-32 my-auto"
 
-          src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
-          alt=""
-          loading="lazy"
-        />
+            src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
+            alt=""
+            loading="lazy"
+          />
+        </div>
         <CardContent className="w-full h-auto p-0 px-3">
 
           <p className="my-1 text-xs font-normal text-gray-700 dark:text-gray-400">
@@ -43,7 +46,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
             <h5 className="mb-1 text-base font-bold tracking-tight ">
               {restaurant.venue_name}
             </h5>
-            {restaurant.source === "Resy" ? <img src={ResyIcon} alt="resyIcon" className="ml-auto rounded-sm" /> : <img src={OpenTableIcon} alt="Open table icon" className="ml-auto rounded-sm" />}
+           
           </div>
           <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A]">
             <MapPin className="inline-block" /> {restaurant.locality}

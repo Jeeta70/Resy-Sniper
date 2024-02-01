@@ -16,7 +16,7 @@ export function getToken(
   }
 }
 
-export function getresyloginDetail(){
+export function getresyloginDetail() {
   const resyloginDetailString = localStorage.getItem("resyloginDetail");
   if (resyloginDetailString) {
     const resyloginDetailStringObject = JSON.parse(resyloginDetailString);
@@ -59,24 +59,40 @@ export function capitalizeFirstAlphabet(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-export function checkStatus(
-  paused: number[],
-  completed: number[],
-  success: number[]
-): string {
-
-  if (completed) {
-    return "completed";
+export function getStatusString(inputString: string): "active" | "canceled" | "paused" | "completed" {
+  switch (inputString.toLowerCase()) {
+    case 'active':
+      return 'active';
+    case 'canceled':
+      return 'canceled';
+    case 'paused':
+      return 'paused';
+    case 'completed_unsuccessfully':
+    case 'completed_successfully':
+      return 'completed';
+    default:
+      return 'active';
   }
-  if (!success && paused) {
-    return "paused";
-  }
-  
-  if(!success && !paused){
-    return "canceled"
-  }
-  return "default";
 }
+
+export function getStatusStringBadge(inputString: string): "active" | "canceled" | "paused" | "completed" | "unsuccessful" {
+  switch (inputString.toLowerCase()) {
+    case 'active':
+      return 'active';
+    case 'canceled':
+      return 'canceled';
+    case 'paused':
+      return 'paused';
+    case 'completed_unsuccessfully':
+      return "unsuccessful"
+    case 'completed_successfully':
+      return 'completed';
+    default:
+      return 'active';
+  }
+}
+
+
 
 // const axiosApiInstance = axios.create();
 

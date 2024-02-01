@@ -1,11 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { GripHorizontal } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { IReservation } from "@/types/reservations";
@@ -23,57 +25,65 @@ const Index = ({
   groupId: group_id,
 }: {
   reservation: IReservation[];
-  status: "active" | "paused" | string;
+  status: string;
   groupId: string;
 }) => {
   const { pauseReservation } = usePauseReservation();
   const { unPauseReservation } = useUnPauseReservation();
   const { cancelReservation } = useCancelReservation();
   const navigate = useNavigate();
-  // const { venue_id, group_id, status } = reservation;
+
 
   const restaurantNames = reservation
     .map((restaurant) => restaurant.restaurant_name)
     .join(",");
+  const snipe_type = reservation[0].snipe_type === "cancel" ? "Cancel resevation" : "Release reservation"
   const restaurantImage = reservation.map((restaurant, i, reservationArray) => {
     if (i > 4) return
-    if (reservationArray.length === 1) return <img key={i} className="rounded-l-lg h-full" src={restaurant.venue_data.cover_image_url} alt="" />;
+    if (reservationArray.length === 1) return <img key={i} className="rounded-tl-lg rounded-tr-lg sm:rounded-l-lg sm:rounded-tr-none h-32 sm:h-full w-full" src={restaurant.venue_data.cover_image_url} alt="" />;
     if (reservationArray.length === 2) return <div key={i} className="grid grid-cols-2"> <img className="rounded-l-lg h-full" src={restaurant.venue_data.cover_image_url} alt="" /> </div>;
-    if (reservationArray.length === 3) return <div key={i} className="grid grid-cols-2"> <img className="rounded-l-lg h-full" src={restaurant.venue_data.cover_image_url} alt="" /> </div>
-    if (reservationArray.length === 4) return <img key={i} className={`${i == 0 && "rounded-tl-lg"} ${i == 2 && "rounded-bl-lg"} h-full w-full`} src={restaurant.venue_data.cover_image_url} alt="" />
+    if (reservationArray.length === 3) return <div key={i} className="grid grid-cols-2"> <img className="rounded-l-lg h-full " src={restaurant.venue_data.cover_image_url} alt="" /> </div>
+    if (reservationArray.length === 4) return <img key={i} className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"} ${i == 2 && "rounded-tr-lg sm:rounded-bl-lg"} ${i == 3 && "hidden sm:block"} h-32 sm:h-full w-full`} src={restaurant.venue_data.cover_image_url} alt="" />
   });
 
+
   return (
-    <Card className="flex sm:h-[20vh] h-auto  my-5">
-      {reservation.length === 1 && <div className="w-56"> {restaurantImage} </div>}
-      {reservation.length === 4 && <div className="grid grid-cols-2 gap-1 w-56"> {restaurantImage} </div>}
+    <Card className="sm:flex sm:h-[20vh] h-auto my-5 relative">
+      {reservation.length === 1 && <div className="sm:w-56"> {restaurantImage} </div>}
+      {reservation.length === 4 && <div className="grid grid-cols-3 sm:grid-cols-2 gap-1 sm:w-56"> {restaurantImage} </div>}
 
       <CardContent className="space-y-2 my-auto w-full">
-        <div className="space-y-1">
-          <Badge variant={"default"}>
+        <div className="space-y-1 pt-2 sm:pt-0 flex">
+          {  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {  /* @ts-ignore */ }
+          <Badge variant={status} className="rounded-[4px]">
             {capitalizeFirstAlphabet(status)}
           </Badge>
+          <div className="ml-auto text-xs font-semibold sm:hidden">
+            {snipe_type}
+          </div>
         </div>
+
         <div className="space-y-1 flex justify-between">
           <div>
             <h1 className="sm:text-base text-sm font-bold">
               {restaurantNames}
             </h1>
-            <p className="font-medium text-xs text-light">
-              Cancel reservation 4 people Dec 23, Dec30 5:00-7:00PM, 10:00-11:00
-              PM
+            <p className="font-medium text-xs text-light ">
+              <span className=" hidden sm:block">{snipe_type}</span> 
+              <span>4 people Dec 23, Dec30 5:00-7:00PM, 10:00-11:00 PM</span>
             </p>
           </div>
-          <div>
+          <div className="absolute top-2 sm:top-auto right-2 bg-white rounded-full">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
-                  <GripHorizontal className="h-4 w-4" />
+                  <MoreVertical className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem
-                onClick={() => navigate(`/reservations/add-reservation/${group_id}`)}
+                  onClick={() => navigate(`/reservations/add-reservation/${group_id}`)}
                 >
                   Edit
                 </DropdownMenuItem>

@@ -1,19 +1,19 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import ProIcon from "@/assets/ProIcon.svg";
+// import ProIcon from "@/assets/ProIcon.svg";
 import { Button, buttonVariants } from '@/components/ui/button';
 // import { Calendar } from '@/components/ui/calendar';
 // import { DateRange } from 'react-day-picker';
 // import { addDays, format } from 'date-fns';
 // import { PopoverClose } from '@radix-ui/react-popover';
 // import { Separator } from '@/components/ui/separator';
-import { ErrorMessage, FeatureIsForProModel, ReleaseTimeModal } from '@/components';
-import { UserDetailContext } from '@/context/UserDetailProvider';
-import { Credenza, CredenzaTrigger } from '@/components/ui/credenza';
+import { ErrorMessage, ReleaseTimeModal } from '@/components';
+// import { UserDetailContext } from '@/context/UserDetailProvider';
+// import { Credenza, CredenzaTrigger } from '@/components/ui/credenza';
 import { cn } from '@/lib/utils';
 import { useReservationContext } from '@/context/ReservationFomProvider';
 import { handleReleaseTime } from '@/reducer/reservationFormReducer';
@@ -21,7 +21,7 @@ import { X } from 'lucide-react';
 // import { ErrorMessage } from '@/components';
 
 const ReleaseReservationTime = () => {
-    const userDetail = useContext(UserDetailContext);
+    // const userDetail = useContext(UserDetailContext);
     // const pastMonth = new Date(2020, 10, 15);
     // const defaultSelected: DateRange = {
     //   from: pastMonth,
@@ -58,11 +58,11 @@ const ReleaseReservationTime = () => {
     const [selected, setSelected] = React.useState<string | null>(null);
     const { dispatch, reservationFormState: { releaseTime, errors: { releaseTimeError } } } = useReservationContext()
 
-    const timeOptions = [
-        { label: "Early", value: "5:00 PM - 6:30 PM" },
-        { label: "Prime", value: "6:30 PM - 8:30 PM" },
-        { label: "Late", value: "8:30 PM - 10:30 PM" },
-    ];
+    // const timeOptions = [
+    //     { label: "Early", value: "5:00 PM - 6:30 PM" },
+    //     { label: "Prime", value: "6:30 PM - 8:30 PM" },
+    //     { label: "Late", value: "8:30 PM - 10:30 PM" },
+    // ];
 
 
     useEffect(() => {
@@ -80,7 +80,7 @@ const ReleaseReservationTime = () => {
         <div>
             <p className="mb-2 font-semibold text-sm">Release Time</p>
             <div className="flex gap-3">
-                {timeOptions.map((option) => (
+                {/* {timeOptions.map((option) => (
                     <Button
                         key={option.label}
                         className={cn(
@@ -93,7 +93,7 @@ const ReleaseReservationTime = () => {
                     >
                         {option.label} {selected === option.value && <X size={15} className='ml-1' />}
                     </Button>
-                ))}
+                ))} */}
                 <Button
                     className={cn(
                         buttonVariants({
@@ -105,7 +105,7 @@ const ReleaseReservationTime = () => {
                 >
                     {releaseTime} {<X size={15} className='ml-1' />}
                 </Button>
-                {userDetail.subscription_type === "standard" ?
+                {/* {userDetail.subscription_type === "standard" ?
                     <>
                         <Credenza>
                             <CredenzaTrigger asChild>
@@ -125,17 +125,17 @@ const ReleaseReservationTime = () => {
                             <FeatureIsForProModel />
                         </Credenza>
                     </>
-                    :
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button variant="outline" className=" text-light ">
-                                Custom
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                            {/* <AddTimeModal /> */}
-                            <ReleaseTimeModal />
-                            {/* <Calendar
+                    : */}
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button variant="outline" className=" text-light ">
+                            Custom
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                        {/* <AddTimeModal /> */}
+                        <ReleaseTimeModal />
+                        {/* <Calendar
               id="test"
               mode="range"
               defaultMonth={pastMonth}
@@ -143,8 +143,9 @@ const ReleaseReservationTime = () => {
               footer={footer}
               onSelect={setRange}
             /> */}
-                        </PopoverContent>
-                    </Popover>}
+                    </PopoverContent>
+                </Popover>
+                {/* } */}
             </div>
             {releaseTimeError && !releaseTime && <ErrorMessage message="Please set release time" />}
             {/* <ErrorMessage message='Please set reservation time' /> */}

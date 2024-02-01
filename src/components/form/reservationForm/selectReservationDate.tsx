@@ -44,14 +44,20 @@ const SelectReservationDateSection = () => {
   const { dispatch, reservationFormState: { reservationDates, errors: { reservationDateError } } } = useReservationContext();
   const initialDays: Date[] = [];
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
+
+
   const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>([]);
   const [selected, setSelected] = React.useState<Array<Date | string>>([]);
 
+  useEffect(() => {
+    selected.length && setSelected((prev) => prev.filter((dateOnButton) => days?.includes(dateOnButton as Date)))
+  }, [days])
 
 
   useEffect(() => {
+    setDays((prev) => prev?.filter((dateInCalendarModal) => selected.includes(dateInCalendarModal)))
     return handleReservationDate(dispatch, selected);
-  }, [selected]);
+  }, [dispatch, selected]);
 
   function handleSelectedButton(checkDate: string | Date, compare: boolean) {
     if (compare) {
@@ -110,32 +116,37 @@ const SelectReservationDateSection = () => {
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Date</p>
       <div className="flex gap-3 flex-wrap">
-        {reservationDate.map((button, i) => (
-          <span
-            onClick={() => handleSelectedButton(button.value, true)}
-            key={i}
-            className={cn(
-              buttonVariants({
-                variant: selected.includes(button.value)
-                  ? "default"
-                  : "outline",
-              }),
-              "inline-flex cursor-pointer"
-            )}
-          >
-            {button.label.toLocaleString()}{" "}
-            {i >= 0 && (
-              <X
-                onClick={() => {
-                  setReservationDates((prev) => {
-                    return prev.filter((p) => p.value !== button.value);
-                  });
-                }}
-                size={15}
-              />
-            )}
-          </span>
-        ))}
+        {reservationDate.map((button, i) =>{
+          if (selected.includes(button.value)){
+            return (
+              <span
+                key={i}
+                className={cn(
+                  buttonVariants({
+                    variant: selected.includes(button.value)
+                      ? "default"
+                      : "outline",
+                  }),
+                  "inline-flex cursor-pointer"
+                )}
+              >
+                {button.label.toLocaleString()}{" "}
+                {i >= 0 && (
+                  <X
+                    onClick={() => {
+                      handleSelectedButton(button.value, true)
+                      setReservationDates((prev) => {
+                        return prev.filter((p) => p.value !== button.value);
+                      });
+                    }}
+                    size={15}
+                  />
+                )}
+              </span>
+            )
+          }
+          
+        })}
         {/* {userDetail.subscription_type === "standard" ? (
           <Credenza>
             <CredenzaTrigger asChild>
@@ -174,7 +185,6 @@ const SelectReservationDateSection = () => {
                 footer={footer}
                 onSelect={setDays}
                 month={new Date()}
-
               />
             </PopoverContent>
           </Popover>

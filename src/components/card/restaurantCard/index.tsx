@@ -13,6 +13,8 @@ import React from "react";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
 import { cn } from '@/lib/utils';
+import ResyIcon from "@/assets/resy-logo-circle.png"
+import OpenTableIcon from "@/assets/opentable.png"
 
 // type RestaurantProps = {
 //   venue_id: number;
@@ -51,12 +53,15 @@ const Index = ({ restaurant, layout }: Props) => {
         className="cursor-pointer"
         onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)}
       >
-        <img
+        <div className="relative">
+          {restaurant.source === "Resy" ? <img src={ResyIcon} alt="resyIcon" className="ml-auto rounded-sm absolute h-10 top-1 left-1" /> : <img src={OpenTableIcon} alt="Open table icon" className="ml-auto rounded-sm absolute h-10 top-1 left-1" />}
+          <img
           className="rounded-t-lg object-cover h-36 w-[100%]"
           src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
           alt=""
           loading="lazy"
         />
+        </div>
         <CardContent className="p-0 px-6 h-auto">
           <p className="mt-3 mb-1  text-xs font-normal text-gray-700 dark:text-gray-400">
             {renderDollarSigns()}
@@ -69,7 +74,7 @@ const Index = ({ restaurant, layout }: Props) => {
           </p>
         </CardContent>
         {layout.displayFooter && (
-          <CardFooter className="sm:flex sm:gap-3 mt-3 grid gap-3">
+          <CardFooter className="xl:flex xl:gap-3 mt-3 grid gap-3">
             {!premium && restaurant.premium ? (
               <div className="flex bg-black text-white text-lg w-full h-full rounded-lg justify-center  items-center gap-3  px-6 py-2 ">
                 <span>

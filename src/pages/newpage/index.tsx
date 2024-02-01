@@ -17,7 +17,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { MinusIcon } from "@heroicons/react/24/outline";
 import Blog from "@/assets/homepage/blog_img.png";
-import Rectangle from "@/assets/homepage/Rectangle.png";
+// import Rectangle from "@/assets/homepage/Rectangle.png";
 import Image from "@/assets/homepage/Img.png";
 import Instagram from "@/assets/homepage/Instagram.png";
 import Twitter from "@/assets/homepage/TwitterLogo.png";
@@ -25,11 +25,15 @@ import Footer from "@/assets/homepage/Footer.png";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { animateScroll as scroll } from "react-scroll";
+import { useGetAllblogs } from "@/features/blog/blog";
 
 const NewPage = () => {
     const navigate = useNavigate();
+    const { blogs } = useGetAllblogs()
     const [activeIndex, setActiveIndex] = useState(0);
     const [show, setShow] = useState(false);
+
+
     const data = [
         {
             image: Speed,
@@ -124,29 +128,29 @@ const NewPage = () => {
 
     const [scrolling, setScrolling] = useState(false);
 
-    const blogData = [
-        {
-            image: Rectangle,
-            title: "Reservation Guide",
-            date: "October 22, 2023",
-            text: "Unlock the Secret to Dining at Carbone: Your Exclusive Guide",
-            color: "#F69046",
-        },
-        {
-            image: Rectangle,
-            title: "Food & Drink Guides",
-            date: "October 22, 2023",
-            text: "Navigating New York Elite Dining Scene: A Guide to Snagging the Hardest Reservations",
-            color: "yellow",
-        },
-        {
-            image: Rectangle,
-            title: "User Guide",
-            date: "October 22, 2023",
-            text: "Mastering the Art of Reservation: Tips to Increase Your Odds with Resy Sniper",
-            color: "green",
-        },
-    ];
+    // const blogData = [
+    //     {
+    //         image: Rectangle,
+    //         title: "Reservation Guide",
+    //         date: "October 22, 2023",
+    //         text: "Unlock the Secret to Dining at Carbone: Your Exclusive Guide",
+    //         color: "#F69046",
+    //     },
+    //     {
+    //         image: Rectangle,
+    //         title: "Food & Drink Guides",
+    //         date: "October 22, 2023",
+    //         text: "Navigating New York Elite Dining Scene: A Guide to Snagging the Hardest Reservations",
+    //         color: "yellow",
+    //     },
+    //     {
+    //         image: Rectangle,
+    //         title: "User Guide",
+    //         date: "October 22, 2023",
+    //         text: "Mastering the Art of Reservation: Tips to Increase Your Odds with Resy Sniper",
+    //         color: "green",
+    //     },
+    // ];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -591,7 +595,13 @@ const NewPage = () => {
                                 </p>
                             </div>
                             <div className="lg:w-[90%] md:w-[100%]">
-                                {blogData.map((ele, key) => (
+                                {console.log(blogs?.data)}
+                                {blogs?.data.map((blog: any)=>{
+                                    return <div
+                                        dangerouslySetInnerHTML={{ __html: blog.body }}
+                                    /> 
+                                })}
+                                {/* {blogData.map((ele, key) => (
                                     <div
                                         className="flex gap-5 sm:items-center items-start sm:mt-5 mt-8 lg:w-[80%] md:w-[auto] w-auto"
                                         key={key}
@@ -620,7 +630,7 @@ const NewPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                ))}
+                                ))} */}
                             </div>
                             <div className="mt-10">
                                 <button

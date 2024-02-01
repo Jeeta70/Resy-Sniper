@@ -11,8 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { useDisconnectConnectResyAccount } from "@/features/authentication/connectAccount";
 
 const Index = () => {
-  const { discconetResyAccount ,isLoading } =  useDisconnectConnectResyAccount()
-  
+  const { discconetResyAccount, isLoading } = useDisconnectConnectResyAccount()
+
   return (
     <Model>
       <CredenzaHeader>
@@ -33,7 +33,7 @@ const Index = () => {
         </CredenzaClose>
 
         <Button disabled={isLoading} variant="primary" className="w-full sm:w-auto" onClick={() => discconetResyAccount()}>
-         
+
           {isLoading ? <ButtonLoader /> : "Disconnect"}
         </Button>
       </CredenzaFooter>

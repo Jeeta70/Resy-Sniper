@@ -7,7 +7,7 @@ import { IRestaurant } from "@/types/restaurants";
 import { X } from "lucide-react";
 import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const Section = () => {
@@ -18,9 +18,8 @@ const Section = () => {
   const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
   const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("query");
-  console.log(query);
+  // const [searchParams] = useSearchParams();
+  // const _query = searchParams.get("query");
 
 
   useEffect(() => {
@@ -50,7 +49,7 @@ const Section = () => {
         </h1>
       </div>
       {isLoading && <RestaurantCardSkeleton />}
-      <div className="lg:grid md:flex sm:flex grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
+      <div className="lg:grid  md:grid md:grid-cols-2 grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard
             key={i}
