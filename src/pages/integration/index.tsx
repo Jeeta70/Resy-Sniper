@@ -12,10 +12,9 @@ import {
   ConnectOpenTabelAccountModel,
   DisableOpenTableModal,
   DisconnectResyAccountModel,
-  ResyConnectAccountCard,
 } from "@/components";
 import { useGetUser } from "@/features/user/user";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import ResyIcon from "@/assets/resy.svg";
 import OpenTableIcon from "@/assets/openTable.svg";
 import { Skeleton } from "@/components/ui/skeleton";
