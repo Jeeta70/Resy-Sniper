@@ -26,7 +26,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { animateScroll as scroll } from "react-scroll";
 import { useGetAllblogs } from "@/features/blog/blog";
-import { any } from "zod";
+// import { any } from "zod";
 
 const NewPage = () => {
     const navigate = useNavigate();
