@@ -18,6 +18,8 @@ export { default as CancelSubscription } from "@/components/model/CancelSubscrip
 export { default as AddTimeModal } from "@/components/model/addTimeModal"
 export { default as ReleaseTimeModal } from "@/components/model/releaseTimeModal"
 export { default as SelectedRestaurantModal } from "@/components/model/selectedRestaurantModel"
+export { default as ConnectResyModal } from "@/components/model/connectResyModal"
+export { default as DisableOpenTableModal } from "@/components/model/disableOpenTableModal"
 
 
 export { default as ResyConnectAccountCard } from "@/components/card/connectAccount/resyCard";

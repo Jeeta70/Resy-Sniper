@@ -74,7 +74,7 @@ const Index = ({ restaurant, layout }: Props) => {
           </p>
         </CardContent>
         {layout.displayFooter && (
-          <CardFooter className="sm:flex sm:gap-3 mt-3 grid gap-3">
+          <CardFooter className="xl:flex xl:gap-3 mt-3 grid gap-3">
             {!premium && restaurant.premium ? (
               <div className="flex bg-black text-white text-lg w-full h-full rounded-lg justify-center  items-center gap-3  px-6 py-2 ">
                 <span>

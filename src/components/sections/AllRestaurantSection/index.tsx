@@ -45,7 +45,7 @@ const Section = () => {
       </div>
       {isLoading && <RestaurantCardSkeleton />}
 
-      <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
+      <div className="lg:grid  md:grid md:grid-cols-2 grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
         {!isLoading &&
           filteredRestaurants.map(
             (restaurant: IRestaurant, i: Key | null | undefined) => (
@@ -77,20 +77,20 @@ const Section = () => {
           })}
 
           {selectedRestaurants.length > 2 && (
-           <>
+            <>
               <Credenza>
-              <CredenzaTrigger asChild className="">
-                <Button
-                  variant="outline"
-                  className="inline-flex font-semibold text-[11px] relative"
-                >
+                <CredenzaTrigger asChild className="">
+                  <Button
+                    variant="outline"
+                    className="inline-flex font-semibold text-[11px] relative"
+                  >
                     +{selectedRestaurants.length - 2}
-                
-                </Button>
-              </CredenzaTrigger>
+
+                  </Button>
+                </CredenzaTrigger>
                 <SelectedRestaurantModal selectedRestaurants={selectedRestaurants} />
               </Credenza>
-              </>
+            </>
           )}
         </div>
 

@@ -3,18 +3,39 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { MyReservationTab, ReservationPageSkeleton } from "@/components";
-import { useGetUserReservations } from "@/features/reservation/reservation";
-import { useMemo } from "react";
+import { useGetReservationCount, useGetUserReservations } from "@/features/reservation/reservation";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { UserDetailContext } from "@/context/UserDetailProvider";
 
 const Index = () => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false)
   const { userReservations, isLoading } = useGetUserReservations();
+  const { reservationCounts, isSuccess: countIsLoading } =
+    useGetReservationCount();
+  const { subscription_type } = useContext(UserDetailContext);
+
 
   const reservations = useMemo(() => {
     if (!isLoading && userReservations) {
       return userReservations;
     }
   }, [isLoading, userReservations]);
+
+
+  useEffect(() => {
+    if (countIsLoading && reservationCounts && reservationCounts.data) {
+      const count = reservationCounts?.data?.total_reservations;
+      if (count >= 5 && subscription_type === 'standard') {
+        setShow(true);
+      }
+      else if (count >= 25 && subscription_type === 'premium') {
+        setShow(true);
+      }
+
+    }
+  }, [countIsLoading, reservationCounts, subscription_type]);
+
 
 
   return (
@@ -25,6 +46,7 @@ const Index = () => {
           variant="primary"
           className="inline-flex"
           onClick={() => navigate("/reservations/add-reservation")}
+          disabled={show}
         >
           <Plus className="sm:mr-3 mr-0" /> Add Reservation
         </Button>
@@ -41,6 +63,7 @@ const Index = () => {
             variant="primary"
             className="sm:hidden"
             onClick={() => navigate("/reservations/add-reservation")}
+            disabled={show}
           >
             <Plus className="mr-3" /> Add Reservation
           </Button>

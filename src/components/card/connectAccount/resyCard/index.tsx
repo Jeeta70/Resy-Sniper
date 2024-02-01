@@ -6,7 +6,7 @@ interface ResyConnectAccountCardType {
   image: string;
   cardStyle: string;
   onResyFormSubmit?: () => void;
-  setdisableContinueButton: (boolean: boolean)=>void
+  setdisableContinueButton: (boolean: boolean) => void
 }
 
 const Index = ({ image, cardStyle, setdisableContinueButton }: ResyConnectAccountCardType) => {
@@ -14,7 +14,7 @@ const Index = ({ image, cardStyle, setdisableContinueButton }: ResyConnectAccoun
     <Card className={cardStyle}>
       <CardHeader className="pb-0 mb-2">
         <img src={image} alt="" className="h-8" />
-       
+
       </CardHeader>
       <div className="border-2 bg-orange flex p-2 rounded-sm gap-2 items-center text-white">
         <img src={WarningIcon} className="h-5 w-5" alt="warning-icon" />

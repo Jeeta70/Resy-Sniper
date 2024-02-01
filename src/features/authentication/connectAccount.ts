@@ -46,7 +46,7 @@ export const useDisconnectConnectResyAccount = () => {
       );
     },
     onSuccess: () => {
-      toast({ description: "sucessfully connected", variant: "dark" });
+      toast({ description: "sucessfully disconnected", variant: "dark" });
       queryClient.invalidateQueries({ queryKey: ["user"] });
       // document.getElementById("dissconnetResyConnect")?.click()
     },
@@ -59,6 +59,32 @@ export const useDisconnectConnectResyAccount = () => {
   });
 
   return { discconetResyAccount, isLoading };
+};
+
+export const useDisconnectConnectOpenTableAccount = () => {
+  const queryClient = useQueryClient();
+  const { mutate: discconetOpenTableAccount, isPending: isLoading } =
+    useMutation({
+      mutationFn: (): any => {
+        return axios.post(
+          `${baseUrl}/api/opentable-signout`,
+          {},
+          { headers: { Authorization: `Bearer ${getToken("access_token")}` } }
+        );
+      },
+      onSuccess: () => {
+        toast({ description: "sucessfully disconnected", variant: "dark" });
+        queryClient.invalidateQueries({ queryKey: ["usernew"] });
+      },
+      onError: (error: { response: AxiosResponse }) => {
+        toast({
+          description: error.response.data.message,
+          variant: "destructive",
+        });
+      },
+    });
+
+  return { discconetOpenTableAccount, isLoading };
 };
 
 export const useConnectOpenTableAccount = () => {
@@ -102,8 +128,7 @@ export const useOpenTableCode = () => {
   const access_token = getToken("access_token");
   const { mutate: openTableCode, isPending: isLoading } = useMutation({
     mutationFn: ({ code }: { code: string }) => {
-      
-      const resyLoginDetail =  getresyloginDetail()
+      const resyLoginDetail = getresyloginDetail();
 
       return axios.post(
         `${baseUrl}/api/verify-phone-2fa`,
@@ -116,7 +141,7 @@ export const useOpenTableCode = () => {
       );
     },
     onSuccess: () => {
-      toast({ description: "sucessfully connected", variant: "dark" });
+      toast({ description: "Successfully connected", variant: "dark" });
     },
     onError: (error: { response: AxiosResponse }) => {
       toast({

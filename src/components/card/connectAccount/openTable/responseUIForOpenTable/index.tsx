@@ -36,7 +36,7 @@ interface Props {
 const Index = ({ setdisableContinueButton }: Props) => {
    const [responseState, setResponseState] = useState<
       "default" | "entercode" | "error" | "success"
-   >("entercode");
+   >("default");
 
    const { connectOpenTableAccount, isLoading } = useConnectOpenTableAccount();
    const { openTableCode, isLoading: openTableCodeisLoading } =
@@ -64,7 +64,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
    ) {
       connectOpenTableAccount(values, {
          onSuccess: () => {
-            connectOpenTableForm.reset();
+            // connectOpenTableForm.reset();
             setResponseState("entercode");
          },
       });
@@ -73,13 +73,14 @@ const Index = ({ setdisableContinueButton }: Props) => {
    function onCodeSubmit(values: z.infer<typeof enterCodeSechema>) {
       openTableCode(values, {
          onSuccess: () => {
+            connectOpenTableForm.reset();
             enterCodeForm.reset();
             setResponseState("success");
-            if(setdisableContinueButton){
+            if (setdisableContinueButton) {
                setdisableContinueButton(false);
             }
          },
-         onError:() =>{
+         onError: () => {
             setResponseState("error");
          }
       });
@@ -161,6 +162,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                      <div className="font-normal  text-base w-4/5 mx-auto  text-center text-light">
                         OpenTable will send you a message with a code
                      </div>
+
                      <Button disabled={isLoading} className="w-full mt-auto" type="submit">
                         {isLoading ? <ButtonLoader /> : "Connect"}{" "}
                      </Button>
@@ -176,7 +178,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                   </div>
                   <form
                      onSubmit={enterCodeForm.handleSubmit(onCodeSubmit)}
-                     className="space-y-8 w-full mt-2"
+                     className="space-y-5 w-full mt-2"
                   >
                      <div className="flex">
                         <FormField
@@ -215,6 +217,9 @@ const Index = ({ setdisableContinueButton }: Props) => {
                         If you haven’t receive code for more than a minute press a link
                         below
                      </div>
+                     <p className="text-sm text-center text-blue-700 cursor-pointer" onClick={connectOpenTableForm.handleSubmit(
+                        onSubmitConnectTableAccount
+                     )}>Resend Code</p>
                      <Button
                         disabled={openTableCodeisLoading}
                         className="w-full"
@@ -260,7 +265,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
 
                <div className="space-y-1">
                   <p className="text-sm font-medium text-light text-center">
-                    Wrong code
+                     Wrong code
                   </p>
                </div>
 
@@ -268,7 +273,10 @@ const Index = ({ setdisableContinueButton }: Props) => {
                   className="w-full"
                   type="submit"
                   variant="default"
-                  onClick={() => setResponseState("default")}
+                  onClick={() => {
+                     connectOpenTableForm.reset();
+                     enterCodeForm.reset(); setResponseState("default")
+                  }}
                >
                   TryAgain
                </Button>

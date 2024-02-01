@@ -46,9 +46,9 @@ const SearchAndFilterSection = () => {
 
 
   return (
-    <div className="sm:flex block gap-4">
+    <div className="lg:flex block gap-4">
       <SearchInputField onChange={onChange} placeholder="Search restaurant" searchIcon={true} />
-      <div className="sm:grid sm:grid-cols-2 flex gap-2 mt-3 sm:mt-0">
+      <div className="lg:grid lg:grid-cols-2 flex gap-2 mt-3 lg:mt-0">
 
         <DropDown placeholder="All Prices" >All price children</DropDown>
         <DropDown placeholder="All Locations">
