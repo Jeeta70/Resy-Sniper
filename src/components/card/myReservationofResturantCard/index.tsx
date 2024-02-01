@@ -1,11 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { GripHorizontal, MoreVertical } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { IReservation } from "@/types/reservations";
@@ -44,6 +46,7 @@ const Index = ({
     if (reservationArray.length === 4) return <img key={i} className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"} ${i == 2 && "rounded-tr-lg sm:rounded-bl-lg"} ${i == 3 && "hidden sm:block"} h-32 sm:h-full w-full`} src={restaurant.venue_data.cover_image_url} alt="" />
   });
 
+
   return (
     <Card className="sm:flex sm:h-[20vh] h-auto my-5 relative">
       {reservation.length === 1 && <div className="sm:w-56"> {restaurantImage} </div>}
@@ -51,7 +54,9 @@ const Index = ({
 
       <CardContent className="space-y-2 my-auto w-full">
         <div className="space-y-1 pt-2 sm:pt-0 flex">
-          <Badge variant={status}>
+          {  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {  /* @ts-ignore */ }
+          <Badge variant={status} className="rounded-[4px]">
             {capitalizeFirstAlphabet(status)}
           </Badge>
           <div className="ml-auto text-xs font-semibold sm:hidden">

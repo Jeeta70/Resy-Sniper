@@ -11,6 +11,7 @@ import {
 import { ChevronDownIcon, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TabsType } from "../myReservationTab";
+import { ReactNode } from "react";
 
 
 
@@ -20,7 +21,7 @@ export default function DrawerDemo({
   className,
   filter,
 }: {
-  tab: string;
+  tab: ReactNode;
   setTab: (tab: string) => void;
   className: string;
   filter: TabsType;
@@ -57,6 +58,8 @@ export default function DrawerDemo({
               )}
               key={i}
             >
+              {  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {  /* @ts-ignore */}
               {tab}{" "} ({filter[tab].length})
             </DrawerClose>
           ))}
