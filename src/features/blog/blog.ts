@@ -1,4 +1,5 @@
 import { baseUrl } from "@/config/baseUrl";
+import { IBlog } from "@/types/blog";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 
@@ -11,7 +12,7 @@ export function useGetAllblogs() {
     error,
   } = useQuery({
     queryKey: ["blogs"],
-    queryFn: (): Promise<AxiosResponse> => {
+    queryFn: (): Promise<AxiosResponse<IBlog[]>> => {
       return axios.get(`${baseUrl}/api/blog/all`);
     },
   });
@@ -19,7 +20,7 @@ export function useGetAllblogs() {
 }
 
 
-export function useGetSingleBlog() {
+export function useGetSingleBlog(slug:string) {
    const {
       data: singleBlog,
       isPending: isLoading,
@@ -28,7 +29,7 @@ export function useGetSingleBlog() {
       error,
    } = useQuery({
       queryKey: ["blogs"],
-      queryFn: (slug): Promise<AxiosResponse> => {
+      queryFn: (): Promise<AxiosResponse> => {
          return axios.get(`${baseUrl}/api/blog/${slug}`);
       },
    });

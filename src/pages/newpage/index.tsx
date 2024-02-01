@@ -615,6 +615,7 @@ const NewPage = () => {
                                     // return <div
                                     //     dangerouslySetInnerHTML={{ __html: blog.body }}
                                     // /> 
+
                                     return <div
                                         className="flex gap-5 sm:items-center items-start sm:mt-7 mt-8 lg:w-[80%] md:w-[auto] w-auto"
                                         key={key}
