@@ -89,7 +89,7 @@ const AddResturantModel = () => {
   return (
     <Model
       className={cn(
-        "max-w-2xl h-full sm:h-auto pb-0 p-4 sm:p-6 ",
+        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 ",
         reservationFormState.selectSittingOptions.showModel && "p-4"
       )}
     >

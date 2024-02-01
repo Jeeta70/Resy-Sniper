@@ -1,6 +1,6 @@
 // import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AddReservation, AllRestaurants, Blogs, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
+import { AddReservation, AllRestaurants, Blogs, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, SingleBlog, Subscription, TopPick } from // AddReservation,
   // ConnectAccount,
   // Integration,
   // Login,
@@ -90,6 +90,11 @@ const Router = () => {
 
             <Route path="/home" element={<NewPage />} />
             <Route path="/blogs" element={<Blogs />} />
+            <Route path="blogs">
+              <Route index element={<Blogs />} />
+              <Route path=":slug" element={<SingleBlog />} />
+              <Route path="all-restaurants" element={<AllRestaurants />} />
+            </Route>
 
           </Routes>
         </UserDetailContextProvider>

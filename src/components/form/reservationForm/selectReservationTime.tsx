@@ -72,11 +72,12 @@ const SelectReservationTime = () => {
   }, [selected, dispatch]);
 
   const handleSelectedTime = (time: any) => {
-    setSelected((prev) => (prev === time ? null : time));
+    setSelected((prev) => (prev === time ? '' : time));
   };
 
   const handleSelectedTimeNew = () => {
     const reservationTime = "";
+    setSelected("")
     handleReseverationTime(dispatch, reservationTime);
   }
 
@@ -103,7 +104,7 @@ const SelectReservationTime = () => {
             buttonVariants({
               variant: reservationTime === '' || reservationTime === null ? "default" : "outline",
             }),
-            `inline-flex text-black ${reservationTime === null || reservationTime === '' ? "hidden" : 'bg-black text-white hover:bg-black hover:text-white'}`
+            `inline-flex text-black ${reservationTime === '' || reservationTime === null ? "hidden" : 'bg-black text-white hover:bg-black hover:text-white'}`
           )}
           onClick={() => handleSelectedTimeNew()}
         >
