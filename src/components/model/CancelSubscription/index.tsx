@@ -8,10 +8,11 @@ import {
     CredenzaHeader,
 } from "@/components/ui/credenza";
 import { Separator } from "@/components/ui/separator";
-import { CancelSubscription} from "@/features/subscription/subscription";
+import { CancelSubscription, useAccessEndDate} from "@/features/subscription/subscription";
 
 const Index = () => {
     const { Cancel, isLoading } = CancelSubscription()
+   const {accessEndDate,isLoading:accessEndDateIsLoading} =  useAccessEndDate()
     // const { upgrade, isLoading } = useUpgradeSubscription()
 
     const handleClick = () => {
@@ -24,7 +25,7 @@ const Index = () => {
                     Sorry to See You Leave...
                 </CardTitle>
                 <CredenzaDescription className="text-start">
-                    You will continue to have access to Resy Sniper until December 30, 2023
+                    {!accessEndDateIsLoading && accessEndDate?.data.message} 
                 </CredenzaDescription>
             </CredenzaHeader>
             <Separator />

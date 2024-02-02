@@ -76,7 +76,7 @@ export function useCheckSubscriptionIsCompleted() {
 export function useUpgradeSubscription() {
    const queryClient = useQueryClient();
    const accesToken = getToken("access_token");
-   const { mutate: upgrade, isPending: isLoading ,isSuccess } = useMutation({
+   const { mutate: upgrade, isPending: isLoading, isSuccess } = useMutation({
       mutationFn: (subscription: "premium" | "standard") => {
          return axios.post(
             `${baseUrl}/api/change-subscription`,
@@ -86,5 +86,32 @@ export function useUpgradeSubscription() {
       },
       onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["user"] }); },
    });
-   return { upgrade, isLoading,isSuccess };
+   return { upgrade, isLoading, isSuccess };
 }
+
+
+
+export function useAccessEndDate() {
+   const accesToken = getToken("access_token");
+   const { data: accessEndDate, isPending: isLoading, isSuccess, isError } = useQuery({
+      queryKey: ['AccessEndDate'],
+      queryFn: (): Promise<AxiosResponse> => {
+         return axios.get(`${baseUrl}/api/access-end-date`, { headers: { Authorization: `Bearer ${accesToken}`}})
+      }
+   })
+   return { accessEndDate, isLoading, isSuccess, isError };
+}
+
+
+export function useManageSubscription() {
+   const accesToken = getToken("access_token");
+   const { data: manageSubscription, isPending: isLoading, isSuccess, refetch } = useQuery({
+      queryKey: ['Managesubscription'],
+      queryFn: (): Promise<AxiosResponse> => {
+         return axios.get(`${baseUrl}/api/manage-subscription`, { headers: { Authorization: `Bearer ${accesToken}` } })
+      },
+      enabled:false
+   })
+   return { manageSubscription, isLoading, isSuccess, refetch };
+}
+
