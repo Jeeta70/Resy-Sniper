@@ -29,17 +29,17 @@ export function RestaurantContextProvider(props: { children: ReactNode }) {
         // If it exists, remove it
         const updatedRestaurants = [...prevRestaurants];
         updatedRestaurants.splice(existingIndex, 1);
-        toast({
-          title: "Resturant deselected",
-          variant: "dark",
-        });
+        // toast({
+        //   title: "Resturant deselected",
+        //   variant: "dark",
+        // });
         return updatedRestaurants;
       } else {
         // If it doesn't exist, add it
-        toast({
-          title: "Resturant selected",
-          variant: "dark",
-        });
+        // toast({
+        //   title: "Resturant selected",
+        //   variant: "dark",
+        // });
         return [...prevRestaurants, newRestaurant];
       }
     });

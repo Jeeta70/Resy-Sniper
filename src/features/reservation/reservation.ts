@@ -116,7 +116,7 @@ export function usePauseReservation() {
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
     },
   });
   return { pauseReservation, isLoading };
@@ -134,7 +134,7 @@ export function useUnPauseReservation() {
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
     },
   });
   return { unPauseReservation, isLoading };
@@ -146,13 +146,15 @@ export function useCancelReservation() {
   const { mutate: cancelReservation, isPending: isLoading } = useMutation({
     mutationFn: (group_id: string) => {
       return axios.post(
-        `${baseUrl}/api/cancel_group_reservations`,
+        `${baseUrl}/api/delete_group`,
         { group_id },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+    onSuccess: (response) => {
+      const { data } = response;
+      toast({ description: data.msg, variant: "dark" });
+      queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
     },
   });
   return { cancelReservation, isLoading };

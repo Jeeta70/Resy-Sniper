@@ -79,7 +79,7 @@ const Index = ({ user }: Props) => {
   return (
     <>
       <div className="">
-        <TabsList className="grid border-b-2 sm:pr-[220px] grid-cols-3 gap-10 sm:gap-10 bg-white ">
+        <TabsList className="grid border-b-2 xl:pr-[210px] grid-cols-3 gap-10 sm:gap-10 bg-white ">
           <div className="flex flex-col m-0 p-0">
             <TabsTrigger
               value="account"

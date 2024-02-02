@@ -11,14 +11,11 @@ import { useUpgradeSubscription } from "@/features/subscription/subscription";
 import { CheckCircle2 } from "lucide-react";
 
 const Index = () => {
-   const { upgrade, isLoading} = useUpgradeSubscription()
+   const { upgrade, isLoading } = useUpgradeSubscription();
    const points = [
       { point: "5 active booking requests" },
       { point: "Priority booking" },
    ];
-
-
-
 
    return (
       <Model className="border-none max-w-xl">
@@ -46,20 +43,35 @@ const Index = () => {
             </div>
          </CredenzaHeader>
          <Separator />
-         <CredenzaFooter className="flex flex-row">
-            <CredenzaClose asChild>
-               <Button variant="outline" id="closeProModel" className="w-full sm:w-auto">
-                  Cancel
-               </Button>
-            </CredenzaClose>
-
-            <Button disabled={isLoading}  variant="default" className="w-full sm:w-auto" onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-               e.stopPropagation()
-               upgrade("standard")
-            }}>
-               {isLoading ? <ButtonLoader/> : "Switch to REGULAR"}
-            </Button>
-         </CredenzaFooter>
+         <div className="flex flex-row justify-end">
+            <CredenzaFooter >
+               <CredenzaClose asChild>
+                  <Button
+                     variant="outline"
+                     id="closeProModel"
+                     className="w-full sm:w-auto"
+                  >
+                     Cancel
+                  </Button>
+               </CredenzaClose>
+            </CredenzaFooter>
+            <CredenzaFooter className="flex flex-row">
+               <CredenzaClose asChild>
+                  <Button
+                     disabled={isLoading}
+                     variant="default"
+                     className="w-full sm:w-auto"
+                     onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                        e.stopPropagation();
+                        upgrade("standard");
+                        console.log("second");
+                     }}
+                  >
+                     {isLoading ? <ButtonLoader /> : "Switch to REGULAR"}
+                  </Button>
+               </CredenzaClose>
+            </CredenzaFooter>
+         </div>
       </Model>
    );
 };

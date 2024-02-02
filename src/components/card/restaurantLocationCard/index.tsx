@@ -27,15 +27,15 @@ const Index = ({ restaurant }: Props) => {
     <>
       <Card className="">
         <img
-          className="rounded-t-lg max-h-[100px] w-full"
+          className="rounded-t-lg max-h-[250px] w-[100%]"
           src={restaurant.cover_image_url}
           alt=""
         />
-        <CardContent className="w-3/5 p-6">
+        <CardContent className=" p-6">
           <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400 hidden">
             $$$$
           </p>
-          <h5 className="mb-2 text-base font-normal tracking-tight ">
+          <h5 className="mb-2 text-base font-medium font-inter tracking-tight ">
             {restaurant.address_1},{restaurant.locality},{restaurant.country},
             {restaurant.postal_code}
           </h5>
@@ -96,10 +96,10 @@ const Index = ({ restaurant }: Props) => {
                   <FeatureIsForProModel />
                 </Credenza>
               )}
-                <Button variant="primary" className="w-full" onClick={(e) => {
-                  e.stopPropagation()
-                  navigate("/reservations/add-reservation", { state: { selectedRestaurants: restaurants } })
-                }}>
+              <Button variant="primary" className="w-full" onClick={(e) => {
+                e.stopPropagation()
+                navigate("/reservations/add-reservation", { state: { selectedRestaurants: restaurants } })
+              }}>
                 Reserve
               </Button>
             </>

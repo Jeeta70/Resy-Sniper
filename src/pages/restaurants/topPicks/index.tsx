@@ -1,7 +1,7 @@
 import { RestaurantCard, RestaurantCardSkeleton } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
-import {  useTopPicksRestaurants } from "@/features/restaurant/restaurant";
+import { useTopPicksRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
 import { ChevronLeft, X } from "lucide-react";
@@ -23,7 +23,7 @@ const Section = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
   console.log(query);
-  
+
 
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Section = () => {
 
 
   return (
-    <div>
+    <div className="sm:px-5 px-2">
       <div role="button" onClick={() => navigate("/restaurants")}>
         <ChevronLeft className="inline" size={20} />
         <span className="font-semi-bold text-xs">Back</span>
@@ -49,9 +49,9 @@ const Section = () => {
       <div className="flex justify-between">
         <h1 className="my-4 text-lg font-semibold	">Top Picks</h1>
       </div>
-     <div className="mb-7">
+      <div className="mb-7">
         <SearchAndFilterSection />
-     </div>
+      </div>
       {isLoading && <RestaurantCardSkeleton />}
       <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (

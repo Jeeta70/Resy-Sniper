@@ -15,14 +15,14 @@ const Index = () => {
 
 
   return (
-    <div className="container sm:px-60  mt-5 pt-10">
-     
-          <h2 className="font-bold text-2xl mb-5">Subscription</h2>
-       
-     
+    <div className="container xl:px-60  mt-5 pt-10">
+
+      <h2 className="font-bold text-2xl mb-5">Subscription</h2>
+
+
       <div
         className={cn(
-          "flex justify-center items-center gap-4 sm:gap-10",
+          "flex justify-center items-center gap-4 xl:gap-10",
           subscription_type === "standard" ? "flex-col" : "flex-col-reverse"
         )}
       >
@@ -51,13 +51,13 @@ const Index = () => {
                 <ul className="flex flex-col gap-4">
                   <li className="flex">
                     <CheckCircle2 />
-                    <span className="ml-2 font-semibold text-sm">
+                    <span className="ml-2 font-semibold lg:text-sm text-xs">
                       5 active booking requests
                     </span>
                   </li>
-                  <li>
-                    <CheckCircle2 className="inline-block" />
-                    <span className="ml-2 font-semibold text-sm">
+                  <li className="flex">
+                    <CheckCircle2 />
+                    <span className="ml-2 font-semibold lg:text-sm text-xs">
                       Single date, single venue booking
                     </span>
                   </li>
@@ -76,7 +76,7 @@ const Index = () => {
                       Switch to Regular
                     </Button>}
                   </CredenzaTrigger>
-                  {subscription_type === "premium" && <FeatureIsForStandardModel />}
+                  {subscription_type === "premium" ? <FeatureIsForStandardModel /> : ""}
                 </Credenza>
               </div>
             </div>
@@ -109,31 +109,31 @@ const Index = () => {
                 <ul className="flex flex-col gap-4">
                   <li className="flex">
                     <CheckCircle2 className="inline-block" />
-                    <span className="ml-2 font-semibold text-sm">
+                    <span className="ml-2 font-semibold lg:text-sm text-xs">
                       25 active booking requests
                     </span>
                   </li>
-                  <li>
+                  <li className="flex">
                     <CheckCircle2 className="inline-block" />
-                    <span className="ml-2 font-semibold text-sm">
+                    <span className="ml-2 font-semibold lg:text-sm text-xs">
                       Priority booking
                     </span>
                   </li>
-                  <li>
+                  <li className="flex">
                     <CheckCircle2 className="inline-block" />
-                    <span className="ml-2 font-semibold text-sm">
+                    <span className="ml-2 font-semibold lg:text-sm text-xs">
                       Multiple dates and venues booking
                     </span>
                   </li>
-                  <li>
+                  <li className="flex">
                     <CheckCircle2 className="inline-block" />
-                    <span className="ml-2 font-semibold text-sm">
+                    <span className="ml-2 font-semibold lg:text-sm text-xs">
                       Same date booking
                     </span>
                   </li>
-                  <li>
+                  <li className="flex">
                     <CheckCircle2 className="inline-block" />
-                    <span className="ml-2 font-semibold text-sm">
+                    <span className="ml-2 font-semibold lg:text-sm text-xs">
                       Select sitting type
                     </span>
                   </li>
@@ -144,7 +144,7 @@ const Index = () => {
                       Upgrade to Pro
                     </Button>}
                   </CredenzaTrigger>
-                  {subscription_type === "standard" && <FeatureIsForProModel />}
+                  {subscription_type === "standard" ? <FeatureIsForProModel /> : ""}
                 </Credenza>
                 <Credenza>
                   <CredenzaTrigger asChild>

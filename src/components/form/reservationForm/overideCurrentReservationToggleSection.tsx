@@ -5,6 +5,8 @@ import { useReservationContext } from '@/context/ReservationFomProvider';
 import { UserDetailContext } from '@/context/UserDetailProvider';
 import { handleToogleOverideCurrentSection } from '@/reducer/reservationFormReducer';
 import { useContext } from 'react';
+import ProIcon from "@/assets/ProIcon.svg";
+
 
 const OverideCurrentReservationToggleSection = () => {
 
@@ -15,8 +17,13 @@ const OverideCurrentReservationToggleSection = () => {
   return (
     <div className="flex flex-row items-center justify-between  sm:py-3 ">
       <div className="space-y-0.5">
-        <div className="mb-2 font-semibold text-sm">
+        <div className="mb-2 font-semibold text-sm relative">
           Overide current Reservation
+          {userDetail.subscription_type === "standard" ? <img
+            src={ProIcon}
+            alt="pro icon"
+            className="absolute right-0 top-0"
+          /> : ''}
         </div>
         {/* <FormDescription> */}
         <div className="font-normal text-xs">
