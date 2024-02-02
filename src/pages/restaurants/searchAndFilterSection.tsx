@@ -1,12 +1,12 @@
 import { DropDown, SearchInputField } from "@/components";
-import { ChangeEvent, Key, useEffect, useMemo, useState } from "react";
+import { Key, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SelectGroup, SelectItem, SelectLabel } from "@/components/ui/select";
 import { useGetLoactionSuggestion } from "@/features/restaurant/restaurant";
 
 const SearchAndFilterSection = () => {
   const [query, setSeachParams] = useSearchParams();
-  const location = query.get("location");
+  const location = query.get("location")??undefined;
 
   const [searchQuery, setsearchQuery] = useState("");
   const [locationSearch, setLoacationSearch] = useState("");

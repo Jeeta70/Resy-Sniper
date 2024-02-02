@@ -6,7 +6,7 @@ interface Props {
   placeholder:string
   searchIcon?:boolean
   className?:string
-  defaultValue?:string | null
+  defaultValue?: string | undefined
 }
 
 const SearchInputField = ({ defaultValue, onChange, placeholder, searchIcon=false,className }: Props) => {
