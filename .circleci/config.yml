@@ -28,13 +28,9 @@ jobs:
           command: sudo apt-get install -y openssh-client
 
       - run:
-          name: Configure SSH
-          command: echo -e "Host 54.172.183.153\n  StrictHostKeyChecking no" >> ~/.ssh/config
-
-      - run:
           name: Deploy to EC2
           command: |
-            ssh bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
 
 workflows:
   version: 2
