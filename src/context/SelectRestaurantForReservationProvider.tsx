@@ -1,4 +1,4 @@
-import { useToast } from "@/components/ui/use-toast";
+// import { useToast } from "@/components/ui/use-toast";
 import { IRestaurant } from "@/types/restaurants";
 import { createContext, useContext, ReactNode, useState } from "react";
 
@@ -16,7 +16,7 @@ export const RestaurantContext = createContext<
 
 
 export function RestaurantContextProvider(props: { children: ReactNode }) {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
 
   const addRestaurant = (newRestaurant: IRestaurant) => {
