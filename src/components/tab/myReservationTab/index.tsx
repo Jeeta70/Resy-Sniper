@@ -129,10 +129,12 @@ const Index = ({
           </TabsTrigger>
         </TabsList>
 
+
         <div className="my-3 sm:my-2 bg-orange flex p-2 rounded-sm gap-2 items-center text-white">
           <img src={WarningIcon} className="h-5 w-5" alt="warning-icon" />
           <small className="font-semibold">Your Resy account currently lacks a connected credit card. Please note that certain restaurants may require a credit card for reservations. </small>
         </div>
+
 
         <div className="sm:block hidden">
           {Object.keys(filter).map((status, i) => (
@@ -160,6 +162,7 @@ const Index = ({
           ))}
         </div>
 
+        {/* mobile view */}
         <div className="sm:hidden block">
           {filter[tab as keyof TabsType].map(
             (

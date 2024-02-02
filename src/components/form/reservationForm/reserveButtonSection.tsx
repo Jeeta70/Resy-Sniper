@@ -32,7 +32,7 @@ const ReserveButtonSection = () => {
   const { group_id } = useParams();
   const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
   const { subscription_type } = useContext(UserDetailContext);
-  console.log(reservationFormState);
+  // console.log(reservationFormState);
 
   const resCount = useMemo(() => {
     if (!countIsLoading && reservationCounts) {
@@ -74,7 +74,7 @@ const ReserveButtonSection = () => {
 
     if (!singleResevationIsLoading && singleReservation && group_id) {
       const { data } = singleReservation;
-      console.log(data);
+      // console.log(data);
 
       const formattedStartTime = convertTo12HourFormat(data[0].start_time);
       const formattedEndTime = convertTo12HourFormat(data[0].end_time);
@@ -93,6 +93,10 @@ const ReserveButtonSection = () => {
         return transformedDate;
       });
       state.reservationDates = transformedDates;
+  
+  
+        
+
       const res = data[0]?.venue_data as never;
       state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = [res];
       state.finalSnipingDay = data[0]?.final_snipe_date === null ? 'none' : data[0]?.final_snipe_date;
