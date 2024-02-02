@@ -15,7 +15,6 @@ import { useContext, useEffect, useMemo } from "react";
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
 import { UserDetailContext } from "@/context/UserDetailProvider";
-import { IReservation } from "@/types/reservations";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
@@ -93,22 +92,7 @@ const ReserveButtonSection = () => {
 
         return transformedDate;
       });
-      state.reservationDates = Array.from(new Set(data.map(item => {
-        const originalDate = new Date(item.date);
-
-        const formattedDate = originalDate.toLocaleString('en-US', {
-          weekday: 'short',
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          second: 'numeric',
-          timeZone: 'Asia/Kolkata' // Set the desired time zone
-        });
-        return formattedDate;
-      })));
-
+      state.reservationDates = transformedDates;
   
   
         
