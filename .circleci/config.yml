@@ -32,7 +32,6 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            scp -r -o StrictHostKeyChecking=no dist/ bitnami@54.172.183.153:/home/bitnami/resy-sniper-frontend
             ssh bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
 
 workflows:
