@@ -197,11 +197,11 @@ const NewPage = () => {
 
     const backgroundImage = windowWidth <= 767 ? Banner2 : Banner;
 
-    const getDate = (image: string):string => {
+    const getDate = (image: string): string => {
         const originalDateString = image;
         const originalDate = new Date(originalDateString);
 
-        const formattedDate = originalDate.toLocaleDateString('en-US', {year:"numeric",month:"long",day:"numeric"});
+        const formattedDate = originalDate.toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric" });
         return formattedDate
     }
 
@@ -344,7 +344,7 @@ const NewPage = () => {
                                 ""
                             )}
                         </div>
-                        <div className="md:grid block lg:grid-cols-[55%,45%] md:grid-cols-[50%,50%] sm:grid-cols-[50%,50%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
+                        <div className="md:grid block xl:grid-cols-[55%,45%] lg:grid-cols-[45%,55%] md:grid-cols-[45%,55%] sm:grid-cols-[50%,50%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
                             <div className=" sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-5 md:pl-16 pl-3">
                                 <h1 className="lg:text-[60px] md:text-[40px] text-[45px] !font-[700] leading-snug font-inter">
                                     Never miss a Reservation again
@@ -362,8 +362,8 @@ const NewPage = () => {
                                 </button>
 
                             </div>
-                            <div className="flex justify-end">
-                                <img src={Hero} className="mt-10 lg:pl-10 md:pl-2 sm:pl-2 pl-10 "></img>
+                            <div className="xl:flex xl:justify-end flex items-end justify-end">
+                                <img src={Hero} className="mt-10 xl:pl-10 md:pl-2 sm:pl-2 pl-10 lg:pl-2"></img>
                             </div>
                         </div>
                     </div>
@@ -630,8 +630,8 @@ const NewPage = () => {
                                                 </p>
                                             </div>
                                             <div>
-                                                <p className="pt-3 font-inter text-[20px] !font-[600] text-[#12171A]">
-                                                    {blog.title}
+                                                <p className="pt-3 font-inter text-[20px] !font-[600] text-[#12171A] cursor-pointer">
+                                                    <a href={`/blogs/${blog.slug}`}> {blog.title}</a>
                                                 </p>
                                             </div>
                                         </div>

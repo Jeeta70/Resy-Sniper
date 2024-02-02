@@ -6,6 +6,8 @@ import { MyReservationTab, ReservationPageSkeleton } from "@/components";
 import { useGetReservationCount, useGetUserReservations } from "@/features/reservation/reservation";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { UserDetailContext } from "@/context/UserDetailProvider";
+import WarningIcon from "@/assets/WarningCircle.svg"
+
 
 const Index = () => {
   const navigate = useNavigate();
@@ -45,16 +47,24 @@ const Index = () => {
 
   return (
     <div className="w-full h-screen sm:px-10 px-3 py-1  mt-24 sm:mt-0 ">
-      <div className="justify-between items-center sm:my-3 my-8 sm:flex hidden">
+      <div className="flex justify-end">
+        {show && <div className="flex rounded-sm gap-2 items-center text-[red] mr-8">
+          <img src={WarningIcon} className="h-3 w-3 text-[red]" alt="warning-icon" />
+          <small className="font-semibold text-xs">Limit exceeded {reservationCounts?.data?.total_reservations}</small>
+        </div>}
+      </div>
+      <div className="justify-between items-center sm:my-0 sm:mb-3 mb-auto my-8 sm:flex hidden">
         <div className=" font-bold sm:text-2xl text-xl ">My Reservations</div>
-        <Button
-          variant="primary"
-          className="inline-flex"
-          onClick={() => navigate("/reservations/add-reservation")}
-          disabled={show}
-        >
-          <Plus className="sm:mr-3 mr-0" /> Add Reservation
-        </Button>
+        <div>
+          <Button
+            variant="primary"
+            className="inline-flex"
+            onClick={() => navigate("/reservations/add-reservation")}
+            disabled={show}
+          >
+            <Plus className="sm:mr-3 mr-0" /> Add Reservation
+          </Button>
+        </div>
       </div>
       {isLoading && <ReservationPageSkeleton />}
       {typeof reservations?.data !== "object" ? (
@@ -68,13 +78,12 @@ const Index = () => {
             variant="primary"
             className="sm:hidden"
             onClick={() => navigate("/reservations/add-reservation")}
-            disabled={show}
           >
             <Plus className="mr-3" /> Add Reservation
           </Button>
         </div>
       ) : (
-        <MyReservationTab userReservations={reservations} isLoading={false} />
+        <MyReservationTab userReservations={reservations} isLoading={false} show={show} />
       )}
     </div>
   );

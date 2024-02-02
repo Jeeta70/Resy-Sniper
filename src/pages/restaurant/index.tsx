@@ -1,5 +1,5 @@
 import { ChevronLeft, MapPin } from "lucide-react";
-import { Carousel, RestaurantLocationCard } from "@/components";
+import { RestaurantLocationCard } from "@/components";
 import { useGetSingleRestaurant } from "@/features/restaurant/restaurant";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,29 +22,29 @@ const Index = () => {
   }, [isLoading, isSuccess, singleResturant]);
 
 
-  const slides = [
-    "https://i.ibb.co/ncrXc2V/1.png",
-    "https://i.ibb.co/B3s7v4h/5.png",
-    "https://i.ibb.co/yg7BSdM/4.png",
-    "https://i.ibb.co/yg7BSdM/7.png",
-  ];
+  // const slides = [
+  //   "https://i.ibb.co/ncrXc2V/1.png",
+  //   "https://i.ibb.co/B3s7v4h/5.png",
+  //   "https://i.ibb.co/yg7BSdM/4.png",
+  //   "https://i.ibb.co/yg7BSdM/7.png",
+  // ];
 
   return (
     <>
       {isLoading ? (
         "Is loading"
       ) : (
-        <main className="pt-8 max-h-screen sm:overflow-y-hidden">
+        <main className="pt-1 max-h-auto sm:overflow-y-scroll ">
           <div className="mx-auto max-w-screen-xl px-8 ">
             <div className="col-span-2 block sm:hidden ">
-              <Carousel autoSlide={false}>
+              {/* <Carousel autoSlide={false}>
                 {slides.map((s, i) => (
                   <img src={s} alt="" key={i} className="w-full rounded-lg " />
                 ))}
-              </Carousel>
+              </Carousel> */}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-10 w-[100%]">
               <article className="format format-sm  col-span-3 sm:p-10 ">
                 <div className="text-light cursor-pointer" role="button" onClick={() => navigate("/restaurants")} >
                   <ChevronLeft className="inline" size={20} />
@@ -55,7 +55,7 @@ const Index = () => {
                 </header>
                 <div className="flex justify-between">
                   <p className="my-3 text-xs font-medium text-light ">$$$$</p>
-                  <p className="my-3  text-xs font-medium text-light">
+                  <p className="my-3  text-xs font-medium text-black">
                     <MapPin className="inline-block" /> Prospective height
                   </p>
                 </div>
@@ -79,8 +79,8 @@ const Index = () => {
                 </p>
               </article>
 
-              <div className="col-span-2  ">
-                <Carousel autoSlide={false} className="hidden sm:block">
+              <div className="col-span-2 sm:w-[70%] mt-20">
+                {/* <Carousel autoSlide={false} className="hidden sm:block">
                   {slides.map((s, i) => (
                     <img
                       src={s}
@@ -89,8 +89,8 @@ const Index = () => {
                       className="w-full rounded-lg "
                     />
                   ))}
-                </Carousel>
-                <div className="mt-3">
+                </Carousel> */}
+                <div className="mt-5">
                   <RestaurantLocationCard
                     restaurant={restaurant}
                   />

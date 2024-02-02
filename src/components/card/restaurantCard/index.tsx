@@ -56,11 +56,11 @@ const Index = ({ restaurant, layout }: Props) => {
         <div className="relative">
           {restaurant.source === "Resy" ? <img src={ResyIcon} alt="resyIcon" className="ml-auto rounded-sm absolute h-10 top-1 left-1" /> : <img src={OpenTableIcon} alt="Open table icon" className="ml-auto rounded-sm absolute h-10 top-1 left-1" />}
           <img
-          className="rounded-t-lg object-cover h-36 w-[100%]"
-          src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
-          alt=""
-          loading="lazy"
-        />
+            className="rounded-t-lg object-cover h-36 w-[100%]"
+            src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
+            alt=""
+            loading="lazy"
+          />
         </div>
         <CardContent className="p-0 px-6 h-auto">
           <p className="mt-3 mb-1  text-xs font-normal text-gray-700 dark:text-gray-400">

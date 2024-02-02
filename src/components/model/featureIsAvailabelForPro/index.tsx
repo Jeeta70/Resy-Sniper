@@ -11,7 +11,7 @@ import { useUpgradeSubscription } from "@/features/subscription/subscription";
 import { CheckCircle2 } from "lucide-react";
 
 const Index = () => {
-   const { upgrade, isLoading } = useUpgradeSubscription()
+   const { upgrade, isLoading } = useUpgradeSubscription();
    const points = [
       { point: "25 active booking requests" },
       { point: "Priority booking" },
@@ -45,20 +45,36 @@ const Index = () => {
             </div>
          </CredenzaHeader>
          <Separator />
-         <CredenzaFooter className="flex flex-row">
-            <CredenzaClose asChild>
-               <Button variant="outline" id="closeProModel" className="w-full sm:w-auto">
-                  Cancel
-               </Button>
-            </CredenzaClose>
+         <div className="flex flex-row justify-end">
 
-            <Button disabled={isLoading} variant="primary" className="w-full sm:w-auto" onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-               e.stopPropagation()
-               upgrade("premium")
-            }}>
-               {isLoading ? <ButtonLoader /> : "Upgrade to PRO"}
-            </Button>
-         </CredenzaFooter>
+            <CredenzaFooter className="flex flex-row">
+               <CredenzaClose asChild>
+                  <Button
+                     variant="outline"
+                     id="closeProModel"
+                     className="w-full sm:w-auto"
+                  >
+                     Cancel
+                  </Button>
+               </CredenzaClose>
+            </CredenzaFooter>
+            <CredenzaFooter className="flex flex-row">
+               <CredenzaClose asChild>
+                  <Button
+                     disabled={isLoading}
+                     variant="primary"
+                     className="w-full sm:w-auto"
+                     onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                        e.stopPropagation();
+                        upgrade("premium");
+                        console.log("first");
+                     }}
+                  >
+                     {isLoading ? <ButtonLoader /> : "Upgrade to PRO"}
+                  </Button>
+               </CredenzaClose>
+            </CredenzaFooter>
+         </div>
       </Model>
    );
 };
