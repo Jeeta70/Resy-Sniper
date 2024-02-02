@@ -1,26 +1,45 @@
 version: 2.1
-orbs:
-  node: circleci/node:14
+
 jobs:
-  build-and-deploy:
-    executor:
-      name: node/default
+  build:
+    docker:
+      - image: circleci/node:14
+
+    working_directory: ~/repo
+
     steps:
       - checkout
-      - run: npm install
-      - run: npm run build
-      - run: sudo apt-get install rsync && rsync --version
-      - run: rsync -a -e "ssh -o StrictHostKeyChecking=no" dist/ bitnami@54.172.183.153:~/home/bitnami/resy-sniper-frontend/
+
       - run:
-          name: Deploy Final
+          name: Install Dependencies
+          command: npm install
+
+      - run:
+          name: Build React App
+          command: npm run build
+
+  deploy:
+    docker:
+      - image: circleci/node:14
+
+    working_directory: ~/repo
+
+    steps:
+      - run:
+          name: Install SSH Client
+          command: sudo apt-get install -y openssh-client
+
+      - run:
+          name: Deploy to EC2
           command: |
-            ssh bitnami@54.172.183.153 "sudo rsync -a /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/"
-            ssh bitnami@54.172.183.153 "sudo pm2 reload all"
+            scp -r -o StrictHostKeyChecking=no dist/ bitnami@54.172.183.153:/home/bitnami/resy-sniper-frontend
+            ssh bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
+
 workflows:
   version: 2
-  build-and-deploy:
+  build_and_deploy:
     jobs:
-      - build-and-deploy:
-          filters:
-            branches:
-              only: main
+      - build
+      - deploy:
+          requires:
+            - build
