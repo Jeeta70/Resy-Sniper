@@ -15,6 +15,7 @@ import { useContext, useEffect, useMemo } from "react";
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
 import { UserDetailContext } from "@/context/UserDetailProvider";
+import { IReservation } from "@/types/reservations";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
@@ -32,7 +33,7 @@ const ReserveButtonSection = () => {
   const { group_id } = useParams();
   const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
   const { subscription_type } = useContext(UserDetailContext);
-  console.log(reservationFormState);
+  // console.log(reservationFormState);
 
   const resCount = useMemo(() => {
     if (!countIsLoading && reservationCounts) {
@@ -74,7 +75,7 @@ const ReserveButtonSection = () => {
 
     if (!singleResevationIsLoading && singleReservation && group_id) {
       const { data } = singleReservation;
-      console.log(data);
+      // console.log(data);
 
       const formattedStartTime = convertTo12HourFormat(data[0].start_time);
       const formattedEndTime = convertTo12HourFormat(data[0].end_time);
@@ -92,7 +93,26 @@ const ReserveButtonSection = () => {
 
         return transformedDate;
       });
-      state.reservationDates = transformedDates;
+      state.reservationDates = Array.from(new Set(data.map(item => {
+        const originalDate = new Date(item.date);
+
+        const formattedDate = originalDate.toLocaleString('en-US', {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          timeZone: 'Asia/Kolkata' // Set the desired time zone
+        });
+        return formattedDate;
+      })));
+
+  
+  
+        
+
       const res = data[0]?.venue_data as never;
       state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = [res];
       state.finalSnipingDay = data[0]?.final_snipe_date === null ? 'none' : data[0]?.final_snipe_date;

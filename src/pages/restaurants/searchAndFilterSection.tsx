@@ -6,7 +6,7 @@ import { useGetLoactionSuggestion } from "@/features/restaurant/restaurant";
 
 const SearchAndFilterSection = () => {
   const [query, setSeachParams] = useSearchParams();
-  const location = query.get("location")??undefined;
+  const exact_location = query.get("exact_location")??undefined;
 
   const [searchQuery, setsearchQuery] = useState("");
   const [locationSearch, setLoacationSearch] = useState("");
@@ -69,7 +69,7 @@ const SearchAndFilterSection = () => {
         <DropDown placeholder="All Locations" onValueChange={placeSuggestionsChange}>
           <SelectGroup className="w-full">
             <SearchInputField
-              defaultValue={location}
+              defaultValue={exact_location}
               onChange={locationOnChange}
               placeholder=""
               searchIcon={true}

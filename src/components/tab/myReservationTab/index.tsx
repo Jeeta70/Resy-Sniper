@@ -124,7 +124,6 @@ const Index = ({
           </TabsTrigger>
         </TabsList>
 
-
         <div className="sm:block hidden">
           {Object.keys(filter).map((status, i) => (
             <React.Fragment key={i}>
@@ -151,6 +150,7 @@ const Index = ({
           ))}
         </div>
 
+        {/* mobile view */}
         <div className="sm:hidden block">
           {filter[tab as keyof TabsType].map(
             (
