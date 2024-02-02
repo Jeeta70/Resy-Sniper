@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
+            ssh -v bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
 
 workflows:
   version: 2
