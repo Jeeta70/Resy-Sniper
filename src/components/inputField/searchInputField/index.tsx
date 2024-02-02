@@ -6,9 +6,10 @@ interface Props {
   placeholder:string
   searchIcon?:boolean
   className?:string
+  defaultValue?:string | null
 }
 
-const SearchInputField = ({ onChange, placeholder, searchIcon=false,className }: Props) => {
+const SearchInputField = ({ defaultValue, onChange, placeholder, searchIcon=false,className }: Props) => {
   return (
     <div className={cn("relative flex items-center",className)}>
       {searchIcon && <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -29,6 +30,7 @@ const SearchInputField = ({ onChange, placeholder, searchIcon=false,className }:
         </svg>
       </div>}
       <Input
+        defaultValue={defaultValue}
         onChange={onChange}
         type="search"
         id="default-search"

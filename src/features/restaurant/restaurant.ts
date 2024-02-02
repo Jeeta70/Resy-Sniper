@@ -16,12 +16,13 @@ export function useGetAllRestaurants() {
 export function useSearchRestaurants() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
+  const exact_location = searchParams.get("exact_location")
   const { data: searchRestaurants, isPending: isLoading } = useQuery({
-    queryKey: ["resturants", query],
+    queryKey: ["resturants", query, exact_location],
     queryFn: (): Promise<AxiosResponse> => {
-      if (query)
+      if (query || exact_location)
         return axios.get(
-          `${baseUrl}/restaurants/search?venue_name=${encodeURI(query)}`
+          `${baseUrl}/restaurants/search?venue_name=${encodeURI(query ?? "")}&exact_location=${encodeURI(exact_location ??"")}`
         );
       return axios.get(`${baseUrl}/restaurants/all`);
     },
@@ -30,17 +31,17 @@ export function useSearchRestaurants() {
 }
 
 
-// export function useE
 
 export function useTopPicksRestaurants() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
+  const exact_location = searchParams.get("exact_location")
   const { data: topPickRestaurants, isPending: isLoading } = useQuery({
-    queryKey: ["topPick", query],
+    queryKey: ["topPick", query, exact_location],
     queryFn: (): Promise<AxiosResponse> => {
-      if (query)
+      if (query || exact_location)
         return axios.get(
-          `${baseUrl}/restaurants/search?venue_name=${encodeURI(query)}`
+          `${baseUrl}/restaurants/search?venue_name=${encodeURI(query??"")}&exact_location=${encodeURI(exact_location ?? "")}`
         );
       return axios.get(`${baseUrl}/restaurants/featured`);
     },
@@ -62,3 +63,19 @@ export function useGetSingleRestaurant() {
   return { singleResturant, isLoading, isSuccess, isError };
 
 }
+
+
+export function useGetLoactionSuggestion() {
+  const [searchParams] = useSearchParams();
+  const location = searchParams.get("location");
+  const { data: restaurantSuggestions, isPending: isLoading, isSuccess, isError } = useQuery({
+    queryKey: ['ResturantSuggestion',location],
+    queryFn: (): Promise<AxiosResponse> => {
+      return axios.get(`${baseUrl}/restaurants/search?location=${location}`)
+    }
+  })
+  return { restaurantSuggestions, isLoading, isSuccess, isError };
+
+}
+
+

@@ -7,18 +7,19 @@ import {
 import { ReactNode } from "react";
 
 interface Props {
-  children:ReactNode;
+  children: ReactNode;
   placeholder: string;
+  onValueChange: (e: string) => void
 }
 
-const index = ({children, placeholder, }: Props) => {
+const index = ({ children, placeholder, onValueChange }: Props) => {
   return (
-    <Select>
+    <Select onValueChange={onValueChange}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent className="w-2/3">
-          {children}
+        {children}
       </SelectContent>
     </Select>
   );
