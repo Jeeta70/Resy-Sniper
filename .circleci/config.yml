@@ -9,11 +9,9 @@ jobs:
 
     steps:
       - checkout
-
       - run:
           name: Install Dependencies
           command: npm install
-
       - run:
           name: Build React App
           command: npm run build
@@ -30,9 +28,13 @@ jobs:
           command: sudo apt-get install -y openssh-client
 
       - run:
+          name: Configure SSH
+          command: echo -e "Host 54.172.183.153\n  StrictHostKeyChecking no" >> ~/.ssh/config
+
+      - run:
           name: Deploy to EC2
           command: |
-            ssh -v bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
+            ssh bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
 
 workflows:
   version: 2
