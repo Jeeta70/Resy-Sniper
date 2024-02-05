@@ -93,9 +93,9 @@ const ReserveButtonSection = () => {
         return transformedDate;
       });
       state.reservationDates = transformedDates;
-  
-  
-        
+
+
+
 
       const res = data[0]?.venue_data as never;
       state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = [res];

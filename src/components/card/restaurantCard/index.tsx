@@ -225,7 +225,7 @@ const Index = ({ restaurant, layout }: Props) => {
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate("/reservations/add-reservation", {
-                        state: { selectedRestaurants: [restaurants] },
+                        state: { selectedRestaurants: [restaurant] },
                       });
                     }}
                   >

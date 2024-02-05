@@ -37,6 +37,7 @@ const AddResturantSection = () => {
   useEffect(() => {
     if (state) {
       const { selectedRestaurants } = state;
+
       handleUpdateSelectedRestaurant(dispatch, selectedRestaurants);
     }
   }, [dispatch, state]);

@@ -21,10 +21,10 @@ import { useReservationContext } from "@/context/ReservationFomProvider";
 // import ProIcon from "@/assets/ProIcon.svg";
 // import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 
-const pastMonth = new Date(2020, 10, 15);
+// const pastMonth = new Date(2020, 10, 15);
 
 interface IReservationDateSize {
-  value:  Date;
+  value: Date;
   label: string | Date;
   type: string;
 }
@@ -59,7 +59,7 @@ const SelectReservationDateSection = () => {
     return handleReservationDate(dispatch, selected);
   }, [dispatch, selected]);
 
-  function handleSelectedButton(checkDate:  Date, compare: boolean) {
+  function handleSelectedButton(checkDate: Date, compare: boolean) {
     if (compare) {
       if (selected.includes(checkDate)) {
         return setSelected((prev) => prev.filter((date) => date !== checkDate));
@@ -179,7 +179,7 @@ const SelectReservationDateSection = () => {
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
                 onDayClick={(e) => {
-                  setSelected((d)=>{
+                  setSelected((d) => {
                     const indexToRemove = d.findIndex(date => date.getDate() === e.getDate());
                     if (indexToRemove !== -1) {
                       d.splice(indexToRemove, 1)
@@ -188,14 +188,13 @@ const SelectReservationDateSection = () => {
                   })
 
                   // If the date is found, remove it from the array
-                 }}
+                }}
                 id="test"
                 mode="multiple"
-                defaultMonth={pastMonth}
                 selected={days}
+                disabled={{ before: new Date() }}
                 footer={footer}
                 onSelect={setDays}
-                month={new Date()}
               />
             </PopoverContent>
           </Popover>
