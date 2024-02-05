@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import { handleReseverationTime } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
+import { toast } from "@/components/ui/use-toast";
 // import { Model } from "@/components";
 // import { Credenza, CredenzaClose } from "@/components/ui/credenza";
 const settings = {
@@ -71,21 +72,20 @@ const AddTimeModal = () => {
             return `${minute}:${hour} ${format}`;
         };
 
-        // Format from time
         const fromTimeFormatted = formatTime(selectedTimes.fromTime, selectedTimes.fromHour, selectedTimes.fromFormat);
-
-        // Format to time
         const toTimeFormatted = formatTime(selectedTimes.toTime, selectedTimes.toHour, selectedTimes.toFormat);
 
-        // Create the reservation time string
-        const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
+        const fromDateTime = new Date(`2000-01-01 ${fromTimeFormatted}`);
+        const toDateTime = new Date(`2000-01-01 ${toTimeFormatted}`);
 
-        // Dispatch the reservation time
-        handleReseverationTime(dispatch, reservationTime);
-
-        // Dispatch the converted times
-        // handleReseverationTime(dispatch, `${fromTime24HourFormat} - ${toTime24HourFormat}`);
+        if (fromDateTime < toDateTime) {
+            const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
+            handleReseverationTime(dispatch, reservationTime);
+        } else {
+            toast({ description: "Please select a valid time", variant: "dark" });
+        }
     };
+
 
     return (
         <>

@@ -8,6 +8,7 @@ import ProIcon from "@/assets/ProIcon.svg";
 import { cn } from "@/lib/utils";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
+import { toast } from "@/components/ui/use-toast";
 
 const DEFAULT_PARTY_SIZE_BUTTONS = [
   { value: "1_days_before", label: "1 days before", type: "button" },
@@ -35,7 +36,15 @@ const SelectFinalSnipingDaySection = () => {
   );
 
   const setTheSnipingDay = (value: string) => {
-    handleFinalSnipingDay(dispatch, value);
+    if (reservationDates.length === 0) {
+      toast({ description: "Please select Reservation Date First", variant: 'dark' })
+    }
+    else {
+      const daysBefore = parseInt(value);
+      const calculatedDate = calculateFinalSnipingDate(daysBefore);
+      console.log(calculatedDate);
+      handleFinalSnipingDay(dispatch, value);
+    }
   }
   const calculateFinalSnipingDate = (daysBefore: number): string => {
     const currentDate = new Date(reservationDates[0]);
@@ -98,10 +107,7 @@ const SelectFinalSnipingDaySection = () => {
                 className="inline-flex"
                 key={i}
                 onClick={() => {
-                  const daysBefore = parseInt(button?.value.split('_')[0]);
-                  const calculatedDate = calculateFinalSnipingDate(daysBefore);
-                  console.log(calculatedDate);
-                  setTheSnipingDay(calculatedDate);
+                  setTheSnipingDay(button?.value);
                 }}
               >
                 {button.label}
