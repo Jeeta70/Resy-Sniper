@@ -23,7 +23,10 @@ interface IPartySize {
 }
 [];
 
+
 const SelectFinalSnipingDaySection = () => {
+  const [newDay, setNewDay] = useState<string | undefined>();
+
   const {
     dispatch,
     reservationFormState: { finalSnipingDay, reservationDates },
@@ -37,15 +40,23 @@ const SelectFinalSnipingDaySection = () => {
 
   const setTheSnipingDay = (value: string) => {
     if (reservationDates.length === 0) {
-      toast({ description: "Please select Reservation Date First", variant: 'dark' })
+      toast({ description: "Please select Reservation Date First", variant: 'dark' });
+    } else {
+      const reservationDate = new Date(reservationDates[0]);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (reservationDate.getTime() === today.getTime()) {
+        toast({ description: "Reservation Date is Today", variant: 'dark' });
+      } else {
+        const daysBefore = parseInt(value);
+        const calculatedDate = calculateFinalSnipingDate(daysBefore);
+        setNewDay(value)
+        handleFinalSnipingDay(dispatch, calculatedDate);
+      }
     }
-    else {
-      const daysBefore = parseInt(value);
-      const calculatedDate = calculateFinalSnipingDate(daysBefore);
-      console.log(calculatedDate);
-      handleFinalSnipingDay(dispatch, value);
-    }
-  }
+  };
+
   const calculateFinalSnipingDate = (daysBefore: number): string => {
     const currentDate = new Date(reservationDates[0]);
     currentDate.setDate(currentDate.getDate() - daysBefore);
@@ -102,7 +113,7 @@ const SelectFinalSnipingDaySection = () => {
             {partySizeArray.map((button, i) => (
               <Button
                 variant={
-                  finalSnipingDay === button.value ? "default" : "outline"
+                  button?.value === newDay ? "default" : "outline"
                 }
                 className="inline-flex"
                 key={i}
@@ -113,6 +124,7 @@ const SelectFinalSnipingDaySection = () => {
                 {button.label}
               </Button>
             ))}
+
           </>
         )}
       </div>
