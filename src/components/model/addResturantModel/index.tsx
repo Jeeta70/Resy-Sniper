@@ -89,14 +89,13 @@ const AddResturantModel = () => {
   return (
     <Model
       className={cn(
-        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 ",
-        reservationFormState.selectSittingOptions.showModel && "p-4"
+        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 ","p-4"
       )}
     >
       <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-5 p-0">
         {/* <CardTitle className=""> */}
 
-        <span> {reservationFormState.selectSittingOptions.title}</span>
+        <span> title</span>
         <CredenzaClose className="sm:hidden">
           <span role="button">
             <X />
@@ -264,7 +263,6 @@ const AddResturantModel = () => {
                       configurable: true,
                     }
                   );
-
                   selectResturantForReservation(dispatch, restaurantPayload);
                 }}
               >

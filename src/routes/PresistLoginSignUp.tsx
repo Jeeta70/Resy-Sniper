@@ -8,6 +8,7 @@ const PresistLoginSignUp = () => {
    const navigate = useNavigate();
    const { userResponse, isLoading, isSuccess, isError,error } = useGetUser();
    
+   
    useEffect(() => {
 
       if (isError || error) {

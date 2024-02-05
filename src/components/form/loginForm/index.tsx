@@ -27,7 +27,6 @@ const Index = () => {
 
     if (!getUserIsLoading && isSuccess) {
       const userDetail = userResponse?.data.data;
-      console.log(userResponse);
 
       const { resy_token, subscription_type } = userDetail;
       if (getToken("access_token") === null) {

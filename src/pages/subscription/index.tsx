@@ -1,22 +1,14 @@
 import { SubscriptionCard } from "@/components";
-import { useCreateSubscribtion, useManageSubscription } from "@/features/subscription/subscription";
-import { useEffect } from "react";
+import { useCreateSubscribtion } from "@/features/subscription/subscription";
 
 
 
 const Index = () => {
   const { createSubsciption } = useCreateSubscribtion()
-  const { manageSubscription, isLoading, refetch, isSuccess } = useManageSubscription()
 
   const handleSubscription = (subscriptionType: string) => {
     return createSubsciption(subscriptionType)
   }
-
-  useEffect(() => {
-    if (!isLoading && isSuccess) {
-      return window.location.replace(manageSubscription?.data.url);
-    }
-  }, [isLoading, isSuccess, manageSubscription])
 
 
 
@@ -30,7 +22,6 @@ const Index = () => {
           <h2 className="font-bold text-2xl">Subscription</h2>
           <p className="text-light font-normal text-sm">Please select a subscription page</p>
         </span>
-        <button onClick={() => refetch()}>Manage subscription</button>
       </div>
       <div className="flex justify-center items-center flex-col gap-4 sm:gap-10">
         <SubscriptionCard

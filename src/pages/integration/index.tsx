@@ -29,6 +29,8 @@ const Index = () => {
   }, [isLoading, isSuccess, userResponse?.data.data]);
 
 
+  console.log("user=>",user);
+  
 
   return (
     <>
@@ -55,7 +57,9 @@ const Index = () => {
                 <div className=" flex flex-col gap-1">
                   <img src={ResyIcon} alt="" className="h-[30px] w-16" />
                   <CardDescription>
-                    <span className="  font-medium text-xs">{user?.resy_token ? user.resy_username : ''}</span>
+                    <span className="  font-medium text-xs">
+                      {user?.resy_token ? user.resy_username : ""}
+                    </span>
                   </CardDescription>
                 </div>
                 {user.resy_token ? (
@@ -98,7 +102,8 @@ const Index = () => {
                       </Button>
                     </CredenzaTrigger>
                     <DisableOpenTableModal />
-                  </Credenza>) :
+                  </Credenza>
+                ) : (
                   <Credenza>
                     <CredenzaTrigger className="w-full">
                       <Button variant="primary" className="w-full ">
@@ -106,8 +111,8 @@ const Index = () => {
                       </Button>
                     </CredenzaTrigger>
                     <ConnectOpenTabelAccountModel />
-                  </Credenza>}
-
+                  </Credenza>
+                )}
               </div>
             </div>
           </CardContent>

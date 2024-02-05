@@ -6,7 +6,7 @@ import { useGetLoactionSuggestion } from "@/features/restaurant/restaurant";
 
 const SearchAndFilterSection = () => {
   const [query, setSeachParams] = useSearchParams();
-  const exact_location = query.get("exact_location")??undefined;
+  const exact_location = query.get("exact_location") ?? undefined;
 
   const [searchQuery, setsearchQuery] = useState("");
   const [locationSearch, setLoacationSearch] = useState("");
@@ -15,7 +15,7 @@ const SearchAndFilterSection = () => {
 
   const restaurantSuggestion = useMemo(() => {
     if (!restaurantSuggestionIsLoading) {
-      return restaurantSuggestions?.data.slice(0,5);
+      return restaurantSuggestions?.data.slice(0, 5);
     }
   }, [restaurantSuggestionIsLoading, restaurantSuggestions]);
 
@@ -47,14 +47,11 @@ const SearchAndFilterSection = () => {
     return () => clearInterval(timer);
   }, [locationSearch, setSeachParams]);
 
- 
-
-  function placeSuggestionsChange(place:string){
+  function placeSuggestionsChange(place: string) {
     setSeachParams((prev) => {
       prev.set("exact_location", place);
       return prev;
     });
-    
   }
 
   return (
@@ -66,25 +63,38 @@ const SearchAndFilterSection = () => {
       />
       <div className="lg:grid lg:grid-cols-2 flex gap-2 mt-3 lg:mt-0">
         {/* <DropDown placeholder="All Prices">All price children</DropDown> */}
-        <DropDown placeholder="All Locations" onValueChange={placeSuggestionsChange}>
+        <DropDown
+          placeholder="All Locations"
+          onValueChange={placeSuggestionsChange}
+        >
+          <SearchInputField
+            defaultValue={exact_location}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              e.stopPropagation();
+              locationOnChange(e);
+            }}
+            placeholder=""
+            searchIcon={true}
+          />
           <SelectGroup className="w-full">
-            <SearchInputField
-              defaultValue={exact_location}
-              onChange={locationOnChange}
-              placeholder=""
-              searchIcon={true}
-            />
             {!restaurantSuggestionIsLoading &&
               restaurantSuggestion.length !== 0 && (
                 <SelectLabel>All locations</SelectLabel>
               )}
-            {!restaurantSuggestionIsLoading && restaurantSuggestion.map(
-              (singleRestaurantSuggestion: string, i: Key) => (
-                <SelectItem key={i} value={singleRestaurantSuggestion}>
-                  {singleRestaurantSuggestion}
-                </SelectItem>
-              )
-            )}
+            {!restaurantSuggestionIsLoading &&
+              restaurantSuggestion.map(
+                (singleRestaurantSuggestion: string, i: Key) => (
+                  <SelectItem
+                    onClick={(
+                      e: React.MouseEvent<HTMLDivElement, MouseEvent>
+                    ) => e.stopPropagation()}
+                    key={i}
+                    value={singleRestaurantSuggestion}
+                  >
+                    {singleRestaurantSuggestion}
+                  </SelectItem>
+                )
+              )}
           </SelectGroup>
         </DropDown>
       </div>

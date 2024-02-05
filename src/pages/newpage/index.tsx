@@ -27,6 +27,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { animateScroll as scroll } from "react-scroll";
 import { useGetAllblogs } from "@/features/blog/blog";
 import { IBlog } from "@/types/blog";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import { PrivacyPolicyModal, TermModal } from "@/components";
 // import { any } from "zod";
 
 const NewPage = () => {
@@ -752,10 +754,21 @@ const NewPage = () => {
                                             <p>Legal</p>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>Privacy</Link>
+                                            {/* <Link to={"#"}>Privacy</Link> */}
+                                            <Credenza>
+                                                <CredenzaTrigger>
+                                                    Privacy
+                                                </CredenzaTrigger>
+                                                <PrivacyPolicyModal/>
+                                            </Credenza>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>Terms</Link>
+                                            <Credenza>
+                                                <CredenzaTrigger>
+                                                    Terms
+                                                </CredenzaTrigger>
+                                                <TermModal />
+                                            </Credenza>
                                         </li>
                                     </ul>
                                 </div>

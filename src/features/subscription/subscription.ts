@@ -88,6 +88,7 @@ export function useUpgradeSubscription() {
         { headers: { Authorization: `Bearer ${accesToken}` } }
       );
     },
+    retry:false,
     onSuccess: () => {
       toast({ description: "successfully upgraded", variant: "dark" });
       queryClient.invalidateQueries({ queryKey: ["user"] });
