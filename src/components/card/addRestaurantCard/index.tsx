@@ -7,7 +7,6 @@ import { UserDetailContext } from "@/context/UserDetailProvider";
 import { useContext } from "react";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { AccountNotConnectedModal } from "@/components";
-import { Button } from "@/components/ui/button";
 
 interface Props {
   restaurant: IRestaurant;

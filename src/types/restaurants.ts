@@ -1,5 +1,5 @@
 export type IRestaurant = {
-  source: "OpenTable" | "Resy";
+  source: "OpenTable" | "Resy" | string;
   availableSittings?: string;
   about_description: string;
   address_1: string;

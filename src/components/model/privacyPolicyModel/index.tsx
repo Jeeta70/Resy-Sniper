@@ -1,4 +1,4 @@
-import { Model, OpenTableConnectAccountCard } from "@/components";
+import { Model } from "@/components";
 import { CredenzaBody, CredenzaClose, CredenzaHeader } from "@/components/ui/credenza";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";

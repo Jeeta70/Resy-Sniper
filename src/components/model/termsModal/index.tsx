@@ -1,4 +1,4 @@
-import { Model, OpenTableConnectAccountCard } from "@/components";
+import { Model } from "@/components";
 import {
   CredenzaBody,
   CredenzaClose,
