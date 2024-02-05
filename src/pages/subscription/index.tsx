@@ -30,7 +30,7 @@ const Index = () => {
           <h2 className="font-bold text-2xl">Subscription</h2>
           <p className="text-light font-normal text-sm">Please select a subscription page</p>
         </span>
-        <button onClick={() => refetch()}>Manage subscription</button>
+        {/* <button onClick={() => refetch()}>Manage subscription</button> */}
       </div>
       <div className="flex justify-center items-center flex-col gap-4 sm:gap-10">
         <SubscriptionCard

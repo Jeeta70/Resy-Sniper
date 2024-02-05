@@ -146,14 +146,14 @@ export function useCancelReservation() {
   const { mutate: cancelReservation, isPending: isLoading } = useMutation({
     mutationFn: (group_id: string) => {
       return axios.post(
-        `${baseUrl}/api/delete_group`,
+        `${baseUrl}/api/cancel_group_reservations`,
         { group_id },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
     },
-    onSuccess: (response) => {
-      const { data } = response;
-      toast({ description: data.msg, variant: "dark" });
+    onSuccess: () => {
+      // const { data } = response;
+      toast({ description: "Task successfully deleted", variant: "dark" });
       queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
     },
   });

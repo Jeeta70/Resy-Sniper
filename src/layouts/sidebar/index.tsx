@@ -7,11 +7,15 @@ import { LogOut, Menu, X } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useGetReservationCount } from "@/features/reservation/reservation";
 import { UserDetailContext } from "@/context/UserDetailProvider";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Index = () => {
+  const queryClient = useQueryClient();
   const [open, setOpen] = React.useState(false);
   const { reservationCounts, isSuccess } = useGetReservationCount();
   const { subscription_type } = useContext(UserDetailContext);
+
+
   const navigate = useNavigate();
   // const [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
@@ -25,6 +29,7 @@ const Index = () => {
   const handleClick = () => {
     localStorage.removeItem("token");
     navigate("/login");
+    queryClient.invalidateQueries({ queryKey: ["user"] });
   };
 
   const resCount = useMemo(() => {
@@ -32,7 +37,7 @@ const Index = () => {
       return reservationCounts.data.total_reservations;
     }
     return 0;
-  }, [isSuccess, reservationCounts, subscription_type]);
+  }, [isSuccess, reservationCounts]);
 
   return (
     <div className="flex z-10 fixed top-0 left-0">

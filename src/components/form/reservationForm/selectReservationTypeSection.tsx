@@ -29,7 +29,7 @@ const SelectReservationTypeSection = () => {
             <Credenza>
               <CredenzaTrigger asChild>
                 <span
-                  className={cn(buttonVariants({ variant: "outline" }), "relative cursor-pointer")}
+                  className={cn(buttonVariants({ variant: "outline" }), "relative cursor-pointer font-semibold text-[11px] rounded-l-none w-full sm:w-auto")}
                 >
                   Release Reservation
                   {

@@ -251,14 +251,14 @@ const Index = ({ user }: Props) => {
         </TabsContent>
         <TabsContent value="notications" className="mt-10">
           <div className="flex items-center space-x-2 my-3">
-            <Switch id="airplane-mode" defaultChecked={!!getEmailNotification?.data?.email_notifications} disabled={getEmailNotificationisLoading || updateEmailNotificationisLoading} onCheckedChange={(e: boolean) => updateEmailNotification(e)} />
-            <Label htmlFor="airplane-mode" className="text-xl">
+            <Switch id="email-notification" defaultChecked={!!getEmailNotification?.data?.email_notifications} disabled={getEmailNotificationisLoading || updateEmailNotificationisLoading} onCheckedChange={(e: boolean) => updateEmailNotification(e)} />
+            <Label htmlFor="email-notification" className="text-xl">
               Email notications
             </Label>
           </div>
           <div className="flex items-center space-x-2  my-3">
-            <Switch id="airplane-mode" defaultChecked={getPhoneNotification?.data?.phone_notifications} disabled={useGetPhoneNotificationisLoading || updatePhoneNotificationisLoading} onCheckedChange={(e: boolean) => updatePhoneNotification(e)} />
-            <Label htmlFor="airplane-mode" className="text-xl">
+            <Switch id="sms-notification" defaultChecked={getPhoneNotification?.data?.phone_notifications} disabled={useGetPhoneNotificationisLoading || updatePhoneNotificationisLoading} onCheckedChange={(e: boolean) => updatePhoneNotification(e)} />
+            <Label htmlFor="sms-notification" className="text-xl">
               SMS notifications
             </Label>
           </div>

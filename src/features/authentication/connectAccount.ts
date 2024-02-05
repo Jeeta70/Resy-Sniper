@@ -74,7 +74,7 @@ export const useDisconnectConnectOpenTableAccount = () => {
       },
       onSuccess: () => {
         toast({ description: "sucessfully disconnected", variant: "dark" });
-        queryClient.invalidateQueries({ queryKey: ["usernew"] });
+        queryClient.invalidateQueries({ queryKey: ["user"] });
       },
       onError: (error: { response: AxiosResponse }) => {
         toast({
@@ -88,6 +88,7 @@ export const useDisconnectConnectOpenTableAccount = () => {
 };
 
 export const useConnectOpenTableAccount = () => {
+  const queryClient = useQueryClient();
   const access_token = getToken("access_token");
   const { mutate: connectOpenTableAccount, isPending: isLoading } = useMutation(
     {
@@ -107,10 +108,9 @@ export const useConnectOpenTableAccount = () => {
         );
       },
       onSuccess: (data) => {
-        console.log(data);
-
         localStorage.setItem("resyloginDetail", JSON.stringify(data.data));
         toast({ description: data.data.message, variant: "dark" });
+        queryClient.invalidateQueries({ queryKey: ["user"] });
       },
       onError: (error: { response: AxiosResponse }) => {
         toast({
@@ -125,6 +125,7 @@ export const useConnectOpenTableAccount = () => {
 };
 
 export const useOpenTableCode = () => {
+  const queryClient = useQueryClient();
   const access_token = getToken("access_token");
   const { mutate: openTableCode, isPending: isLoading } = useMutation({
     mutationFn: ({ code }: { code: string }) => {
@@ -142,6 +143,7 @@ export const useOpenTableCode = () => {
     },
     onSuccess: () => {
       toast({ description: "Successfully connected", variant: "dark" });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error: { response: AxiosResponse }) => {
       toast({

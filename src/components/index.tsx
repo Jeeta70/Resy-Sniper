@@ -20,6 +20,11 @@ export { default as ReleaseTimeModal } from "@/components/model/releaseTimeModal
 export { default as SelectedRestaurantModal } from "@/components/model/selectedRestaurantModel"
 export { default as ConnectResyModal } from "@/components/model/connectResyModal"
 export { default as DisableOpenTableModal } from "@/components/model/disableOpenTableModal"
+export { default as PrivacyPolicyModal } from "@/components/model/privacyPolicyModel"
+export { default as TermModal } from "@/components/model/termsModal"
+export { default as AccountNotConnectedModal } from "@/components/model/accountNotConnectedModal"
+
+
 
 
 export { default as ResyConnectAccountCard } from "@/components/card/connectAccount/resyCard";

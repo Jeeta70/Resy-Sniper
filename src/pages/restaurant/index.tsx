@@ -22,6 +22,9 @@ const Index = () => {
   }, [isLoading, isSuccess, singleResturant]);
 
 
+  console.log(restaurant);
+  
+
   // const slides = [
   //   "https://i.ibb.co/ncrXc2V/1.png",
   //   "https://i.ibb.co/B3s7v4h/5.png",
@@ -32,7 +35,7 @@ const Index = () => {
   return (
     <>
       {isLoading ? (
-        "Is loading"
+        ""
       ) : (
         <main className="pt-1 max-h-auto sm:overflow-y-scroll ">
           <div className="mx-auto max-w-screen-xl px-8 ">
@@ -56,7 +59,7 @@ const Index = () => {
                 <div className="flex justify-between">
                   <p className="my-3 text-xs font-medium text-light ">$$$$</p>
                   <p className="my-3  text-xs font-medium text-black">
-                    <MapPin className="inline-block" /> Prospective height
+                      <MapPin className="inline-block" /> Prospective height {restaurant.locality}
                   </p>
                 </div>
                 <h4 className="font-bold text-sm mb-3">Why We Like it</h4>

@@ -25,8 +25,8 @@ interface IPartySize {
 const DEFAULT_PARTY_SIZE_BUTTONS = [
   { value: 1, label: "1", type: "button" },
   { value: 2, label: "2", type: "button" },
-  { value: 3, label: "3", type: "button" },
-  { value: 4, label: "4", type: "button" },
+  // { value: 3, label: "3", type: "button" },
+  // { value: 4, label: "4", type: "button" },
 ]
 
 
@@ -37,7 +37,7 @@ const SelectPartySizeSection = () => {
   const [partySizeArray, setPartySizeArray] = useState<Array<IPartySize>>(DEFAULT_PARTY_SIZE_BUTTONS);
 
   useEffect(() => {
-    if (Number(partySize) >= 5) setPartySizeArray([...DEFAULT_PARTY_SIZE_BUTTONS, { value: Number(partySize), label: partySize.toString(), type: "button" }])
+    if (Number(partySize) >= 2) setPartySizeArray([...DEFAULT_PARTY_SIZE_BUTTONS, { value: Number(partySize), label: partySize.toString(), type: "button" }])
   }, [partySize]);
 
 
@@ -83,7 +83,7 @@ const SelectPartySizeSection = () => {
         ) : (
           <Select
             onValueChange={(e) =>
-              handleButtonClickPartySize(dispatch, parseInt(e) + 5)
+              handleButtonClickPartySize(dispatch, parseInt(e) + 3)
             }
           >
             <SelectTrigger className="w-auto flex-row-reverse gap-4 text-light relative">
@@ -91,11 +91,11 @@ const SelectPartySizeSection = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {Array(4)
+                {Array(8)
                   .fill("")
                   .map((_, index) => (
                     <SelectItem key={index} value={index.toString()}>
-                      {5 + index}
+                      {3 + index}
                       {" people"}
                     </SelectItem>
                   ))}

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { baseUrl } from "@/config/baseUrl";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -46,6 +46,7 @@ export const useSignup = () => {
 };
 
 export const useLogin = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { mutate: login, isPending: isLoading } = useMutation({
     mutationFn: ({ email, password }: IUser) => {
@@ -83,6 +84,7 @@ export const useLogin = () => {
       }
 
       toast({ description: message, variant: "dark" });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (err: { response: AxiosResponse }) => {
       toast({ description: err.response.data.message, variant: "destructive" });
