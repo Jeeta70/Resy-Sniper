@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siderBarOptions } from "@/utils/constants";
@@ -6,10 +6,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LogOut, Menu, X } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useGetReservationCount } from "@/features/reservation/reservation";
+import { UserDetailContext } from "@/context/UserDetailProvider";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Index = () => {
+  const queryClient = useQueryClient();
   const [open, setOpen] = React.useState(false);
-  const { reservationCounts, isLoading } = useGetReservationCount();
+  const { reservationCounts, isSuccess } = useGetReservationCount();
+  const { subscription_type } = useContext(UserDetailContext);
+
+
   const navigate = useNavigate();
   // const [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
@@ -23,29 +29,29 @@ const Index = () => {
   const handleClick = () => {
     localStorage.removeItem("token");
     navigate("/login");
+    queryClient.invalidateQueries({ queryKey: ["user"] });
   };
 
   const resCount = useMemo(() => {
-    if (!isLoading && reservationCounts) {
+    if (isSuccess && reservationCounts) {
       return reservationCounts.data.total_reservations;
     }
     return 0;
-  }, [isLoading, reservationCounts]);
+  }, [isSuccess, reservationCounts]);
 
   return (
     <div className="flex z-10 fixed top-0 left-0">
       <div
         className={cn(
           "flex flex-col h-16 sm:h-screen bg-black  shadow duration-300 overflow-hidden",
-          open ? "w-screen h-screen" : " w-screen sm:w-64"
+          open ? "w-screen h-screen" : " w-screen sm:w-64 "
         )}
       >
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Button
-              className={`bg-inherit ${
-                open ? "block" : "hidden"
-              } sm:hidden right-5 absolute p-0 px-0 py-auto`}
+              className={`bg-inherit ${open ? "block" : "hidden"
+                } sm:hidden right-5 absolute p-0 px-0 py-auto`}
               onClick={() => setOpen(!open)}
             >
               <X />
@@ -54,9 +60,8 @@ const Index = () => {
               RESY SNIPER
             </div>
             <Button
-              className={`bg-inherit ${
-                open ? "hidden" : "block"
-              } sm:hidden left-5 absolute p-0 px-0 py-auto`}
+              className={`bg-inherit ${open ? "hidden" : "block"
+                } sm:hidden left-5 absolute p-0 px-0 py-auto`}
               onClick={() => setOpen(!open)}
             >
               <Menu />
@@ -67,7 +72,7 @@ const Index = () => {
               <li
                 className={cn(
                   pathname.includes(siderBarOption.pathname) &&
-                    " border-l-2 border-primary "
+                  " border-l-2 border-primary "
                 )}
                 key={indx}
               >
@@ -99,7 +104,7 @@ const Index = () => {
         >
           <div>
             <span className="font-extrabold text-10 text-6xl">{resCount}</span>
-            <span className="font-extrabold text-10 text-2xl">/25</span>
+            <span className="font-extrabold text-10 text-2xl">/{subscription_type === "standard" ? '5' : '25'}</span>
           </div>
           <span className=" font-medium text-sm">
             Reservation requests used

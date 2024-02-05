@@ -3,31 +3,68 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { MyReservationTab, ReservationPageSkeleton } from "@/components";
-import { useGetUserReservations } from "@/features/reservation/reservation";
-import { useMemo } from "react";
+import { useGetReservationCount, useGetUserReservations } from "@/features/reservation/reservation";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { UserDetailContext } from "@/context/UserDetailProvider";
+import WarningIcon from "@/assets/WarningCircle.svg"
+
 
 const Index = () => {
   const navigate = useNavigate();
-  const { userReservations, isLoading } = useGetUserReservations();
+  const [show, setShow] = useState(false)
+  const { userReservations, isLoading, isSuccess } = useGetUserReservations();
+  const { reservationCounts, isSuccess: countIsLoading } =
+    useGetReservationCount();
+  const { subscription_type } = useContext(UserDetailContext);
+
 
   const reservations = useMemo(() => {
-    if (!isLoading && userReservations) {
-      return userReservations;
+    if (isSuccess) {
+      if (userReservations && userReservations.data && userReservations.data.message === "no record found!") {
+        return userReservations.data.message;
+      } else if (userReservations) {
+        return userReservations;
+      }
     }
-  }, [isLoading, userReservations]);
-  
+    return null;
+  }, [isSuccess, userReservations]);
+
+
+  useEffect(() => {
+    if (countIsLoading && reservationCounts) {
+      const count = reservationCounts?.data?.total_reservations;
+      if (count >= 5 && subscription_type === 'standard') {
+        setShow(true);
+      }
+      else if (count >= 25 && subscription_type === 'premium') {
+        setShow(true);
+      }
+
+    }
+  }, [countIsLoading, reservationCounts, subscription_type]);
+
+
 
   return (
-    <div className="w-full h-screen sm:px-10 px-3 py-1">
-      <div className="flex justify-between items-center sm:my-3 my-8">
-        <h1 className=" font-bold sm:text-2xl text-xl">My Reservations</h1>
-        <Button
-          variant="primary"
-          className="inline-flex"
-          onClick={() => navigate("/reservations/add-reservation")}
-        >
-          <Plus className="sm:mr-3 mr-0" /> Add Reservation
-        </Button>
+    <div className="w-full h-screen sm:px-10 px-3 py-1  mt-24 sm:mt-0 ">
+      <div className="flex justify-end">
+        {show && <div className="flex rounded-sm gap-2 items-center text-[red] mr-8">
+          <img src={WarningIcon} className="h-3 w-3 text-[red]" alt="warning-icon" />
+          <small className="font-semibold text-xs">Limit exceeded {reservationCounts?.data?.total_reservations}</small>
+        </div>}
+      </div>
+      <div className="justify-between items-center sm:my-0 sm:mb-3 mb-auto my-8 sm:flex hidden">
+        <div className=" font-bold sm:text-2xl text-xl ">My Reservations</div>
+        <div>
+          <Button
+            variant="primary"
+            className="inline-flex"
+            onClick={() => navigate("/reservations/add-reservation")}
+            disabled={show}
+          >
+            <Plus className="sm:mr-3 mr-0" /> Add Reservation
+          </Button>
+        </div>
       </div>
       {isLoading && <ReservationPageSkeleton />}
       {typeof reservations?.data !== "object" ? (
@@ -46,7 +83,7 @@ const Index = () => {
           </Button>
         </div>
       ) : (
-        <MyReservationTab userReservations={reservations} isLoading={false} />
+        <MyReservationTab userReservations={reservations} isLoading={false} show={show} />
       )}
     </div>
   );

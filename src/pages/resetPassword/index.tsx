@@ -170,7 +170,7 @@ const Index = () => {
                     <>
                       <FormItem className="relative">
                         <FormLabel className="text-sm font-normal">
-                          Repeat Passwordd
+                          Repeat Password
                         </FormLabel>
                         <FormControl>
                           <div className="relative">

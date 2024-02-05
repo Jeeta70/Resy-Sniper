@@ -7,9 +7,6 @@ import OpenTableIcon from "@/assets/openTable.svg"
 
 const Index = () => {
 
-
-
-
   return (
     <Model>
       <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left">

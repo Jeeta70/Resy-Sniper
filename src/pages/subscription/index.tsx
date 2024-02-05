@@ -10,6 +10,8 @@ const Index = () => {
     return createSubsciption(subscriptionType)
   }
 
+
+
   return (
     <div className="h-svh sm:p-10 p-5">
       <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">

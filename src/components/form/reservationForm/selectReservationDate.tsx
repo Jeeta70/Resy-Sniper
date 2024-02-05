@@ -24,7 +24,7 @@ import { useReservationContext } from "@/context/ReservationFomProvider";
 const pastMonth = new Date(2020, 10, 15);
 
 interface IReservationDateSize {
-  value: string | Date;
+  value:  Date;
   label: string | Date;
   type: string;
 }
@@ -44,16 +44,22 @@ const SelectReservationDateSection = () => {
   const { dispatch, reservationFormState: { reservationDates, errors: { reservationDateError } } } = useReservationContext();
   const initialDays: Date[] = [];
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
-  const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>([]);
-  const [selected, setSelected] = React.useState<Array<Date | string>>([]);
 
+
+  const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>([]);
+  const [selected, setSelected] = React.useState<Array<Date>>([]);
+
+  // useEffect(() => {
+  //   if (selected.length !== 0 ) setSelected((prev) => prev.filter((dateOnButton) => days?.includes(dateOnButton as Date)))
+  // }, [days])
 
 
   useEffect(() => {
+    setDays((prev) => prev?.filter((dateInCalendarModal) => selected.includes(dateInCalendarModal)))
     return handleReservationDate(dispatch, selected);
-  }, [selected]);
+  }, [dispatch, selected]);
 
-  function handleSelectedButton(checkDate: string | Date, compare: boolean) {
+  function handleSelectedButton(checkDate:  Date, compare: boolean) {
     if (compare) {
       if (selected.includes(checkDate)) {
         return setSelected((prev) => prev.filter((date) => date !== checkDate));
@@ -110,32 +116,37 @@ const SelectReservationDateSection = () => {
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Date</p>
       <div className="flex gap-3 flex-wrap">
-        {reservationDate.map((button, i) => (
-          <span
-            onClick={() => handleSelectedButton(button.value, true)}
-            key={i}
-            className={cn(
-              buttonVariants({
-                variant: selected.includes(button.value)
-                  ? "default"
-                  : "outline",
-              }),
-              "inline-flex cursor-pointer"
-            )}
-          >
-            {button.label.toLocaleString()}{" "}
-            {i >= 0 && (
-              <X
-                onClick={() => {
-                  setReservationDates((prev) => {
-                    return prev.filter((p) => p.value !== button.value);
-                  });
-                }}
-                size={15}
-              />
-            )}
-          </span>
-        ))}
+        {reservationDate.map((button, i) => {
+          if (selected.includes(button.value)) {
+            return (
+              <span
+                key={i}
+                className={cn(
+                  buttonVariants({
+                    variant: selected.includes(button.value)
+                      ? "default"
+                      : "outline",
+                  }),
+                  "inline-flex cursor-pointer"
+                )}
+              >
+                {button.label.toLocaleString()}{" "}
+                {i >= 0 && (
+                  <X
+                    onClick={() => {
+                      handleSelectedButton(button.value, true)
+                      setReservationDates((prev) => {
+                        return prev.filter((p) => p.value !== button.value);
+                      });
+                    }}
+                    size={15}
+                  />
+                )}
+              </span>
+            )
+          }
+
+        })}
         {/* {userDetail.subscription_type === "standard" ? (
           <Credenza>
             <CredenzaTrigger asChild>
@@ -167,6 +178,17 @@ const SelectReservationDateSection = () => {
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
+                onDayClick={(e) => {
+                  setSelected((d)=>{
+                    const indexToRemove = d.findIndex(date => date.getDate() === e.getDate());
+                    if (indexToRemove !== -1) {
+                      d.splice(indexToRemove, 1)
+                    }
+                    return d
+                  })
+
+                  // If the date is found, remove it from the array
+                 }}
                 id="test"
                 mode="multiple"
                 defaultMonth={pastMonth}
@@ -174,7 +196,6 @@ const SelectReservationDateSection = () => {
                 footer={footer}
                 onSelect={setDays}
                 month={new Date()}
-
               />
             </PopoverContent>
           </Popover>

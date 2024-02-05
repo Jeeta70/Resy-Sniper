@@ -79,7 +79,7 @@ const Index = ({ user }: Props) => {
   return (
     <>
       <div className="">
-        <TabsList className="grid border-b-2 sm:pr-[220px] grid-cols-3 gap-10 sm:gap-10 bg-white ">
+        <TabsList className="grid border-b-2 xl:pr-[210px] grid-cols-3 gap-10 sm:gap-10 bg-white ">
           <div className="flex flex-col m-0 p-0">
             <TabsTrigger
               value="account"
@@ -251,14 +251,14 @@ const Index = ({ user }: Props) => {
         </TabsContent>
         <TabsContent value="notications" className="mt-10">
           <div className="flex items-center space-x-2 my-3">
-            <Switch id="airplane-mode" defaultChecked={!!getEmailNotification?.data?.email_notifications} disabled={getEmailNotificationisLoading || updateEmailNotificationisLoading} onCheckedChange={(e: boolean) => updateEmailNotification(e)} />
-            <Label htmlFor="airplane-mode" className="text-xl">
+            <Switch id="email-notification" defaultChecked={!!getEmailNotification?.data?.email_notifications} disabled={getEmailNotificationisLoading || updateEmailNotificationisLoading} onCheckedChange={(e: boolean) => updateEmailNotification(e)} />
+            <Label htmlFor="email-notification" className="text-xl">
               Email notications
             </Label>
           </div>
           <div className="flex items-center space-x-2  my-3">
-            <Switch id="airplane-mode" defaultChecked={getPhoneNotification?.data?.phone_notifications} disabled={useGetPhoneNotificationisLoading || updatePhoneNotificationisLoading} onCheckedChange={(e: boolean) => updatePhoneNotification(e)} />
-            <Label htmlFor="airplane-mode" className="text-xl">
+            <Switch id="sms-notification" defaultChecked={getPhoneNotification?.data?.phone_notifications} disabled={useGetPhoneNotificationisLoading || updatePhoneNotificationisLoading} onCheckedChange={(e: boolean) => updatePhoneNotification(e)} />
+            <Label htmlFor="sms-notification" className="text-xl">
               SMS notifications
             </Label>
           </div>

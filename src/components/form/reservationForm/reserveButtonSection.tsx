@@ -32,7 +32,7 @@ const ReserveButtonSection = () => {
   const { group_id } = useParams();
   const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
   const { subscription_type } = useContext(UserDetailContext);
-  console.log(reservationFormState);
+  // console.log(reservationFormState);
 
   const resCount = useMemo(() => {
     if (!countIsLoading && reservationCounts) {
@@ -55,7 +55,7 @@ const ReserveButtonSection = () => {
     },
     selectSittingOptions: { ...initialSittingState },
     partySize: 0,
-    reservationDates: [],
+    reservationDates: [] as string[],
     reservationTime: "",
     finalSnipingDay: "any",
     overideCurrentReservationToggleSection: false,
@@ -74,14 +74,32 @@ const ReserveButtonSection = () => {
 
     if (!singleResevationIsLoading && singleReservation && group_id) {
       const { data } = singleReservation;
-      console.log(data);
+      // console.log(data);
 
       const formattedStartTime = convertTo12HourFormat(data[0].start_time);
       const formattedEndTime = convertTo12HourFormat(data[0].end_time);
       const reservationTimeNew = `${formattedStartTime} - ${formattedEndTime}`;
       state.partySize = data[0].party_size;
       state.reservationTime = reservationTimeNew;
-      state.reservationDates = data[0].date;
+      const dateString = data[0].date;
+
+      // const dateObject = new Date(dateString);
+      // const formattedDate = dateObject.toISOString().split("T")[0];
+      const dateArray = [dateString];
+      const transformedDates = dateArray.map(inputDate => {
+        const dateObject = new Date(inputDate);
+        const transformedDate = dateObject.toString();
+
+        return transformedDate;
+      });
+      state.reservationDates = transformedDates;
+  
+  
+        
+
+      const res = data[0]?.venue_data as never;
+      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = [res];
+      state.finalSnipingDay = data[0]?.final_snipe_date === null ? 'none' : data[0]?.final_snipe_date;
       state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false;
 
       // data.forEach((data: IReservation) => {

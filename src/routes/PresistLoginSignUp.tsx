@@ -8,6 +8,7 @@ const PresistLoginSignUp = () => {
    const navigate = useNavigate();
    const { userResponse, isLoading, isSuccess, isError,error } = useGetUser();
    
+   
    useEffect(() => {
 
       if (isError || error) {
@@ -23,7 +24,7 @@ const PresistLoginSignUp = () => {
             navigate("/login");
          }
 
-         if (!resy_token || ot_access_token) {
+         if (!resy_token && !ot_access_token) {
             toast({
                description: "You need to connect the account",
                variant: "dark",
@@ -35,6 +36,8 @@ const PresistLoginSignUp = () => {
                variant: "dark",
             });
             navigate("/subscription");
+         }else {
+            navigate("/reservations");
          }
       }
    }, [error, isError, isLoading, isSuccess, navigate, userResponse]);

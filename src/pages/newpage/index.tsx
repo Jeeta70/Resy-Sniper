@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Key } from "react";
 import backgroundImage1 from "@/assets/homepage/Hero.png";
 import logo from "@/assets/homepage/Logo.png";
 import Hero from "@/assets/homepage/Hero_img.png";
@@ -17,7 +17,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { MinusIcon } from "@heroicons/react/24/outline";
 import Blog from "@/assets/homepage/blog_img.png";
-import Rectangle from "@/assets/homepage/Rectangle.png";
+// import Rectangle from "@/assets/homepage/Rectangle.png";
 import Image from "@/assets/homepage/Img.png";
 import Instagram from "@/assets/homepage/Instagram.png";
 import Twitter from "@/assets/homepage/TwitterLogo.png";
@@ -25,11 +25,19 @@ import Footer from "@/assets/homepage/Footer.png";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { animateScroll as scroll } from "react-scroll";
+import { useGetAllblogs } from "@/features/blog/blog";
+import { IBlog } from "@/types/blog";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+import { PrivacyPolicyModal, TermModal } from "@/components";
+// import { any } from "zod";
 
 const NewPage = () => {
     const navigate = useNavigate();
+    const { blogs } = useGetAllblogs()
     const [activeIndex, setActiveIndex] = useState(0);
     const [show, setShow] = useState(false);
+
+
     const data = [
         {
             image: Speed,
@@ -124,29 +132,29 @@ const NewPage = () => {
 
     const [scrolling, setScrolling] = useState(false);
 
-    const blogData = [
-        {
-            image: Rectangle,
-            title: "Reservation Guide",
-            date: "October 22, 2023",
-            text: "Unlock the Secret to Dining at Carbone: Your Exclusive Guide",
-            color: "#F69046",
-        },
-        {
-            image: Rectangle,
-            title: "Food & Drink Guides",
-            date: "October 22, 2023",
-            text: "Navigating New York Elite Dining Scene: A Guide to Snagging the Hardest Reservations",
-            color: "yellow",
-        },
-        {
-            image: Rectangle,
-            title: "User Guide",
-            date: "October 22, 2023",
-            text: "Mastering the Art of Reservation: Tips to Increase Your Odds with Resy Sniper",
-            color: "green",
-        },
-    ];
+    // const blogData = [
+    //     {
+    //         image: Rectangle,
+    //         title: "Reservation Guide",
+    //         date: "October 22, 2023",
+    //         text: "Unlock the Secret to Dining at Carbone: Your Exclusive Guide",
+    //         color: "#F69046",
+    //     },
+    //     {
+    //         image: Rectangle,
+    //         title: "Food & Drink Guides",
+    //         date: "October 22, 2023",
+    //         text: "Navigating New York Elite Dining Scene: A Guide to Snagging the Hardest Reservations",
+    //         color: "yellow",
+    //     },
+    //     {
+    //         image: Rectangle,
+    //         title: "User Guide",
+    //         date: "October 22, 2023",
+    //         text: "Mastering the Art of Reservation: Tips to Increase Your Odds with Resy Sniper",
+    //         color: "green",
+    //     },
+    // ];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -190,6 +198,14 @@ const NewPage = () => {
     }, []);
 
     const backgroundImage = windowWidth <= 767 ? Banner2 : Banner;
+
+    const getDate = (image: string): string => {
+        const originalDateString = image;
+        const originalDate = new Date(originalDateString);
+
+        const formattedDate = originalDate.toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric" });
+        return formattedDate
+    }
 
     return (
         <>
@@ -330,7 +346,7 @@ const NewPage = () => {
                                 ""
                             )}
                         </div>
-                        <div className="md:grid block lg:grid-cols-[55%,45%] md:grid-cols-[50%,50%] sm:grid-cols-[50%,50%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
+                        <div className="md:grid block xl:grid-cols-[55%,45%] lg:grid-cols-[45%,55%] md:grid-cols-[45%,55%] sm:grid-cols-[50%,50%] lg:pl-16 md:pl-2 pl-1 pt-16 sm:pt-24">
                             <div className=" sm:pr-8 pr-3 sm:py-20 py-5 sm:pl-5 md:pl-16 pl-3">
                                 <h1 className="lg:text-[60px] md:text-[40px] text-[45px] !font-[700] leading-snug font-inter">
                                     Never miss a Reservation again
@@ -348,8 +364,8 @@ const NewPage = () => {
                                 </button>
 
                             </div>
-                            <div className="flex justify-end">
-                                <img src={Hero} className="mt-10 lg:pl-10 md:pl-2 sm:pl-2 pl-10 "></img>
+                            <div className="xl:flex xl:justify-end flex items-end justify-end">
+                                <img src={Hero} className="mt-10 xl:pl-10 md:pl-2 sm:pl-2 pl-10 lg:pl-2"></img>
                             </div>
                         </div>
                     </div>
@@ -590,8 +606,40 @@ const NewPage = () => {
                                     Catch up on all our latest news.
                                 </p>
                             </div>
-                            <div className="lg:w-[90%] md:w-[100%]">
-                                {blogData.map((ele, key) => (
+                            <div className="lg:w-[90%] md:w-[100%] w-[96%]">
+                                {blogs?.data.slice(0, 3).map((blog: IBlog, key: Key) => {
+
+                                    return <div
+                                        className="flex gap-5 sm:items-center items-start sm:mt-7 mt-8 lg:w-[80%] md:w-[auto] w-auto"
+                                        key={key}
+                                    >
+                                        <div>
+                                            <img
+                                                src={`https://resysniperblog.s3.amazonaws.com/${blog?.image_url}`}
+                                                className="!max-w-[92px]  rounded-lg h-[92px]"
+                                                alt={blog?.image_alt}
+                                            ></img>
+                                        </div>
+                                        <div>
+                                            <div className="sm:flex grid sm:gap-[12px] gap-2 items-center">
+                                                <p
+                                                    className={` ${key === 0 ? 'bg-[#F69046]' : ''} ${key === 1 ? 'bg-[#E2C00B]' : ''} ${key === 2 ? 'bg-[#22C376]' : ''} w-[fit-content] rounded-xl font-inter px-[8px] py-[4px] text-white text-[12px]`}
+                                                >
+                                                    {blog.category}
+                                                </p>
+                                                <p className="text-[14px] text-[#6C6F71] font-inter">
+                                                    {getDate(blog.created_at)}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p className="pt-3 font-inter text-[20px] !font-[600] text-[#12171A] cursor-pointer">
+                                                    <a href={`/blogs/${blog.slug}`}> {blog.title}</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                })}
+                                {/* {blogData.map((ele, key) => (
                                     <div
                                         className="flex gap-5 sm:items-center items-start sm:mt-5 mt-8 lg:w-[80%] md:w-[auto] w-auto"
                                         key={key}
@@ -620,12 +668,12 @@ const NewPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                ))}
+                                ))} */}
                             </div>
                             <div className="mt-10">
                                 <button
                                     className="py-[16px] px-[28px] sm:w-auto w-[95%] border border-[#D0D1D1] text-[16px] !font-[600] text-[#12171A] rounded-md"
-                                    onClick={() => navigate("/sign-up")}
+                                    onClick={() => navigate("/blogs")}
                                 >
                                     View All
                                 </button>
@@ -706,10 +754,21 @@ const NewPage = () => {
                                             <p>Legal</p>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>Privacy</Link>
+                                            {/* <Link to={"#"}>Privacy</Link> */}
+                                            <Credenza>
+                                                <CredenzaTrigger>
+                                                    Privacy
+                                                </CredenzaTrigger>
+                                                <PrivacyPolicyModal/>
+                                            </Credenza>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"}>Terms</Link>
+                                            <Credenza>
+                                                <CredenzaTrigger>
+                                                    Terms
+                                                </CredenzaTrigger>
+                                                <TermModal />
+                                            </Credenza>
                                         </li>
                                     </ul>
                                 </div>

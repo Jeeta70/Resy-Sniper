@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 import { UserDetailContext } from "@/context/UserDetailProvider";
@@ -8,8 +8,9 @@ import { useContext } from "react";
 
 import ProIcon from "@/assets/ProIcon.svg";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
-import { FeatureIsForProModel } from "@/components";
+import { AccountNotConnectedModal, FeatureIsForProModel } from "@/components";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 interface Props {
   restaurant: IRestaurant;
@@ -20,6 +21,9 @@ const Index = ({ restaurant }: Props) => {
   const { restaurants, addRestaurant } = useRestaurantContext();
   const user = useContext(UserDetailContext);
   const premium = user.subscription_type === "standard" ? false : true;
+
+  const resy_token = user.resy_token;
+  const ot_access_token = user.ot_access_token;
   const selected = restaurants.some(
     (singleResturant) => singleResturant.venue_id === restaurant.venue_id
   );
@@ -27,15 +31,15 @@ const Index = ({ restaurant }: Props) => {
     <>
       <Card className="">
         <img
-          className="rounded-t-lg max-h-[100px] w-full"
+          className="rounded-t-lg max-h-[250px] w-[100%]"
           src={restaurant.cover_image_url}
           alt=""
         />
-        <CardContent className="w-3/5 p-6">
+        <CardContent className=" p-6">
           <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400 hidden">
             $$$$
           </p>
-          <h5 className="mb-2 text-base font-normal tracking-tight ">
+          <h5 className="mb-2 text-base font-medium font-inter tracking-tight ">
             {restaurant.address_1},{restaurant.locality},{restaurant.country},
             {restaurant.postal_code}
           </h5>
@@ -71,37 +75,135 @@ const Index = ({ restaurant }: Props) => {
             </div>
           ) : (
             <>
-              {premium ? (
-                <Button
-                  variant={selected ? "selected" : "outline"}
-                  className="w-full"
-                  onClick={() => addRestaurant(restaurant)}
-                >
-                  {selected ? "Selected" : "Select"}
-                </Button>
-              ) : (
-                <Credenza>
-                  <CredenzaTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className="w-full relative"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                    >
-                      Select
-                      <img src={ProIcon} className=" h-5 absolute top-0 right-0" />
-                    </Button>
-                  </CredenzaTrigger>
-                  <FeatureIsForProModel />
-                </Credenza>
-              )}
-                <Button variant="primary" className="w-full" onClick={(e) => {
-                  e.stopPropagation()
-                  navigate("/reservations/add-reservation", { state: { selectedRestaurants: restaurants } })
-                }}>
-                Reserve
-              </Button>
+                {premium ? (
+                  <>
+                    {/* Check if restaurant source is Open table and user Open table account is not connected */}
+                    {restaurant.source === "OpenTable" && !ot_access_token ? (
+                      <Credenza>
+                        <CredenzaTrigger asChild>
+                          <Button
+                            variant={"outline"}
+                            className="w-full"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            Select
+                          </Button>
+                        </CredenzaTrigger>
+                        <AccountNotConnectedModal
+                          restaurantSource={restaurant.source}
+                        />
+                      </Credenza>
+                    ) : restaurant.source === "Resy" && !resy_token ? (
+                      <>
+                        {/* Check if restaurant source is Rest and user Resy account is not connected */}
+                        <Credenza>
+                          <CredenzaTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className="w-full"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                            >
+                              Select
+                            </Button>
+                          </CredenzaTrigger>
+                          <AccountNotConnectedModal
+                            restaurantSource={restaurant.source}
+                          />
+                        </Credenza>
+                      </>
+                    ) : (
+                      <Button
+                        variant={selected ? "selected" : "outline"}
+                        className="w-full"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addRestaurant(restaurant);
+                        }}
+                      >
+                        {selected ? "Selected" : "Select"}
+                      </Button>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Credenza>
+                      <CredenzaTrigger asChild>
+                        <span
+                          className={cn(
+                            buttonVariants({ variant: "outline" }),
+                            "w-full relative"
+                          )}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          Select{" "}
+                          <img
+                            src={ProIcon}
+                            className=" h-[15px] absolute top-0 right-0"
+                          />
+                        </span>
+                      </CredenzaTrigger>
+                      <FeatureIsForProModel />
+                    </Credenza>
+                  </>
+                )}
+                {/* Check if restaurant source is Open table and user Open table account is not connected */}
+                {restaurant.source === "OpenTable" && !ot_access_token ? (
+                  <Credenza>
+                    <CredenzaTrigger asChild>
+                      <Button
+                        variant="primary"
+                        className="w-full"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        Reserve
+                      </Button>
+                    </CredenzaTrigger>
+                    <AccountNotConnectedModal
+                      restaurantSource={restaurant.source}
+                    />
+                  </Credenza>
+                ) : restaurant.source === "Resy" && !resy_token ? (
+                  <>
+                    {/* Check if restaurant source is Rest and user Resy account is not connected */}
+                    <Credenza>
+                      <CredenzaTrigger asChild>
+                        <Button
+                          variant="primary"
+                          className="w-full"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          Reserve
+                        </Button>
+                      </CredenzaTrigger>
+                      <AccountNotConnectedModal
+                        restaurantSource={restaurant.source}
+                      />
+                    </Credenza>
+                  </>
+                ) : (
+                  <Button
+                    variant="primary"
+                    className="w-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/reservations/add-reservation", {
+                        state: { selectedRestaurants: restaurants },
+                      });
+                    }}
+                  >
+                    Reserve
+                  </Button>
+                )}
             </>
           )}
         </CardFooter>

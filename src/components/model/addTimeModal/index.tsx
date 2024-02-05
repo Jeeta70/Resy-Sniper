@@ -4,6 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import { handleReseverationTime } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
+import { toast } from "@/components/ui/use-toast";
+// import { Model } from "@/components";
+// import { Credenza, CredenzaClose } from "@/components/ui/credenza";
 const settings = {
     infinite: false,
     speed: 500,
@@ -69,24 +72,27 @@ const AddTimeModal = () => {
             return `${minute}:${hour} ${format}`;
         };
 
-        // Format from time
         const fromTimeFormatted = formatTime(selectedTimes.fromTime, selectedTimes.fromHour, selectedTimes.fromFormat);
-
-        // Format to time
         const toTimeFormatted = formatTime(selectedTimes.toTime, selectedTimes.toHour, selectedTimes.toFormat);
 
-        // Create the reservation time string
-        const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
+        const fromDateTime = new Date(`2000-01-01 ${fromTimeFormatted}`);
+        const toDateTime = new Date(`2000-01-01 ${toTimeFormatted}`);
 
-        // Dispatch the reservation time
-        handleReseverationTime(dispatch, reservationTime);
-
-        // Dispatch the converted times
-        // handleReseverationTime(dispatch, `${fromTime24HourFormat} - ${toTime24HourFormat}`);
+        if (fromDateTime < toDateTime) {
+            const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
+            handleReseverationTime(dispatch, reservationTime);
+        } else {
+            toast({ description: "Please select a valid time", variant: "dark" });
+        }
     };
+
 
     return (
         <>
+            {/* <Model> */}
+            {/* <Credenza> */}
+
+
             <div className="flex gap-5 p-4">
                 <div className="">
                     <p className="text-sm font-semibold">From</p>
@@ -179,9 +185,13 @@ const AddTimeModal = () => {
                 </div>
             </div>
             <div className="border-t border-[gray] p-2 flex justify-end gap-3">
+                {/* <CredenzaClose> */}
                 <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black">Cancel</button>
+                {/* </CredenzaClose> */}
                 <button className="bg-[black] border-2 rounded-md py-2 px-4 text-white" onClick={handleConfirm}>Submit</button>
             </div>
+            {/* </Credenza> */}
+            {/* </Model> */}
         </>
     )
 }

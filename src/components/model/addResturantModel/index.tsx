@@ -1,8 +1,18 @@
 import { MapPin, X } from "lucide-react";
 
-import { AddRestaurantCard, Model, SearchInputField } from "@/components";
+import {
+  AddRestaurantCard,
+  FeatureIsForProModel,
+  Model,
+  SearchInputField,
+} from "@/components";
 import { Button } from "@/components/ui/button";
-import { CredenzaClose, CredenzaHeader } from "@/components/ui/credenza";
+import {
+  Credenza,
+  CredenzaClose,
+  CredenzaHeader,
+  CredenzaTrigger,
+} from "@/components/ui/credenza";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useReservationContext } from "@/context/ReservationFomProvider";
@@ -34,7 +44,6 @@ const AddResturantModel = () => {
   const [query, setSeachParams] = useSearchParams({ query: "" });
   const [searchQuery, setsearchQuery] = useState("");
 
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setSeachParams((prev) => {
@@ -59,26 +68,34 @@ const AddResturantModel = () => {
     selectSittingOptions(dispatch, restauratCardDetail);
   }
 
-
   const renderDollarSigns = () => {
-    const dollarSigns = Array.from({ length: reservationFormState.selectSittingOptions.restaurantDetail.price }, (_, index) => (
-      <span key={index} className="text-[#12171A] opacity-[60%] text-[11px] !font-[600]">&#36;</span>
-    ));
+    const dollarSigns = Array.from(
+      {
+        length:
+          reservationFormState.selectSittingOptions.restaurantDetail.price,
+      },
+      (_, index) => (
+        <span
+          key={index}
+          className="text-[#12171A] opacity-[60%] text-[11px] !font-[600]"
+        >
+          &#36;
+        </span>
+      )
+    );
     return dollarSigns;
   };
-
 
   return (
     <Model
       className={cn(
-        "max-w-2xl h-full sm:h-auto pb-0 p-4 sm:p-6 ",
-        reservationFormState.selectSittingOptions.showModel && "p-4"
+        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 ","p-4"
       )}
     >
       <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-5 p-0">
         {/* <CardTitle className=""> */}
 
-        <span> {reservationFormState.selectSittingOptions.title}</span>
+        <span> title</span>
         <CredenzaClose className="sm:hidden">
           <span role="button">
             <X />
@@ -93,7 +110,6 @@ const AddResturantModel = () => {
             placeholder="Search restaurant"
             searchIcon={true}
             className=""
-
           />
           {/* <CredenzaDescription className=""> */}
           {filteredRestaurants && !filteredRestaurants.length && (
@@ -102,7 +118,6 @@ const AddResturantModel = () => {
                 <img src={searchIcon} alt="" />
               </div>
               <div className="text-light">
-
                 No results found for {query}.Please consider trying a different
                 name.
               </div>
@@ -111,17 +126,15 @@ const AddResturantModel = () => {
           <ScrollArea className="sm:h-96 rounded-md mt-3">
             <span className="flex flex-col gap-4">
               {!isLoading &&
-                filteredRestaurants.map(
-                  (restaurant: IRestaurant, i: Key) => {
-                    return (
-                      <AddRestaurantCard
-                        key={i}
-                        restaurant={restaurant}
-                        onResturantCardClick={onResturantCardClick}
-                      />
-                    );
-                  }
-                )}
+                filteredRestaurants.map((restaurant: IRestaurant, i: Key) => {
+                  return (
+                    <AddRestaurantCard
+                      key={i}
+                      restaurant={restaurant}
+                      onResturantCardClick={onResturantCardClick}
+                    />
+                  );
+                })}
             </span>
           </ScrollArea>
           {/* </CredenzaDescription> */}
@@ -132,7 +145,10 @@ const AddResturantModel = () => {
           <div className="h-64">
             <img
               className="rounded-lg w-full h-full"
-              src={reservationFormState.selectSittingOptions.restaurantDetail.cover_image_url ?? "../reservation/AddReservation/Img.png"}
+              src={
+                reservationFormState.selectSittingOptions.restaurantDetail
+                  .cover_image_url ?? "../reservation/AddReservation/Img.png"
+              }
               alt=""
             />
           </div>
@@ -152,7 +168,14 @@ const AddResturantModel = () => {
               <MapPin className="inline-block" /> Prospective height
             </p>
             <p className="font-normal text-xs text-light">
-              {reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.slice(0, 700) + (((reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.length > 700)) ? "..." : "")}
+              {reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.slice(
+                0,
+                700
+              ) +
+                (reservationFormState.selectSittingOptions.restaurantDetail
+                  .need_to_know_description.length > 700
+                  ? "..."
+                  : "")}
             </p>
             <h2 className="font-semibold text-sm my-3">Available sittings</h2>
             <div className="flex w-1/2 gap-2">
@@ -168,24 +191,31 @@ const AddResturantModel = () => {
 
               {userDetail.subscription_type === "standard" ? (
                 <>
-                  {selectAvailableSittingsButtons.map((button, i) => (
-                    <Button
-                      key={i}
-                      variant={
-                        avilableSittings === button.value
-                          ? "default"
-                          : "outline"
-                      }
-                      className="w-full relative"
-                    >
-                      {button.lable}
-                      <img
-                        src={ProIcon}
-                        alt="pro icon"
-                        className="absolute right-0 top-0"
-                      />
-                    </Button>
-                  ))}
+                  <Credenza>
+                    {selectAvailableSittingsButtons.map((button, i) => (
+                      <>
+                        <CredenzaTrigger asChild>
+                          <Button
+                            key={i}
+                            variant={
+                              avilableSittings === button.value
+                                ? "default"
+                                : "outline"
+                            }
+                            className="w-full relative"
+                          >
+                            {button.lable}
+                            <img
+                              src={ProIcon}
+                              alt="pro icon"
+                              className="absolute right-0 top-0"
+                            />
+                          </Button>
+                        </CredenzaTrigger>
+                        <FeatureIsForProModel />
+                      </>
+                    ))}
+                  </Credenza>
                 </>
               ) : (
                 <>
@@ -233,7 +263,6 @@ const AddResturantModel = () => {
                       configurable: true,
                     }
                   );
-
                   selectResturantForReservation(dispatch, restaurantPayload);
                 }}
               >

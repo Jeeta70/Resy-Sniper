@@ -1,6 +1,21 @@
 // import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AddReservation, AllRestaurants, ConnectAccount, Integration, Login, Profile, Reservation, ResetPassword, Restaurant, Restaurants, SignUp, Subscription, TopPick } from // AddReservation,
+import {
+  AddReservation,
+  AllRestaurants,
+  Blogs,
+  ConnectAccount,
+  Integration,
+  Login,
+  Profile,
+  Reservation,
+  ResetPassword,
+  Restaurant,
+  Restaurants,
+  SignUp,
+  SingleBlog,
+  Subscription,
+  TopPick, // AddReservation,
   // ConnectAccount,
   // Integration,
   // Login,
@@ -11,7 +26,7 @@ import { AddReservation, AllRestaurants, ConnectAccount, Integration, Login, Pro
   // SignUp,
   // Subscription,
   // TopPick,
-  "@/pages";
+} from "@/pages";
 import ShowSidebar from "./ShowSidebar";
 import { Toaster } from "@/components/ui/toaster";
 import ProtectedRoute from "./ProtectedRoute";
@@ -40,14 +55,12 @@ import PresistLoginSignUp from "./PresistLoginSignUp";
 // const ResetPassword = React.lazy(() => import("@/pages/resetPassword"))
 // const CheckSubscription = React.lazy(() => import("@/pages/checkSubscription"))
 
-
 const Router = () => {
   return (
     // <React.Suspense
     //   fallback={<h1>Loading...</h1>}
     // >
     <>
-
       <RestaurantContextProvider>
         <UserDetailContextProvider>
           <Routes>
@@ -61,7 +74,7 @@ const Router = () => {
               <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route>
             <Route element={<PersistSubscribtion />}>
-            <Route path="/subscription" element={<Subscription />} />
+              <Route path="/subscription" element={<Subscription />} />
             </Route>
             <Route element={<ProtectedRoute />}>
               <Route
@@ -73,7 +86,10 @@ const Router = () => {
                 {/* <Route element={<PersistDashboard />}> */}
                 <Route path="/reservations" element={<Reservation />} />
                 {/* </Route> */}
-                <Route path="/check-subscription" element={<CheckSubscription />} />
+                <Route
+                  path="/check-subscription"
+                  element={<CheckSubscription />}
+                />
                 <Route path="restaurants">
                   <Route index element={<Restaurants />} />
                   <Route path="top-picks" element={<TopPick />} />
@@ -85,14 +101,24 @@ const Router = () => {
                 <Route path="/profile" element={<Profile />} />
               </Route>
             </Route>
-            <Route path="/forget-password/:token?" element={<ResetPassword />} />
+            <Route
+              path="/forget-password/:token?"
+              element={<ResetPassword />}
+            />
             <Route path="/reset-password" element={<ResetPassword />} />
 
             <Route path="/home" element={<NewPage />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="blogs">
+              <Route index element={<Blogs />} />
+              <Route path=":slug" element={<SingleBlog />} />
+              <Route path="all-restaurants" element={<AllRestaurants />} />
+            </Route>
           </Routes>
         </UserDetailContextProvider>
       </RestaurantContextProvider>
-      <Toaster /></>
+      <Toaster />
+    </>
     // </React.Suspense>
   );
 };

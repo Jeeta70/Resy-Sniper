@@ -19,7 +19,7 @@ import { capitalizeFirstAlphabet } from "@/utils/healper";
 
 const Index = () => {
   const { userResponse, isSuccess, isLoading } = useGetUser();
-  
+
   const user = useMemo(() => {
     if (isSuccess) {
       return userResponse?.data.data;
@@ -30,13 +30,13 @@ const Index = () => {
 
   return (
     <>
-      <Tabs defaultValue="account" className="container sm:px-60 pt-5 sm:pt-0">
+      <Tabs defaultValue="account" className="container xl:px-60 pt-5 sm:pt-0">
         <CardHeader className="px-0">
           <CardTitle className="font-bold text-2xl">Profile </CardTitle>
         </CardHeader>
         <CardContent className="px-0">
           <div className="grid grid-cols-[20%,auto,20%] sm:grid-cols-[12%,auto,10%] items-center gap-4 border-3">
-            <div className=" bg-black h-full text-white rounded-md flex justify-center items-center text-4xl">
+            <div className=" bg-black h-full text-white rounded-md flex justify-center items-center md:text-4xl">
               {isLoading ? (
                 <Skeleton className="my-3 w-3/5 ">
                   <Skeleton className="inline-block" />

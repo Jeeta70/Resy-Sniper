@@ -43,7 +43,7 @@ const Section = () => {
 
 
    return (
-      <div>
+      <div className=" mr-4">
          <div role="button" onClick={() => navigate("/restaurants")}>
             <ChevronLeft className="inline" size={20} />
             <span className="font-semi-bold text-xs">Back</span>

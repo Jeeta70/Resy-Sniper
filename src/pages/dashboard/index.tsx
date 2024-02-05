@@ -1,7 +1,7 @@
 import { Sidebar } from "@/layouts";
 
 const Index = () => {
- 
+
 
   return (
     <>

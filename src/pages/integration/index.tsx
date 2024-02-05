@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import {
   ConnectOpenTabelAccountModel,
+  DisableOpenTableModal,
   DisconnectResyAccountModel,
 } from "@/components";
 import { useGetUser } from "@/features/user/user";
@@ -17,6 +18,7 @@ import { useMemo } from "react";
 import ResyIcon from "@/assets/resy.svg";
 import OpenTableIcon from "@/assets/openTable.svg";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ConnectResyModal } from "@/components";
 const Index = () => {
   const { userResponse, isSuccess, isLoading } = useGetUser();
 
@@ -26,6 +28,9 @@ const Index = () => {
     }
   }, [isLoading, isSuccess, userResponse?.data.data]);
 
+
+  console.log("user=>",user);
+  
 
   return (
     <>
@@ -52,14 +57,16 @@ const Index = () => {
                 <div className=" flex flex-col gap-1">
                   <img src={ResyIcon} alt="" className="h-[30px] w-16" />
                   <CardDescription>
-                    <span className="  font-medium text-xs">{user?.email}</span>
+                    <span className="  font-medium text-xs">
+                      {user?.resy_token ? user.resy_username : ""}
+                    </span>
                   </CardDescription>
                 </div>
                 {user.resy_token ? (
                   <div className="justify-self-end w-full">
                     <Credenza>
-                        <CredenzaTrigger asChild>
-                          <Button variant="outline" className="w-full ">
+                      <CredenzaTrigger asChild>
+                        <Button variant="outline" className="w-full ">
                           Disconnect
                         </Button>
                       </CredenzaTrigger>
@@ -69,11 +76,11 @@ const Index = () => {
                 ) : (
                   <Credenza>
                     <CredenzaTrigger asChild>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="primary" className="w-full">
                         Connect
                       </Button>
                     </CredenzaTrigger>
-                    <DisconnectResyAccountModel />
+                    <ConnectResyModal />
                   </Credenza>
                 )}
               </div>
@@ -87,15 +94,25 @@ const Index = () => {
                 <img src={OpenTableIcon} alt="" className="h-[30px] w-24" />
               </div>
               <div className="justify-self-end w-full">
-                <Credenza>
-                  <CredenzaTrigger className="w-full">
-                    <Button variant="primary" className="w-full ">
-                      Connect
-                    </Button>
-                  </CredenzaTrigger>
-                  <ConnectOpenTabelAccountModel />
-                </Credenza>
-                
+                {user.ot_access_token ? (
+                  <Credenza>
+                    <CredenzaTrigger className="w-full">
+                      <Button variant="outline" className="w-full ">
+                        Disconnect
+                      </Button>
+                    </CredenzaTrigger>
+                    <DisableOpenTableModal />
+                  </Credenza>
+                ) : (
+                  <Credenza>
+                    <CredenzaTrigger className="w-full">
+                      <Button variant="primary" className="w-full ">
+                        Connect
+                      </Button>
+                    </CredenzaTrigger>
+                    <ConnectOpenTabelAccountModel />
+                  </Credenza>
+                )}
               </div>
             </div>
           </CardContent>

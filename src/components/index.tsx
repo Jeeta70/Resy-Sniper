@@ -18,6 +18,13 @@ export { default as CancelSubscription } from "@/components/model/CancelSubscrip
 export { default as AddTimeModal } from "@/components/model/addTimeModal"
 export { default as ReleaseTimeModal } from "@/components/model/releaseTimeModal"
 export { default as SelectedRestaurantModal } from "@/components/model/selectedRestaurantModel"
+export { default as ConnectResyModal } from "@/components/model/connectResyModal"
+export { default as DisableOpenTableModal } from "@/components/model/disableOpenTableModal"
+export { default as PrivacyPolicyModal } from "@/components/model/privacyPolicyModel"
+export { default as TermModal } from "@/components/model/termsModal"
+export { default as AccountNotConnectedModal } from "@/components/model/accountNotConnectedModal"
+
+
 
 
 export { default as ResyConnectAccountCard } from "@/components/card/connectAccount/resyCard";
@@ -28,6 +35,7 @@ export { default as MyReservationOfResturantCard } from "@/components/card/myRes
 export { default as CountryCode } from "@/components/countryComponent";
 export { default as ProfileTab } from "@/components/tab/profileTab";
 export { default as MyReservationTab } from "@/components/tab/myReservationTab";
+export { default as MyReservationTabDropDown } from "@/components/tab/myReservationTabDropDown";
 export { default as NewSubscriptionCard } from '@/components/card/newSubscriptionCard'
 
 export { default as DropDown } from "@/components/dropDown";

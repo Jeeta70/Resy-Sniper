@@ -12,4 +12,6 @@ export { default as Restaurants } from "./restaurants";
 export { default as TopPick } from "./restaurants/topPicks";
 export { default as AllRestaurants } from "./restaurants/allRestaurants";
 export { default as ResetPassword } from "./resetPassword"
+export { default as Blogs } from "@/pages/blogs"
+export { default as SingleBlog } from "@/pages/blogs/singleBlog"
 // export {default as CheckSubscription} fr
