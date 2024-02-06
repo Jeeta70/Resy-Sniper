@@ -31,6 +31,7 @@ export const signupFormSchema = z
       .regex(/^[0-9]+/),
     password: passwordValidation,
     confirmPassword: z.string(),
+    termAndConditions: z.literal(false, { errorMap: () => ({ message: "You must accept Terms and conditions" }) })
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
