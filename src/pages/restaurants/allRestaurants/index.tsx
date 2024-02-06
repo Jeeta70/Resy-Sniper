@@ -21,12 +21,8 @@ const Section = () => {
    // const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
 
-   console.log(searchRestaurants);
-   
-
    const [searchParams] = useSearchParams();
    const query = searchParams.get("query");
-   console.log(query);
 
 
    useEffect(() => {

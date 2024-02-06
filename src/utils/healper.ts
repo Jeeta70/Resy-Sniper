@@ -61,11 +61,22 @@ export function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date).replace(/\//g, '-');
 }
 
+
+
+export function formateDateFromSingleRservation(dateString: string): string {
+  const date = new Date(dateString);
+  const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
+  return formattedDate;
+}
+
+
 export function getDayBefore(dateString: string | null, dayBefore: number): string | undefined {
-  if (!dateString) return;
+
+  if (!!dateString || !dateString) return;
   const [month, day, year] = dateString.split('-').map(Number);
   const currentDate = new Date(year, month - 1, day);
-  currentDate.setDate(currentDate.getDate() - dayBefore);
+  currentDate.setDate(currentDate.getDate() - dayBefore); 
+  
   const formattedDate = formatDate(currentDate);
   return formattedDate;
 }
@@ -89,6 +100,8 @@ export function formatDateForSnipingDate(dateString: string | null) {
   const [month, day, year] = dateString.split('-').map(Number);
   return `${year}-${month}-${day}`
 }
+
+
 
 export function getStatusString(inputString: string): "active" | "canceled" | "paused" | "completed" {
   switch (inputString.toLowerCase()) {

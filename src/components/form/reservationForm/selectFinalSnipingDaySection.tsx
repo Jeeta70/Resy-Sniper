@@ -9,9 +9,13 @@ import { cn } from "@/lib/utils";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
 import { toast } from "@/components/ui/use-toast";
-import { getDayBefore, isToday } from '../../../utils/healper';
+import { formatDate, getDayBefore, isToday } from "../../../utils/healper";
 import { Select } from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { PopoverClose } from "@radix-ui/react-popover";
@@ -27,17 +31,15 @@ interface IPartySize {
 }
 [];
 
-
 const SelectFinalSnipingDaySection = () => {
   // const [newDay, setNewDay] = useState<string | undefined>();
   const initialDays: Date[] = [];
-  const [days, setDays] = useState<Date[] | undefined>(initialDays);
+  const [selectedDay, setSelectedDay] = useState<Date>();
 
   const {
     dispatch,
     reservationFormState: { finalSnipingDay, reservationDates },
   } = useReservationContext();
-
 
 
   const userDetail = useContext(UserDetailContext);
@@ -48,17 +50,29 @@ const SelectFinalSnipingDaySection = () => {
 
   const setTheSnipingDay = (buttonValue: string) => {
     if (reservationDates.length === 0) {
-      return toast({ description: "Please select Reservation Date First", variant: 'dark' });
+      return toast({
+        description: "Please select Reservation Date First",
+        variant: "dark",
+      });
     } else {
       if (isToday(reservationDates[0])) {
-        return toast({ description: "Reservation Date is Today", variant: 'dark' });
+        return toast({
+          description: "Reservation Date is Today",
+          variant: "dark",
+        });
       }
       if (buttonValue === "1_days_before") {
-        const oneDayBefore = getDayBefore(reservationDates[0], 1)
-        return handleFinalSnipingDay(dispatch, { display: buttonValue, value: oneDayBefore })
+        const oneDayBefore = getDayBefore(reservationDates[0], 1);
+        return handleFinalSnipingDay(dispatch, {
+          display: buttonValue,
+          value: oneDayBefore,
+        });
       } else if (buttonValue === "2_days_before") {
-        const twoDayBefore = getDayBefore(reservationDates[0], 2)
-        return handleFinalSnipingDay(dispatch, { display: buttonValue, value: twoDayBefore })
+        const twoDayBefore = getDayBefore(reservationDates[0], 2);
+        return handleFinalSnipingDay(dispatch, {
+          display: buttonValue,
+          value: twoDayBefore,
+        });
       }
 
       // const reservationDate = new Date(reservationDates[0]);
@@ -85,56 +99,60 @@ const SelectFinalSnipingDaySection = () => {
   //   return formattedDate;
   // };
 
+  const footer = selectedDay ? (
+    <>
+      <Separator className="mt-3" />
+      <p className="flex justify-end mt-4 gap-3">
+        <PopoverClose>
+          <span className={cn(buttonVariants({ variant: "outline" }))}>
+            Cancel
+          </span>
+        </PopoverClose>
+        <PopoverClose>
+          <span
+            className={cn(buttonVariants({ variant: "primary" }))}
+            onClick={() => {
+              console.log(selectedDay);
+              const formatedDate = formatDate(selectedDay);
+              handleFinalSnipingDay(dispatch, {
+                display: "Custom",
+                value: formatedDate,
+              });
 
+              // const formattedDates: string[] = days
+              //   .sort((a: Date, b: Date) => a.getTime() - b.getTime()) // Sort the dates
+              //   .map((date: Date) => formatDate(date)); // Format date
 
-  const footer =
-    days && days.length > 0 ? (
-      <>
-        <Separator className="mt-3" />
-        <p className="flex justify-end mt-4 gap-3">
-          <PopoverClose>
-            <span className={cn(buttonVariants({ variant: "outline" }))}>
-              Cancel
-            </span>
-          </PopoverClose>
-          <PopoverClose>
-            <span
-              className={cn(buttonVariants({ variant: "primary" }))}
-              onClick={() => {
-                // const formattedDates: string[] = days
-                //   .sort((a: Date, b: Date) => a.getTime() - b.getTime()) // Sort the dates
-                //   .map((date: Date) => formatDate(date)); // Format date 
+              // handleReservationDate(dispatch, formattedDates);
 
-                // handleReservationDate(dispatch, formattedDates);
+              // setReservationDates((prev) => {
+              //   days.forEach((day) => {
+              //     const check = prev.some((prev) => prev.value === day);
+              //     if (!check) {
+              //       prev.push({
+              //         value: day,
+              //         label: format(day, "PP"),
+              //         type: "button",
+              //       });
+              //     }
+              //   });
+              //   return [...prev];
+              // });
+              // days.forEach((day) => {
+              //   handleSelectedButton(day, false);
+              // });
+            }}
+          >
+            Confirm
+          </span>
+        </PopoverClose>
+      </p>
+    </>
+  ) : (
+    <p>Please pick one or more days.</p>
+  );
 
-                // setReservationDates((prev) => {
-                //   days.forEach((day) => {
-                //     const check = prev.some((prev) => prev.value === day);
-                //     if (!check) {
-                //       prev.push({
-                //         value: day,
-                //         label: format(day, "PP"),
-                //         type: "button",
-                //       });
-                //     }
-                //   });
-                //   return [...prev];
-                // });
-                // days.forEach((day) => {
-                //   handleSelectedButton(day, false);
-                // });
-              }
-              }
-            >
-              Confirm
-            </span>
-          </PopoverClose>
-        </p>
-      </>
-    ) : (
-      <p>Please pick one or more days.</p>
-    );
-
+  console.log(reservationDates[0])
 
   return (
     <div>
@@ -153,7 +171,7 @@ const SelectFinalSnipingDaySection = () => {
         {userDetail.subscription_type === "standard" ? (
           <>
             {partySizeArray.map((button, i) => (
-              <Credenza key={i} >
+              <Credenza key={i}>
                 <CredenzaTrigger asChild>
                   <span
                     className={cn(
@@ -182,28 +200,43 @@ const SelectFinalSnipingDaySection = () => {
           </>
         ) : (
           <>
-            {" "}
             {partySizeArray.map((button, i) => (
               <Button
                 variant={
-                  button?.value === finalSnipingDay.display ? "default" : "outline"
+                  button?.value === finalSnipingDay.display
+                    ? "default"
+                    : "outline"
                 }
                 className="inline-flex"
                 key={i}
                 onClick={() => {
-
                   setTheSnipingDay(button.value);
                   // get earliest day from reservation dates
                   // if (button.value === "1_days_before") {
                   //   const onDayBefore = getPrevousDayBefore(reservationDates[0], 1)
                   //   handleFinalSnipingDay(dispatch, { display: button.value, value: onDayBefore })
                   // }
-
                 }}
               >
                 {button.label}
               </Button>
             ))}
+            {finalSnipingDay.display === "Custom" && (
+              <Button
+                variant={"default"}
+                className="inline-flex"
+                onClick={() => {
+                  // setTheSnipingDay(button.value);
+                  // get earliest day from reservation dates
+                  // if (button.value === "1_days_before") {
+                  //   const onDayBefore = getPrevousDayBefore(reservationDates[0], 1)
+                  //   handleFinalSnipingDay(dispatch, { display: button.value, value: onDayBefore })
+                  // }
+                }}
+              >
+                {finalSnipingDay.value}
+              </Button>
+            )}
             <Select disabled onValueChange={(e) => console.log(e)}>
               <Popover>
                 <PopoverTrigger
@@ -229,16 +262,20 @@ const SelectFinalSnipingDaySection = () => {
                     // If the date is found, remove it from the array
                     // }}
                     id="test"
-                    mode="multiple"
-                    selected={days}
-                    disabled={{ before: new Date(), after: new Date(getDayBefore(reservationDates[0], 1) ?? "") }}
+                    mode="single"
+                    selected={selectedDay}
+                    disabled={{
+                      before: new Date(),
+                      after: reservationDates[0] == undefined ? "" : new Date(
+                        getDayBefore(reservationDates[0], 1)
+                      ),
+                    }}
                     footer={footer}
-                    onSelect={setDays}
+                    onSelect={setSelectedDay}
                   />
                 </PopoverContent>
               </Popover>
             </Select>
-
           </>
         )}
       </div>

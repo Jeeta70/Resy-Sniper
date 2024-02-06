@@ -4,7 +4,12 @@ import { ButtonLoader, DiscardChangesModal } from "@/components";
 import { Button } from "@/components/ui/button";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { setAllErrorFieldTrue } from "@/reducer/reservationFormReducer";
-import { convertDateTimeFormt, formatDateForSnipingDate } from "@/utils/healper";
+import {
+  convertDateTimeFormt,
+  formatDate,
+  formatDateForSnipingDate,
+  formateDateFromSingleRservation,
+} from "@/utils/healper";
 import {
   useCreateReservation,
   useGetReservationCount,
@@ -30,7 +35,9 @@ const ReserveButtonSection = () => {
   const { createReservation, isLoading } = useCreateReservation();
   const { updateReservation } = useUpdateReservation();
   const { group_id } = useParams();
-  const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
+  const { singleReservation, isLoading: singleResevationIsLoading } =
+    useGetSingleReservation();
+
   const { subscription_type } = useContext(UserDetailContext);
   // console.log(reservationFormState);
 
@@ -74,7 +81,6 @@ const ReserveButtonSection = () => {
 
     if (!singleResevationIsLoading && singleReservation && group_id) {
       const { data } = singleReservation;
-      // console.log(data);
 
       const formattedStartTime = convertTo12HourFormat(data[0].start_time);
       const formattedEndTime = convertTo12HourFormat(data[0].end_time);
@@ -85,22 +91,27 @@ const ReserveButtonSection = () => {
 
       // const dateObject = new Date(dateString);
       // const formattedDate = dateObject.toISOString().split("T")[0];
-      const dateArray = [dateString];
-      const transformedDates = dateArray.map(inputDate => {
-        const dateObject = new Date(inputDate);
-        const transformedDate = dateObject.toString();
+      // const dateArray = [dateString];
+      // const transformedDates = dateArray.map((inputDate) => {
+      //   const dateObject = new Date(inputDate);
+      //   const transformedDate = dateObject.toString();
 
-        return transformedDate;
-      });
-      state.reservationDates = transformedDates;
+      //   return transformedDate;
+      // });
 
-
+      // state.reservationDates = formateDateFromSingleRservation(data);
+      state.reservationDates = data.map((restaurant: { date: string; }) => formateDateFromSingleRservation(restaurant.date));
 
 
       const res = data[0]?.venue_data as never;
-      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = [res];
-      state.finalSnipingDay = data[0]?.final_snipe_date === null ? 'none' : data[0]?.final_snipe_date;
-      state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false;
+      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage =
+        [res];
+      state.finalSnipingDay =
+        data[0]?.final_snipe_date === null ? "none" : data[0]?.final_snipe_date;
+      state.overideCurrentReservationToggleSection = data[0]
+        .override_reservations
+        ? true
+        : false;
 
       // data.forEach((data: IReservation) => {
       //   const date = convertDateFormat(data.date)
@@ -110,12 +121,7 @@ const ReserveButtonSection = () => {
       // })
       handleUpdateReservation(dispatch, state);
     }
-  }, [
-    singleReservation,
-    singleResevationIsLoading,
-    dispatch,
-    group_id,
-  ]);
+  }, [singleReservation, singleResevationIsLoading, dispatch, group_id]);
 
   const convertTo12HourFormat = (timeString: string) => {
     const [hours, minutes] = timeString.split(":");
@@ -171,7 +177,7 @@ const ReserveButtonSection = () => {
             },
             overideCurrentReservationToggleSection,
           } = reservationFormState;
-          const newTime = reservationTime.split("-")
+          const newTime = reservationTime.split("-");
           const convertTo24HourFormat = (timeString: string) => {
             const [time, period] = timeString.split(" ");
             const [hours, minutes] = time.split(":");
@@ -180,8 +186,8 @@ const ReserveButtonSection = () => {
             if (period === "PM" && hours !== "12") {
               hours24 += 12;
             }
-            const formattedHours = String(hours24).padStart(2, '0');
-            const formattedMinutes = minutes ? minutes.padStart(2, '0') : '00';
+            const formattedHours = String(hours24).padStart(2, "0");
+            const formattedMinutes = minutes ? minutes.padStart(2, "0") : "00";
 
             return `${formattedHours}:${formattedMinutes}:00`;
           };
@@ -218,7 +224,7 @@ const ReserveButtonSection = () => {
             end_time: splitTime[1],
             party_size: partySize,
           };
-          createReservation(payload)
+          createReservation(payload);
         }
       } else if (reservationType === "release") {
         const {
@@ -255,7 +261,7 @@ const ReserveButtonSection = () => {
             },
             overideCurrentReservationToggleSection,
           } = reservationFormState;
-          const newTime = reservationTime.split("-")
+          const newTime = reservationTime.split("-");
           const convertTo24HourFormat = (timeString: string) => {
             const [time, period] = timeString.split(" ");
             const [hours, minutes] = time.split(":");
@@ -264,8 +270,8 @@ const ReserveButtonSection = () => {
             if (period === "PM" && hours !== "12") {
               hours24 += 12;
             }
-            const formattedHours = String(hours24).padStart(2, '0');
-            const formattedMinutes = minutes ? minutes.padStart(2, '0') : '00';
+            const formattedHours = String(hours24).padStart(2, "0");
+            const formattedMinutes = minutes ? minutes.padStart(2, "0") : "00";
 
             return `${formattedHours}:${formattedMinutes}:00`;
           };
