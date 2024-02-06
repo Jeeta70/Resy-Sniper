@@ -12,7 +12,7 @@ export type reservationPayload = {
   }[];
   date: string[];
   override_reservations: number;
-  final_snipe_date: null;
+  final_snipe_date: null | string | undefined;
   final_snipe_time: null;
   table_type: null;
   reservation_source: string;

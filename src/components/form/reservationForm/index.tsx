@@ -9,9 +9,6 @@ import OverideCurrentReservationToggleSection from "./overideCurrentReservationT
 import ReserveButtonSection from "./reserveButtonSection";
 import ReleaseReservationDateSection from "./releaseReservationDate";
 import ReleaseReservationTime from "./releaseReservationTime";
-// import { useContext } from "react";
-// import { UserDetailContext } from "@/context/UserDetailProvider";
-// import { initialState } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { useNavigate, useParams } from "react-router-dom";
 import { X } from "lucide-react";
