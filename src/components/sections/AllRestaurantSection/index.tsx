@@ -56,8 +56,8 @@ const Section = () => {
             )
           )}
       </div>
-      <div className="fixed bottom-0 w-[calc(100%_-_22rem)] transition-all flex justify-between p-5 bg-white gap-3">
-        <div className="flex gap-3">
+      <div className="fixed bottom-0 w-[100%] transition-all flex flex-wrap justify-between py-5 pr-10 bg-white gap-3">
+        <div className="flex gap-3 flex-wrap">
           {selectedRestaurants.map((restaurant, i) => {
             if (i < 2) {
               return (

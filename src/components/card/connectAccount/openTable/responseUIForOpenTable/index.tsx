@@ -171,7 +171,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
             </CardContent>
          )}
          {responseState === "entercode" && (
-            <CardContent className="pt-5">
+            <CardContent className="py-5">
                <Form {...enterCodeForm}>
                   <div className="text-sm font-normal">
                      Code from message

@@ -1,10 +1,10 @@
 import { RestaurantCard, RestaurantCardSkeleton } from "@/components";
-import { Button, buttonVariants } from "@/components/ui/button";
+// import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 import { useTopPicksRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
-import { X } from "lucide-react";
+// import { X } from "lucide-react";
 import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const Section = () => {
   // const { searchRestaurants, isLoading } = useSearchRestaurants();
   const { removeAllRestaurant } = useRestaurantContext();
 
-  const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
+  // const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
   const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
   // const [searchParams] = useSearchParams();
@@ -58,11 +58,11 @@ const Section = () => {
           />
         ))}
       </div>
-      <div className="fixed bottom-0 w-[calc(100%_-_22rem)] transition-all flex justify-between p-5 bg-white gap-3">
-        <div className="flex gap-3">
+      {/* <div className="sticky bottom-0 w-[100%] transition-all flex justify-between p-5 bg-white gap-3">
+        <div className="flex gap-2 w-auto">
           {selectedRestaurants.map((restaurant, i) => (
             <div className={buttonVariants({ variant: "outline" })} key={i}>
-              {restaurant.venue_name}
+              <span className="text-xs">{restaurant.venue_name}</span>
               <X className="cursor-pointer bg-gray-400 text-white rounded-full h-[20px] w-[20px] ml-2"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -77,7 +77,7 @@ const Section = () => {
           e.stopPropagation()
           navigate("/reservations/add-reservation", { state: { selectedRestaurants } })
         }} variant="primary">Reserve</Button>}
-      </div>
+      </div> */}
     </div>
   );
 };

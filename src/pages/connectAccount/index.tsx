@@ -30,7 +30,7 @@ const ConnectAccount = () => {
         />
         <OpenTableConnectAccountCard
           image={OpenTableIcon}
-          cardStyle={"w-full sm:w-[450px] mr-0 sm:mr-auto h-96"}
+          cardStyle={"w-full sm:w-[450px] mr-0 sm:mr-auto h-auto"}
           setdisableContinueButton={setdisableContinueButton}
         />
       </div>

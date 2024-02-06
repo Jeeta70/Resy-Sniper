@@ -6,14 +6,14 @@ import { X } from "lucide-react";
 
 const Index = () => {
   return (
-    <Model className="bg-[#263238] text-[#e0e0e0] max-h-screen max-w-[700px] p-3">
-     <div className="flex">
+    <Model className="bg-[#263238] text-[#e0e0e0] max-h-screen  max-w-[700px] p-3">
+      <div className="flex">
         <CredenzaHeader className="text-xl">Privacy Policy</CredenzaHeader>
         <CredenzaClose className="ml-auto sm:hidden"><X /></CredenzaClose>
-     </div>
-      <Separator className="border-[1px] border-[#37474f]"/>
+      </div>
+      <Separator className="border-[1px] border-[#37474f]" />
       <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left">
-        <ScrollArea className="h-screen text-start">
+        <ScrollArea className="h-[90vh] text-start">
           <p className="mb-4">
             This Privacy Policy ("Policy") outlines the types of personal
             information collected, how it is used, and the measures taken to

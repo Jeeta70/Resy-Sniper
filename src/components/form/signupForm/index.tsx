@@ -57,7 +57,7 @@ const Index = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6 sm:m-auto m-2 w-full"
+            className="space-y-6 sm:m-auto m-auto w-full"
           >
             <h2 className="text-center font-bold text-2xl mt-2">Sign up</h2>
             <FormField
@@ -239,10 +239,10 @@ const Index = () => {
                           </CredenzaTrigger>
                           <PrivacyPolicyModal />
                         </Credenza>
-                   
-                        
+
+
                       </span>
-                      and{" "}
+                      {" "}and{" "}
                       <span
                         className={cn(
                           buttonVariants({ variant: "link" }),
@@ -255,7 +255,7 @@ const Index = () => {
                           </CredenzaTrigger>
                           <TermModal />
                         </Credenza>
-                     
+
                       </span>
                       {" "}of service
                     </FormLabel>

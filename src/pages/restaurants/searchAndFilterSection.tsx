@@ -75,12 +75,13 @@ const SearchAndFilterSection = () => {
             }}
             placeholder=""
             searchIcon={true}
+            className="w-[90%] mx-1"
           />
           <SelectGroup onClick={(
             e: React.MouseEvent<HTMLDivElement, MouseEvent>
           ) => {
             e.stopPropagation();
-          }} className="w-full">
+          }} className="w-full overflow-y-scroll h-auto">
             {!restaurantSuggestionIsLoading &&
               restaurantSuggestion.length !== 0 && (
                 <SelectLabel>All locations</SelectLabel>
@@ -89,7 +90,7 @@ const SearchAndFilterSection = () => {
               restaurantSuggestion.map(
                 (singleRestaurantSuggestion: string, i: Key) => (
                   <SelectItem
-                  role="button"
+                    role="button"
                     onClick={(
                       e: React.MouseEvent<HTMLDivElement, MouseEvent>
                     ) => {
