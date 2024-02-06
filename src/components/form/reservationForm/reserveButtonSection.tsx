@@ -6,7 +6,6 @@ import { useReservationContext } from "@/context/ReservationFomProvider";
 import { setAllErrorFieldTrue } from "@/reducer/reservationFormReducer";
 import {
   convertDateTimeFormt,
-  formatDate,
   formatDateForSnipingDate,
   formateDateFromSingleRservation,
 } from "@/utils/healper";
@@ -87,7 +86,7 @@ const ReserveButtonSection = () => {
       const reservationTimeNew = `${formattedStartTime} - ${formattedEndTime}`;
       state.partySize = data[0].party_size;
       state.reservationTime = reservationTimeNew;
-      const dateString = data[0].date;
+      // const dateString = data[0].date;
 
       // const dateObject = new Date(dateString);
       // const formattedDate = dateObject.toISOString().split("T")[0];

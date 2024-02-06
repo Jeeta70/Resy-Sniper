@@ -71,12 +71,13 @@ export function formateDateFromSingleRservation(dateString: string): string {
 
 
 export function getDayBefore(dateString: string | null, dayBefore: number): string | undefined {
-
-  if (!!dateString || !dateString) return;
+  
+  
+  if (dateString === undefined|| !dateString) return;
+  console.log(dateString);
   const [month, day, year] = dateString.split('-').map(Number);
   const currentDate = new Date(year, month - 1, day);
   currentDate.setDate(currentDate.getDate() - dayBefore); 
-  
   const formattedDate = formatDate(currentDate);
   return formattedDate;
 }

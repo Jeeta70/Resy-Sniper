@@ -33,7 +33,7 @@ interface IPartySize {
 
 const SelectFinalSnipingDaySection = () => {
   // const [newDay, setNewDay] = useState<string | undefined>();
-  const initialDays: Date[] = [];
+  // const initialDays: Date[] = [];
   const [selectedDay, setSelectedDay] = useState<Date>();
 
   const {
@@ -152,8 +152,9 @@ const SelectFinalSnipingDaySection = () => {
     <p>Please pick one or more days.</p>
   );
 
-  console.log(reservationDates[0])
-
+  const earliestReservationDate = getDayBefore(reservationDates[0], 1)
+  
+  
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Final Sniping Day</p>
@@ -266,9 +267,8 @@ const SelectFinalSnipingDaySection = () => {
                     selected={selectedDay}
                     disabled={{
                       before: new Date(),
-                      after: reservationDates[0] == undefined ? "" : new Date(
-                        getDayBefore(reservationDates[0], 1)
-                      ),
+                      after: earliestReservationDate ? new Date(earliestReservationDate) : undefined
+                      ,
                     }}
                     footer={footer}
                     onSelect={setSelectedDay}

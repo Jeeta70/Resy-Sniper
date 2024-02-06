@@ -7,7 +7,7 @@ import { IRestaurant } from "@/types/restaurants";
 import { ChevronLeft, X } from "lucide-react";
 import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchAndFilterSection from "../searchAndFilterSection";
 
 
@@ -21,8 +21,8 @@ const Section = () => {
    // const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
 
-   const [searchParams] = useSearchParams();
-   const query = searchParams.get("query");
+   // const [searchParams] = useSearchParams();
+   // const _query = searchParams.get("query");
 
 
    useEffect(() => {
