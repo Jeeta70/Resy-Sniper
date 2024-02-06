@@ -115,7 +115,7 @@ const SelectReservationDateSection = () => {
     ) : (
       <p>Please pick one or more days.</p>
     );
-
+console.log(reservationDates)
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Reservation Date</p>

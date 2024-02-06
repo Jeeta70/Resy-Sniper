@@ -66,14 +66,24 @@ export function formatDate(date: Date) {
     .replace(/\//g, "-");
 }
 
-export function getDayBefore(
-  dateString: string | null,
-  dayBefore: number
-): string | undefined {
-  if (!dateString) return;
-  const [month, day, year] = dateString.split("-").map(Number);
+
+
+
+export function formateDateFromSingleRservation(dateString: string): string {
+  const date = new Date(dateString);
+  const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
+  return formattedDate;
+}
+
+
+export function getDayBefore(dateString: string | null, dayBefore: number): string | undefined {
+  
+  
+  if (dateString === undefined|| !dateString) return;
+  console.log(dateString);
+  const [month, day, year] = dateString.split('-').map(Number);
   const currentDate = new Date(year, month - 1, day);
-  currentDate.setDate(currentDate.getDate() - dayBefore);
+  currentDate.setDate(currentDate.getDate() - dayBefore); 
   const formattedDate = formatDate(currentDate);
   return formattedDate;
 }
@@ -100,9 +110,10 @@ export function formatDateForSnipingDate(dateString: string | null) {
   return `${year}-${month}-${day}`;
 }
 
-export function getStatusString(
-  inputString: string
-): "active" | "canceled" | "paused" | "completed" {
+
+
+
+export function getStatusString(inputString: string): "active" | "canceled" | "paused" | "completed" {
   switch (inputString.toLowerCase()) {
     case "active":
       return "active";

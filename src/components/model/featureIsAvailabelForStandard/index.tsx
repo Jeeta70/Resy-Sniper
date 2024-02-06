@@ -64,7 +64,6 @@ const Index = () => {
                      onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                         e.stopPropagation();
                         upgrade("standard");
-                        console.log("second");
                      }}
                   >
                      {isLoading ? <ButtonLoader /> : "Switch to REGULAR"}
