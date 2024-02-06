@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
@@ -23,12 +23,12 @@ import { formatDate } from "@/utils/healper";
 
 // const pastMonth = new Date(2020, 10, 15);
 
-interface IReservationDateSize {
-  value: Date;
-  label: string | Date;
-  type: string;
-}
-[];
+// interface IReservationDateSize {
+//   value: Date;
+//   label: string | Date;
+//   type: string;
+// }
+// [];
 
 // const RESERVATION_DATE_BUTTONS = [
 //   { value: new Date(), label: "Today", type: "button" },
@@ -46,8 +46,8 @@ const SelectReservationDateSection = () => {
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
 
 
-  const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>([]);
-  const [selected, setSelected] = React.useState<Array<Date>>([]);
+  // const [reservationDate, setReservationDates] = React.useState<Array<IReservationDateSize>>([]);
+  // const [selected, setSelected] = React.useState<Array<Date>>([]);
 
   // useEffect(() => {
   //   setDays((prev) => prev?.filter((dateInCalendarModal) => selected.includes(dateInCalendarModal)))
@@ -56,17 +56,17 @@ const SelectReservationDateSection = () => {
   //   // return handleReservationDate(dispatch, sortedDate);
   // }, [dispatch, selected]);
 
-  function handleSelectedButton(checkDate: Date, compare: boolean) {
-    if (compare) {
-      if (selected.includes(checkDate)) {
-        return setSelected((prev) => prev.filter((date) => date !== checkDate));
-      } else {
-        return setSelected((prev) => [...prev, checkDate]);
-      }
-    } else {
-      return setSelected((prev) => [...prev, checkDate]);
-    }
-  }
+  // function handleSelectedButton(checkDate: Date, compare: boolean) {
+  //   if (compare) {
+  //     if (selected.includes(checkDate)) {
+  //       return setSelected((prev) => prev.filter((date) => date !== checkDate));
+  //     } else {
+  //       return setSelected((prev) => [...prev, checkDate]);
+  //     }
+  //   } else {
+  //     return setSelected((prev) => [...prev, checkDate]);
+  //   }
+  // }
 
   const footer =
     days && days.length > 0 ? (

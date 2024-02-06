@@ -131,7 +131,7 @@ export enum ResturantReservationStateReducerConstant {
 export interface IAction<T, P> {
   key?: string;
   value?: string | number | boolean
-  snipingDay?: { display: string, value: string | null }
+  snipingDay?: { display: string, value: string | null | undefined }
   type: T;
   // payload?: Partial<P> | IRestaurant | number | Date[] | string[] | string;
   payload?: any | Partial<P>;
@@ -422,7 +422,7 @@ export function handleReleaseTime(
 
 export function handleFinalSnipingDay(
   dispatch: IUserStateReducerDispatchType,
-  snipingDay: { display: string, value: string | null }
+  snipingDay: { display: string, value: string | null | undefined }
 ) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SELECT_FINAL_SNIPING_DAY,

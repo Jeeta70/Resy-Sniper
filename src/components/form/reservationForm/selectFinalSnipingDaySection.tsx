@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
 import { toast } from "@/components/ui/use-toast";
-import { getDayBefore, getOneDayBefore, getPrevousDayBefore, isToday } from '../../../utils/healper';
+import { getDayBefore, isToday } from '../../../utils/healper';
 import { Select } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -29,7 +29,7 @@ interface IPartySize {
 
 
 const SelectFinalSnipingDaySection = () => {
-  const [newDay, setNewDay] = useState<string | undefined>();
+  // const [newDay, setNewDay] = useState<string | undefined>();
   const initialDays: Date[] = [];
   const [days, setDays] = useState<Date[] | undefined>(initialDays);
 
@@ -78,12 +78,12 @@ const SelectFinalSnipingDaySection = () => {
     // }
   };
 
-  const calculateFinalSnipingDate = (daysBefore: number): string => {
-    const currentDate = new Date(reservationDates[0]);
-    currentDate.setDate(currentDate.getDate() - daysBefore);
-    const formattedDate = currentDate.toISOString().split('T')[0];
-    return formattedDate;
-  };
+  // const calculateFinalSnipingDate = (daysBefore: number): string => {
+  //   const currentDate = new Date(reservationDates[0]);
+  //   currentDate.setDate(currentDate.getDate() - daysBefore);
+  //   const formattedDate = currentDate.toISOString().split('T')[0];
+  //   return formattedDate;
+  // };
 
 
 
@@ -204,40 +204,40 @@ const SelectFinalSnipingDaySection = () => {
                 {button.label}
               </Button>
             ))}
-              <Select disabled onValueChange={(e) => console.log(e)}>
-                <Popover>
-                  <PopoverTrigger
-                    asChild
-                  // disabled={userDetail.subscription_type === "standard"}
-                  >
-                    <Button variant="outline" className=" text-light relative">
-                      Custom
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      onDayClick={(e) => {
-                        // handleRemoveReservationDate(dispatch, formatDate(e).toString())
-                        // setSelected((d) => {
-                        //   const indexToRemove = d.findIndex(date => date.getDate() === e.getDate());
-                        //   if (indexToRemove !== -1) {
-                        //     d.splice(indexToRemove, 1)
-                        //   }
-                        //   return d
-                        // })
+            <Select disabled onValueChange={(e) => console.log(e)}>
+              <Popover>
+                <PopoverTrigger
+                  asChild
+                // disabled={userDetail.subscription_type === "standard"}
+                >
+                  <Button variant="outline" className=" text-light relative">
+                    Custom
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    // onDayClick={(e) => {
+                    // handleRemoveReservationDate(dispatch, formatDate(e).toString())
+                    // setSelected((d) => {
+                    //   const indexToRemove = d.findIndex(date => date.getDate() === e.getDate());
+                    //   if (indexToRemove !== -1) {
+                    //     d.splice(indexToRemove, 1)
+                    //   }
+                    //   return d
+                    // })
 
-                        // If the date is found, remove it from the array
-                      }}
-                      id="test"
-                      mode="multiple"
-                      selected={days}
-                      disabled={{ before: new Date(), after: new Date(getDayBefore(reservationDates[0], 1)) }}
-                      footer={footer}
-                      onSelect={setDays}
-                    />
-                  </PopoverContent>
-                </Popover>
-              </Select>
+                    // If the date is found, remove it from the array
+                    // }}
+                    id="test"
+                    mode="multiple"
+                    selected={days}
+                    disabled={{ before: new Date(), after: new Date(getDayBefore(reservationDates[0], 1) ?? "") }}
+                    footer={footer}
+                    onSelect={setDays}
+                  />
+                </PopoverContent>
+              </Popover>
+            </Select>
 
           </>
         )}
