@@ -57,7 +57,7 @@ const Index = () => {
               <X />
             </Button>
             <div className="text-center text-primary text-2xl font-bold w-full sm:w-auto p-3">
-              RESY SNIPER
+              <a href="/reservations">RESY SNIPER</a>
             </div>
             <Button
               className={`bg-inherit ${open ? "hidden" : "block"

@@ -80,6 +80,7 @@ const AddTimeModal = () => {
 
         if (fromDateTime < toDateTime) {
             const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
+            debugger
             handleReseverationTime(dispatch, reservationTime);
         } else {
             toast({ description: "Please select a valid time", variant: "dark" });

@@ -23,8 +23,8 @@ interface IPartySize {
 }
 
 const DEFAULT_PARTY_SIZE_BUTTONS = [
-  { value: 1, label: "1", type: "button" },
   { value: 2, label: "2", type: "button" },
+  { value: 4, label: "4", type: "button" },
   // { value: 3, label: "3", type: "button" },
   // { value: 4, label: "4", type: "button" },
 ]
@@ -95,7 +95,7 @@ const SelectPartySizeSection = () => {
                   .fill("")
                   .map((_, index) => (
                     <SelectItem key={index} value={index.toString()}>
-                      {3 + index}
+                      {5 + index}
                       {" people"}
                     </SelectItem>
                   ))}

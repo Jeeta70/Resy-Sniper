@@ -74,6 +74,8 @@ const Index = ({
     return tabs;
   }, [data]);
 
+
+
   const [tab, setTab] = useState("all");
 
   return (
@@ -96,7 +98,7 @@ const Index = ({
         </Button>
       </div>
       <Tabs defaultValue="all">
-        <TabsList className="xl:grid xl:grid-cols-5  xl:w-[70%] lg:grid lg:grid-cols-5 lg:w-[100%] w-auto bg-transparent hidden sm:grid sm:grid-cols-5">
+        <TabsList className="xl:grid xl:grid-cols-5  xl:w-[70%] lg:grid lg:grid-cols-5 lg:w-[100%] w-auto bg-transparent hidden sm:grid sm:grid-cols-5 p-0">
           <TabsTrigger
             className="sm:text-sm block  text-[9px] data-[state=active]:bg-black border-[1px] border-light  data-[state=active]:text-white rounded-r-none"
             value="all"
