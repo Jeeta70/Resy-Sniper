@@ -45,9 +45,7 @@ const Index = () => {
   });
 
   function onSubmit(values: z.infer<typeof signupFormSchema>) {
-    console.log(values);
-
-    // signup(values, { onSuccess: () => form.reset() })
+    signup(values, { onSuccess: () => form.reset() })
   }
   return (
     <>

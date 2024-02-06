@@ -15,8 +15,7 @@ const Section = () => {
   const { searchRestaurants, isLoading } = useSearchRestaurants();
   const { removeAllRestaurant } = useRestaurantContext();
 
-  const { restaurants: selectedRestaurants, removeRestaurant } =
-    useRestaurantContext();
+  const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
 
   // const [searchParams] = useSearchParams();
   // const query = searchParams.get("query");
