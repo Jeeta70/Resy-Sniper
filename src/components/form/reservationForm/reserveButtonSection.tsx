@@ -194,7 +194,7 @@ const ReserveButtonSection = () => {
           // Convert both from and to times to 24-hour format
           const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
           const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
-          debugger
+
 
           // Create the reservation time string
           // const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
@@ -324,16 +324,32 @@ const ReserveButtonSection = () => {
           reservationType,
           partySize,
           reservationDates,
-          releaseDates,
+
           reservationTime,
-          releaseTime,
+
           resturantOptionOnAddReservationPage: {
             selectedResturantsForReservationOnAddReservationPage,
           },
           overideCurrentReservationToggleSection,
         } = reservationFormState;
-        const splitTime = reservationTime.split(" - ");
-        const newSplitTime = releaseTime.split(" - ");
+        const newTime = reservationTime.split("-");
+        const convertTo24HourFormat = (timeString: string) => {
+          const [time, period] = timeString.trim().split(" ");
+          const [hours, minutes] = time.split(":");
+          let hours24 = parseInt(hours, 10);
+
+          if (period === "PM" && hours !== "12") {
+            hours24 += 12;
+          }
+          const formattedHours = String(hours24).padStart(2, "0");
+          const formattedMinutes = minutes ? minutes.padStart(2, "0") : "00";
+
+          return `${formattedHours}:${formattedMinutes}:00`;
+        };
+
+        // Convert both from and to times to 24-hour format
+        const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+        const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
         const payload = {
           group_id,
           resturants: selectedResturantsForReservationOnAddReservationPage.map(
@@ -342,17 +358,14 @@ const ReserveButtonSection = () => {
             }
           ),
           date: reservationDates.map((date) => convertDateTimeFormt(date)),
-          release_date: releaseDates,
           override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
           final_snipe_date: null,
           final_snipe_time: null,
           table_type: null,
           reservation_source: "resy",
           snipe_type: reservationType as string,
-          start_time: splitTime[0],
-          end_time: splitTime[1],
-          release_start_time: newSplitTime[0],
-          release_end_time: newSplitTime[1],
+          start_time: fromTime24HourFormat,
+          end_time: toTime24HourFormat,
           party_size: partySize,
         };
         updateReservation(payload);
