@@ -4,8 +4,6 @@ import { IBlog } from "@/types/blog";
 const Index = () => {
    const { blogs, isLoading } = useGetAllblogs();
 
-   console.log(blogs);
-
 
    return (
       <>

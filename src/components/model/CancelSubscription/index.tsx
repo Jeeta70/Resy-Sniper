@@ -8,11 +8,11 @@ import {
     CredenzaHeader,
 } from "@/components/ui/credenza";
 import { Separator } from "@/components/ui/separator";
-import { CancelSubscription, useAccessEndDate} from "@/features/subscription/subscription";
+import { CancelSubscription, useAccessEndDate } from "@/features/subscription/subscription";
 
 const Index = () => {
     const { Cancel, isLoading } = CancelSubscription()
-   const {accessEndDate,isLoading:accessEndDateIsLoading} =  useAccessEndDate()
+    const { accessEndDate, isLoading: accessEndDateIsLoading } = useAccessEndDate()
     // const { upgrade, isLoading } = useUpgradeSubscription()
 
     const handleClick = () => {
@@ -25,7 +25,7 @@ const Index = () => {
                     Sorry to See You Leave...
                 </CardTitle>
                 <CredenzaDescription className="text-start">
-                    {!accessEndDateIsLoading && accessEndDate?.data.message} 
+                    {!accessEndDateIsLoading && accessEndDate?.data.message}
                 </CredenzaDescription>
             </CredenzaHeader>
             <Separator />

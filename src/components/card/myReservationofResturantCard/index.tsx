@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { IReservation } from "@/types/reservations";
 import { useNavigate } from "react-router-dom";
-import { capitalizeFirstAlphabet } from "@/utils/healper";
+import { capitalizeFirstAlphabet, convertTo12HourFormat } from "@/utils/healper";
 import {
   useCancelReservation,
   usePauseReservation,
@@ -33,7 +33,6 @@ const Index = ({
   const { cancelReservation } = useCancelReservation();
   const navigate = useNavigate();
 
-
   const restaurantNames = reservation.slice(0, 6)
     .map((restaurant) => restaurant.restaurant_name)
     .join(",");
@@ -49,7 +48,11 @@ const Index = ({
         {i === 3 && <><p className="absolute right-0 left-32 bottom-8 text-white text-sm font-medium sm:block hidden">{"+"}{reservationArray.length - 4}</p> <p className="absolute right-12 top-20 text-white text-base font-medium sm:hidden block">{"+"}{reservationArray.length - 3}</p></>}
       </>
   });
-
+  // const startTime = new Date(`2000-01-01T${reservation[0].start_time}`);
+  // const endTime = new Date(`2000-01-01T${reservation[0].end_time}`);
+  // console.log("=>", reservation[0], endTime)
+  const formattedStartTime = convertTo12HourFormat(reservation[0].start_time);
+  const formattedEndTime = convertTo12HourFormat(reservation[0].end_time);
 
   return (
     <Card className="sm:flex h-auto mb-5 relative">
@@ -60,7 +63,7 @@ const Index = ({
       {reservation.length > 5 && <div className="sm:grid grid grid-cols-3 sm:grid-cols-2 gap-1 sm:w-56"> {restaurantImage} </div>}
 
 
-      <CardContent className={`space-y-2 my-auto w-full ${reservation.length > 5 ? 'py-2' : ''}`}>
+      <CardContent className={`space-y-2 my-2 w-full ${reservation.length > 5 ? 'py-2' : ''}`}>
         <div className="space-y-1 pt-2 sm:pt-0 flex">
           {  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
           {  /* @ts-ignore */}
@@ -79,7 +82,7 @@ const Index = ({
             </h1>
             <p className="font-medium text-xs text-light ">
               <span className=" hidden sm:block">{snipe_type}</span>
-              <span>4 people Dec 23, Dec30 5:00-7:00PM, 10:00-11:00 PM</span>
+              <span>{reservation[0]?.party_size} people {reservation[0]?.date.toString()} {formattedStartTime} - {formattedEndTime}</span>
             </p>
           </div>
           <div className="absolute top-2 sm:top-auto right-2 bg-white rounded-full">

@@ -14,8 +14,8 @@ const Index = () => {
     useManageSubscription();
 
   const { subscription_type } = useContext(UserDetailContext);
-  
-  
+
+
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -28,7 +28,7 @@ const Index = () => {
     <Button
       onClick={() => refetch()}
       variant="outline"
-      className={`mt-3 sm:ms-3 w-full sm:w-auto`}
+      className={`mt-3 w-full sm:w-auto`}
     >
       Manage Subscription
     </Button>
@@ -86,7 +86,7 @@ const Index = () => {
                     {subscription_type === "standard" && (
                       <Button
                         variant="outline"
-                        className={`mt-3 w-full sm:w-auto`}
+                        className={`mt-3 mr-3 w-full sm:w-auto`}
                       >
                         Cancel subsciption
                       </Button>
@@ -194,7 +194,7 @@ const Index = () => {
                     {subscription_type === "premium" && (
                       <Button
                         variant="outline"
-                        className={`mt-3 w-full sm:w-auto`}
+                        className={`mt-3 mr-3 w-full sm:w-auto`}
                       >
                         Cancel Subscription
                       </Button>

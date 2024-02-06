@@ -67,7 +67,6 @@ const Index = () => {
                      onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                         e.stopPropagation();
                         upgrade("premium");
-                        console.log("first");
                      }}
                   >
                      {isLoading ? <ButtonLoader /> : "Upgrade to PRO"}

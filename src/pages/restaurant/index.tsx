@@ -21,8 +21,6 @@ const Index = () => {
     }
   }, [isLoading, isSuccess, singleResturant]);
 
-
-  console.log(restaurant);
   
 
   // const slides = [
