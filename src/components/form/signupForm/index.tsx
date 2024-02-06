@@ -5,17 +5,31 @@ import { Link } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
-import { Select, SelectContent, SelectTrigger, SelectValue, } from "@/components/ui/select";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { signupFormSchema } from "@/utils/formZodSchema";
-import { ButtonLoader, CountryCode } from "@/components";
+import { ButtonLoader, CountryCode, PrivacyPolicyModal, TermModal } from "@/components";
 import { useSignup } from "@/features/authentication/auth";
-
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
+import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { signup, isLoading } = useSignup()
+  const { signup, isLoading } = useSignup();
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -26,17 +40,20 @@ const Index = () => {
       phoneNumber: "",
       password: "",
       confirmPassword: "",
+      termAndConditions: false,
     },
   });
 
   function onSubmit(values: z.infer<typeof signupFormSchema>) {
-    signup(values, { onSuccess: () => form.reset() })
+    console.log(values);
+
+    // signup(values, { onSuccess: () => form.reset() })
   }
   return (
     <>
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col justify-center">
         <div className="text-center mt-2 text-[#F94633] hover:text-primary text-4xl font-bold">
-          <Link to={'/home'}> RESY SNIPER </Link>
+          <Link to={"/home"}> RESY SNIPER </Link>
         </div>
         {/* <img src={logo} /> */}
         <Form {...form}>
@@ -51,7 +68,9 @@ const Index = () => {
               render={({ field }) => (
                 <>
                   <FormItem className="relative">
-                    <FormLabel className="text-sm font-normal">First name</FormLabel>
+                    <FormLabel className="text-sm font-normal">
+                      First name
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="First name" {...field} />
                     </FormControl>
@@ -66,7 +85,9 @@ const Index = () => {
               render={({ field }) => (
                 <>
                   <FormItem className="relative">
-                    <FormLabel className="text-sm font-normal">Last Name</FormLabel>
+                    <FormLabel className="text-sm font-normal">
+                      Last Name
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="Last name" {...field} />
                     </FormControl>
@@ -99,8 +120,13 @@ const Index = () => {
                     <FormItem className="w-2/5 relative">
                       <FormControl>
                         <>
-                          <FormLabel className="text-sm font-normal">Phone</FormLabel>
-                          <Select defaultValue="+1" onValueChange={field.onChange}>
+                          <FormLabel className="text-sm font-normal">
+                            Phone
+                          </FormLabel>
+                          <Select
+                            defaultValue="+1"
+                            onValueChange={field.onChange}
+                          >
                             <SelectTrigger className="rounded-e-none">
                               <SelectValue placeholder="Select a prefix" />
                             </SelectTrigger>
@@ -131,7 +157,7 @@ const Index = () => {
                             {...field}
                             onInput={(e) => {
                               const input = e.target as HTMLInputElement;
-                              input.value = input.value.replace(/[^0-9]/g, '');
+                              input.value = input.value.replace(/[^0-9]/g, "");
                               if (input.value.length > 10) {
                                 input.value = input.value.slice(0, 10);
                               }
@@ -151,9 +177,15 @@ const Index = () => {
               render={({ field }) => (
                 <>
                   <FormItem className="relative">
-                    <FormLabel className="text-sm font-normal">Password</FormLabel>
+                    <FormLabel className="text-sm font-normal">
+                      Password
+                    </FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Create password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Create password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
@@ -166,17 +198,81 @@ const Index = () => {
               render={({ field }) => (
                 <>
                   <FormItem className="relative">
-                    <FormLabel className="text-sm font-normal">Repeat password</FormLabel>
+                    <FormLabel className="text-sm font-normal">
+                      Repeat password
+                    </FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Repeat Password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Repeat Password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage className="absolute -bottom-5 text-xs text-error" />
                   </FormItem>
                 </>
               )}
             />
+            <FormField
+              control={form.control}
+              name="termAndConditions"
+              render={({ field }) => (
+                <>
+                  <FormItem className="relative my-auto">
+                    <FormControl>
+                      <Checkbox
+                        id="terms"
+                        className=" mr-2 border-light my-auto"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel htmlFor="terms" className="text-sm font-normal my-auto">
+                      You agree to our{" "}
+                      <span
+                        className={cn(
+                          buttonVariants({ variant: "link" }),
+                          "text-blue cursor-pointer m-0 p-0"
+                        )}
+                      >
+                        <Credenza>
+                          <CredenzaTrigger>
+                            privacy policy
+                          </CredenzaTrigger>
+                          <PrivacyPolicyModal />
+                        </Credenza>
+                   
+                        
+                      </span>
+                      and{" "}
+                      <span
+                        className={cn(
+                          buttonVariants({ variant: "link" }),
+                          "text-blue cursor-pointer m-0 p-0"
+                        )}
+                      >
+                        <Credenza>
+                          <CredenzaTrigger>
+                            terms
+                          </CredenzaTrigger>
+                          <TermModal />
+                        </Credenza>
+                     
+                      </span>
+                      {" "}of service
+                    </FormLabel>
+                    <FormMessage className="absolute -bottom-5 text-xs text-error" />
+                  </FormItem>
+                </>
+              )}
+            />
 
-            <Button variant="primary" type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              variant="primary"
+              type="submit"
+              className="w-full"
+              disabled={isLoading}
+            >
               {isLoading ? <ButtonLoader /> : "Sign up"}
             </Button>
             <div className="text-center font-normal">
