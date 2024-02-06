@@ -324,9 +324,9 @@ const ReserveButtonSection = () => {
           reservationType,
           partySize,
           reservationDates,
-          releaseDates,
+
           reservationTime,
-          releaseTime,
+
           resturantOptionOnAddReservationPage: {
             selectedResturantsForReservationOnAddReservationPage,
           },
