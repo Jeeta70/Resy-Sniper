@@ -4,7 +4,7 @@ import { ButtonLoader, DiscardChangesModal } from "@/components";
 import { Button } from "@/components/ui/button";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { setAllErrorFieldTrue } from "@/reducer/reservationFormReducer";
-import { convertDateTimeFormt } from "@/utils/healper";
+import { convertDateTimeFormt, formatDateForSnipingDate } from "@/utils/healper";
 import {
   useCreateReservation,
   useGetReservationCount,
@@ -23,7 +23,7 @@ const ReserveButtonSection = () => {
 
   const {
     reservationFormState,
-    reservationFormState: { reservationType },
+    reservationFormState: { reservationType, finalSnipingDay },
     dispatch,
   } = useReservationContext();
   // const { reservationCounts } = useGetReservationCount()
@@ -209,7 +209,7 @@ const ReserveButtonSection = () => {
             override_reservations: overideCurrentReservationToggleSection
               ? 1
               : 0,
-            final_snipe_date: null,
+            final_snipe_date: formatDateForSnipingDate(finalSnipingDay.value),
             final_snipe_time: null,
             table_type: null,
             reservation_source: "resy",
@@ -218,7 +218,7 @@ const ReserveButtonSection = () => {
             end_time: splitTime[1],
             party_size: partySize,
           };
-          createReservation(payload);
+          createReservation(payload)
         }
       } else if (reservationType === "release") {
         const {

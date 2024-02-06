@@ -259,7 +259,7 @@ const Index = () => {
                       </span>
                       {" "}of service
                     </FormLabel>
-                    <FormMessage className="absolute -bottom-5 text-xs text-error" />
+                    <FormMessage className="absolute -bottom-3 text-xs text-error" />
                   </FormItem>
                 </>
               )}

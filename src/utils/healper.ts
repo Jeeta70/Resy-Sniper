@@ -55,8 +55,39 @@ export function convertDateFormat(originalDateString: Date): string {
   return outputDate.toString();
 }
 
+
+// format Thu Feb 08 2024 00:00:00 GMT+0530 (India Standard Time) into 02-10-2024
+export function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date).replace(/\//g, '-');
+}
+
+export function getDayBefore(dateString: string | null, dayBefore: number): string {
+  if (!dateString) return;
+  const [month, day, year] = dateString.split('-').map(Number);
+  const currentDate = new Date(year, month - 1, day);
+  currentDate.setDate(currentDate.getDate() - dayBefore);
+  const formattedDate = formatDate(currentDate);
+  return formattedDate;
+}
+
+export function isToday(dateString: string): boolean {
+  const [month, day, year] = dateString.split('-').map(Number);
+  const givenDate = new Date(year, month - 1, day);
+
+  const today = new Date();
+  return givenDate.getDate() === today.getDate() &&
+    givenDate.getMonth() === today.getMonth() &&
+    givenDate.getFullYear() === today.getFullYear();
+}
+
 export function capitalizeFirstAlphabet(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+export function formatDateForSnipingDate(dateString: string | null) {
+  if (!dateString) return
+  const [month, day, year] = dateString.split('-').map(Number);
+  return `${year}-${month}-${day}`
 }
 
 export function getStatusString(inputString: string): "active" | "canceled" | "paused" | "completed" {

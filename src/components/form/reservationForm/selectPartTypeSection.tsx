@@ -37,7 +37,7 @@ const SelectPartySizeSection = () => {
   const [partySizeArray, setPartySizeArray] = useState<Array<IPartySize>>(DEFAULT_PARTY_SIZE_BUTTONS);
 
   useEffect(() => {
-    if (Number(partySize) >= 2) setPartySizeArray([...DEFAULT_PARTY_SIZE_BUTTONS, { value: Number(partySize), label: partySize.toString(), type: "button" }])
+    if (Number(partySize) >= 3) setPartySizeArray([...DEFAULT_PARTY_SIZE_BUTTONS, { value: Number(partySize), label: partySize.toString(), type: "button" }])
   }, [partySize]);
 
 

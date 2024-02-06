@@ -60,11 +60,11 @@ export interface IFormState {
     availableSittings: string;
   };
   partySize: number | string;
-  reservationDates: Date[] | string[];
+  reservationDates: string[];
   releaseDates: string;
   reservationTime: string;
   releaseTime: string;
-  finalSnipingDay: string;
+  finalSnipingDay: { display: string, value: string | null };
   overideCurrentReservationToggleSection: boolean;
   title: string;
   description: string;
@@ -91,7 +91,7 @@ export const initialState: IFormState = {
   reservationTime: "",
   releaseTime: "",
 
-  finalSnipingDay: "none",
+  finalSnipingDay: { display: "None", value: null },
   overideCurrentReservationToggleSection: false,
   title: "",
   description: "",
@@ -120,6 +120,7 @@ export enum ResturantReservationStateReducerConstant {
   RESERVATION_FIELD_VALIDATION = "RESERVATION_FIELD_VALIDATION",
   SET_ALL_ERROR_FIELD_TRUE = "SET_ALL_ERROR_FIELD_TRUE",
   SET_RESERVATION_DATE = "SET_RESERVATION_DATE",
+  REMOVE_RESERVATION_DATE = "REMOVE_RESERVATION_DATE",
   SET_RESERVATION_TIME = "SET_RESERVATION_TIME",
   RELEASE_RESERVATION_DATE = "RELEASE_RESERVATION_DATE",
   RELEASE_RESERVATION_TIME = "RELEASE_RESERVATION_TIME",
@@ -129,7 +130,8 @@ export enum ResturantReservationStateReducerConstant {
 
 export interface IAction<T, P> {
   key?: string;
-  value?: string | number | boolean;
+  value?: string | number | boolean
+  snipingDay?: { display: string, value: string | null }
   type: T;
   // payload?: Partial<P> | IRestaurant | number | Date[] | string[] | string;
   payload?: any | Partial<P>;
@@ -168,18 +170,18 @@ export const reservationFormReducer = (
           ...state.resturantOptionOnAddReservationPage,
           selectedResturantsForReservationOnAddReservationPage: currentVenueId
             ? state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage.some(
-                (o) => currentVenueId === o.venue_id
-              )
+              (o) => currentVenueId === o.venue_id
+            )
               ? state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage.filter(
-                  (o) => currentVenueId !== o.venue_id
-                )
+                (o) => currentVenueId !== o.venue_id
+              )
               : [
-                  ...state.resturantOptionOnAddReservationPage
-                    .selectedResturantsForReservationOnAddReservationPage,
-                  action.payload,
-                ]
+                ...state.resturantOptionOnAddReservationPage
+                  .selectedResturantsForReservationOnAddReservationPage,
+                action.payload,
+              ]
             : state.resturantOptionOnAddReservationPage
-                .selectedResturantsForReservationOnAddReservationPage,
+              .selectedResturantsForReservationOnAddReservationPage,
         },
       };
 
@@ -217,14 +219,12 @@ export const reservationFormReducer = (
         partySize: Number(action.value),
       };
     case ResturantReservationStateReducerConstant.SET_RESERVATION_DATE:
-      // eslint-disable-next-line no-case-declarations
-      const payloadIsArray = Array.isArray(action.payload);
-      if (!payloadIsArray) return state;
-
       return {
         ...state,
         reservationDates: [...action.payload],
       };
+    case ResturantReservationStateReducerConstant.REMOVE_RESERVATION_DATE:
+      return { ...state, reservationDates: state.reservationDates.filter(date => date !== action.payload) };
     case ResturantReservationStateReducerConstant.SET_RESERVATION_TIME:
       return {
         ...state,
@@ -242,9 +242,10 @@ export const reservationFormReducer = (
         releaseTime: String(action.value),
       };
     case ResturantReservationStateReducerConstant.SELECT_FINAL_SNIPING_DAY:
+
       return {
         ...state,
-        finalSnipingDay: String(action.value),
+        finalSnipingDay: { display: action.snipingDay?.display ?? "", value: action.snipingDay?.value ?? null },
       };
 
     case ResturantReservationStateReducerConstant.OVERIDE_CURRENT_RESERVATION:
@@ -369,10 +370,20 @@ export function handleButtonClickPartySize(
 
 export function handleReservationDate(
   dispatch: IUserStateReducerDispatchType,
-  payload: unknown
+  payload: string[]
 ) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SET_RESERVATION_DATE,
+    payload,
+  });
+}
+
+export function handleRemoveReservationDate(
+  dipatch: IUserStateReducerDispatchType,
+  payload: string
+) {
+  dipatch({
+    type: ResturantReservationStateReducerConstant.REMOVE_RESERVATION_DATE,
     payload,
   });
 }
@@ -411,11 +422,11 @@ export function handleReleaseTime(
 
 export function handleFinalSnipingDay(
   dispatch: IUserStateReducerDispatchType,
-  value: string
+  snipingDay: { display: string, value: string | null }
 ) {
   dispatch({
     type: ResturantReservationStateReducerConstant.SELECT_FINAL_SNIPING_DAY,
-    value: value,
+    snipingDay,
   });
 }
 
