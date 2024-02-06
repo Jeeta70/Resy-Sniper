@@ -4,6 +4,7 @@ import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 import { handleButtonClickReservationType } from "@/reducer/reservationFormReducer";
+import { resetReservationForm } from "@/reducer/reservationFormReducer";
 import { useContext } from "react";
 import ProIcon from "@/assets/ProIcon.svg";
 import { cn } from "@/lib/utils";
@@ -49,7 +50,10 @@ const SelectReservationTypeSection = () => {
             className="font-semibold text-[11px] rounded-l-none w-full sm:w-auto"
             type="button"
             variant={reservationFormState.reservationType === "release" ? "default" : "outline"}
-            onClick={() => handleButtonClickReservationType(dispatch, "release")}>
+            onClick={() => {
+              resetReservationForm(dispatch);
+              handleButtonClickReservationType(dispatch, "release");
+            }}>
             Release Reservation
           </Button>}
       </div>

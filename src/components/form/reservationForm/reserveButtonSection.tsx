@@ -178,7 +178,7 @@ const ReserveButtonSection = () => {
           } = reservationFormState;
           const newTime = reservationTime.split("-");
           const convertTo24HourFormat = (timeString: string) => {
-            const [time, period] = timeString.split(" ");
+            const [time, period] = timeString.trim().split(" ");
             const [hours, minutes] = time.split(":");
             let hours24 = parseInt(hours, 10);
 
@@ -194,11 +194,12 @@ const ReserveButtonSection = () => {
           // Convert both from and to times to 24-hour format
           const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
           const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+          debugger
 
           // Create the reservation time string
-          const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
+          // const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
 
-          const splitTime = reservationTimeNew.split(" - ");
+          // const splitTime = reservationTimeNew.split(" - ");
           // coverted states into formated payload
           const payload = {
             resturants:
@@ -219,8 +220,8 @@ const ReserveButtonSection = () => {
             table_type: null,
             reservation_source: "resy",
             snipe_type: reservationType as string,
-            start_time: splitTime[0],
-            end_time: splitTime[1],
+            start_time: fromTime24HourFormat,
+            end_time: toTime24HourFormat,
             party_size: partySize,
           };
           createReservation(payload);

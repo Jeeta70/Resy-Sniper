@@ -55,11 +55,17 @@ export function convertDateFormat(originalDateString: Date): string {
   return outputDate.toString();
 }
 
-
 // format Thu Feb 08 2024 00:00:00 GMT+0530 (India Standard Time) into 02-10-2024
 export function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date).replace(/\//g, '-');
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  })
+    .format(date)
+    .replace(/\//g, "-");
 }
+
 
 
 
@@ -83,13 +89,15 @@ export function getDayBefore(dateString: string | null, dayBefore: number): stri
 }
 
 export function isToday(dateString: string): boolean {
-  const [month, day, year] = dateString.split('-').map(Number);
+  const [month, day, year] = dateString.split("-").map(Number);
   const givenDate = new Date(year, month - 1, day);
 
   const today = new Date();
-  return givenDate.getDate() === today.getDate() &&
+  return (
+    givenDate.getDate() === today.getDate() &&
     givenDate.getMonth() === today.getMonth() &&
-    givenDate.getFullYear() === today.getFullYear();
+    givenDate.getFullYear() === today.getFullYear()
+  );
 }
 
 export function capitalizeFirstAlphabet(word: string) {
@@ -97,47 +105,66 @@ export function capitalizeFirstAlphabet(word: string) {
 }
 
 export function formatDateForSnipingDate(dateString: string | null) {
-  if (!dateString) return
-  const [month, day, year] = dateString.split('-').map(Number);
-  return `${year}-${month}-${day}`
+  if (!dateString) return;
+  const [month, day, year] = dateString.split("-").map(Number);
+  return `${year}-${month}-${day}`;
 }
+
 
 
 
 export function getStatusString(inputString: string): "active" | "canceled" | "paused" | "completed" {
   switch (inputString.toLowerCase()) {
-    case 'active':
-      return 'active';
-    case 'canceled':
-      return 'canceled';
-    case 'paused':
-      return 'paused';
-    case 'completed_unsuccessfully':
-    case 'completed_successfully':
-      return 'completed';
+    case "active":
+      return "active";
+    case "canceled":
+      return "canceled";
+    case "paused":
+      return "paused";
+    case "completed_unsuccessfully":
+    case "completed_successfully":
+      return "completed";
     default:
-      return 'active';
+      return "active";
   }
 }
 
-export function getStatusStringBadge(inputString: string): "active" | "canceled" | "paused" | "completed" | "unsuccessful" {
+export function getStatusStringBadge(
+  inputString: string
+): "active" | "canceled" | "paused" | "completed" | "unsuccessful" {
   switch (inputString.toLowerCase()) {
-    case 'active':
-      return 'active';
-    case 'canceled':
-      return 'canceled';
-    case 'paused':
-      return 'paused';
-    case 'completed_unsuccessfully':
-      return "unsuccessful"
-    case 'completed_successfully':
-      return 'completed';
+    case "active":
+      return "active";
+    case "canceled":
+      return "canceled";
+    case "paused":
+      return "paused";
+    case "completed_unsuccessfully":
+      return "unsuccessful";
+    case "completed_successfully":
+      return "completed";
     default:
-      return 'active';
+      return "active";
   }
 }
 
+export function convertTo12HourFormat(timeString: string): string {
+  // Parse the time string into hours, minutes, and seconds
+  const [hours, minutes] = timeString.split(":").map(Number);
 
+  // Determine if it's AM or PM
+  const period: string = hours < 12 ? "AM" : "PM";
+
+  // Convert hours to 12-hour format
+  const formattedHours: number = hours % 12 === 0 ? 12 : hours % 12;
+
+  // Format the time string
+  const formattedTime: string = `${formattedHours}:${
+    minutes < 10 ? "0" : ""
+  }${minutes} ${period}`;
+
+  return formattedTime;
+}
 
 // const axiosApiInstance = axios.create();
 
@@ -156,7 +183,7 @@ export function getStatusStringBadge(inputString: string): "active" | "canceled"
 
 //       console.log(3);
 //       return response.data;
-//    } catch (error) { 
+//    } catch (error) {
 //       console.log(error);
 
 //       // localStorage.clear();
