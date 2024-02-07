@@ -29,7 +29,8 @@ export default function DrawerDemo() {
 
   const [locationSearch, setlocationSearch] = React.useState("");
 
-  const [, setSeachParamss] = useSearchParams();
+  const [searchParamss, setSeachParamss] = useSearchParams();
+  // const query = searchParamss.get()
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -45,6 +46,11 @@ export default function DrawerDemo() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setlocationSearch(e.target.value);
+    if (e.target.value === "") {
+      setSeachParamss(() => {
+        return ''
+      });
+    }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -77,6 +83,7 @@ export default function DrawerDemo() {
             onChange={handleInputChange}
             placeholder="Search restaurant"
             searchIcon={true}
+            defaultValue={searchParamss.get("location") ?? ""}
           />
           {/* </form> */}
           <ScrollArea className="max-h-96 min-h-32 overflow-y-scroll top-2">
