@@ -9,7 +9,7 @@ const Index = () => {
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-  const location = searchParams.get("location");
+  // const location = searchParams.get("location");
   const price = searchParams.get("price");
 
 

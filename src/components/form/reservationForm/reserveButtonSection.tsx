@@ -105,10 +105,11 @@ const ReserveButtonSection = () => {
       state.reservationDates = data.map((restaurant: { date: string; }) => formateDateFromSingleRservation(restaurant.date));
 
 
-      const res = data[0]?.venue_data as never;
-      console.log(data)
-      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = data.map(item => item.venue_data)
-        .filter((value: { venue_id: any; }, index: Key, self: any[]) =>
+      // const res = data[0]?.venue_data as never;
+      // console.log(data)
+      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = data.map((item: { venue_data: unknown; }) => item.venue_data)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .filter((value: { venue_id: unknown; }, index: Key, self: any[]) =>
           index === self.findIndex(obj => obj.venue_id === value.venue_id)
         );
         // [res];

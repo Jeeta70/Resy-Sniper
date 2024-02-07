@@ -1,23 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DropDown, LocationDropDown, SearchInputField } from "@/components";
-import { Key, useEffect, useMemo, useRef, useState } from "react";
+import { Key, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SelectGroup, SelectItem, SelectLabel } from "@/components/ui/select";
 import {
   useGetLoactionSuggestion,
-  useRestaurantAccourdingPriceSuggestion,
 } from "@/features/restaurant/restaurant";
 
 const SearchAndFilterSection = () => {
   const [searchParams, setSeachParams] = useSearchParams();
   const query = searchParams.get("query");
-  const location = searchParams.get("location");
-  const price = searchParams.get("price");
+  // const location = searchParams.get("location");
+  // const price = searchParams.get("price");
 
   const exact_location = searchParams.get("exact_location") ?? undefined;
 
   const [searchQuery, setsearchQuery] = useState("");
-  const [locationSearch, setLoacationSearch] = useState("");
-  const [priceFilter, setPriceFilter] = useState("");
+  const [_locationSearch, setLoacationSearch] = useState("");
+  // const [priceFilter, setPriceFilter] = useState("");
   const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } =
     useGetLoactionSuggestion();
 

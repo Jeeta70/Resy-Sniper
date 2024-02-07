@@ -10,7 +10,6 @@ import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
 import { toast } from "@/components/ui/use-toast";
 import { formatDate, getDayBefore, isToday, isTommorrow } from "../../../utils/healper";
-import { Select } from "@/components/ui/select";
 import {
   Popover,
   PopoverContent,
