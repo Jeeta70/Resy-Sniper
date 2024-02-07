@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && git pull origin main && cd /var/www/html/ && sudo cp -r /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/ && ~/.npm-global/bin/pm2 reload all'
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && git pull origin main && cd /var/www/html/ && sudo cp -r /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/ && pm2 reload all'
 
 workflows:
   version: 2
