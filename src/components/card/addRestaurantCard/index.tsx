@@ -6,7 +6,7 @@ import OpenTableIcon from "@/assets/opentable.png";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 import { useContext } from "react";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
-import { AccountNotConnectedModal } from "@/components";
+import { AccountNotConnectedModal, OnlyPremimUserCanAccess } from "@/components";
 
 interface Props {
   restaurant: IRestaurant;
@@ -14,7 +14,9 @@ interface Props {
 }
 
 const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
+
   const user = useContext(UserDetailContext);
+  const premium = user.subscription_type === "standard" ? false : true;
   const resy_token = user.resy_token;
   const ot_access_token = user.ot_access_token;
   const renderDollarSigns = () => {
@@ -94,6 +96,17 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
               </Card>
             </CredenzaTrigger>
             <AccountNotConnectedModal restaurantSource={restaurant.source} />
+          </Credenza>
+        </>
+      ) : !premium && restaurant.premium ? (
+        <>
+          <Credenza>
+            <CredenzaTrigger asChild>
+              <Card className="flex cursor-pointer items-center" role="button">
+                {resturantCard}
+              </Card>
+            </CredenzaTrigger>
+                <OnlyPremimUserCanAccess message="This restaurant requires a premium membership to view menu." />
           </Credenza>
         </>
       ) : (

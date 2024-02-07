@@ -80,7 +80,6 @@ export function getDayBefore(dateString: string | null, dayBefore: number): stri
   
   
   if (dateString === undefined|| !dateString) return;
-  console.log(dateString);
   const [month, day, year] = dateString.split('-').map(Number);
   const currentDate = new Date(year, month - 1, day);
   currentDate.setDate(currentDate.getDate() - dayBefore); 
@@ -91,7 +90,6 @@ export function getDayBefore(dateString: string | null, dayBefore: number): stri
 export function isToday(dateString: string): boolean {
   const [month, day, year] = dateString.split("-").map(Number);
   const givenDate = new Date(year, month - 1, day);
-
   const today = new Date();
   return (
     givenDate.getDate() === today.getDate() &&
@@ -99,6 +97,22 @@ export function isToday(dateString: string): boolean {
     givenDate.getFullYear() === today.getFullYear()
   );
 }
+
+export function isTommorrow(dateString: string): boolean {
+  const [month, day, year] = dateString.split("-").map(Number);
+  const givenDate = new Date(year, month - 1, day);
+  const tommorrow = new Date(); // Get today's date
+  tommorrow.setDate(tommorrow.getDate() + 1); 
+
+
+  return (
+    givenDate.getDate() === tommorrow.getDate() &&
+    givenDate.getMonth() === tommorrow.getMonth() &&
+    givenDate.getFullYear() === tommorrow.getFullYear()
+  );
+}
+
+
 
 export function capitalizeFirstAlphabet(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -159,7 +173,7 @@ export function convertTo12HourFormat(timeString: string): string {
   const formattedHours: number = hours % 12 === 0 ? 12 : hours % 12;
 
   // Format the time string
-  const formattedTime: string = `${formattedHours}:${
+  const formattedTime = `${formattedHours}:${
     minutes < 10 ? "0" : ""
   }${minutes} ${period}`;
 

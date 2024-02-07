@@ -17,12 +17,13 @@ export function useSearchRestaurants() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
   const exact_location = searchParams.get("exact_location")
+  const price = searchParams.get("price");
   const { data: searchRestaurants, isPending: isLoading } = useQuery({
-    queryKey: ["resturants", query, exact_location],
+    queryKey: ["resturants", query, exact_location, price],
     queryFn: (): Promise<AxiosResponse> => {
-      if (query || exact_location)
+      if (query || exact_location || price)
         return axios.get(
-          `${baseUrl}/restaurants/search?venue_name=${encodeURI(query ?? "")}&exact_location=${encodeURI(exact_location ??"")}`
+          `${baseUrl}/restaurants/search?venue_name=${encodeURI(query ?? "")}&exact_location=${encodeURI(exact_location ?? "")}&price=${price}`
         );
       return axios.get(`${baseUrl}/restaurants/all`);
     },
@@ -75,7 +76,21 @@ export function useGetLoactionSuggestion() {
     }
   })
   return { restaurantSuggestions, isLoading, isSuccess, isError };
-
 }
+
+
+// export function useRestaurantAccourdingPriceSuggestion() {
+//   const [searchParams] = useSearchParams();
+//   const location = searchParams.get("location");
+//   const { data: restaurantAccourdingPriceSuggestions, isPending: isLoading, isSuccess, isError } = useQuery({
+//     queryKey: ['ResturantSuggestion', location],
+//     queryFn: (): Promise<AxiosResponse> => {
+//       return axios.get(`${baseUrl}/restaurants/search?price=${location}`)
+//     }
+//   })
+//   return { restaurantAccourdingPriceSuggestions, isLoading, isSuccess, isError };
+// }
+
+
 
 

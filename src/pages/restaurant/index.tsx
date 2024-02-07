@@ -20,7 +20,6 @@ const Index = () => {
       return singleResturant?.data;
     }
   }, [isLoading, isSuccess, singleResturant]);
-
   
 
   // const slides = [
@@ -29,6 +28,18 @@ const Index = () => {
   //   "https://i.ibb.co/yg7BSdM/4.png",
   //   "https://i.ibb.co/yg7BSdM/7.png",
   // ];
+
+  const renderDollarSigns = () => {
+    const dollarSigns = Array.from({ length: restaurant.price }, (_, index) => (
+      <span
+        key={index}
+        className="text-[#12171A] opacity-[60%] text-[11px] !font-[600]"
+      >
+        &#36;
+      </span>
+    ));
+    return dollarSigns;
+  };
 
   return (
     <>
@@ -55,9 +66,9 @@ const Index = () => {
                   <p className="text-2xl font-bold"> {restaurant.venue_name}</p>
                 </header>
                 <div className="flex justify-between">
-                  <p className="my-3 text-xs font-medium text-light ">$$$$</p>
+                    <p className="my-3 text-xs font-medium text-light ">{renderDollarSigns()}</p>
                   <p className="my-3  text-xs font-medium text-black">
-                      <MapPin className="inline-block" /> Prospective height {restaurant.locality}
+                      <MapPin className="inline-block" /> {restaurant.locality}
                   </p>
                 </div>
                 <h4 className="font-bold text-sm mb-3">Why We Like it</h4>
@@ -68,10 +79,11 @@ const Index = () => {
                   nine-floor atrium. And Tom Colicchio’s classic small bites
                   never disappoint.
                 </p>
-                <h4 className="font-bold text-sm mb-3">Need to know</h4>
-                <p className="text-xs leading-5 font-normal text-light mb-3">
-                  {restaurant.need_to_know_description}
-                </p>
+                  {restaurant.need_to_know_description && <> <h4 className="font-bold text-sm mb-3">Need to know</h4>
+                    <p className="text-xs leading-5 font-normal text-light mb-3">
+                      {restaurant.need_to_know_description}
+                    </p> </>}
+               
                 <h4 className="font-bold text-sm mb-4">
                   About {restaurant.venue_name}
                 </h4>

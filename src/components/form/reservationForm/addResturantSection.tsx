@@ -34,14 +34,13 @@ const AddResturantSection = () => {
   } = useReservationContext();
   const userDetail = useContext(UserDetailContext);
 
-
   useEffect(() => {
     if (state) {
       const { selectedRestaurants } = state;
 
       handleUpdateSelectedRestaurant(dispatch, selectedRestaurants);
     }
-  }, [dispatch, state]);
+  }, [dispatch, state]);  
 
   return (
     <div>
@@ -84,60 +83,78 @@ const AddResturantSection = () => {
             )
           )}
 
-
-          {reservationType === 'release' ? <>
-            {selectedResturantsForReservationOnAddReservationPage.length > 0 ? <> <span
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "inline-flex font-semibold text-[11px]  relative cursor-pointer opacity-50"
-              )}
-            ><Plus className="mr-3 " />Add Reservation</span><p className="text-[10px] text-[red]">Only select single resturant</p> </> : <><CredenzaTrigger asChild className="">
-              <Button
-                variant="outline"
-                className="inline-flex font-semibold text-[11px] relative"
-              >
-                <Plus className="mr-3 " /> Add Restaurant
-              </Button>
-            </CredenzaTrigger>
-              <AddResturantModel /></>}
-          </> : <>
-            {userDetail.subscription_type === "standard" &&
-              selectedResturantsForReservationOnAddReservationPage.length > 0 ? (
-              <>
-                <CredenzaTrigger asChild>
+          {reservationType === "release" ? (
+            <>
+              {selectedResturantsForReservationOnAddReservationPage.length >
+              0 ? (
+                <>
+                  {" "}
                   <span
                     className={cn(
                       buttonVariants({ variant: "outline" }),
-                      "inline-flex font-semibold text-[11px]  relative cursor-pointer"
+                      "inline-flex font-semibold text-[11px]  relative cursor-pointer opacity-50"
                     )}
                   >
-                    <img
-                      src={ProIcon}
-                      alt="pro icon"
-                      className="absolute right-0 top-0"
-                    />
-                    <Plus className="mr-3 " /> Add Reservation
+                    <Plus className="mr-3 " />
+                    Add Reservation
                   </span>
-                </CredenzaTrigger>
-                <FeatureIsForProModel />
-                {/* </>} */}
-
-              </>
-            ) : (
-              <>
-
-
-                <CredenzaTrigger asChild className="">
-                  <Button
-                    variant="outline"
-                    className="inline-flex font-semibold text-[11px] relative"
-                  >
-                    <Plus className="mr-3 " /> Add Restaurant
-                  </Button>
-                </CredenzaTrigger>
-                <AddResturantModel />
-              </>
-            )}</>}
+                  <p className="text-[10px] text-[red]">
+                    Only select single resturant
+                  </p>{" "}
+                </>
+              ) : (
+                <>
+                  <CredenzaTrigger asChild className="">
+                    <Button
+                      variant="outline"
+                      className="inline-flex font-semibold text-[11px] relative"
+                    >
+                      <Plus className="mr-3 " /> Add Restaurant
+                    </Button>
+                  </CredenzaTrigger>
+                  <AddResturantModel />
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              {userDetail.subscription_type === "standard" &&
+              selectedResturantsForReservationOnAddReservationPage.length >
+                0 ? (
+                <>
+                  <CredenzaTrigger asChild>
+                    <span
+                      className={cn(
+                        buttonVariants({ variant: "outline" }),
+                        "inline-flex font-semibold text-[11px]  relative cursor-pointer"
+                      )}
+                    >
+                      <img
+                        src={ProIcon}
+                        alt="pro icon"
+                        className="absolute right-0 top-0"
+                      />
+                      <Plus className="mr-3 " /> Add Reservation
+                    </span>
+                  </CredenzaTrigger>
+                  <FeatureIsForProModel />
+                  {/* </>} */}
+                </>
+              ) : (
+                <>
+                  <CredenzaTrigger asChild className="">
+                    <Button
+                      variant="outline"
+                      className="inline-flex font-semibold text-[11px] relative"
+                    >
+                      <Plus className="mr-3 " /> Add Restaurant
+                    </Button>
+                  </CredenzaTrigger>
+                  <AddResturantModel />
+                </>
+              )}
+            </>
+          )}
         </Credenza>
       }
 
