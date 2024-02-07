@@ -23,6 +23,8 @@ export { default as DisableOpenTableModal } from "@/components/model/disableOpen
 export { default as PrivacyPolicyModal } from "@/components/model/privacyPolicyModel"
 export { default as TermModal } from "@/components/model/termsModal"
 export { default as AccountNotConnectedModal } from "@/components/model/accountNotConnectedModal"
+export { default as OnlyPremimUserCanAccess } from "@/components/model/onlyPremiumUserCanAccessRestaurant"
+
 
 
 
@@ -39,6 +41,8 @@ export { default as MyReservationTabDropDown } from "@/components/tab/myReservat
 export { default as NewSubscriptionCard } from '@/components/card/newSubscriptionCard'
 
 export { default as DropDown } from "@/components/dropDown";
+export { default as LocationDropDown } from "@/components/dropDown/locationDropDown"
+
 export { default as RestaurantCard } from "@/components/card/restaurantCard";
 export { default as Carousel } from "@/components/carousel";
 export { default as RestaurantLocationCard } from "@/components/card/restaurantLocationCard";

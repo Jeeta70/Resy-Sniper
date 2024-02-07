@@ -35,3 +35,4 @@ const Index = ({ message }: { message: string }) => {
 };
 
 export default Index;
+

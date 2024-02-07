@@ -1,17 +1,30 @@
-import { DropDown, SearchInputField } from "@/components";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { DropDown, LocationDropDown, SearchInputField } from "@/components";
 import { Key, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SelectGroup, SelectItem, SelectLabel } from "@/components/ui/select";
-import { useGetLoactionSuggestion } from "@/features/restaurant/restaurant";
+import {
+  useGetLoactionSuggestion,
+} from "@/features/restaurant/restaurant";
 
 const SearchAndFilterSection = () => {
-  const [query, setSeachParams] = useSearchParams();
-  const exact_location = query.get("exact_location") ?? undefined;
+  const [searchParams, setSeachParams] = useSearchParams();
+  const query = searchParams.get("query");
+  // const location = searchParams.get("location");
+  // const price = searchParams.get("price");
+
+  const exact_location = searchParams.get("exact_location") ?? undefined;
 
   const [searchQuery, setsearchQuery] = useState("");
-  const [locationSearch, setLoacationSearch] = useState("");
+  const [_locationSearch, setLoacationSearch] = useState("");
+  // const [priceFilter, setPriceFilter] = useState("");
   const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } =
     useGetLoactionSuggestion();
+
+  // const {
+  //   restaurantAccourdingPriceSuggestions,
+  //   isLoading: restaurantAccourdingPriceSuggestionsIsLoading,
+  // } = useRestaurantAccourdingPriceSuggestion();
 
   const restaurantSuggestion = useMemo(() => {
     if (!restaurantSuggestionIsLoading) {
@@ -37,15 +50,15 @@ const SearchAndFilterSection = () => {
     return () => clearInterval(timer);
   }, [searchQuery, setSeachParams]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSeachParams((prev) => {
-        prev.set("location", locationSearch);
-        return prev;
-      });
-    }, 500);
-    return () => clearInterval(timer);
-  }, [locationSearch, setSeachParams]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setSeachParams((prev) => {
+  //       prev.set("location", locationSearch);
+  //       return prev;
+  //     });
+  //   }, 500);
+  //   return () => clearInterval(timer);
+  // }, [locationSearch, setSeachParams]);
 
   function placeSuggestionsChange(place: string) {
     setSeachParams((prev) => {
@@ -54,15 +67,36 @@ const SearchAndFilterSection = () => {
     });
   }
 
+  function priceSuggestionChange(price: string) {
+    setSeachParams((prev) => {
+      prev.set("price", price);
+      return prev;
+    });
+  }
+
+
+
   return (
     <div className="lg:flex block gap-4">
       <SearchInputField
         onChange={onChange}
         placeholder="Search restaurant"
         searchIcon={true}
+        defaultValue={query ?? ""}
       />
       <div className="lg:grid lg:grid-cols-2 flex gap-2 mt-3 lg:mt-0">
-        {/* <DropDown placeholder="All Prices">All price children</DropDown> */}
+        <DropDown
+          onValueChange={priceSuggestionChange}
+          placeholder="All Prices"
+        >
+          <SelectGroup>
+            <SelectItem value={"$"}>$</SelectItem>
+            <SelectItem value={"$$"}>$$</SelectItem>
+            <SelectItem value={"$$$"}>$$$</SelectItem>
+            <SelectItem value={"$$$$"}>$$$$</SelectItem>
+          </SelectGroup>
+        </DropDown>
+
         <DropDown
           placeholder="All Locations"
           onValueChange={placeSuggestionsChange}
@@ -77,11 +111,13 @@ const SearchAndFilterSection = () => {
             searchIcon={true}
             className="w-[90%] mx-1"
           />
-          <SelectGroup onClick={(
-            e: React.MouseEvent<HTMLDivElement, MouseEvent>
-          ) => {
-            e.stopPropagation();
-          }} className="w-full overflow-y-scroll h-auto">
+
+          <SelectGroup
+            onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+              e.stopPropagation();
+            }}
+            className="w-full overflow-y-scroll h-auto"
+          >
             {!restaurantSuggestionIsLoading &&
               restaurantSuggestion.length !== 0 && (
                 <SelectLabel>All locations</SelectLabel>
@@ -106,6 +142,7 @@ const SearchAndFilterSection = () => {
           </SelectGroup>
         </DropDown>
       </div>
+      <LocationDropDown />
     </div>
   );
 };

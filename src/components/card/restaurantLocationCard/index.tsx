@@ -36,9 +36,9 @@ const Index = ({ restaurant }: Props) => {
           alt=""
         />
         <CardContent className=" p-6">
-          <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400 hidden">
+          {/* <p className="my-3 text-xs font-normal text-gray-700 dark:text-gray-400 hidden">
             $$$$
-          </p>
+          </p> */}
           <h5 className="mb-2 text-base font-medium font-inter tracking-tight ">
             {restaurant.address_1},{restaurant.locality},{restaurant.country},
             {restaurant.postal_code}
