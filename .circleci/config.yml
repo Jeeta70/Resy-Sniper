@@ -16,9 +16,11 @@ jobs:
           name: Build React App
           command: npm run build
       - run:
+          name: Install npm
+          command: sudo apt update -y && sudo apt install -y npm
+      - run:
           name: Install PM2
-          command:  sudo npm install -g pm2
-     
+          command: sudo apt install -y pm2
 
   deploy:
     docker:
@@ -30,10 +32,12 @@ jobs:
       - run:
           name: Install SSH Client
           command: sudo apt-get install -y openssh-client
-
+      - run:
+          name: Install npm
+          command: sudo apt update -y && sudo apt install -y npm
       - run:
           name: Install PM2
-          command:  sudo npm install -g pm2
+          command: sudo apt install -y pm2
       - run:
           name: Deploy to EC2
           command: |
