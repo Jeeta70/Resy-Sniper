@@ -13,7 +13,7 @@ const Index = () => {
       </div>
       <Separator className="border-[1px] border-[#37474f]" />
       <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left">
-        <ScrollArea className="h-[85vh] text-start">
+        <ScrollArea className="h-[80vh] text-start">
           <p className="mb-4">
             This Privacy Policy ("Policy") outlines the types of personal
             information collected, how it is used, and the measures taken to

@@ -38,7 +38,7 @@ const ReserveButtonSection = () => {
     useGetSingleReservation();
 
   console.log(singleReservation?.data);
-    
+
 
   const { subscription_type } = useContext(UserDetailContext);
   // console.log(reservationFormState);
@@ -112,7 +112,7 @@ const ReserveButtonSection = () => {
         .filter((value: { venue_id: unknown; }, index: Key, self: any[]) =>
           index === self.findIndex(obj => obj.venue_id === value.venue_id)
         );
-        // [res];
+      // [res];
       state.finalSnipingDay =
         data[0]?.final_snipe_date === null ? "none" : data[0]?.final_snipe_date;
       state.overideCurrentReservationToggleSection = data[0]
@@ -455,7 +455,7 @@ const ReserveButtonSection = () => {
         {group_id ? (
           <Button
             variant="primary"
-            className="block sm:hidden sm:w-auto w-[100%]"
+            className="block sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("update")}
           >
             Update

@@ -1,10 +1,14 @@
 import * as React from "react";
-import { ChevronDownIcon} from "lucide-react";
+import { ChevronDownIcon, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useSearchParams } from "react-router-dom";
@@ -17,11 +21,11 @@ export default function DrawerDemo() {
   const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } =
     useGetLoactionSuggestion();
 
-   const restaurantSuggestion = React.useMemo(() => {
-      if (!restaurantSuggestionIsLoading) {
-         return restaurantSuggestions?.data;
-      }
-   }, [restaurantSuggestionIsLoading, restaurantSuggestions]);
+  const restaurantSuggestion = React.useMemo(() => {
+    if (!restaurantSuggestionIsLoading) {
+      return restaurantSuggestions?.data;
+    }
+  }, [restaurantSuggestionIsLoading, restaurantSuggestions]);
 
   const [locationSearch, setlocationSearch] = React.useState("");
 
@@ -43,49 +47,56 @@ export default function DrawerDemo() {
     setlocationSearch(e.target.value);
   };
 
-   const handleSuggestionClick = (suggestion: string) => {
-      setSeachParamss((prev) => {
-         prev.set("exact_location", suggestion);
-         return prev;
-      });
-   };
+  const handleSuggestionClick = (suggestion: string) => {
+    setSeachParamss((prev) => {
+      prev.set("exact_location", suggestion);
+      return prev;
+    });
+  };
 
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <div>
-          <Button variant="outline">All location</Button>
-          <ChevronDownIcon className="inline-block ml-auto sm:ml-0" />
-        </div>
+        <Button variant="outline" className="w-[50%]">All location  <ChevronDownIcon className="inline-block ml-auto sm:ml-0" /></Button>
       </DrawerTrigger>
       <DrawerContent>
-        <>
-          <div className=" mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-            <div className="px-4 py-3">
-              {/* <form onSubmit={handleInputSubmit}> */}
-              <SearchInputField
-                onChange={handleInputChange}
-                placeholder="Search restaurant"
-                searchIcon={true}
-              />
-              {/* </form> */}
-              <ScrollArea className="max-h-96 min-h-0 overflow-y-scroll top-2">
-                <div className="hover:bg-[#12171A0D]-200 font-semibold h-10 flex  items-center left-1 ps-2">
-                  All location
-                </div>
-                {restaurantSuggestion?.map((suggestion: string) => (
-                  <div
-                    onClick={() => handleSuggestionClick(suggestion)}
-                    className="hover:bg-gray-200 h-10 flex  items-center ps-2 cursor-pointer"
-                    key={suggestion}
-                  >
-                    {suggestion}
-                  </div>
-                ))}
-              </ScrollArea>
+        <DrawerHeader className="flex justify-between">
+          <DrawerTitle className="font-bold text-2xl text-start">
+            Location
+          </DrawerTitle>
+          <DrawerClose>
+            <X />
+          </DrawerClose>
+        </DrawerHeader>
+        <DrawerFooter>
+
+          {/* <div className=" mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+            <div className="px-4 py-3"> */}
+          {/* <form onSubmit={handleInputSubmit}> */}
+          <SearchInputField
+            onChange={handleInputChange}
+            placeholder="Search restaurant"
+            searchIcon={true}
+          />
+          {/* </form> */}
+          <ScrollArea className="max-h-96 min-h-0 overflow-y-scroll top-2">
+            <div className="hover:bg-[#12171A0D]-200 font-semibold h-10 flex  items-center left-1 ps-2">
+              All location
             </div>
-          </div>
-        </>
+            {restaurantSuggestion?.map((suggestion: string) => (
+              <DrawerClose
+                onClick={() => handleSuggestionClick(suggestion)}
+                className="hover:bg-gray-200 h-10 flex  items-center ps-2 cursor-pointer"
+                key={suggestion}
+              >
+                {suggestion}
+              </DrawerClose>
+            ))}
+          </ScrollArea>
+          {/* </div>
+          </div> */}
+
+        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
