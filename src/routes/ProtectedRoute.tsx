@@ -5,10 +5,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 const ProtectedRoute = () => {
   const { userResponse, isLoading, isSuccess, isError, error } = useGetUser();
+  
 
   const navigate = useNavigate();
   useEffect(() => {
-
     if (isError || error) {
 
       const errorWithResponse = error as { response?: { data?: { msg?: string } } };
