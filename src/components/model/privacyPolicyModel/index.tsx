@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 
 const Index = () => {
   return (
-    <Model className="bg-[#263238] text-[#e0e0e0] max-h-screen  max-w-[700px] p-3">
+    <Model className="bg-[#263238] text-[#e0e0e0] h-full max-w-[700px] p-3">
       <div className="flex">
         <CredenzaHeader className="text-xl">Privacy Policy</CredenzaHeader>
         <CredenzaClose className="ml-auto sm:hidden"><X /></CredenzaClose>
