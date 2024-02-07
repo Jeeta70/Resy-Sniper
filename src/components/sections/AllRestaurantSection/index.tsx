@@ -24,9 +24,6 @@ const Section = () => {
   const { restaurants: selectedRestaurants, removeRestaurant } =
     useRestaurantContext();
 
-  // const [searchParams] = useSearchParams();
-  // const query = searchParams.get("query");
-
   const numberOfRestaurantToShow = isDesktop ? 4 : 2
 
   useEffect(() => {

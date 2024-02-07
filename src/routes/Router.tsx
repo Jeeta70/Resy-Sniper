@@ -72,12 +72,12 @@ const Router = () => {
               <Route path="/login" element={<Login />} />
             </Route>
             <Route element={<PresistConnectAccount />}>
-              <Route path="/connect-accounts" element={<ConnectAccount />} />
             </Route>
             <Route element={<PersistSubscribtion />}>
               <Route path="/subscription" element={<Subscription />} />
             </Route>
             <Route element={<ProtectedRoute />}>
+              <Route path="/connect-accounts" element={<ConnectAccount />} />
               <Route element={<PersistReservation />}>
                 <Route
                   path="/reservations/add-reservation/:group_id?/"
