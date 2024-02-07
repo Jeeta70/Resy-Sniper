@@ -31,7 +31,13 @@ jobs:
       - run:
           name: Install SSH Client
           command: sudo apt-get install -y openssh-client
-      
+      - run:
+          name: Install Dependencies
+          command: sudo apt install npm
+      - run:
+          name: Install PM2
+          command: sudo npm install -g pm2
+
       - run:
           name: Deploy to EC2
           command: |
