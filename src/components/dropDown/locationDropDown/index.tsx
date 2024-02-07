@@ -53,6 +53,11 @@ const Index = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setlocationSearch(e.target.value);
+    if (e.target.value === "") {
+      setSeachParams(() => {
+        return ''
+      });
+    }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
