@@ -26,11 +26,10 @@ jobs:
       - run:
           name: Install SSH Client
           command: sudo apt-get install -y openssh-client
-
       - run:
           name: Deploy to EC2
           command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && npm install && npm start > app.log 2>&1 &'
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dist bitnami@54.172.183.153 'cd /var/www/html/dist && npm install && npm start'
 
 workflows:
   version: 2
@@ -40,3 +39,7 @@ workflows:
       - deploy:
           requires:
             - build
+    filters:
+      branches:
+        only:
+          - main
