@@ -111,3 +111,15 @@
 .slick-current{
   font-weight: 800;
 }
+
+body ::-webkit-scrollbar {
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+/* Optional: show position indicator in red */
+body ::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}

@@ -1,4 +1,5 @@
 import { SearchInputField } from "@/components";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetLoactionSuggestion } from "@/features/restaurant/restaurant";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -17,7 +18,7 @@ const Index = () => {
 
    const restaurantSuggestion = useMemo(() => {
       if (!restaurantSuggestionIsLoading) {
-         return restaurantSuggestions?.data.slice(0, 5);
+         return restaurantSuggestions?.data;
       }
    }, [restaurantSuggestionIsLoading, restaurantSuggestions]);
 
@@ -89,7 +90,7 @@ const Index = () => {
          </div>
 
          {isOpen && (
-            <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+            <div className="origin-top-right absolute  mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                <div className="px-4 py-3">
                   <form onSubmit={handleInputSubmit}>
                      <SearchInputField
@@ -99,10 +100,12 @@ const Index = () => {
                         defaultValue={location ?? ""}
                      />
                   </form>
-                  <div className="hover:bg-gray-200">All location</div>
-                  {restaurantSuggestion?.map((suggestion: string) => (
-                     <div className="hover:bg-gray-200" key={suggestion}>{suggestion}</div>
-                  ))}
+                  <ScrollArea className="max-h-96 min-h-20 overflow-y-scroll top-2">
+                     <div className="hover:bg-[#12171A0D]-200 font-semibold h-10 flex  items-center left-1 ps-2">All location</div>
+                     {restaurantSuggestion?.map((suggestion: string) => (
+                        <div className="hover:bg-gray-200 h-10 flex  items-center ps-2 cursor-pointer" key={suggestion}>{suggestion}</div>
+                     ))}
+                  </ScrollArea>
                </div>
 
             </div>
