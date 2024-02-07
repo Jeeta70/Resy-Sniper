@@ -37,7 +37,7 @@ const AddTimeModal = () => {
     });
 
     const handleSliderChange = (category: string, index: number) => {
-        let value: String;
+        let value: string;
 
         if (category === 'fromHour' || category === 'toHour') {
             switch (index) {
@@ -80,7 +80,9 @@ const AddTimeModal = () => {
 
         if (fromDateTime < toDateTime) {
             const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
+            debugger
             handleReseverationTime(dispatch, reservationTime);
+            document.getElementById("reservationTimeCustomButton")?.click()
         } else {
             toast({ description: "Please select a valid time", variant: "dark" });
         }
@@ -186,7 +188,7 @@ const AddTimeModal = () => {
             </div>
             <div className="border-t border-[gray] p-2 flex justify-end gap-3">
                 {/* <CredenzaClose> */}
-                <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black">Cancel</button>
+                <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black" onClick={() => document.getElementById("reservationTimeCustomButton")?.click()}>Cancel</button>
                 {/* </CredenzaClose> */}
                 <button className="bg-[black] border-2 rounded-md py-2 px-4 text-white" onClick={handleConfirm}>Submit</button>
             </div>

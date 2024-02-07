@@ -9,9 +9,6 @@ import OverideCurrentReservationToggleSection from "./overideCurrentReservationT
 import ReserveButtonSection from "./reserveButtonSection";
 import ReleaseReservationDateSection from "./releaseReservationDate";
 import ReleaseReservationTime from "./releaseReservationTime";
-// import { useContext } from "react";
-// import { UserDetailContext } from "@/context/UserDetailProvider";
-// import { initialState } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { useNavigate, useParams } from "react-router-dom";
 import { X } from "lucide-react";
@@ -43,9 +40,12 @@ const Index = () => {
         />
       </div>
       <SelectReservationTypeSection />
-      <p className="text-light text-[11px]">
-        Reasy Sniper will look for Canceled reservation and book it for you{" "}
-      </p>
+      {initialState.reservationType === "cancel" ? <p className="text-light text-[11px]">
+        If anyone cancels their reservation, Resy Sniper will book it for you instantly{" "}
+      </p> :
+        <p className="text-light text-[11px]">
+          Resy Sniper will get a reservation for you as soon as it releases{" "}
+        </p>}
       <AddResturantSection />
       <SelectPartSizeSection />
       <SelectReservationDateSection />

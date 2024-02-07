@@ -31,12 +31,15 @@ export const signupFormSchema = z
       .regex(/^[0-9]+/),
     password: passwordValidation,
     confirmPassword: z.string(),
+    termAndConditions: z.boolean().refine((data) => data === true, {
+      message: "You must accept Terms and conditions"
+    })
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
-
+"You must accept Terms and conditions"
 export const connectResyAccountSchema = z.object({
   email: z.string().email("Must be valid email !").min(1),
   password: z.string().min(2),

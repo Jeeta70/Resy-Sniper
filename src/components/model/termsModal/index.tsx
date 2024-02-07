@@ -10,7 +10,7 @@ import { X } from "lucide-react";
 
 const Index = () => {
   return (
-    <Model className="bg-[#263238] text-[#e0e0e0] max-h-screen max-w-[700px] p-3">
+    <Model className="bg-[#263238] text-[#e0e0e0] h-full max-w-[700px] p-3">
       <div className="flex">
         <CredenzaHeader className="text-xl">Terms of Service</CredenzaHeader>
         <CredenzaClose className="ml-auto sm:hidden">
@@ -19,7 +19,7 @@ const Index = () => {
       </div>
       <Separator className="border-[1px] border-[#37474f]" />
       <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left">
-        <ScrollArea className="h-screen text-start">
+        <ScrollArea className="h-[85vh] text-start">
           <p className="mb-4">
             These Terms of Service ("Agreement") govern your access to and use
             of the Resy Sniper platform ("Service") provided by Resy Sniper. By

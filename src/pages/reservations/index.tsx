@@ -39,7 +39,9 @@ const Index = () => {
       else if (count >= 25 && subscription_type === 'premium') {
         setShow(true);
       }
-
+      else {
+        setShow(false)
+      }
     }
   }, [countIsLoading, reservationCounts, subscription_type]);
 
@@ -60,7 +62,7 @@ const Index = () => {
             variant="primary"
             className="inline-flex"
             onClick={() => navigate("/reservations/add-reservation")}
-            disabled={show}
+            disabled={show ?? false}
           >
             <Plus className="sm:mr-3 mr-0" /> Add Reservation
           </Button>

@@ -23,10 +23,8 @@ interface IPartySize {
 }
 
 const DEFAULT_PARTY_SIZE_BUTTONS = [
-  { value: 1, label: "1", type: "button" },
   { value: 2, label: "2", type: "button" },
-  // { value: 3, label: "3", type: "button" },
-  // { value: 4, label: "4", type: "button" },
+  { value: 4, label: "4", type: "button" },
 ]
 
 
@@ -37,10 +35,10 @@ const SelectPartySizeSection = () => {
   const [partySizeArray, setPartySizeArray] = useState<Array<IPartySize>>(DEFAULT_PARTY_SIZE_BUTTONS);
 
   useEffect(() => {
-    if (Number(partySize) >= 2) setPartySizeArray([...DEFAULT_PARTY_SIZE_BUTTONS, { value: Number(partySize), label: partySize.toString(), type: "button" }])
+    if (Number(partySize) > 4) setPartySizeArray([...DEFAULT_PARTY_SIZE_BUTTONS, { value: Number(partySize), label: partySize.toString(), type: "button" }])
   }, [partySize]);
 
-
+  
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Party size</p>
@@ -91,11 +89,11 @@ const SelectPartySizeSection = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {Array(8)
+                {Array(6)
                   .fill("")
                   .map((_, index) => (
-                    <SelectItem key={index} value={index.toString()}>
-                      {3 + index}
+                    <SelectItem key={index} value={String(2+index)}>
+                      {5 + index}
                       {" people"}
                     </SelectItem>
                   ))}

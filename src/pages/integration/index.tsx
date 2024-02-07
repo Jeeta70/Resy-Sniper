@@ -28,8 +28,6 @@ const Index = () => {
     }
   }, [isLoading, isSuccess, userResponse?.data.data]);
 
-
-  console.log("user=>",user);
   
 
   return (

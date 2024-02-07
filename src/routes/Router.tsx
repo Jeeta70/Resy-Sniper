@@ -39,6 +39,7 @@ import CheckSubscription from "@/pages/checkSubscription";
 import NewPage from "@/pages/newpage";
 // import PersistDashboard from "./PersistDashboard";
 import PresistLoginSignUp from "./PresistLoginSignUp";
+import PersistReservation from "./PersistReservation";
 
 // const Login = React.lazy(() => import("@/pages/login"));
 // const SignUp = React.lazy(() => import("@/pages/signup"));
@@ -77,10 +78,12 @@ const Router = () => {
               <Route path="/subscription" element={<Subscription />} />
             </Route>
             <Route element={<ProtectedRoute />}>
-              <Route
-                path="/reservations/add-reservation/:group_id?/"
-                element={<AddReservation />}
-              />
+              <Route element={<PersistReservation />}>
+                <Route
+                  path="/reservations/add-reservation/:group_id?/"
+                  element={<AddReservation />}
+                />
+              </Route>
               <Route path="/restaurant/:venue_id" element={<Restaurant />} />
               <Route path="/" element={<ShowSidebar />}>
                 {/* <Route element={<PersistDashboard />}> */}
