@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { FeatureIsForProModel } from "@/components";
 import { toast } from "@/components/ui/use-toast";
-import { formatDate, getDayBefore, isToday } from "../../../utils/healper";
+import { formatDate, getDayBefore, isToday, isTommorrow } from "../../../utils/healper";
 import { Select } from "@/components/ui/select";
 import {
   Popover,
@@ -20,7 +20,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { PopoverClose } from "@radix-ui/react-popover";
 
-const DEFAULT_PARTY_SIZE_BUTTONS = [
+const DEFAULT_SNIPING_DAY = [
   { value: "1_days_before", label: "1 days before" },
   { value: "2_days_before", label: "2 days before" },
 ];
@@ -41,12 +41,13 @@ const SelectFinalSnipingDaySection = () => {
     reservationFormState: { finalSnipingDay, reservationDates },
   } = useReservationContext();
 
-
   const userDetail = useContext(UserDetailContext);
 
-  const [partySizeArray] = useState<Array<IPartySize>>(
-    DEFAULT_PARTY_SIZE_BUTTONS
+  const [snipingDayArray] = useState<Array<IPartySize>>(
+    DEFAULT_SNIPING_DAY
   );
+
+
 
   const setTheSnipingDay = (buttonValue: string) => {
     if (reservationDates.length === 0) {
@@ -60,14 +61,23 @@ const SelectFinalSnipingDaySection = () => {
           description: "Reservation Date is Today",
           variant: "dark",
         });
+      } else if (isTommorrow(reservationDates[0])) {
+        return toast({
+          description: "Reservation Date is Tommorrow",
+          variant: "dark",
+        });
       }
       if (buttonValue === "1_days_before") {
+
         const oneDayBefore = getDayBefore(reservationDates[0], 1);
         return handleFinalSnipingDay(dispatch, {
           display: buttonValue,
           value: oneDayBefore,
         });
       } else if (buttonValue === "2_days_before") {
+        console.log(isTommorrow(reservationDates[0]));
+
+
         const twoDayBefore = getDayBefore(reservationDates[0], 2);
         return handleFinalSnipingDay(dispatch, {
           display: buttonValue,
@@ -99,6 +109,8 @@ const SelectFinalSnipingDaySection = () => {
   //   return formattedDate;
   // };
 
+
+
   const footer = selectedDay ? (
     <>
       <Separator className="mt-3" />
@@ -112,7 +124,6 @@ const SelectFinalSnipingDaySection = () => {
           <span
             className={cn(buttonVariants({ variant: "primary" }))}
             onClick={() => {
-              console.log(selectedDay);
               const formatedDate = formatDate(selectedDay);
               handleFinalSnipingDay(dispatch, {
                 display: "Custom",
@@ -152,9 +163,10 @@ const SelectFinalSnipingDaySection = () => {
     <p>Please pick one or more days.</p>
   );
 
-  const earliestReservationDate = getDayBefore(reservationDates[0], 1)
-  
-  
+  const earliestReservationDate = getDayBefore(reservationDates[0], 1);
+
+
+
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Final Sniping Day</p>
@@ -171,7 +183,7 @@ const SelectFinalSnipingDaySection = () => {
 
         {userDetail.subscription_type === "standard" ? (
           <>
-            {partySizeArray.map((button, i) => (
+            {snipingDayArray.map((button, i) => (
               <Credenza key={i}>
                 <CredenzaTrigger asChild>
                   <span
@@ -201,7 +213,7 @@ const SelectFinalSnipingDaySection = () => {
           </>
         ) : (
           <>
-            {partySizeArray.map((button, i) => (
+            {snipingDayArray.map((button, i) => (
               <Button
                 variant={
                   button?.value === finalSnipingDay.display
@@ -238,7 +250,33 @@ const SelectFinalSnipingDaySection = () => {
                 {finalSnipingDay.value}
               </Button>
             )}
-            <Select disabled onValueChange={(e) => console.log(e)}>
+
+            {/* {reservationDates.length === 0 && !getDayBefore(reservationDates[0], 3) && (
+              <Button
+                variant="outline"
+                className=" text-light relative"
+                onClick={() => {
+                  if (reservationDates.length === 0) {
+                    return toast({
+                      description: "Please select Reservation Date First",
+                      variant: "dark",
+                    });
+                  } else {
+                    if (isToday(reservationDates[0])) {
+                      return toast({
+                        description: "Reservation Date is Today",
+                        variant: "dark",
+                      });
+                    }
+                  }
+                }}
+              >
+                Custom
+              </Button>
+            )} */}
+
+            {/* Custom option is only visible if reservation date 3  after from today */}
+            {reservationDates.length !== 0 && !isToday(reservationDates[0]) && !isTommorrow(reservationDates[0]) && (
               <Popover>
                 <PopoverTrigger
                   asChild
@@ -267,15 +305,19 @@ const SelectFinalSnipingDaySection = () => {
                     selected={selectedDay}
                     disabled={{
                       before: new Date(),
-                      after: earliestReservationDate ? new Date(earliestReservationDate) : undefined
-                      ,
+                      after: earliestReservationDate
+                        ? new Date(earliestReservationDate)
+                        : undefined,
                     }}
                     footer={footer}
                     onSelect={setSelectedDay}
                   />
                 </PopoverContent>
               </Popover>
-            </Select>
+            )}
+            {/* <Select disabled onValueChange={(e) => console.log(e)}> */}
+
+            {/* </Select> */}
           </>
         )}
       </div>

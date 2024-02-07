@@ -14,7 +14,7 @@ import {
   useGetReservationCount,
   useUpdateReservation,
 } from "@/features/reservation/reservation";
-import { useContext, useEffect, useMemo } from "react";
+import { Key, useContext, useEffect, useMemo } from "react";
 
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
@@ -36,6 +36,9 @@ const ReserveButtonSection = () => {
   const { group_id } = useParams();
   const { singleReservation, isLoading: singleResevationIsLoading } =
     useGetSingleReservation();
+
+  console.log(singleReservation?.data);
+    
 
   const { subscription_type } = useContext(UserDetailContext);
   // console.log(reservationFormState);
@@ -103,8 +106,12 @@ const ReserveButtonSection = () => {
 
 
       const res = data[0]?.venue_data as never;
-      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage =
-        [res];
+      console.log(data)
+      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = data.map(item => item.venue_data)
+        .filter((value: { venue_id: any; }, index: Key, self: any[]) =>
+          index === self.findIndex(obj => obj.venue_id === value.venue_id)
+        );
+        // [res];
       state.finalSnipingDay =
         data[0]?.final_snipe_date === null ? "none" : data[0]?.final_snipe_date;
       state.overideCurrentReservationToggleSection = data[0]
@@ -444,11 +451,10 @@ const ReserveButtonSection = () => {
             Cancel
           </Button>
         </DiscardChangesModal>
-
         {group_id ? (
           <Button
             variant="primary"
-            className="sm:block hidden"
+            className="block sm:hidden sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("update")}
           >
             Update
