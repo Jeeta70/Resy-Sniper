@@ -83,22 +83,22 @@ const SearchAndFilterSection = () => {
         defaultValue={query ?? ""}
       />
       <div className="lg:grid lg:grid-cols-2  gap-2 mt-3 lg:mt-0 hidden sm:block">
-          <DropDown
-            onValueChange={priceSuggestionChange}
-            placeholder="All Prices"
-          >
-            <SelectGroup>
-              <SelectItem value={"$"}>$</SelectItem>
-              <SelectItem value={"$$"}>$$</SelectItem>
-              <SelectItem value={"$$$"}>$$$</SelectItem>
-              <SelectItem value={"$$$$"}>$$$$</SelectItem>
-            </SelectGroup>
-          </DropDown>
-          <LocationDropDown />
+        <DropDown
+          onValueChange={priceSuggestionChange}
+          placeholder="All Prices"
+        >
+          <SelectGroup>
+            <SelectItem value={"$"}>$</SelectItem>
+            <SelectItem value={"$$"}>$$</SelectItem>
+            <SelectItem value={"$$$"}>$$$</SelectItem>
+            <SelectItem value={"$$$$"}>$$$$</SelectItem>
+          </SelectGroup>
+        </DropDown>
+        <LocationDropDown />
 
         {/* <MyReservationTabDropDown tab="all" setTab={() => { }} className="w-full justify-start" /> */}
       </div>
-      <div className="block sm:hidden">
+      <div className="flex gap-3 mt-2 sm:hidden">
         <DrawerForPriceFilter />
         <DrawerForAllLocation />
       </div>
