@@ -19,7 +19,7 @@ const Index = () => {
       </div>
       <Separator className="border-[1px] border-[#37474f]" />
       <CredenzaBody className="space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left">
-        <ScrollArea className="h-screen text-start">
+        <ScrollArea className="h-[85vh] text-start">
           <p className="mb-4">
             These Terms of Service ("Agreement") govern your access to and use
             of the Resy Sniper platform ("Service") provided by Resy Sniper. By
