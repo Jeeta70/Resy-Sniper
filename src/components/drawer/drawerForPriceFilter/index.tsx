@@ -14,7 +14,7 @@ export default function DrawerDemo() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-auto">Price<ChevronDownIcon className="inline-block ml-5 sm:ml-0" /></Button>
+        <Button variant="outline" className="w-[50%]">Price<ChevronDownIcon className="inline-block ml-auto sm:ml-0" /></Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="flex justify-between">
