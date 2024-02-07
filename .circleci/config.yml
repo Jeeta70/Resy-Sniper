@@ -17,7 +17,7 @@ jobs:
           command: npm run build
       - run:
           name: Install PM2
-          command: npm install -g pm2
+          command: npm install -g pm2 --prefix=~/.npm-global
 
   deploy:
     docker:
@@ -31,11 +31,11 @@ jobs:
           command: sudo apt-get install -y openssh-client
       - run:
           name: Install PM2
-          command: sudo apt install -y pm2
+          command: npm install -g pm2 --prefix=~/.npm-global
       - run:
           name: Deploy to EC2
           command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && git pull origin main && cd /var/www/html/ && sudo cp -r /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/ && pm2 reload all'
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 'cd /home/bitnami/resy-sniper-frontend && git pull origin main && cd /var/www/html/ && sudo cp -r /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/ && ~/.npm-global/bin/pm2 reload all'
 
 workflows:
   version: 2
