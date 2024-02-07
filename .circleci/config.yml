@@ -17,7 +17,7 @@ jobs:
           command: npm run build
       - run:
           name: Install npm
-          command: sudo apt update -y && sudo apt install -y npm
+          command: sudo apt install -y npm
       - run:
           name: Install PM2
           command: sudo apt install -y pm2
