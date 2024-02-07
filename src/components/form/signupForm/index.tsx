@@ -115,7 +115,7 @@ const Index = () => {
                 name="countryCode"
                 render={({ field }) => (
                   <>
-                    <FormItem className="w-2/5 relative">
+                    <FormItem className="w-3/5 relative">
                       <FormControl>
                         <>
                           <FormLabel className="text-sm font-normal">
