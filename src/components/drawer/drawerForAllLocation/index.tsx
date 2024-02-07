@@ -79,7 +79,7 @@ export default function DrawerDemo() {
             searchIcon={true}
           />
           {/* </form> */}
-          <ScrollArea className="max-h-96 min-h-0 overflow-y-scroll top-2">
+          <ScrollArea className="max-h-96 min-h-32 overflow-y-scroll top-2">
             <div className="hover:bg-[#12171A0D]-200 font-semibold h-10 flex  items-center left-1 ps-2">
               All location
             </div>
