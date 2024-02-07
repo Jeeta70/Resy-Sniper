@@ -1,5 +1,7 @@
 import { SearchInputField } from "@/components";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { useGetLoactionSuggestion } from "@/features/restaurant/restaurant";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -91,6 +93,7 @@ const Index = () => {
 
          {isOpen && (
             <div className="origin-top-right absolute  mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+
                <div className="px-4 py-3">
                   <form onSubmit={handleInputSubmit}>
                      <SearchInputField
@@ -106,6 +109,7 @@ const Index = () => {
                         <div className="hover:bg-gray-200 h-10 flex  items-center ps-2 cursor-pointer" key={suggestion}>{suggestion}</div>
                      ))}
                   </ScrollArea>
+
                </div>
 
             </div>
