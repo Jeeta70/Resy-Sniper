@@ -47,6 +47,25 @@ const Index = ({
   const { data } = userReservations;
   const navigate = useNavigate();
 
+  function getUniqueData(data: MyData):MyData {
+    const uniqueData: MyData = {};
+    for (const key in data) {
+      const venues = data[key];
+      const uniqueVenues: IReservation[] = [];
+      const seenIds = new Set<number>();
+
+      venues.forEach(venue => {
+        if (!seenIds.has(venue.venue_id)) {
+          uniqueVenues.push(venue);
+          seenIds.add(venue.venue_id);
+        }
+      });
+
+      uniqueData[key] = uniqueVenues;
+    }
+
+    return uniqueData;
+  }
 
   const filter = useMemo(() => {
     const tabs: TabsType = {
@@ -57,7 +76,9 @@ const Index = ({
       canceled: [],
     };
 
-    Object.entries(data).forEach(([key, value]) => {
+    const uniqueResturant = getUniqueData(data);
+
+    Object.entries(uniqueResturant).forEach(([key, value]) => {
       const object: TabObject = {
         groupId: key,
         data: value,
