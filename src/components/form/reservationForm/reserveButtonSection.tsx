@@ -182,22 +182,36 @@ const ReserveButtonSection = () => {
           } = reservationFormState;
           const newTime = reservationTime.split("-");
           const convertTo24HourFormat = (timeString: string) => {
+            // Trim any leading/trailing whitespace and split time and period
             const [time, period] = timeString.trim().split(" ");
+
+            // Split hours and minutes
             const [hours, minutes] = time.split(":");
+
+            // Parse hours as an integer
             let hours24 = parseInt(hours, 10);
 
+            // Adjust hours for PM time
             if (period === "PM" && hours !== "12") {
+              // For PM and not already 12, add 12 hours
               hours24 += 12;
+            } else if (period === "AM" && hours === "12") {
+              // For 12 AM, convert to 0
+              hours24 = 0;
             }
+
+            // Format hours and minutes with leading zeros
             const formattedHours = String(hours24).padStart(2, "0");
             const formattedMinutes = minutes ? minutes.padStart(2, "0") : "00";
 
+            // Return formatted time string in 24-hour format
             return `${formattedHours}:${formattedMinutes}:00`;
           };
 
+
           // Convert both from and to times to 24-hour format
-          const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
-          const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+          // const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+          // const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
 
 
           // Create the reservation time string
@@ -224,8 +238,8 @@ const ReserveButtonSection = () => {
             table_type: null,
             reservation_source: "resy",
             snipe_type: reservationType as string,
-            start_time: fromTime24HourFormat,
-            end_time: toTime24HourFormat,
+            start_time: convertTo24HourFormat(newTime[0]),
+            end_time: convertTo24HourFormat(newTime[1]),
             party_size: partySize,
           };
           createReservation(payload);
