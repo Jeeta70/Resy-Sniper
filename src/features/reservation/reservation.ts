@@ -91,7 +91,12 @@ export function useUpdateReservation() {
       return axios.post(
         `${baseUrl}/api/book`,
         { ...payload },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
     },
     onSuccess: (response) => {
