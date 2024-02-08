@@ -50,7 +50,7 @@ const Index = ({
       return (
         <img
           key={i}
-          className="rounded-tl-lg rounded-tr-lg sm:rounded-l-lg sm:rounded-tr-none h-40 sm:h-full w-full"
+          className="rounded-tl-lg rounded-tr-lg sm:rounded-l-lg sm:rounded-tr-none h-40 sm:h-40 w-full"
           src={restaurant.venue_data.cover_image_url}
           alt=""
         />
@@ -59,9 +59,8 @@ const Index = ({
       return (
         <img
           key={i}
-          className={`${i == 0 && "rounded-l-lg"} ${
-            i == 1 && "w-[100%]"
-          } sm:h-full h-40 `}
+          className={`${i == 0 && "rounded-l-lg"} ${i == 1 && "w-[100%]"
+            } sm:h-full h-40 `}
           src={restaurant.venue_data.cover_image_url}
           alt=""
         />
@@ -69,9 +68,8 @@ const Index = ({
     if (reservationArray.length === 3)
       return (
         <img
-          className={`${i == 0 && "rounded-l-lg sm:h-full sm:row-span-3"} ${
-            i == 1 && "sm:h-16 sm:col-span-1"
-          } ${i == 2 && "sm:h-16"} h-40`}
+          className={`${i == 0 && "rounded-l-lg sm:h-full sm:row-span-3"} ${i == 1 && "sm:h-16 sm:col-span-1"
+            } ${i == 2 && "sm:h-16"} h-40`}
           src={restaurant.venue_data.cover_image_url}
           alt=""
         />
@@ -80,11 +78,9 @@ const Index = ({
       return (
         <img
           key={i}
-          className={`${i == 0 && "rounded-tl-lg"} ${
-            i == 1 && "sm:rounded-tr-none"
-          } ${i == 2 && "rounded-tr-lg sm:rounded-bl-lg"} ${
-            i == 3 && "hidden sm:block"
-          } h-32 sm:h-full w-full`}
+          className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"
+            } ${i == 2 && "rounded-tr-lg sm:rounded-bl-lg"} ${i == 3 && "hidden sm:block"
+            } h-32 sm:h-full w-full`}
           src={restaurant.venue_data.cover_image_url}
           alt=""
         />
@@ -95,11 +91,9 @@ const Index = ({
           {" "}
           <img
             key={i}
-            className={`${i == 0 && "rounded-tl-lg"} ${
-              i == 1 && "sm:rounded-tr-none"
-            } ${i == 2 && "sm:rounded-bl-lg opacity-[70%] sm:opacity-[100%]"} ${
-              i == 3 && "hidden sm:block opacity-[70%] relative"
-            } h-40 sm:h-20 w-full `}
+            className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"
+              } ${i == 2 && "sm:rounded-bl-lg opacity-[70%] sm:opacity-[100%]"} ${i == 3 && "hidden sm:block opacity-[70%] relative"
+              } h-40 sm:h-20 w-full `}
             src={restaurant.venue_data.cover_image_url}
             alt=""
           />
@@ -202,9 +196,8 @@ const Index = ({
       )}
 
       <CardContent
-        className={`space-y-2 my-2 w-full ${
-          reservation.length > 5 ? "py-2" : ""
-        }`}
+        className={`space-y-2 my-2 w-full ${reservation.length > 5 ? "py-2" : ""
+          }`}
       >
         <div className="space-y-1 pt-2 sm:pt-0 flex">
           {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}

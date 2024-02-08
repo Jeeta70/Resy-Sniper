@@ -94,7 +94,6 @@ const AddTimeModal = () => {
         const timeNew = newtime[0].split(":");
         const now = new Date(); // Get the current date
         now.setHours(timeNew[0], timeNew[1]); // Set time to 10:30:00 PM
-        debugger;
 
         // Convert the JavaScript timestamp (in milliseconds) to Unix timestamp (in seconds)
         return Math.floor(now.getTime() / 1000);
