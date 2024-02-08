@@ -457,14 +457,13 @@ const ReserveButtonSection = () => {
             Update
           </Button>
         ) : (
-          <Button
+          <button
             disabled={isLoading}
-            variant="primary"
-            className="sm:w-auto w-[100%]"
+            className="sm:w-auto bg-[red] text-white py-2 rounded-sm  w-[100%] block"
             onClick={() => handleReseveAndUpdateButtonClick("reserve")}
           >
             {isLoading ? <ButtonLoader /> : "Reserve"}
-          </Button>
+          </button>
         )}
       </div>
     </div>
