@@ -19,6 +19,7 @@ import { Key, useContext, useEffect, useMemo } from "react";
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
 import { UserDetailContext } from "@/context/UserDetailProvider";
+import { format } from "date-fns";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
@@ -206,8 +207,9 @@ const ReserveButtonSection = () => {
           };
 
           // Example usage
-          const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
-          const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+          const fromTime24HourFormat = format(new Date(`01/01/2024 ${convertTo24HourFormat(newTime[0])}`), 'HH:mm');
+          // const twentyFourTime =${twelveHourTime}`;
+          const toTime24HourFormat = format(new Date(`01/01/2024 ${convertTo24HourFormat(newTime[1])}`), 'HH:mm');
 
 
           // Create the reservation time string
