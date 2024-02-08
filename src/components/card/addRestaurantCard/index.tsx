@@ -106,7 +106,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
                 {resturantCard}
               </Card>
             </CredenzaTrigger>
-                <OnlyPremimUserCanAccess message="This restaurant requires a premium membership to view menu." />
+            <OnlyPremimUserCanAccess message="This restaurant requires a premium membership to view menu." />
           </Credenza>
         </>
       ) : (
