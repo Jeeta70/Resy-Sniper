@@ -198,8 +198,8 @@ const ReserveButtonSection = () => {
           // Convert both from and to times to 24-hour format
           const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
           const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
-
-
+          let reverse_date = reservationDates.map((date) => convertDateTimeFormt(date))
+          console.log("reverse_date", reverse_date)
           // Create the reservation time string
           // const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
 
