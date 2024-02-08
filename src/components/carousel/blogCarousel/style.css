@@ -1,0 +1,17 @@
+.blog-section .slick-slider {
+    height: 300px;
+}
+
+.blog-section li.slick-active button::before {
+    color: #EA3A4B;
+   
+}
+
+.blog-section li button::before {
+    color: gray
+}
+
+.blog-section li {
+    margin: 0;
+    height: 10px;
+}

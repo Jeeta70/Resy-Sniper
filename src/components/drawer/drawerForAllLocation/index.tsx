@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronDownIcon, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,44 +17,45 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetLoactionSuggestion } from "@/features/restaurant/restaurant";
 
 
-export default function DrawerDemo() {
+const Index = () => {
   const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } =
     useGetLoactionSuggestion();
 
-  const restaurantSuggestion = React.useMemo(() => {
+  const restaurantSuggestion = useMemo(() => {
     if (!restaurantSuggestionIsLoading) {
       return restaurantSuggestions?.data;
     }
   }, [restaurantSuggestionIsLoading, restaurantSuggestions]);
 
-  const [locationSearch, setlocationSearch] = React.useState("");
+  const [locationSearch, setlocationSearch] =useState("");
 
-  const [searchParamss, setSeachParamss] = useSearchParams();
+  const [searchParamss, setSeachParamsForLoactionMobile] = useSearchParams();
   // const query = searchParamss.get()
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
-      setSeachParamss((prev) => {
-        prev.set("location", locationSearch);
+      setSeachParamsForLoactionMobile((prev) => {
+        prev.set("location_top_pick", locationSearch);
         return prev;
       });
     }, 500);
     return () => clearInterval(timer);
-  }, [locationSearch, setSeachParamss]);
+  }, [locationSearch, setSeachParamsForLoactionMobile]);
 
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setlocationSearch(e.target.value);
+
     if (e.target.value === "") {
-      setSeachParamss(() => {
+      setSeachParamsForLoactionMobile(() => {
         return ''
       });
     }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
-    setSeachParamss((prev) => {
+    setSeachParamsForLoactionMobile((prev) => {
       prev.set("exact_location", suggestion);
       return prev;
     });
@@ -83,7 +84,7 @@ export default function DrawerDemo() {
             onChange={handleInputChange}
             placeholder="Search restaurant"
             searchIcon={true}
-            defaultValue={searchParamss.get("location") ?? ""}
+            defaultValue={searchParamss.get("location_top_pick") ?? ""}
           />
           {/* </form> */}
           <ScrollArea className="max-h-96 min-h-32 overflow-y-scroll top-2">
@@ -108,3 +109,5 @@ export default function DrawerDemo() {
     </Drawer>
   );
 }
+
+export default Index;

@@ -23,7 +23,6 @@ export { default as DisableOpenTableModal } from "@/components/model/disableOpen
 export { default as PrivacyPolicyModal } from "@/components/model/privacyPolicyModel"
 export { default as TermModal } from "@/components/model/termsModal"
 export { default as AccountNotConnectedModal } from "@/components/model/accountNotConnectedModal"
-export { default as OnlyPremimUserCanAccess } from "@/components/model/onlyPremiumUserCanAccessRestaurant"
 
 
 

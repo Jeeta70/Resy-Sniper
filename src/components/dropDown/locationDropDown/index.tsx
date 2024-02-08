@@ -8,8 +8,8 @@ import { useSearchParams } from "react-router-dom";
 
 const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchParams, setSeachParams] = useSearchParams();
-  const [locationSearch, setlocationSearch] = useState("");
+  const [searchParams, setSeachParamsForLocationForDesktop] = useSearchParams();
+  const [locationSearchForDesktop, setlocationSearch] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } = useGetLoactionSuggestion();
 
@@ -38,13 +38,13 @@ const Index = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSeachParams((prev) => {
-        prev.set("location", locationSearch);
+      setSeachParamsForLocationForDesktop((prev) => {
+        prev.set("location", locationSearchForDesktop);
         return prev;
       });
     }, 500);
     return () => clearInterval(timer);
-  }, [locationSearch, setSeachParams]);
+  }, [locationSearchForDesktop, setSeachParamsForLocationForDesktop]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -53,14 +53,14 @@ const Index = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setlocationSearch(e.target.value);
     if (e.target.value === "") {
-      setSeachParams(() => {
+      setSeachParamsForLocationForDesktop(() => {
         return ''
       });
     }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
-    setSeachParams((prev) => {
+    setSeachParamsForLocationForDesktop((prev) => {
       prev.set("exact_location", suggestion);
       return prev;
     });
@@ -73,7 +73,7 @@ const Index = () => {
         onClick={toggleDropdown}
       >
         All locations
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="h-4 w-4 opacity-50" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 opacity-50" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
 
       {isOpen && (

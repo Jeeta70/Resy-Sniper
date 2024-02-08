@@ -7,7 +7,7 @@ import { IRestaurant } from "@/types/restaurants";
 import { ChevronLeft, X } from "lucide-react";
 import { Key, useEffect, useMemo } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchAndFilterSection from "../searchAndFilterSection";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -22,9 +22,8 @@ const Section = () => {
   const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
   const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("query");
-  console.log(query);
+  // const [searchParams] = useSearchParams();
+  // const query = searchParams.get("query");
   const desktop = "(min-width: 768px)"
   const isDesktop = useMediaQuery(desktop)
   const numberOfRestaurantToShow = isDesktop ? 4 : 2
