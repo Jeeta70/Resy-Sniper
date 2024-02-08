@@ -37,7 +37,6 @@ const ReserveButtonSection = () => {
   const { singleReservation, isLoading: singleResevationIsLoading } =
     useGetSingleReservation();
 
-  console.log(singleReservation?.data);
 
 
   const { subscription_type } = useContext(UserDetailContext);
@@ -149,11 +148,8 @@ const ReserveButtonSection = () => {
     return `${formattedHours}:${formattedMinutes} ${period}`;
   };
 
-  function handleReseveAndUpdateButtonClick(
-    buttonClickType: "update" | "reserve"
-  ): void {
+  function handleReseveAndUpdateButtonClick(buttonClickType: "update" | "reserve"): void {
     setAllErrorFieldTrue(dispatch);
-
     if (buttonClickType === "reserve") {
       if (reservationType === "cancel") {
         const {

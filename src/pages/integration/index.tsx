@@ -51,7 +51,7 @@ const Index = () => {
             </CardContent>
           ) : (
             <CardContent className="p-6">
-              <div className="grid sm:grid-cols-[auto,15%] items-center gap-4 border-3">
+                <div className="grid  sm:grid-cols-[auto,35%] md:grid-cols-[auto,33%] lg:grid-cols-[auto,15%] xl:grid-cols-[auto,15%] items-center gap-4">
                 <div className=" flex flex-col gap-1">
                   <img src={ResyIcon} alt="" className="h-[30px] w-16" />
                   <CardDescription>
@@ -87,7 +87,7 @@ const Index = () => {
         </Card>
         <Card className="">
           <CardContent className="p-6">
-            <div className="grid  sm:grid-cols-[auto,15%] items-center gap-4 border-3">
+            <div className="grid   sm:grid-cols-[auto,35%] md:grid-cols-[auto,33%] lg:grid-cols-[auto,15%] xl:grid-cols-[auto,15%] items-center gap-4">
               <div className=" flex flex-col gap-1">
                 <img src={OpenTableIcon} alt="" className="h-[30px] w-24" />
               </div>

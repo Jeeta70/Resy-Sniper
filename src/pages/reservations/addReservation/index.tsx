@@ -5,7 +5,7 @@ const index = () => {
   return (
     <div className="grid  grid-cols-1 sm:grid-cols-2 place-items-center">
       <div className="h-screen w-full bg-[url('@/assets/reservation/reservationform.png')] hidden bg-no-repeat bg-cover sm:block"></div>
-      <div className="h-screen">
+      <div className="sm:overflow-y-scroll h-screen">
         <ReservationContextProvider>
           <ReservationForm />
         </ReservationContextProvider>

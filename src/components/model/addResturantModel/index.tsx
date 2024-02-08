@@ -89,7 +89,7 @@ const AddResturantModel = () => {
   return (
     <Model
       className={cn(
-        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 ", "p-4"
+        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 border-8 border-red-800"
       )}
     >
       <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-5 p-0">

@@ -53,7 +53,7 @@ const Section = () => {
         <SearchAndFilterSection />
       </div>
       {isLoading && <RestaurantCardSkeleton />}
-      <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4">
+      <div className="lg:grid md:flex sm:flex flex flex-wrap grid-cols-4 gap-4 ">
         {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
           <RestaurantCard
             key={i}

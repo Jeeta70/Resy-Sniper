@@ -44,7 +44,12 @@ export { default as DropDown } from "@/components/dropDown";
 export { default as LocationDropDown } from "@/components/dropDown/locationDropDown"
 
 export { default as RestaurantCard } from "@/components/card/restaurantCard";
+
+// Caurousel
 export { default as Carousel } from "@/components/carousel";
+export { default as BlogCarousel } from "@/components/carousel/blogCarousel"
+
+
 export { default as RestaurantLocationCard } from "@/components/card/restaurantLocationCard";
 export { default as SearchInputField } from "@/components/inputField/searchInputField";
 export { default as ErrorMessage } from "@/components/errorMessage"
@@ -61,7 +66,7 @@ export { default as ButtonLoader } from "@/components/loader/buttonLoader"
 
 //Drawer
 export { default as DrawerForPriceFilter } from "@/components/drawer/drawerForPriceFilter";
-export {default as DrawerForAllLocation} from "@/components/drawer/drawerForAllLocation"
+export { default as DrawerForAllLocation } from "@/components/drawer/drawerForAllLocation"
 
 // Sections
 export { default as TopPickSection } from "@/components/sections/TopPickSection"

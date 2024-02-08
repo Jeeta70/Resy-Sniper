@@ -65,7 +65,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
             {restaurant.venue_name}
           </h5>
         </div>
-        <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A]">
+        <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A">
           <MapPin className="inline-block" /> {restaurant.locality}
         </p>
       </CardContent>
@@ -112,7 +112,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
       ) : (
         <>
           <Card
-            className="flex cursor-pointer items-center"
+            className="flex cursor-pointer items-center "
             role="button"
             onClick={() => onResturantCardClick(restaurant)}
           >
