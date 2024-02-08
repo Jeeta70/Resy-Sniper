@@ -1,5 +1,5 @@
 .blog-section .slick-slider {
-    height: 280px;
+    height: 300px;
 }
 
 .blog-section li.slick-active button::before {
@@ -13,5 +13,5 @@
 
 .blog-section li {
     margin: 0;
-     height: 10px;
+    height: 10px;
 }

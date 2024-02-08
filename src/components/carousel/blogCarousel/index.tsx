@@ -1,8 +1,10 @@
 import { IBlog } from "@/types/blog";
 import Slider from "react-slick";
 import "./style.css"
+import { useNavigate } from "react-router-dom";
 
 function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
+ const navigate =  useNavigate()
 
   return (
     <div className="overflow-x-hidden blog-section">
@@ -21,7 +23,7 @@ function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
             key={blog.id}
             className="text-white !grid sm:grid-cols-[30%,auto] gap-10"
           >
-            <a className="cursor-pointer" href={blog.title}>
+            <a className="cursor-pointer" onClick={() => navigate(`/blogs/${ blog.slug }`)} href={`/blogs/${blog.slug}`}>
               <img
                 className="h-full rounded-sm"
                 src={`https://resysniperblog.s3.amazonaws.com/${blog.image_url}`}
