@@ -106,7 +106,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
                 {resturantCard}
               </Card>
             </CredenzaTrigger>
-              <FeatureIsForProModel />
+            <FeatureIsForProModel />
           </Credenza>
         </>
       ) : (

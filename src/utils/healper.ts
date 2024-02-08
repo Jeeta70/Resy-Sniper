@@ -30,8 +30,11 @@ export function getresyloginDetail() {
 export function convertDateTimeFormt(
   originalDateString: Date | string
 ): string {
-  const originalDate = new Date(originalDateString);
-  return moment(originalDate).format("yyyy-MM-dd");
+  const originalDate =
+    typeof originalDateString === "string"
+      ? new Date(originalDateString)
+      : originalDateString;
+  return moment(originalDate).format("YYYY-MM-DD");
 }
 
 // convet 'Thu, 25 Jan 2024 00:00:00 GMT', into Thu Jan 25 2024 19:05:06 GMT +0530(India Standard Time) format

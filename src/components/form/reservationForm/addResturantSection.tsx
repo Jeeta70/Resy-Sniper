@@ -40,7 +40,7 @@ const AddResturantSection = () => {
 
       handleUpdateSelectedRestaurant(dispatch, selectedRestaurants);
     }
-  }, [dispatch, state]);  
+  }, [dispatch, state]);
 
   return (
     <div>
@@ -86,7 +86,7 @@ const AddResturantSection = () => {
           {reservationType === "release" ? (
             <>
               {selectedResturantsForReservationOnAddReservationPage.length >
-              0 ? (
+                0 ? (
                 <>
                   {" "}
                   <span
@@ -119,7 +119,7 @@ const AddResturantSection = () => {
           ) : (
             <>
               {userDetail.subscription_type === "standard" &&
-              selectedResturantsForReservationOnAddReservationPage.length >
+                selectedResturantsForReservationOnAddReservationPage.length >
                 0 ? (
                 <>
                   <CredenzaTrigger asChild>
