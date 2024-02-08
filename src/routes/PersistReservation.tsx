@@ -19,15 +19,18 @@ const PersistReservation = () => {
                 } else if (count >= 25 && subscription_type === 'premium') {
                     handleExceededLimit();
                 } else {
+                    if (group_id) {
+                        return navigate(`/reservations/edit-reservation/${group_id}`);
+                    }
                     navigate("/reservations/add-reservation");
                 }
             }
         }
-    }, [countIsLoading, reservationCounts, subscription_type]);
+    }, [countIsLoading, group_id, reservationCounts, subscription_type]);
 
     const handleExceededLimit = () => {
         if (group_id) {
-            navigate(`/reservations/add-reservation/${group_id}`);
+            navigate(`/reservations/edit-reservation/${group_id}`);
         } else {
             navigate("/reservations");
             toast({ description: "Reservation limit exceeded", variant: "dark" });

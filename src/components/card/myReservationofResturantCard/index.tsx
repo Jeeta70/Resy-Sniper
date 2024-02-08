@@ -28,6 +28,8 @@ const Index = ({
   status: string;
   groupId: string;
 }) => {
+
+  
   const { pauseReservation } = usePauseReservation();
   const { unPauseReservation } = useUnPauseReservation();
   const { cancelReservation } = useCancelReservation();
@@ -94,7 +96,7 @@ const Index = ({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem
-                  onClick={() => navigate(`/reservations/add-reservation/${group_id}`)}
+                  onClick={() => navigate(`/reservations/edit-reservation/${group_id}`)}
                 >
                   Edit
                 </DropdownMenuItem>

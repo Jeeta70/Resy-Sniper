@@ -11,8 +11,7 @@ const Index = () => {
   const [searchParams, setSeachParams] = useSearchParams();
   const [locationSearch, setlocationSearch] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } =
-    useGetLoactionSuggestion();
+  const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } = useGetLoactionSuggestion();
 
   const restaurantSuggestion = useMemo(() => {
     if (!restaurantSuggestionIsLoading) {
@@ -85,7 +84,7 @@ const Index = () => {
               onChange={handleInputChange}
               placeholder="Search restaurant"
               searchIcon={true}
-              defaultValue={searchParams.get("location") ?? ""}
+              defaultValue={searchParams.get("exact_location") ?? ""}
             />
             {/* </form> */}
             <ScrollArea className="max-h-96 min-h-0 overflow-y-scroll top-2">

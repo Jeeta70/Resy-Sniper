@@ -80,7 +80,11 @@ const Router = () => {
               <Route path="/connect-accounts" element={<ConnectAccount />} />
               <Route element={<PersistReservation />}>
                 <Route
-                  path="/reservations/add-reservation/:group_id?/"
+                  path="/reservations/add-reservation/:group_id?"
+                  element={<AddReservation />}
+                />
+                <Route
+                  path="/reservations/edit-reservation/:group_id"
                   element={<AddReservation />}
                 />
               </Route>

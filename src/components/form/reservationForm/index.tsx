@@ -19,6 +19,7 @@ import { resetReservationForm } from "@/reducer/reservationFormReducer";
 const Index = () => {
   const { group_id } = useParams();
   const { reservationFormState: initialState } = useReservationContext()
+  
 
   const { dispatch } = useReservationContext();
   const navigate = useNavigate();

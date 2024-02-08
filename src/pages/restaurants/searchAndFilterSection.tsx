@@ -98,6 +98,7 @@ const SearchAndFilterSection = () => {
 
         {/* <MyReservationTabDropDown tab="all" setTab={() => { }} className="w-full justify-start" /> */}
       </div>
+      {/* for mobile view */}
       <div className="flex gap-3 mt-2 sm:hidden">
         <DrawerForPriceFilter />
         <DrawerForAllLocation />
