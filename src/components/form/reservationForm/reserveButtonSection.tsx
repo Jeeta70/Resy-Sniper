@@ -19,7 +19,6 @@ import { Key, useContext, useEffect, useMemo } from "react";
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
 import { UserDetailContext } from "@/context/UserDetailProvider";
-import { format } from "date-fns";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
@@ -183,33 +182,22 @@ const ReserveButtonSection = () => {
           } = reservationFormState;
           const newTime = reservationTime.split("-");
           const convertTo24HourFormat = (timeString: string) => {
-            // Split the time string into hours and minutes
             const [time, period] = timeString.trim().split(" ");
             const [hours, minutes] = time.split(":");
-
-            // Convert hours and minutes to numbers
             let hours24 = parseInt(hours, 10);
-            const minutesNum = parseInt(minutes, 10);
 
-            // Adjust hours for PM time
             if (period === "PM" && hours !== "12") {
               hours24 += 12;
-            } else if (period === "AM" && hours === "12") {
-              hours24 = 0;
             }
-
-            // Format hours and minutes with leading zeros
             const formattedHours = String(hours24).padStart(2, "0");
-            const formattedMinutes = String(minutesNum).padStart(2, "0");
+            const formattedMinutes = minutes ? minutes.padStart(2, "0") : "00";
 
-            // Return the time string in 24-hour format
-            return `${formattedHours}:${formattedMinutes}`;
+            return `${formattedHours}:${formattedMinutes}:00`;
           };
 
-          // Example usage
-          const fromTime24HourFormat = format(new Date(`01/01/2024 ${convertTo24HourFormat(newTime[0])}`), 'HH:mm');
-          // const twentyFourTime =${twelveHourTime}`;
-          const toTime24HourFormat = format(new Date(`01/01/2024 ${convertTo24HourFormat(newTime[1])}`), 'HH:mm');
+          // Convert both from and to times to 24-hour format
+          const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+          const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
 
 
           // Create the reservation time string
@@ -469,13 +457,14 @@ const ReserveButtonSection = () => {
             Update
           </Button>
         ) : (
-          <button
+          <Button
             disabled={isLoading}
-            className="sm:w-auto bg-[red] text-white py-2 rounded-sm  w-[100%] cursor-pointer"
+            variant="primary"
+            className="sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("reserve")}
           >
             {isLoading ? <ButtonLoader /> : "Reserve"}
-          </button>
+          </Button>
         )}
       </div>
     </div>
