@@ -260,6 +260,7 @@ const SelectReservationDateSection = () => {
                   mode="single"
                   selected={selected}
                   onSelect={setSelected}
+                  disabled={{ before: new Date() }}
                   footer={singleCalendarFooter}
                 />
               ) : (
