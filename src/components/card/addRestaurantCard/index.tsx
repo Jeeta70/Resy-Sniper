@@ -6,7 +6,7 @@ import OpenTableIcon from "@/assets/opentable.png";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 import { useContext } from "react";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
-import { AccountNotConnectedModal, OnlyPremimUserCanAccess } from "@/components";
+import { AccountNotConnectedModal, FeatureIsForProModel } from "@/components";
 
 interface Props {
   restaurant: IRestaurant;
@@ -106,7 +106,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
                 {resturantCard}
               </Card>
             </CredenzaTrigger>
-            <OnlyPremimUserCanAccess message="This restaurant requires a premium membership to view menu." />
+              <FeatureIsForProModel />
           </Credenza>
         </>
       ) : (

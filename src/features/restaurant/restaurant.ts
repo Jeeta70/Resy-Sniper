@@ -24,9 +24,13 @@ export function useSearchRestaurants() {
       if (query || exact_location || price) {
         let url = "";
         if (query) {
-          url = `${baseUrl}/restaurants/search?venue_name=${encodeURI(query ?? "")}`;
+          url = `${baseUrl}/restaurants/search?venue_name=${encodeURI(
+            query ?? ""
+          )}`;
         } else if (exact_location) {
-          url = `${baseUrl}/restaurants/search?exact_location=${encodeURI(exact_location ?? "")}`;
+          url = `${baseUrl}/restaurants/search?exact_location=${encodeURI(
+            exact_location ?? ""
+          )}`;
         } else if (price) {
           url = `${baseUrl}/restaurants/search?price=${encodeURI(price ?? "")}`;
         }
@@ -47,21 +51,24 @@ export function useTopPicksRestaurants() {
   const { data: topPickRestaurants, isPending: isLoading } = useQuery({
     queryKey: ["topPick", query, exact_location, price],
     queryFn: (): Promise<AxiosResponse> => {
-
-      if (query || exact_location || price || locationPath.pathname === "/restaurants/top-picks") {
-        let url = "";
+      if (
+        query ||
+        exact_location ||
+        price ||
+        locationPath.pathname === "/restaurants/top-picks"
+      ) {
         if (query) {
-          url = `${baseUrl}/restaurants/search?venue_name=${encodeURI(query ?? "")}&featured=true`;
+          return axios.get(`${baseUrl}/restaurants/search?venue_name=${encodeURI(query ?? "")}&featured=true`);
         } else if (exact_location) {
-          url = `${baseUrl}/restaurants/search?exact_location=${encodeURI(exact_location ?? "")}&featured=true`;
+          return axios.get(`${baseUrl}/restaurants/search?exact_location=${encodeURI(exact_location ?? "")}&featured=true`)
         } else if (price) {
-          url = `${baseUrl}/restaurants/search?price=${encodeURI(price ?? "")}&featured=true`;
+          return axios.get(`${baseUrl}/restaurants/search?price=${encodeURI(price ?? "")}&featured=true`)
         }
-        return axios.get(url);
       }
       return axios.get(`${baseUrl}/restaurants/featured`);
     },
   });
+
 
   return { topPickRestaurants, isLoading };
 }
@@ -86,7 +93,7 @@ export function useGetSingleRestaurant() {
 export function useGetLoactionSuggestion() {
   const locationPath = useLocation();
   const [searchParams] = useSearchParams();
-  const location = searchParams.get("location");
+  const location = searchParams.get("location_top_pick");
   const {
     data: restaurantSuggestions,
     isPending: isLoading,
@@ -95,11 +102,13 @@ export function useGetLoactionSuggestion() {
   } = useQuery({
     queryKey: ["ResturantSuggestion", location],
     queryFn: (): Promise<AxiosResponse> => {
-      const url =
-        locationPath.pathname === "/restaurants/top-picks"
-          ? `${baseUrl}/restaurants/search?location=${location}&featured=true`
-          : `${baseUrl}/restaurants/search?&location=${location}`;
-      return axios.get(url);
+
+      if (locationPath.pathname === "/restaurants/top-picks") {
+        return axios.get(`${baseUrl}/restaurants/search?location=${location}&featured=true`);
+      } else {
+
+        return axios.get(`${baseUrl}/restaurants/search?&location=${location}`);
+      }
     },
   });
   return { restaurantSuggestions, isLoading, isSuccess, isError };
