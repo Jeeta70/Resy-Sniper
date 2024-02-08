@@ -77,7 +77,7 @@ const Index = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 sm:m-auto m-2 w-full"
+            className="space-y-8 sm:m-auto my-2 w-full"
           >
             <h2 className="text-center font-bold text-2xl" onClick={() => {
               toast({
