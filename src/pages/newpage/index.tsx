@@ -214,17 +214,18 @@ const NewPage = () => {
                     {/* *****************************First Component or Banner************************************** */}
 
                     <div
-                        className="bg-cover"
+                        className="bg-cover "
                         style={{ backgroundImage: `url(${backgroundImage1})` }}
                     >
                         <div
                             className={`lg:flex md:hidden hidden justify-between py-[24px] lg:px-[134px] md:px-4 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}] border-[${navbarStyle.border}]`}
                         >
                             <div>
-                                <img
+                                {/* <img
                                     src={logo}
                                     onClick={() => scrollToElement('home')}
-                                />
+                                /> */}
+                                <span className="text-[#D62637] text-2xl font-black cursor-pointer hover:text-primary" onClick={() => scrollToElement('home')}>RESY SNIPER</span>
                             </div>
                             <div className="sm:flex hidden gap-7 items-center font-inter text-base !font-[600]">
                                 <p
@@ -272,13 +273,14 @@ const NewPage = () => {
                             </div>
                         </div>
                         <div
-                            className={`lg:hidden md:flex flex justify-between py-5 lg:px-44 md:px-20 px-4 items-center fixed w-[100%] bg-[${navbarStyle.backgroundColor}]`}
+                            className={`lg:hidden md:flex flex justify-between py-5 lg:px-44 md:px-20 px-4 items-center fixed w-[100%]  bg-[${navbarStyle.backgroundColor}]`}
                         >
                             <div>
-                                <img
+                                {/* <img
                                     src={logo}
                                     onClick={() => scrollToElement('home')}
-                                />
+                                /> */}
+                                <span className="text-[#D62637] text-2xl font-black cursor-pointer hover:text-primary" onClick={() => scrollToElement('home')}>RESY SNIPER</span>
                             </div>
                             <div className="lg:hidden md:block block">
                                 {show ? (

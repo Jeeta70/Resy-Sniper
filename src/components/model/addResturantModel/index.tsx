@@ -9,7 +9,6 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   Credenza,
-  CredenzaBody,
   CredenzaClose,
   CredenzaHeader,
   CredenzaTrigger,
@@ -90,7 +89,7 @@ const AddResturantModel = () => {
   return (
     <Model
       className={cn(
-        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 overflow-y-scroll"
+        "max-w-xl h-full sm:h-auto pb-0 p-4 sm:p-6 border-8 border-red-800"
       )}
     >
       <CredenzaHeader className="text-start font-bold text-2xl flex justify-between my-5 p-0">
@@ -103,47 +102,48 @@ const AddResturantModel = () => {
           </span>
         </CredenzaClose>
       </CredenzaHeader>
-      <CredenzaBody>
-        {!reservationFormState.selectSittingOptions.showModel ? (
-          <>
-            <SearchInputField
-              onChange={onChange}
-              placeholder="Search restaurant"
-              searchIcon={true}
-              className=""
-            />
-            {/* <CredenzaDescription className=""> */}
-            {filteredRestaurants && !filteredRestaurants.length && (
-              <div className=" flex justify-center items-center h-[calc(10rem)] flex-col">
-                <div>
-                  <img src={searchIcon} alt="" />
-                </div>
-                <div className="text-light">
-                  No results found for {query}.Please consider trying a different
-                  name.
-                </div>
+
+      {!reservationFormState.selectSittingOptions.showModel ? (
+        <>
+          <SearchInputField
+            onChange={onChange}
+            placeholder="Search restaurant"
+            searchIcon={true}
+            className=""
+          />
+          {/* <CredenzaDescription className=""> */}
+          {filteredRestaurants && !filteredRestaurants.length && (
+            <div className=" flex justify-center items-center h-[calc(10rem)] flex-col">
+              <div>
+                <img src={searchIcon} alt="" />
               </div>
-            )}
-            <ScrollArea className="sm:h-96 rounded-md mt-3 ">
-              <span className="flex flex-col gap-4">
-                {!isLoading &&
-                  filteredRestaurants.map((restaurant: IRestaurant, i: Key) => {
-                    return (
-                      <AddRestaurantCard
-                        key={i}
-                        restaurant={restaurant}
-                        onResturantCardClick={onResturantCardClick}
-                      />
-                    );
-                  })}
-              </span>
-            </ScrollArea>
-            {/* </CredenzaDescription> */}
-          </>
-        ) : (
+              <div className="text-light">
+                No results found for {query}.Please consider trying a different
+                name.
+              </div>
+            </div>
+          )}
+          <ScrollArea className="sm:h-96 rounded-md mt-3">
+            <span className="flex flex-col gap-4">
+              {!isLoading &&
+                filteredRestaurants.map((restaurant: IRestaurant, i: Key) => {
+                  return (
+                    <AddRestaurantCard
+                      key={i}
+                      restaurant={restaurant}
+                      onResturantCardClick={onResturantCardClick}
+                    />
+                  );
+                })}
+            </span>
+          </ScrollArea>
+          {/* </CredenzaDescription> */}
+        </>
+      ) : (
+        <ScrollArea className="">
           <div className="flex flex-col justify-evenly">
             {/* <span> {reservationFormState.selectSittingOptions.title}fffff</span> */}
-            <div className="h-64">
+            <div className="h-52">
               <img
                 className="rounded-lg w-full h-full"
                 src={
@@ -171,7 +171,7 @@ const AddResturantModel = () => {
               <p className="font-normal text-xs text-light">
                 {reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.slice(
                   0,
-                  700
+                  300
                 ) +
                   (reservationFormState.selectSittingOptions.restaurantDetail
                     .need_to_know_description.length > 700
@@ -272,8 +272,8 @@ const AddResturantModel = () => {
               </CredenzaClose>{" "}
             </div>
           </div>
-        )}
-      </CredenzaBody>
+        </ScrollArea>
+      )}
 
       {/* {reservationFormState.selectSittingOptions.showModel &&  <Separator className=" my-5 sm:mt-0" />}
       

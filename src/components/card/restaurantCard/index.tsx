@@ -57,7 +57,7 @@ const Index = ({ restaurant, layout }: Props) => {
   return (
     <>
       <Card
-        className="cursor-pointer"
+        className="cursor-pointer w-full"
         onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)}
       >
         <div className="relative">

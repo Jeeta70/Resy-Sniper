@@ -29,6 +29,8 @@ const Index = () => {
     return null;
   }, [isSuccess, userReservations]);
 
+  
+
 
   useEffect(() => {
     if (countIsLoading && reservationCounts) {
