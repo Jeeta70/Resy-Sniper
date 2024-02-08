@@ -75,8 +75,8 @@ const AddTimeModal = () => {
         const fromTimeFormatted = formatTime(selectedTimes.fromTime, selectedTimes.fromHour, selectedTimes.fromFormat);
         const toTimeFormatted = formatTime(selectedTimes.toTime, selectedTimes.toHour, selectedTimes.toFormat);
 
-        const fromDateTime = new Date(`2000-01-01 ${fromTimeFormatted}`);
-        const toDateTime = new Date(`2000-01-01 ${toTimeFormatted}`);
+        const fromDateTime = getUnixTimestampFor1030PM(fromTimeFormatted);
+        const toDateTime = getUnixTimestampFor1030PM(toTimeFormatted)
 
         if (fromDateTime < toDateTime) {
             const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
@@ -88,6 +88,17 @@ const AddTimeModal = () => {
         }
     };
 
+
+    function getUnixTimestampFor1030PM(time: any) {
+        const newtime = time.trim().split(" ");
+        const timeNew = newtime[0].split(":");
+        const now = new Date(); // Get the current date
+        now.setHours(timeNew[0], timeNew[1]); // Set time to 10:30:00 PM
+        debugger;
+
+        // Convert the JavaScript timestamp (in milliseconds) to Unix timestamp (in seconds)
+        return Math.floor(now.getTime() / 1000);
+    }
 
     return (
         <>

@@ -169,7 +169,7 @@ const SelectFinalSnipingDaySection = () => {
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Final Sniping Day</p>
-      <div className="flex gap-1 sm:gap-3 ">
+      <div className="flex gap-1 sm:gap-3 flex-wrap">
         <Button
           variant={!finalSnipingDay.value ? "default" : "outline"}
           className="inline-flex"

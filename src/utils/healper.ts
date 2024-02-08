@@ -1,6 +1,7 @@
 // import { baseUrl } from "@/config/baseUrl";
 
-import { format } from "date-fns";
+// import { format } from "date-fns";
+import moment from "moment";
 
 // import axios from "axios";
 export function getToken(
@@ -30,7 +31,7 @@ export function convertDateTimeFormt(
   originalDateString: Date | string
 ): string {
   const originalDate = new Date(originalDateString);
-  return format(originalDate, "yyyy-MM-dd");
+  return moment(originalDate).format("yyyy-MM-dd");
 }
 
 // convet 'Thu, 25 Jan 2024 00:00:00 GMT', into Thu Jan 25 2024 19:05:06 GMT +0530(India Standard Time) format
@@ -66,23 +67,25 @@ export function formatDate(date: Date) {
     .replace(/\//g, "-");
 }
 
-
-
-
 export function formateDateFromSingleRservation(dateString: string): string {
   const date = new Date(dateString);
-  const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()}`;
+  const formattedDate = `${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")}-${date.getFullYear()}`;
   return formattedDate;
 }
 
-
-export function getDayBefore(dateString: string | null, dayBefore: number): string | undefined {
-  
-  
-  if (dateString === undefined|| !dateString) return;
-  const [month, day, year] = dateString.split('-').map(Number);
+export function getDayBefore(
+  dateString: string | null,
+  dayBefore: number
+): string | undefined {
+  if (dateString === undefined || !dateString) return;
+  const [month, day, year] = dateString.split("-").map(Number);
   const currentDate = new Date(year, month - 1, day);
-  currentDate.setDate(currentDate.getDate() - dayBefore); 
+  currentDate.setDate(currentDate.getDate() - dayBefore);
   const formattedDate = formatDate(currentDate);
   return formattedDate;
 }
@@ -102,8 +105,7 @@ export function isTommorrow(dateString: string): boolean {
   const [month, day, year] = dateString.split("-").map(Number);
   const givenDate = new Date(year, month - 1, day);
   const tommorrow = new Date(); // Get today's date
-  tommorrow.setDate(tommorrow.getDate() + 1); 
-
+  tommorrow.setDate(tommorrow.getDate() + 1);
 
   return (
     givenDate.getDate() === tommorrow.getDate() &&
@@ -111,8 +113,6 @@ export function isTommorrow(dateString: string): boolean {
     givenDate.getFullYear() === tommorrow.getFullYear()
   );
 }
-
-
 
 export function capitalizeFirstAlphabet(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -124,10 +124,9 @@ export function formatDateForSnipingDate(dateString: string | null) {
   return `${year}-${month}-${day}`;
 }
 
-
-
-
-export function getStatusString(inputString: string): "active" | "canceled" | "paused" | "completed" {
+export function getStatusString(
+  inputString: string
+): "active" | "canceled" | "paused" | "completed" {
   switch (inputString.toLowerCase()) {
     case "active":
       return "active";
