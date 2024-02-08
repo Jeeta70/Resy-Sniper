@@ -4,10 +4,10 @@ import "./style.css"
 import { useNavigate } from "react-router-dom";
 
 function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
- const navigate =  useNavigate()
+  const navigate = useNavigate()
 
   return (
-    <div className="overflow-x-hidden blog-section">
+    <div className="overflow-x-hidden blog-section md:h-[400px] h-auto">
       <h2 className="text-4xl font-bold text-white text-center mb-10">Resy Sniper Blog</h2>
       <Slider
         dots={true}
@@ -23,27 +23,27 @@ function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
             key={blog.id}
             className="text-white !grid sm:grid-cols-[30%,auto] gap-10"
           >
-            <a className="cursor-pointer" onClick={() => navigate(`/blogs/${ blog.slug }`)} href={`/blogs/${blog.slug}`}>
+            <a className="cursor-pointer" onClick={() => navigate(`/blogs/${blog.slug}`)} href={`/blogs/${blog.slug}`}>
               <img
-                className="h-full rounded-sm"
+                className="h-full rounded-sm md:h-[210px]"
                 src={`https://resysniperblog.s3.amazonaws.com/${blog.image_url}`}
                 alt={blog.image_alt}
               />
             </a>
 
             <div className="flex flex-col justify-between">
-              <div className="font-light"><span className="font-bold">{blog.category}</span>{" "}{blog.created_at}</div>
+              <div className="font-light"><span className="font-bold text-sm">{blog.category}</span>{" "}<span className="text-xs ml-5">{blog.created_at}</span></div>
               <div className="text-3xl font-normal mb-4">{blog.title}</div>
 
               <div className=" text-sm font-thin">{blog.description}</div>
 
               <a className="flex items-center gap-2  mt-3">
                 <div className="">
-                  <img
-                    src="http://54.172.183.153/static/images/logo.png"
+                  {/* <img
+                    src=""
                     className="rounded-full h-10"
                     alt="Author Image"
-                  />
+                  /> */}
                 </div>
                 <div className="text">
                   <p>Resy Sniper</p>

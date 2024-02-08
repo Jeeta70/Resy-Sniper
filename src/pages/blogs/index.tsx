@@ -11,10 +11,10 @@ const Index = () => {
     <>
       {!isLoading && blogs && (
         <>
-          <section className="py-7 bg-black h-screen " id="features">
-           
-            <span className="text-[#D62637] mx-20 md:mx-30 sm:container  text-2xl font-black cursor-pointer hover:text-primary" role="button" onClick={() => navigate("/login")}>RESY SNIPER</span>
-            <div className="mx-20 md:mx-30 sm:container flex justify-center items-center">
+          <section className="py-7 bg-black h-full" id="features">
+
+            <span className="text-[#D62637] mx-10 md:mx-30 sm:container  text-2xl font-black cursor-pointer hover:text-primary" role="button" onClick={() => navigate("/login")}>RESY SNIPER</span>
+            <div className="mx-10 md:mx-30 sm:container flex justify-center items-center">
               <BlogCarousel blogs={blogs} />
             </div>
           </section>

@@ -51,9 +51,12 @@ const SelectReservationDateSection = () => {
     dispatch,
     reservationFormState: {
       reservationDates,
+      reservationType,
       errors: { reservationDateError },
     },
   } = useReservationContext();
+
+  console.log(reservationType)
   const initialDays: Date[] = [];
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
   const [selected, setSelected] = React.useState<Date>();
@@ -232,14 +235,14 @@ const SelectReservationDateSection = () => {
           <Popover>
             <PopoverTrigger
               asChild
-              // disabled={userDetail.subscription_type === "standard"}
+            // disabled={userDetail.subscription_type === "standard"}
             >
               <Button variant="outline" className=" text-light relative">
                 Custom
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
-              {subscription_type === "standard" ? (
+              {subscription_type === "standard" && (
                 <Calendar
                   onDayClick={(e) => {
                     handleRemoveReservationDate(
@@ -263,7 +266,9 @@ const SelectReservationDateSection = () => {
                   disabled={{ before: new Date() }}
                   footer={singleCalendarFooter}
                 />
-              ) : (
+              )}
+
+              {subscription_type === "premium" && reservationType === "cancel" ? (
                 <Calendar
                   onDayClick={(e) => {
                     handleRemoveReservationDate(
@@ -287,7 +292,29 @@ const SelectReservationDateSection = () => {
                   footer={footer}
                   onSelect={setDays}
                 />
-              )}
+              ) : <Calendar
+                onDayClick={(e) => {
+                  handleRemoveReservationDate(
+                    dispatch,
+                    formatDate(e).toString()
+                  );
+                  // setSelected((d) => {
+                  //   const indexToRemove = d.findIndex(date => date.getDate() === e.getDate());
+                  //   if (indexToRemove !== -1) {
+                  //     d.splice(indexToRemove, 1)
+                  //   }
+                  //   return d
+                  // })
+
+                  // If the date is found, remove it from the array
+                }}
+                id="test"
+                mode="single"
+                selected={selected}
+                onSelect={setSelected}
+                disabled={{ before: new Date() }}
+                footer={singleCalendarFooter}
+              />}
             </PopoverContent>
           </Popover>
         </Select>
