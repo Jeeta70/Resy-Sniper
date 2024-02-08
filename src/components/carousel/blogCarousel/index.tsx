@@ -1,5 +1,4 @@
 import { IBlog } from "@/types/blog";
-import React from "react";
 import Slider from "react-slick";
 
 function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
