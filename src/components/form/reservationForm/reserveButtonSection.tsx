@@ -196,8 +196,8 @@ const ReserveButtonSection = () => {
           };
 
           // Convert both from and to times to 24-hour format
-          const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
-          const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+          // const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+          // const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
 
 
           // Create the reservation time string
@@ -224,8 +224,8 @@ const ReserveButtonSection = () => {
             table_type: null,
             reservation_source: "resy",
             snipe_type: reservationType as string,
-            start_time: fromTime24HourFormat,
-            end_time: toTime24HourFormat,
+            start_time: convertTo24HourFormat(newTime[0]),
+            end_time: convertTo24HourFormat(newTime[1]),
             party_size: partySize,
           };
           createReservation(payload);
