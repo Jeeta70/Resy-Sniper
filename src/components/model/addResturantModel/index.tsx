@@ -140,137 +140,139 @@ const AddResturantModel = () => {
           {/* </CredenzaDescription> */}
         </>
       ) : (
-        <div className="flex flex-col justify-evenly">
-          {/* <span> {reservationFormState.selectSittingOptions.title}fffff</span> */}
-          <div className="h-64">
-            <img
-              className="rounded-lg w-full h-full"
-              src={
-                reservationFormState.selectSittingOptions.restaurantDetail
-                  .cover_image_url ?? "../reservation/AddReservation/Img.png"
-              }
-              alt=""
-            />
-          </div>
-          <div className="py-2">
-            <div>
-              <p className=" text-xs font-normal text-gray-700 dark:text-gray-400">
-                {renderDollarSigns()}
+        <ScrollArea className="">
+          <div className="flex flex-col justify-evenly">
+            {/* <span> {reservationFormState.selectSittingOptions.title}fffff</span> */}
+            <div className="h-52">
+              <img
+                className="rounded-lg w-full h-full"
+                src={
+                  reservationFormState.selectSittingOptions.restaurantDetail
+                    .cover_image_url ?? "../reservation/AddReservation/Img.png"
+                }
+                alt=""
+              />
+            </div>
+            <div className="py-2">
+              <div>
+                <p className=" text-xs font-normal text-gray-700 dark:text-gray-400">
+                  {renderDollarSigns()}
+                </p>
+              </div>
+              <h5 className="mb-2 text-base font-bold tracking-tight ">
+                {
+                  reservationFormState.selectSittingOptions.restaurantDetail
+                    .venue_name
+                }
+              </h5>
+              <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A] ">
+                <MapPin className="inline-block" /> Prospective height
               </p>
-            </div>
-            <h5 className="mb-2 text-base font-bold tracking-tight ">
-              {
-                reservationFormState.selectSittingOptions.restaurantDetail
-                  .venue_name
-              }
-            </h5>
-            <p className="mb-3 sm:mb-0  text-xs !font-[600] text-[#12171A] ">
-              <MapPin className="inline-block" /> Prospective height
-            </p>
-            <p className="font-normal text-xs text-light">
-              {reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.slice(
-                0,
-                700
-              ) +
-                (reservationFormState.selectSittingOptions.restaurantDetail
-                  .need_to_know_description.length > 700
-                  ? "..."
-                  : "")}
-            </p>
-            <h2 className="font-semibold text-sm my-3">Available sittings</h2>
-            <div className="flex w-1/2 gap-2">
-              <Button
-                onClick={() => {
-                  setAvilableSittings("any");
-                }}
-                variant={avilableSittings === "any" ? "default" : "outline"}
-                className="w-full"
-              >
-                Any
-              </Button>
+              <p className="font-normal text-xs text-light">
+                {reservationFormState.selectSittingOptions.restaurantDetail.need_to_know_description.slice(
+                  0,
+                  300
+                ) +
+                  (reservationFormState.selectSittingOptions.restaurantDetail
+                    .need_to_know_description.length > 700
+                    ? "..."
+                    : "")}
+              </p>
+              <h2 className="font-semibold text-sm my-3">Available sittings</h2>
+              <div className="flex w-1/2 gap-2">
+                <Button
+                  onClick={() => {
+                    setAvilableSittings("any");
+                  }}
+                  variant={avilableSittings === "any" ? "default" : "outline"}
+                  className="w-full"
+                >
+                  Any
+                </Button>
 
-              {userDetail.subscription_type === "standard" ? (
-                <>
-                  <Credenza>
+                {userDetail.subscription_type === "standard" ? (
+                  <>
+                    <Credenza>
+                      {selectAvailableSittingsButtons.map((button, i) => (
+                        <>
+                          <CredenzaTrigger asChild>
+                            <Button
+                              key={i}
+                              variant={
+                                avilableSittings === button.value
+                                  ? "default"
+                                  : "outline"
+                              }
+                              className="w-full relative"
+                            >
+                              {button.lable}
+                              <img
+                                src={ProIcon}
+                                alt="pro icon"
+                                className="absolute right-0 top-0"
+                              />
+                            </Button>
+                          </CredenzaTrigger>
+                          <FeatureIsForProModel />
+                        </>
+                      ))}
+                    </Credenza>
+                  </>
+                ) : (
+                  <>
                     {selectAvailableSittingsButtons.map((button, i) => (
-                      <>
-                        <CredenzaTrigger asChild>
-                          <Button
-                            key={i}
-                            variant={
-                              avilableSittings === button.value
-                                ? "default"
-                                : "outline"
-                            }
-                            className="w-full relative"
-                          >
-                            {button.lable}
-                            <img
-                              src={ProIcon}
-                              alt="pro icon"
-                              className="absolute right-0 top-0"
-                            />
-                          </Button>
-                        </CredenzaTrigger>
-                        <FeatureIsForProModel />
-                      </>
+                      <Button
+                        onClick={() => {
+                          setAvilableSittings(button.value);
+                        }}
+                        key={i}
+                        variant={
+                          avilableSittings === button.value
+                            ? "default"
+                            : "outline"
+                        }
+                        className="w-full"
+                      >
+                        {button.lable}
+                      </Button>
                     ))}
-                  </Credenza>
-                </>
-              ) : (
-                <>
-                  {selectAvailableSittingsButtons.map((button, i) => (
-                    <Button
-                      onClick={() => {
-                        setAvilableSittings(button.value);
-                      }}
-                      key={i}
-                      variant={
-                        avilableSittings === button.value
-                          ? "default"
-                          : "outline"
+                  </>
+                )}
+              </div>
+            </div>
+            <Separator className="my-2" />
+            <div className="flex justify-end gap-4 mt-auto">
+              <CredenzaClose className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full">
+                  Cancel
+                </Button>
+              </CredenzaClose>
+              <CredenzaClose className="w-full sm:w-auto">
+                <Button
+                  variant="primary"
+                  className="w-full"
+                  onClick={() => {
+                    const restaurantPayload =
+                      reservationFormState.selectSittingOptions.restaurantDetail;
+                    Object.defineProperty(
+                      restaurantPayload,
+                      "availableSittings",
+                      {
+                        value: avilableSittings,
+                        writable: false,
+                        enumerable: true,
+                        configurable: true,
                       }
-                      className="w-full"
-                    >
-                      {button.lable}
-                    </Button>
-                  ))}
-                </>
-              )}
+                    );
+                    selectResturantForReservation(dispatch, restaurantPayload);
+                  }}
+                >
+                  Confirm
+                </Button>
+              </CredenzaClose>{" "}
             </div>
           </div>
-          <Separator className="my-2" />
-          <div className="flex justify-end gap-4 mt-auto">
-            <CredenzaClose className="w-full sm:w-auto">
-              <Button variant="outline" className="w-full">
-                Cancel
-              </Button>
-            </CredenzaClose>
-            <CredenzaClose className="w-full sm:w-auto">
-              <Button
-                variant="primary"
-                className="w-full"
-                onClick={() => {
-                  const restaurantPayload =
-                    reservationFormState.selectSittingOptions.restaurantDetail;
-                  Object.defineProperty(
-                    restaurantPayload,
-                    "availableSittings",
-                    {
-                      value: avilableSittings,
-                      writable: false,
-                      enumerable: true,
-                      configurable: true,
-                    }
-                  );
-                  selectResturantForReservation(dispatch, restaurantPayload);
-                }}
-              >
-                Confirm
-              </Button>
-            </CredenzaClose>{" "}
-          </div>
-        </div>
+        </ScrollArea>
       )}
 
       {/* {reservationFormState.selectSittingOptions.showModel &&  <Separator className=" my-5 sm:mt-0" />}

@@ -128,7 +128,7 @@ const ReleaseReservationTime = () => {
                     : */}
                 <Popover>
                     <PopoverTrigger asChild>
-                        <Button variant="outline" className=" text-light ">
+                        <Button id='reservationTimeCustomButtonNew' variant="outline" className=" text-light ">
                             Custom
                         </Button>
                     </PopoverTrigger>

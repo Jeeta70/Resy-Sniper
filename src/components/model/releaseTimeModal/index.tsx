@@ -76,16 +76,18 @@ const AddTimeModal = () => {
         // console.log('To Time:', toTimeFormatted);
         if (initialState.reservationType === 'cancel') {
             handleReleaseTime(dispatch, reservationTime);
+            document.getElementById("reservationTimeCustomButtonNew")?.click()
         } else {
             const newTime = reservationTime.split("-");
             handleReleaseTime(dispatch, newTime[0]);
+            document.getElementById("reservationTimeCustomButtonNew")?.click()
         }
     };
     return (
         <>
             <div className="flex gap-5 p-4">
                 <div className="">
-                    <p className="text-sm font-semibold">From</p>
+                    <p className="text-sm font-semibold">To</p>
                     <div className="flex gap-5 mt-5">
                         <div className="h-[120px] w-[50px]  overflow-hidden flex relative gap-5">
                             <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
@@ -127,7 +129,7 @@ const AddTimeModal = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-center items-center h-[150px] mt-5">
+                {/* <div className="flex justify-center items-center h-[150px] mt-5">
                     <p className="font-bold">-</p>
                 </div>
                 <div className="">
@@ -172,10 +174,10 @@ const AddTimeModal = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="border-t border-[gray] p-2 flex justify-end gap-3">
-                <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black">Cancel</button>
+                <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black" onClick={() => document.getElementById("reservationTimeCustomButtonNew")?.click()}>Cancel</button>
                 <button className="bg-[black] border-2 rounded-md py-2 px-4 text-white" onClick={handleConfirm}>Submit</button>
             </div>
         </>
