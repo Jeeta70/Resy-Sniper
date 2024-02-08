@@ -20,7 +20,7 @@ const Index = () => {
       return singleResturant?.data;
     }
   }, [isLoading, isSuccess, singleResturant]);
-  
+
 
   // const slides = [
   //   "https://i.ibb.co/ncrXc2V/1.png",
@@ -46,7 +46,7 @@ const Index = () => {
       {isLoading ? (
         ""
       ) : (
-        <main className="pt-1 max-h-auto sm:overflow-y-scroll ">
+        <main className="pt-1 max-h-auto sm:overflow-y-scroll overflow-y-scroll">
           <div className="mx-auto max-w-screen-xl px-8 ">
             <div className="col-span-2 block sm:hidden ">
               {/* <Carousel autoSlide={false}>
@@ -66,9 +66,9 @@ const Index = () => {
                   <p className="text-2xl font-bold"> {restaurant.venue_name}</p>
                 </header>
                 <div className="flex justify-between">
-                    <p className="my-3 text-xs font-medium text-light ">{renderDollarSigns()}</p>
+                  <p className="my-3 text-xs font-medium text-light ">{renderDollarSigns()}</p>
                   <p className="my-3  text-xs font-medium text-black">
-                      <MapPin className="inline-block" /> {restaurant.locality}
+                    <MapPin className="inline-block" /> {restaurant.locality}
                   </p>
                 </div>
                 <h4 className="font-bold text-sm mb-3">Why We Like it</h4>
@@ -79,11 +79,11 @@ const Index = () => {
                   nine-floor atrium. And Tom Colicchio’s classic small bites
                   never disappoint.
                 </p>
-                  {restaurant.need_to_know_description && <> <h4 className="font-bold text-sm mb-3">Need to know</h4>
-                    <p className="text-xs leading-5 font-normal text-light mb-3">
-                      {restaurant.need_to_know_description}
-                    </p> </>}
-               
+                {restaurant.need_to_know_description && <> <h4 className="font-bold text-sm mb-3">Need to know</h4>
+                  <p className="text-xs leading-5 font-normal text-light mb-3">
+                    {restaurant.need_to_know_description}
+                  </p> </>}
+
                 <h4 className="font-bold text-sm mb-4">
                   About {restaurant.venue_name}
                 </h4>
@@ -92,7 +92,7 @@ const Index = () => {
                 </p>
               </article>
 
-              <div className="col-span-2 sm:w-[70%] mt-20">
+              <div className="col-span-2 sm:w-[70%] sm:mt-20 mb-8 sm:mb-1">
                 {/* <Carousel autoSlide={false} className="hidden sm:block">
                   {slides.map((s, i) => (
                     <img
