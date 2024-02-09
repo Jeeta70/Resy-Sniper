@@ -34,15 +34,16 @@ const ReserveButtonSection = () => {
   const { subscription_type } = useContext(UserDetailContext);
 
   // console.log(reservationFormState);
-  let resevationCountInfo: { buttonDisable: boolean, totalResevations: number, error: boolean } = {
-    buttonDisable: false,
-    totalResevations: 0,
-    error: false
-  }
 
 
 
-  resevationCountInfo = useMemo(() => {
+
+  const resevationCountInfo = useMemo(() => {
+    const resevationCountInfo: { buttonDisable: boolean, totalResevations: number, error: boolean } = {
+      buttonDisable: false,
+      totalResevations: 0,
+      error: false
+    }
     if (!countIsLoading && reservationCounts) {
       const totalReservationCountTillNow = reservationCounts.data.total_reservations;
       const upDatedReservationCount = totalReservationCountTillNow + (reservationDates.length * selectedResturantsForReservationOnAddReservationPage.length)
