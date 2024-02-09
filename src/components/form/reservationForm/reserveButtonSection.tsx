@@ -33,35 +33,38 @@ const ReserveButtonSection = () => {
 
   const { subscription_type } = useContext(UserDetailContext);
 
-  // console.log(reservationFormState);
+  let resevationCountInfo: { buttonDisable: boolean, totalResevations: number, error: boolean } = {
+    buttonDisable: false,
+    totalResevations: 0,
+    error: false
+  }
 
-
-
-
-  const resevationCountInfo = useMemo(() => {
-    const resevationCountInfo: { buttonDisable: boolean, totalResevations: number, error: boolean } = {
-      buttonDisable: false,
-      totalResevations: 0,
-      error: false
-    }
+  resevationCountInfo = useMemo(() => {
     if (!countIsLoading && reservationCounts) {
       const totalReservationCountTillNow = reservationCounts.data.total_reservations;
-      const upDatedReservationCount = totalReservationCountTillNow + (reservationDates.length * selectedResturantsForReservationOnAddReservationPage.length)
-      resevationCountInfo.totalResevations = upDatedReservationCount;
+      const updatedReservationCount = totalReservationCountTillNow + (reservationDates.length * selectedResturantsForReservationOnAddReservationPage.length)
+
+      let buttonDisable = false;
+      let error = false;
+
       if (subscription_type === "premium") {
-        resevationCountInfo.buttonDisable = upDatedReservationCount > 25 ? true : false;
-        resevationCountInfo.error = upDatedReservationCount > 25 ? true : false
+        buttonDisable = updatedReservationCount > 25;
+        error = updatedReservationCount > 25;
       } else if (subscription_type === "standard") {
-        resevationCountInfo.totalResevations = upDatedReservationCount;
-        resevationCountInfo.buttonDisable = upDatedReservationCount > 5 ? true : false;
-        resevationCountInfo.error = upDatedReservationCount > 5 ? true : false
+        buttonDisable = updatedReservationCount > 5;
+        error = updatedReservationCount > 5;
       }
 
-      return resevationCountInfo;
+      return {
+        buttonDisable,
+        totalResevations: updatedReservationCount,
+        error
+      };
     }
-    return 0;
-  }, [countIsLoading, reservationCounts, reservationDates, selectedResturantsForReservationOnAddReservationPage, subscription_type]);
 
+    // Return a default value if countIsLoading is true or reservationCounts is not available
+    return resevationCountInfo;
+  }, [countIsLoading, reservationCounts, reservationDates, selectedResturantsForReservationOnAddReservationPage, subscription_type]);
 
 
   const initialSittingState = {
