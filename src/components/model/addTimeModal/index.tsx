@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState } from "react";
+import  { useEffect, useState } from "react";
 import { handleReseverationTime } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { toast } from "@/components/ui/use-toast";
@@ -21,6 +21,33 @@ const settings = {
 };
 
 const AddTimeModal = () => {
+
+
+    const [scrollDisabled, setScrollDisabled] = useState<boolean>(false);
+
+    useEffect(() => {
+        const handleScroll = (event: Event) => {
+            if (scrollDisabled) {
+                event.preventDefault();
+            }
+        };
+
+        if (scrollDisabled) {
+            window.addEventListener('scroll', handleScroll);
+        } else {
+            window.removeEventListener('scroll', handleScroll);
+        }
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [scrollDisabled]);
+
+    const handleClick = () => {
+        setScrollDisabled(!scrollDisabled);
+    };
+
+
     const { dispatch } = useReservationContext();
     const time = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     const hours = ['00', '15', '30', '45']
@@ -80,7 +107,6 @@ const AddTimeModal = () => {
 
         if (fromDateTime < toDateTime) {
             const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
-            debugger
             handleReseverationTime(dispatch, reservationTime);
             document.getElementById("reservationTimeCustomButton")?.click()
         } else {
@@ -99,21 +125,22 @@ const AddTimeModal = () => {
         return Math.floor(now.getTime() / 1000);
     }
 
+
     return (
         <>
             {/* <Model> */}
             {/* <Credenza> */}
 
 
-            <div className="flex gap-5 p-4">
+            <div className="flex gap-5 p-4 border-2 border-red-800">
                 <div className="">
                     <p className="text-sm font-semibold">From</p>
                     <div className="flex gap-5 mt-5">
                         <div className="h-[120px] sm:w-[50px] w-[30px]  overflow-hidden flex relative gap-5">
-                            <div className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
+                            <div  className="w-[120px] h-[120px] overflow-hidden absolute pt-[50px]">
                                 <Slider {...settings} afterChange={(index: number) => handleSliderChange('fromTime', index)} >
                                     {time.map((ele, key) => (
-                                        <div key={key}>
+                                        <div onClick={handleClick} className="border-2 border-red-900" key={key}>
                                             <h3>{ele}</h3>
                                         </div>
                                     ))}

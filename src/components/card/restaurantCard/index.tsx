@@ -7,20 +7,12 @@ import { useNavigate } from "react-router-dom";
 import ProIcon from "@/assets/ProIcon.svg";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 import { useContext } from "react";
-import React from "react";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { AccountNotConnectedModal, FeatureIsForProModel } from "@/components";
 import { cn } from "@/lib/utils";
 import ResyIcon from "@/assets/resy-logo-circle.png";
 import OpenTableIcon from "@/assets/opentable.png";
 
-// type RestaurantProps = {
-//   venue_id: number;
-//   venue_name: string;
-//   locality: string;
-//   price: number;
-//   cover_image_url: string;
-// };
 
 interface Props {
   restaurant: IRestaurant;
@@ -241,5 +233,4 @@ const Index = ({ restaurant, layout }: Props) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export default React.memo(Index);
+export default Index;

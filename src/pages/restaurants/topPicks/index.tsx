@@ -1,7 +1,7 @@
 import { RestaurantCard, RestaurantCardSkeleton, SelectedRestaurantModal } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
-import { useTopPicksRestaurants } from "@/features/restaurant/restaurant";
+import {  useTopPicksRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
 import { ChevronLeft, X } from "lucide-react";
@@ -20,6 +20,7 @@ const Section = () => {
 
   // const { searchRestaurants, isLoading:searchRestaurantIsLoading } = useSearchRestaurants();
   const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
+  // const { restaurantSuggestions, isLoading: restaurantSuggestionIsLoading } =  useGetResturantSuggestion()
   const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
 
   // const [searchParams] = useSearchParams();
