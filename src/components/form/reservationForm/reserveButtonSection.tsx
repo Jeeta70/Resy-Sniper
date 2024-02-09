@@ -490,7 +490,7 @@ const ReserveButtonSection = () => {
             className="block sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("update")}
           >
-            Update
+            {isLoading ? <ButtonLoader /> : "Update"}
           </Button>
         ) : (
           <Button
