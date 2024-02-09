@@ -7,6 +7,7 @@ import WarningIcon from "@/assets/WarningCircle.svg";
 interface ResyConnectAccountCardType {
   image: string;
   cardStyle: string;
+  onOpenTableFormSubmit?: () => void;
   setdisableContinueButton?: (boolean: boolean) => void;
 }
 

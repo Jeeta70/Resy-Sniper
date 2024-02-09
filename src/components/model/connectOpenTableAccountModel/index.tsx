@@ -3,7 +3,9 @@ import { CredenzaBody } from "@/components/ui/credenza";
 
 
 import OpenTableIcon from "@/assets/openTable.svg"
+const handleDisableContinueButton = () => {
 
+};
 
 const Index = () => {
 
@@ -13,6 +15,7 @@ const Index = () => {
         <OpenTableConnectAccountCard
           image={OpenTableIcon}
           cardStyle={"w-full  mr-0 sm:mr-auto h-96 border-none"}
+          setdisableContinueButton={handleDisableContinueButton}
         />
       </CredenzaBody>
     </Model>
