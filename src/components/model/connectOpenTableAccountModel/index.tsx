@@ -1,5 +1,5 @@
 import { Model, OpenTableConnectAccountCard } from "@/components";
-import { CredenzaBody} from "@/components/ui/credenza";
+import { CredenzaBody } from "@/components/ui/credenza";
 
 
 import OpenTableIcon from "@/assets/openTable.svg"
