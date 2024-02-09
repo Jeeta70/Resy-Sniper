@@ -148,6 +148,10 @@ const ReserveButtonSection = () => {
     return `${formattedHours}:${formattedMinutes} ${period}`;
   };
 
+  const changeCustomDate = (inputDate: string): string => {
+    const parts = inputDate.split("-");
+    return `${parts[2]}-${parts[0]}-${parts[1]}`;
+  }
   function handleReseveAndUpdateButtonClick(buttonClickType: "update" | "reserve"): void {
     setAllErrorFieldTrue(dispatch);
     if (buttonClickType === "reserve") {
@@ -198,7 +202,9 @@ const ReserveButtonSection = () => {
           // Convert both from and to times to 24-hour format
           const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
           const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
-          let reverse_date = reservationDates.map((date) => convertDateTimeFormt(date))
+
+          let reverse_date = reservationDates.map((date) => changeCustomDate(date))
+          console.log("reservationDates", reservationDates)
           console.log("reverse_date", reverse_date)
           // Create the reservation time string
           // const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
