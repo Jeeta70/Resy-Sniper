@@ -80,7 +80,6 @@ const AddTimeModal = () => {
 
         if (fromDateTime < toDateTime) {
             const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
-            debugger
             handleReseverationTime(dispatch, reservationTime);
             document.getElementById("reservationTimeCustomButton")?.click()
         } else {

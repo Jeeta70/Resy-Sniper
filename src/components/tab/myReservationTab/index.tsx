@@ -63,7 +63,6 @@ const Index = ({
 
       uniqueData[key] = uniqueVenues;
     }
-
     return uniqueData;
   }
 

@@ -15,7 +15,7 @@ const PresistConnectAccount = () => {
     }
     if (isError) {
       toast({
-        description: "You need to Login First !",
+        description: "You need to Login First!",
         variant: "destructive",
       });
       navigate("/login", { replace: true });

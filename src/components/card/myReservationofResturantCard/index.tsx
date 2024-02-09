@@ -35,7 +35,6 @@ const Index = ({
   const { unPauseReservation } = useUnPauseReservation();
   const { cancelReservation } = useCancelReservation();
   const navigate = useNavigate();
-
   const restaurantNames = reservation
     .slice(0, 6)
     .map((restaurant) => restaurant.restaurant_name)
@@ -117,7 +116,6 @@ const Index = ({
   // console.log("=>", reservation[0], endTime)
   const formattedStartTime = convertTo12HourFormat(reservation[0].start_time);
   const formattedEndTime = convertTo12HourFormat(reservation[0].end_time);
-  console.log(status);
 
   const showOptionToValidStatus = () => {
     if (status === "completed" || status === "canceled") {

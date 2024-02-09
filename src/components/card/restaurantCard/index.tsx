@@ -61,7 +61,7 @@ const Index = ({ restaurant, layout }: Props) => {
         onClick={() => navigate(`/restaurant/${restaurant.venue_id}`)}
       >
         <div className="relative">
-          {restaurant.source === "Resy" ? (
+          {restaurant.reservation_source === "resy" ? (
             <img
               src={ResyIcon}
               alt="resyIcon"
@@ -106,7 +106,7 @@ const Index = ({ restaurant, layout }: Props) => {
                 {premium ? (
                   <>
                     {/* Check if restaurant source is Open table and user Open table account is not connected */}
-                    {restaurant.source === "OpenTable" && !ot_access_token ? (
+                    {restaurant.reservation_source === "opentable" && !ot_access_token ? (
                       <Credenza>
                         <CredenzaTrigger asChild>
                           <Button
@@ -120,10 +120,10 @@ const Index = ({ restaurant, layout }: Props) => {
                           </Button>
                         </CredenzaTrigger>
                         <AccountNotConnectedModal
-                          restaurantSource={restaurant.source}
+                          restaurantSource={restaurant.reservation_source}
                         />
                       </Credenza>
-                    ) : restaurant.source === "Resy" && !resy_token ? (
+                    ) : restaurant.reservation_source === "resy" && !resy_token ? (
                       <>
                         {/* Check if restaurant source is Rest and user Resy account is not connected */}
                         <Credenza>
@@ -139,7 +139,7 @@ const Index = ({ restaurant, layout }: Props) => {
                             </Button>
                           </CredenzaTrigger>
                           <AccountNotConnectedModal
-                            restaurantSource={restaurant.source}
+                            restaurantSource={restaurant.reservation_source}
                           />
                         </Credenza>
                       </>
@@ -181,7 +181,7 @@ const Index = ({ restaurant, layout }: Props) => {
                   </>
                 )}
                 {/* Check if restaurant source is Open table and user Open table account is not connected */}
-                {restaurant.source === "OpenTable" && !ot_access_token ? (
+                {restaurant.reservation_source === "opentable" && !ot_access_token ? (
                   <Credenza>
                     <CredenzaTrigger asChild>
                       <Button
@@ -195,10 +195,10 @@ const Index = ({ restaurant, layout }: Props) => {
                       </Button>
                     </CredenzaTrigger>
                     <AccountNotConnectedModal
-                      restaurantSource={restaurant.source}
+                      restaurantSource={restaurant.reservation_source}
                     />
                   </Credenza>
-                ) : restaurant.source === "Resy" && !resy_token ? (
+                ) : restaurant.reservation_source === "resy" && !resy_token ? (
                   <>
                     {/* Check if restaurant source is Rest and user Resy account is not connected */}
                     <Credenza>
@@ -214,7 +214,7 @@ const Index = ({ restaurant, layout }: Props) => {
                         </Button>
                       </CredenzaTrigger>
                       <AccountNotConnectedModal
-                        restaurantSource={restaurant.source}
+                        restaurantSource={restaurant.reservation_source}
                       />
                     </Credenza>
                   </>

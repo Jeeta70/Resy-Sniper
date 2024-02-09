@@ -14,7 +14,6 @@ interface Props {
 }
 
 const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
-
   const user = useContext(UserDetailContext);
   const premium = user.subscription_type === "standard" ? false : true;
   const resy_token = user.resy_token;
@@ -35,7 +34,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
     <>
       {" "}
       <div className="relative">
-        {restaurant.source === "Resy" ? (
+        {restaurant.reservation_source === "resy" ? (
           <img
             src={ResyIcon}
             alt="resyIcon"
@@ -74,7 +73,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
 
   return (
     <>
-      {restaurant.source === "OpenTable" && !ot_access_token ? (
+      {restaurant.reservation_source === "opentable" && !ot_access_token ? (
         <>
           {/* Check if restaurant source is OpenTable and user Open Table account is not connected */}
           <Credenza>
@@ -83,10 +82,10 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
                 {resturantCard}
               </Card>
             </CredenzaTrigger>
-            <AccountNotConnectedModal restaurantSource={restaurant.source} />
+            <AccountNotConnectedModal restaurantSource={restaurant.reservation_source} />
           </Credenza>
         </>
-      ) : restaurant.source === "Resy" && !resy_token ? (
+      ) : restaurant.reservation_source === "resy" && !resy_token ? (
         <>
           {/* Check if restaurant source is Rest and user Resy account is not connected */}
           <Credenza>
@@ -95,7 +94,7 @@ const AddRestaurantCard = ({ restaurant, onResturantCardClick }: Props) => {
                 {resturantCard}
               </Card>
             </CredenzaTrigger>
-            <AccountNotConnectedModal restaurantSource={restaurant.source} />
+            <AccountNotConnectedModal restaurantSource={restaurant.reservation_source} />
           </Credenza>
         </>
       ) : !premium && restaurant.premium ? (

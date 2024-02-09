@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/credenza";
 import { Separator } from "@/components/ui/separator";
 
-const Index = ({ restaurantSource }: { restaurantSource: "OpenTable" | "Resy" }) => {
+const Index = ({ restaurantSource }: { restaurantSource: "opentable" | "resy" }) => {
 
    return (
       <Model className="border-none max-w-xl">

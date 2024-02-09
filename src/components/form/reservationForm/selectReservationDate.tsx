@@ -56,7 +56,6 @@ const SelectReservationDateSection = () => {
     },
   } = useReservationContext();
 
-  console.log(reservationType)
   const initialDays: Date[] = [];
   const [days, setDays] = React.useState<Date[] | undefined>(initialDays);
   const [selected, setSelected] = React.useState<Date>();
