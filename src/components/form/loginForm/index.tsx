@@ -33,7 +33,7 @@ const Index = () => {
         navigate("/login");
       } else if (!resy_token) {
         toast({
-          description: "You need to connect the account",
+          description: "You need to connect an account",
           variant: "dark",
         });
         navigate("/connect-accounts");
@@ -44,7 +44,7 @@ const Index = () => {
         });
         navigate("/subscription");
       } else {
-        toast({ description: localStorage.getItem("token") ? "You are already login " : "Successfull login", variant: "destructive", });
+        toast({ description: localStorage.getItem("token") ? "You are already logged in " : "Successfully logged in", variant: "destructive", });
         navigate("/reservations");
       }
     }

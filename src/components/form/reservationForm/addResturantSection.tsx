@@ -37,7 +37,7 @@ const AddResturantSection = () => {
   useEffect(() => {
     if (state) {
       const { selectedRestaurants } = state;
-
+      console.log(selectedRestaurants);
       handleUpdateSelectedRestaurant(dispatch, selectedRestaurants);
     }
   }, [dispatch, state]);
@@ -61,7 +61,7 @@ const AddResturantSection = () => {
                       resturant.cover_image_url ??
                       "../restaurant/restaurant.png"
                     }
-                    alt=""
+                    alt={resturant.cover_image_url}
                   />
                 </div>
                 <CardContent className="p-0 px-5 space-y-2 my-auto w-full">

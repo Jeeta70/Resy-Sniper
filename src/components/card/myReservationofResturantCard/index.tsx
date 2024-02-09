@@ -35,7 +35,6 @@ const Index = ({
   const { unPauseReservation } = useUnPauseReservation();
   const { cancelReservation } = useCancelReservation();
   const navigate = useNavigate();
-
   const restaurantNames = reservation
     .slice(0, 6)
     .map((restaurant) => restaurant.restaurant_name)

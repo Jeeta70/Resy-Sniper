@@ -1,6 +1,6 @@
 export type IRestaurant = {
-  source: "OpenTable" | "Resy" | string;
-  availableSittings?: string;
+  featured: boolean;
+  reservation_source: null | string;
   about_description: string;
   address_1: string;
   country: string;
@@ -10,11 +10,11 @@ export type IRestaurant = {
   need_to_know_description: string;
   neighborhood: string;
   postal_code: string;
-  premium?: boolean;
+  premium: boolean;
   price: number;
   region: string;
   restaurant_website: string;
-  restuarant_phone_number: string;
+  restaurant_phone_number: string;
   seating_types: string[];
   venue_id: number;
   venue_name: string;
