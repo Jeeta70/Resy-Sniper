@@ -19,6 +19,7 @@ import { Key, useContext, useEffect, useMemo } from "react";
 import { handleUpdateReservation } from "@/reducer/reservationFormReducer";
 import { useGetSingleReservation } from "@/features/reservation/reservation";
 import { UserDetailContext } from "@/context/UserDetailProvider";
+import { cn } from "@/lib/utils";
 // import { IReservation } from "@/types/reservations";
 
 const ReserveButtonSection = () => {
@@ -33,21 +34,26 @@ const ReserveButtonSection = () => {
   const { subscription_type } = useContext(UserDetailContext);
 
   // console.log(reservationFormState);
+  let resevationCountInfo: { buttonDisable: boolean, totalResevations: number, error: boolean } = {
+    buttonDisable: false,
+    totalResevations: 0,
+    error: false
+  }
 
 
-  const reservationCountDetail = useMemo(() => {
+
+  resevationCountInfo = useMemo(() => {
     if (!countIsLoading && reservationCounts) {
-      const totalReservationCountTillNow = reservationCounts.data.total_reservations
-      const resevationCountInfo = {
-        buttonDisable: false,
-        totalResevations: totalReservationCountTillNow
-      }
-
+      const totalReservationCountTillNow = reservationCounts.data.total_reservations;
+      const upDatedReservationCount = totalReservationCountTillNow + (reservationDates.length * selectedResturantsForReservationOnAddReservationPage.length)
+      resevationCountInfo.totalResevations = upDatedReservationCount;
       if (subscription_type === "premium") {
-        console.log(selectedResturantsForReservationOnAddReservationPage);
-
-        const upDatedReservationCount = reservationDates.length * selectedResturantsForReservationOnAddReservationPage.length
-        resevationCountInfo.totalResevations = upDatedReservationCount
+        resevationCountInfo.buttonDisable = upDatedReservationCount > 25 ? true : false;
+        resevationCountInfo.error = upDatedReservationCount > 25 ? true : false
+      } else if (subscription_type === "standard") {
+        resevationCountInfo.totalResevations = upDatedReservationCount;
+        resevationCountInfo.buttonDisable = upDatedReservationCount > 5 ? true : false;
+        resevationCountInfo.error = upDatedReservationCount > 5 ? true : false
       }
 
       return resevationCountInfo;
@@ -55,7 +61,6 @@ const ReserveButtonSection = () => {
     return 0;
   }, [countIsLoading, reservationCounts, reservationDates, selectedResturantsForReservationOnAddReservationPage, subscription_type]);
 
-  console.log(reservationCountDetail);
 
 
   const initialSittingState = {
@@ -431,14 +436,14 @@ const ReserveButtonSection = () => {
   return (
     <div className="flex justify-between flex-col-reverse sm:flex-row gap-2 text-center">
       {subscription_type === "standard" && (
-        <p className="text-xs font-semibold ">
-          of 5 reservation requests used
+        <p className={cn("text-xs font-semibold", resevationCountInfo.error ? "text-red-400" : "text-black")} >
+          {resevationCountInfo.totalResevations} of 5 reservation requests used
         </p>
       )}
 
       {subscription_type === "premium" && (
-        <p className="text-xs font-semibold ">
-          of 25 reservation requests used
+        <p className={cn("text-xs font-semibold", resevationCountInfo.error ? "text-red-400" : "text-black")} >
+          {resevationCountInfo.totalResevations} of 25 reservation requests used
         </p>
       )}
       {/* <p className="text-xs font-semibold ">
@@ -452,7 +457,7 @@ const ReserveButtonSection = () => {
         </DiscardChangesModal>
         {group_id ? (
           <Button
-            disabled={updateIsLoading}
+            disabled={updateIsLoading || resevationCountInfo.buttonDisable}
             variant="primary"
             className="sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("update")}
@@ -461,7 +466,7 @@ const ReserveButtonSection = () => {
           </Button>
         ) : (
           <Button
-            disabled={isLoading}
+            disabled={isLoading || resevationCountInfo.buttonDisable}
             variant="primary"
             className="sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("reserve")}

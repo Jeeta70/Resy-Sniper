@@ -22,9 +22,9 @@ export function useSearchRestaurants() {
     queryKey: ["resturants", query, exact_location, price],
     queryFn: (): Promise<AxiosResponse> => {
       if (query || exact_location || price) {
-        return axios.get(`${baseUrl}/restaurants/search?venue_name=${query ?? ""}&exact_location=${exact_location ?? ""}&price=${price ?? ""}&page=1&per_page=2`);
+        return axios.get(`${baseUrl}/restaurants/search?venue_name=${query ?? ""}&exact_location=${exact_location ?? ""}&price=${price ?? ""}`);
       }
-      return axios.get(`${baseUrl}/restaurants/all&page=1&per_page=2`);
+      return axios.get(`${baseUrl}/restaurants/all`);
     },
   });
   return { searchRestaurants, isLoading };

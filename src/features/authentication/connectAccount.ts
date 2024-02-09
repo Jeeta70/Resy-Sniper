@@ -110,7 +110,7 @@ export const useConnectOpenTableAccount = () => {
       onSuccess: (data) => {
         localStorage.setItem("resyloginDetail", JSON.stringify(data.data));
         toast({ description: data.data.message, variant: "dark" });
-        queryClient.invalidateQueries({ queryKey: ["user"] });
+        queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       },
       onError: (error: { response: AxiosResponse }) => {
         toast({

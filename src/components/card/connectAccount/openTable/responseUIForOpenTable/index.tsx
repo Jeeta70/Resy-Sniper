@@ -64,7 +64,6 @@ const Index = ({ setdisableContinueButton }: Props) => {
    ) {
       connectOpenTableAccount(values, {
          onSuccess: () => {
-            // connectOpenTableForm.reset();
             setResponseState("entercode");
          },
       });
@@ -163,7 +162,7 @@ const Index = ({ setdisableContinueButton }: Props) => {
                         OpenTable will send you a message with a code
                      </div>
 
-                     <Button disabled={isLoading} className="w-full mt-auto" type="submit" onClick={(e) => e.stopPropagation()}>
+                     <Button disabled={isLoading} className="w-full mt-auto" type="submit">
                         {isLoading ? <ButtonLoader /> : "Connect"}{" "}
                      </Button>
                   </form>
@@ -224,7 +223,6 @@ const Index = ({ setdisableContinueButton }: Props) => {
                         disabled={openTableCodeisLoading}
                         className="w-full"
                         type="submit"
-                        onClick={(e) => e.stopPropagation()}
                      >
                         {openTableCodeisLoading ? <ButtonLoader /> : "Submit"}
                      </Button>
