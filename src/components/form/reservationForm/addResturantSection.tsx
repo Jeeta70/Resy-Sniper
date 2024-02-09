@@ -68,7 +68,7 @@ const AddResturantSection = () => {
                         {resturant.venue_name}
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
-                        {resturant.availableSittings}
+                        {resturant.seating_types}
                       </p>
                     </div>
                     <X
