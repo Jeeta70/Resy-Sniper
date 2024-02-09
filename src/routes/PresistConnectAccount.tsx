@@ -6,8 +6,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 const PresistConnectAccount = () => {
   const { data, isSuccess, isError } = useCheckUserIsLogin();
   const navigate = useNavigate();
-  console.log(data);
-  
 
   useEffect(() => {
     if (isSuccess) {

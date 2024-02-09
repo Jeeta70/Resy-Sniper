@@ -21,8 +21,7 @@ const Section = () => {
   const { removeAllRestaurant } = useRestaurantContext();
   const desktop = "(min-width: 768px)"
   const isDesktop = useMediaQuery(desktop)
-  const { restaurants: selectedRestaurants, removeRestaurant } =
-    useRestaurantContext();
+  const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
 
   const numberOfRestaurantToShow = isDesktop ? 4 : 2
 
@@ -103,7 +102,7 @@ const Section = () => {
               </>
             )}
             <Button
-            className="ml-auto"
+              className="ml-auto"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate("/reservations/add-reservation", {
