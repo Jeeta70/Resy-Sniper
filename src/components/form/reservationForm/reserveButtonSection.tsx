@@ -29,6 +29,7 @@ const ReserveButtonSection = () => {
   const { updateReservation, isLoading: updateIsLoading } = useUpdateReservation();
   const { group_id } = useParams();
   const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
+
   const { subscription_type } = useContext(UserDetailContext);
 
   // console.log(reservationFormState);
@@ -453,7 +454,7 @@ const ReserveButtonSection = () => {
           <Button
             disabled={updateIsLoading}
             variant="primary"
-            className="block sm:w-auto w-[100%]"
+            className="sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("update")}
           >
             {updateIsLoading ? <ButtonLoader /> : "Update"}

@@ -11,13 +11,21 @@ import { Button, buttonVariants } from '@/components/ui/button';
 // import { addDays, format } from 'date-fns';
 // import { PopoverClose } from '@radix-ui/react-popover';
 // import { Separator } from '@/components/ui/separator';
-import { AddTimeModal, ErrorMessage, FeatureIsForProModel } from '@/components';
+import { AddTimeModal, AddTimeModalMobile, ErrorMessage, FeatureIsForProModel } from '@/components';
 import { UserDetailContext } from '@/context/UserDetailProvider';
 import { Credenza, CredenzaTrigger } from '@/components/ui/credenza';
 import { cn } from '@/lib/utils';
 import { useReservationContext } from '@/context/ReservationFomProvider';
 import { handleReseverationTime } from '@/reducer/reservationFormReducer';
 import { X } from 'lucide-react';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 // import { ErrorMessage } from '@/components';
 
 const SelectReservationTime = () => {
@@ -131,24 +139,41 @@ const SelectReservationTime = () => {
             </Credenza>
           </>
           :
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button id='reservationTimeCustomButton' variant="outline" className=" text-light ">
-                Custom
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <AddTimeModal />
-              {/* <Calendar
-              id="test"
-              mode="range"
-              defaultMonth={pastMonth}
-              selected={range}
-              footer={footer}
-              onSelect={setRange}
-            /> */}
-            </PopoverContent>
-          </Popover>}
+          <>
+            <div className='sm:block hidden'>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button id='reservationTimeCustomButton' variant="outline" className=" text-light ">
+                    Custom
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <AddTimeModal />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className='block sm:hidden'>
+              <Drawer>
+                <DrawerTrigger>
+                  <Button id='reservationTimeCustomButton' variant="outline" className=" text-light ">
+                    Custom
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent className="w-auto p-0" >
+                  <DrawerHeader className="flex justify-between">
+                    <DrawerTitle className="font-bold text-2xl text-start">
+                      Reservation Time
+                    </DrawerTitle>
+                    <DrawerClose>
+                      <X />
+                    </DrawerClose>
+                  </DrawerHeader>
+                  <AddTimeModalMobile />
+                </DrawerContent>
+              </Drawer>
+            </div>
+          </>
+        }
       </div>
       {reservationTimeError && !reservationTime && <ErrorMessage message="Please set reservation time" />}
       {/* <ErrorMessage message='Please set reservation time' /> */}
