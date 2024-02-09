@@ -42,6 +42,9 @@ const AddResturantSection = () => {
     }
   }, [dispatch, state]);
 
+  
+  console.log(selectedResturantsForReservationOnAddReservationPage);
+
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Resturants</p>
@@ -68,7 +71,7 @@ const AddResturantSection = () => {
                         {resturant.venue_name}
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
-                        {resturant.availableSittings}
+                        {resturant.availableSittings || resturant.seating_types}
                       </p>
                     </div>
                     <X

@@ -13,9 +13,6 @@ const Index = () => {
   const exact_location = searchParams.get("exact_location");
 
 
-
-
-
   useEffect(() => {
     return () => removeAllRestaurant()
   }, [])
