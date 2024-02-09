@@ -204,8 +204,6 @@ const ReserveButtonSection = () => {
           const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
 
           let reverse_date = reservationDates.map((date) => changeCustomDate(date))
-          console.log("reservationDates", reservationDates)
-          console.log("reverse_date", reverse_date)
           // Create the reservation time string
           // const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
 
@@ -221,7 +219,7 @@ const ReserveButtonSection = () => {
                   };
                 }
               ),
-            date: reservationDates.map((date) => convertDateTimeFormt(date)),
+            date: reverse_date,
             override_reservations: overideCurrentReservationToggleSection
               ? 1
               : 0,
