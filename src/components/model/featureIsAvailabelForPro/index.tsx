@@ -63,7 +63,7 @@ const Index = () => {
                   <Button
                      disabled={isLoading}
                      variant="primary"
-                     className="w-full sm:w-auto"
+                     className="w-full sm:w-auto ml-3"
                      onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                         e.stopPropagation();
                         upgrade("premium");

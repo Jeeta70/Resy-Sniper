@@ -143,7 +143,7 @@ const AddResturantModel = () => {
         <ScrollArea className="">
           <div className="flex flex-col justify-evenly">
             {/* <span> {reservationFormState.selectSittingOptions.title}fffff</span> */}
-            <div className="h-52">
+            <div className="h-52 sm:h-72">
               <img
                 className="rounded-lg w-full h-full"
                 src={
