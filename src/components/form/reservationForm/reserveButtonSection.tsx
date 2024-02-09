@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { setAllErrorFieldTrue } from "@/reducer/reservationFormReducer";
 import {
-  convertDateTimeFormt,
+  // convertDateTimeFormt,
   formatDateForSnipingDate,
   formateDateFromSingleRservation,
 } from "@/utils/healper";
@@ -64,7 +64,9 @@ const ReserveButtonSection = () => {
     selectSittingOptions: { ...initialSittingState },
     partySize: 0,
     reservationDates: [] as string[],
+    releaseDates: "",
     reservationTime: "",
+    releaseTime: "",
     finalSnipingDay: "any",
     overideCurrentReservationToggleSection: false,
     title: "",
@@ -88,6 +90,9 @@ const ReserveButtonSection = () => {
       const reservationTimeNew = `${formattedStartTime} - ${formattedEndTime}`;
       state.partySize = data[0].party_size;
       state.reservationTime = reservationTimeNew;
+      state.reservationType = data[0].snipe_type;
+      state.releaseDates = formateDateFromSingleRservation(data[0].release_date);
+      state.releaseTime = data[0].release_time;
       // const dateString = data[0].date;
 
       // const dateObject = new Date(dateString);
@@ -294,6 +299,7 @@ const ReserveButtonSection = () => {
           const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
 
           const splitTime = reservationTimeNew.split(" - ");
+          let reverse_date = reservationDates.map((date) => changeCustomDate(date))
 
           // const newSplitTime = releaseTime.split(" - ");
           // coverted states into formated payload
@@ -307,7 +313,7 @@ const ReserveButtonSection = () => {
                   };
                 }
               ),
-            date: reservationDates.map((date) => convertDateTimeFormt(date)),
+            date: reverse_date,
             release_date: releaseDates,
             override_reservations: overideCurrentReservationToggleSection
               ? 1
@@ -319,7 +325,7 @@ const ReserveButtonSection = () => {
             snipe_type: reservationType as string,
             start_time: splitTime[0],
             end_time: splitTime[1],
-            release_start_time: fromTime24HourFormatNew,
+            release_time: fromTime24HourFormatNew,
             // release_end_time: newSplitTime[1],
             party_size: partySize,
           };
@@ -354,6 +360,7 @@ const ReserveButtonSection = () => {
 
           return `${formattedHours}:${formattedMinutes}:00`;
         };
+        let reverse_date = reservationDates.map((date) => changeCustomDate(date))
 
         // Convert both from and to times to 24-hour format
         const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
@@ -365,7 +372,7 @@ const ReserveButtonSection = () => {
               return { venue_id: venue.venue_id, venue_name: venue.venue_name };
             }
           ),
-          date: reservationDates.map((date) => convertDateTimeFormt(date)),
+          date: reverse_date,
           override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
           final_snipe_date: null,
           final_snipe_time: null,
@@ -391,8 +398,33 @@ const ReserveButtonSection = () => {
         },
         overideCurrentReservationToggleSection,
       } = reservationFormState;
-      const splitTime = reservationTime.split(" - ");
-      const newSplitTime = releaseTime.split(" - ");
+      const newTime = reservationTime.split("-");
+      const convertTo24HourFormat = (timeString: string) => {
+        const [time, period] = timeString.split(" ");
+        const [hours, minutes] = time.split(":");
+        let hours24 = parseInt(hours, 10);
+
+        if (period === "PM" && hours !== "12") {
+          hours24 += 12;
+        }
+        const formattedHours = String(hours24).padStart(2, "0");
+        const formattedMinutes = minutes ? minutes.padStart(2, "0") : "00";
+
+        return `${formattedHours}:${formattedMinutes}:00`;
+      };
+
+      // Convert both from and to times to 24-hour format
+      const fromTime24HourFormat = convertTo24HourFormat(newTime[0]);
+      const toTime24HourFormat = convertTo24HourFormat(newTime[1]);
+      const fromTime24HourFormatNew = convertTo24HourFormat(releaseTime);
+      // const toTime24HourFormatNew = convertTo24HourFormat(newTime[1]);
+
+      // Create the reservation time string
+      const reservationTimeNew = `${fromTime24HourFormat} - ${toTime24HourFormat}`;
+
+      const splitTime = reservationTimeNew.split(" - ");
+      let reverse_date = reservationDates.map((date) => changeCustomDate(date))
+
       const payload = {
         group_id,
         resturants: selectedResturantsForReservationOnAddReservationPage.map(
@@ -400,7 +432,7 @@ const ReserveButtonSection = () => {
             return { venue_id: venue.venue_id, venue_name: venue.venue_name };
           }
         ),
-        date: reservationDates.map((date) => convertDateTimeFormt(date)),
+        date: reverse_date,
         release_date: releaseDates,
         override_reservations: overideCurrentReservationToggleSection ? 1 : 0,
         final_snipe_date: null,
@@ -410,8 +442,8 @@ const ReserveButtonSection = () => {
         snipe_type: reservationType as string,
         start_time: splitTime[0],
         end_time: splitTime[1],
-        release_start_time: newSplitTime[0],
-        release_end_time: newSplitTime[1],
+        release_time: fromTime24HourFormatNew,
+        // release_end_time: newSplitTime[1],
         party_size: partySize,
       };
       updateReservation(payload);
@@ -458,7 +490,7 @@ const ReserveButtonSection = () => {
             className="block sm:w-auto w-[100%]"
             onClick={() => handleReseveAndUpdateButtonClick("update")}
           >
-            Update
+            {isLoading ? <ButtonLoader /> : "Update"}
           </Button>
         ) : (
           <Button

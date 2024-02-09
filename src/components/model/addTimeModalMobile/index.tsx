@@ -1,10 +1,15 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { handleReseverationTime } from "@/reducer/reservationFormReducer";
 import { useReservationContext } from "@/context/ReservationFomProvider";
 import { toast } from "@/components/ui/use-toast";
+import {
+    DrawerClose,
+    DrawerFooter,
+} from "@/components/ui/drawer";
+// import { useMediaQuery } from "@/hooks/use-media-query";
 // import { Model } from "@/components";
 // import { Credenza, CredenzaClose } from "@/components/ui/credenza";
 const settings = {
@@ -20,10 +25,12 @@ const settings = {
     rows: 1,
 };
 
-const AddTimeModal = () => {
+const AddTimeModalMobile = () => {
 
 
     const [scrollDisabled, setScrollDisabled] = useState<boolean>(false);
+    const modalRef = useRef<HTMLDivElement>(null);
+    // const modalRef = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
         const handleScroll = (event: Event) => {
@@ -32,20 +39,34 @@ const AddTimeModal = () => {
             }
         };
 
+        const handleTouchMove = (event: TouchEvent) => {
+            if (scrollDisabled) {
+                event.preventDefault();
+            }
+        };
+
         if (scrollDisabled) {
             window.addEventListener('scroll', handleScroll);
+            window.addEventListener('touchmove', handleTouchMove, { passive: false });
         } else {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('touchmove', handleTouchMove);
         }
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('touchmove', handleTouchMove);
         };
     }, [scrollDisabled]);
 
     const handleClick = () => {
         setScrollDisabled(!scrollDisabled);
     };
+
+    const stopPropagation = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
+    };
+
 
 
     const { dispatch } = useReservationContext();
@@ -93,7 +114,6 @@ const AddTimeModal = () => {
         setSelectedTimes((prevTimes) => ({ ...prevTimes, [category]: value }));
     };
 
-
     const handleConfirm = () => {
         const formatTime = (minute: string, hour: string, format: string) => {
             return `${minute}:${hour} ${format}`;
@@ -108,7 +128,6 @@ const AddTimeModal = () => {
         if (fromDateTime < toDateTime) {
             const reservationTime = `${fromTimeFormatted} - ${toTimeFormatted}`;
             handleReseverationTime(dispatch, reservationTime);
-            document.getElementById("reservationTimeCustomButton")?.click()
         } else {
             toast({ description: "Please select a valid time", variant: "dark" });
         }
@@ -132,7 +151,7 @@ const AddTimeModal = () => {
             {/* <Credenza> */}
 
 
-            <div className="flex gap-5 p-4 ">
+            <div className="flex gap-5 p-4" ref={modalRef} onClick={stopPropagation}>
                 <div className="">
                     <p className="text-sm font-semibold">From</p>
                     <div className="flex gap-5 mt-5">
@@ -223,16 +242,18 @@ const AddTimeModal = () => {
                     </div>
                 </div>
             </div>
-            <div className="border-t border-[gray] p-2 flex justify-end gap-3">
-                {/* <CredenzaClose> */}
-                <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black" onClick={() => document.getElementById("reservationTimeCustomButton")?.click()}>Cancel</button>
-                {/* </CredenzaClose> */}
-                <button className="bg-[black] border-2 rounded-md py-2 px-4 text-white" onClick={handleConfirm}>Submit</button>
-            </div>
+            <DrawerFooter>
+                <div className="border-t border-[gray] p-2 flex justify-end gap-3">
+                    <DrawerClose>
+                        <button className="bg-[white] border-2 rounded-md py-2 px-4 text-black" >Cancel</button>
+                        <button className="bg-[black] border-2 rounded-md py-2 px-4 text-white ml-3" onClick={handleConfirm}>Submit</button>
+                    </DrawerClose>
+                </div>
+            </DrawerFooter>
             {/* </Credenza> */}
             {/* </Model> */}
         </>
     )
 }
 
-export default AddTimeModal
+export default AddTimeModalMobile

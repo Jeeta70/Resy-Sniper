@@ -7,20 +7,12 @@ import { useNavigate } from "react-router-dom";
 import ProIcon from "@/assets/ProIcon.svg";
 import { UserDetailContext } from "@/context/UserDetailProvider";
 import { useContext } from "react";
-import React from "react";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { AccountNotConnectedModal, FeatureIsForProModel } from "@/components";
 import { cn } from "@/lib/utils";
 import ResyIcon from "@/assets/resy-logo-circle.png";
 import OpenTableIcon from "@/assets/opentable.png";
 
-// type RestaurantProps = {
-//   venue_id: number;
-//   venue_name: string;
-//   locality: string;
-//   price: number;
-//   cover_image_url: string;
-// };
 
 interface Props {
   restaurant: IRestaurant;
@@ -95,12 +87,32 @@ const Index = ({ restaurant, layout }: Props) => {
         {layout.displayFooter && (
           <CardFooter className="xl:flex xl:gap-3 mt-3 grid gap-3">
             {!premium && restaurant.premium ? (
-              <div className="flex bg-black text-white text-xs w-full h-full rounded-lg justify-center  items-center gap-2  px-4 py-2">
-                <span>
-                  <img src={ProIcon} className="w-8" />
-                </span>{" "}
-                <span className=" font-bold ">Requires PRO Subscription</span>
-              </div>
+              <Credenza>
+                <CredenzaTrigger asChild>
+                  {/* <div className="flex bg-black text-white text-xs w-full h-full rounded-lg justify-center  items-center gap-2  px-4 py-2"> */}
+                  {/* <span>
+                      <img src={ProIcon} className="w-8" />
+                    </span>{" "}
+                    <span className=" font-bold " >Requires PRO Subscription</span> */}
+                  {/* </div> */}
+                  <span
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "w-full relative bg-[black] text-[white] hover:bg-[black] hover:text-white sm:text-sm text-xs"
+                    )}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    Requires PRO Subscription{" "}
+                    <img
+                      src={ProIcon}
+                      className=" h-[15px] absolute top-0 right-0"
+                    />
+                  </span>
+                </CredenzaTrigger>
+                <FeatureIsForProModel />
+              </Credenza>
             ) : (
               <>
                 {premium ? (
@@ -241,5 +253,4 @@ const Index = ({ restaurant, layout }: Props) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export default React.memo(Index);
+export default Index;

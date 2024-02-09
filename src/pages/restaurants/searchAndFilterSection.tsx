@@ -11,34 +11,16 @@ import { useSearchParams } from "react-router-dom";
 import { SelectGroup, SelectItem } from "@/components/ui/select";
 
 const SearchAndFilterSection = () => {
+
+ 
   const [searchParams, setSeachParams] = useSearchParams();
   const query = searchParams.get("query");
-  // const location = searchParams.get("location");
-  // const price = searchParams.get("price");
-
-  // const exact_location = searchParams.get("exact_location") ?? undefined;
-
   const [searchQuery, setsearchQuery] = useState("");
-  // const [priceFilter, setPriceFilter] = useState("");
-
-  // const {
-  //   restaurantAccourdingPriceSuggestions,
-  //   isLoading: restaurantAccourdingPriceSuggestionsIsLoading,
-  // } = useRestaurantAccourdingPriceSuggestion();
-
-  // const restaurantSuggestion = useMemo(() => {
-  //   if (!restaurantSuggestionIsLoading) {
-  //     return restaurantSuggestions?.data.slice(0, 5);
-  //   }
-  // }, [restaurantSuggestionIsLoading, restaurantSuggestions]);
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setsearchQuery(e.target.value);
   }
 
-  // function locationOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-  //   setLoacationSearch(e.target.value);
-  // }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,22 +32,6 @@ const SearchAndFilterSection = () => {
     return () => clearInterval(timer);
   }, [searchQuery, setSeachParams]);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setSeachParams((prev) => {
-  //       prev.set("location", locationSearch);
-  //       return prev;
-  //     });
-  //   }, 500);
-  //   return () => clearInterval(timer);
-  // }, [locationSearch, setSeachParams]);
-
-  // function placeSuggestionsChange(place: string) {
-  //   setSeachParams((prev) => {
-  //     prev.set("exact_location", place);
-  //     return prev;
-  //   });
-  // }
 
   function priceSuggestionChange(price: string) {
     setSeachParams((prev) => {
@@ -73,6 +39,8 @@ const SearchAndFilterSection = () => {
       return prev;
     });
   }
+
+  
 
   return (
     <div className="lg:flex block gap-4">
