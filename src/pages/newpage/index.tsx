@@ -715,7 +715,7 @@ const NewPage = () => {
                     <div className="bg-[#000000]">
                         <div className="sm:grid sm:grid-cols-[30%,30%,40%] md:grid-cols-[30%,30%,40%] lg:grid-cols-[30%,30%,40%] xl:grid-cols-[30%,40%,30%] block border-b border-[gray] lg:mx-[121px] md:mx-[10px] mx-3 sm:py-[60px] text-white py-12">
                             <div>
-                                <img src={logo}></img>
+                                {/* <img src={logo}></img> */}
                                 <div className="flex gap-3 mt-5">
                                     <a href="https://www.instagram.com/resysniper/" target="_blank"><img src={Instagram}></img></a>
                                     <img src={Twitter}></img>
