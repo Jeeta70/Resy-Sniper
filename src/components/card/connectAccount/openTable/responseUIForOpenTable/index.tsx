@@ -64,7 +64,6 @@ const Index = ({ setdisableContinueButton }: Props) => {
    ) {
       connectOpenTableAccount(values, {
          onSuccess: () => {
-            // connectOpenTableForm.reset();
             setResponseState("entercode");
          },
       });

@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
+
 export type reservationPayload = {
   resturants: {
     venue_id: number;
@@ -84,6 +85,7 @@ export function useGetSingleReservation() {
 }
 
 export function useUpdateReservation() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const accessToken = getToken("access_token");
   const { mutate: updateReservation, isPending: isLoading } = useMutation({
@@ -100,6 +102,8 @@ export function useUpdateReservation() {
       );
     },
     onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["reservationCount"] });
       const { data } = response;
       toast({ description: data.msg, variant: "dark" });
       navigate("/reservations");
@@ -122,6 +126,7 @@ export function usePauseReservation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["reservationCount"] });
     },
   });
   return { pauseReservation, isLoading };
@@ -140,6 +145,7 @@ export function useUnPauseReservation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["reservationCount"] });
     },
   });
   return { unPauseReservation, isLoading };
@@ -160,6 +166,8 @@ export function useCancelReservation() {
       // const { data } = response;
       toast({ description: "Task successfully deleted", variant: "dark" });
       queryClient.invalidateQueries({ queryKey: ["all-reservations"] });
+      queryClient.invalidateQueries({ queryKey: ["reservationCount"] });
+
     },
   });
   return { cancelReservation, isLoading };

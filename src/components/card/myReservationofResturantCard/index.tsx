@@ -113,7 +113,6 @@ const Index = ({
   });
   // const startTime = new Date(`2000-01-01T${reservation[0].start_time}`);
   // const endTime = new Date(`2000-01-01T${reservation[0].end_time}`);
-  // console.log("=>", reservation[0], endTime)
   const formattedStartTime = convertTo12HourFormat(reservation[0].start_time);
   const formattedEndTime = convertTo12HourFormat(reservation[0].end_time);
 

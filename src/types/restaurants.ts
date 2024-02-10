@@ -1,4 +1,5 @@
 export type IRestaurant = {
+  availableSittings?: string;
   featured: boolean;
   reservation_source: null | string;
   about_description: string;

@@ -42,6 +42,7 @@ const AddResturantSection = () => {
     }
   }, [dispatch, state]);
 
+
   return (
     <div>
       <p className="mb-2 font-semibold text-sm">Resturants</p>
@@ -68,7 +69,7 @@ const AddResturantSection = () => {
                         {resturant.venue_name}
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
-                        {resturant.seating_types}
+                        {resturant?.availableSittings}
                       </p>
                     </div>
                     <X
