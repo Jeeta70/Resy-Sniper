@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   MyReservationOfResturantCard,
   MyReservationTabDropDown,
@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import WarningIcon from "@/assets/WarningCircle.svg"
+import axios from "axios";
+import { baseUrl } from "@/config/baseUrl";
+import { getToken } from "@/utils/healper";
 // import { checkStatus } from "@/utils/healper";
 
 export interface ITab {
@@ -44,10 +47,40 @@ const Index = ({
   isLoading: boolean;
   show: boolean;
 }) => {
+  const [hasResyCard, setHasResyCard] = useState(false); // State for Resy card status
+  const [isResySignedIn, setIsResySignedIn] = useState(false); // State to track Resy sign-in status
   const { data } = userReservations;
   const navigate = useNavigate();
 
-  function getUniqueData(data: MyData):MyData {
+  useEffect(() => {
+    const fetchResyStatus = async () => {
+      const accessToken = getToken("access_token");
+      // First, attempt to verify if the user is signed into Resy
+      try {
+        await axios.get(`${baseUrl}/api/check_resy_auth`, {
+          headers: { "Authorization": `Bearer ${accessToken}` },
+        });
+        setIsResySignedIn(true);
+
+        // If the user is signed in to Resy, check for a Resy card on file
+        try {
+          const resyCardResponse = await axios.get(`${baseUrl}/api/has_resy_card_on_file`, {
+            headers: { "Authorization": `Bearer ${accessToken}` },
+          });
+          setHasResyCard(resyCardResponse.data.has_resy_card);
+        } catch (error) {
+          console.error('Failed to fetch Resy card status', error);
+        }
+      } catch (error) {
+        setIsResySignedIn(false);
+      }
+    };
+
+    fetchResyStatus();
+  }, []);
+
+
+  function getUniqueData(data: MyData): MyData {
     const uniqueData: MyData = {};
     for (const key in data) {
       const venues = data[key];
@@ -93,8 +126,6 @@ const Index = ({
 
     return tabs;
   }, [data]);
-
-
 
   const [tab, setTab] = useState("all");
 
@@ -152,9 +183,14 @@ const Index = ({
         </TabsList>
 
 
-        <div className="my-3 sm:my-2 bg-orange flex p-2 rounded-sm gap-2 items-center text-white">
-          <img src={WarningIcon} className="h-5 w-5" alt="warning-icon" />
-          <small className="font-semibold">Your Resy account currently lacks a connected credit card. Please note that certain restaurants may require a credit card for reservations. </small>
+        <div>
+          {!hasResyCard && isResySignedIn &&(
+            <div className="my-3 sm:my-2 bg-orange flex p-2 rounded-sm gap-2 items-center text-white">
+              <img src={WarningIcon} className="h-5 w-5" alt="warning-icon" />
+              <small className="font-semibold">Your Resy account currently lacks a connected credit card. Please note that certain restaurants may require a credit card for reservations.</small>
+            </div>
+          )}
+          {/* The rest of your component remains unchanged */}
         </div>
 
 

@@ -1,18 +1,19 @@
-import { FeatureIsForProModel } from "@/components";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
+// import { FeatureIsForProModel } from "@/components";
+// import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+// import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { useReservationContext } from "@/context/ReservationFomProvider";
-import { UserDetailContext } from "@/context/UserDetailProvider";
+// import { UserDetailContext } from "@/context/UserDetailProvider";
 import { handleButtonClickReservationType } from "@/reducer/reservationFormReducer";
-import { resetReservationForm } from "@/reducer/reservationFormReducer";
-import { useContext } from "react";
-import ProIcon from "@/assets/ProIcon.svg";
-import { cn } from "@/lib/utils";
+// import { resetReservationForm } from "@/reducer/reservationFormReducer";
+// import { useContext } from "react";
+// import ProIcon from "@/assets/ProIcon.svg";
+// import { cn } from "@/lib/utils";
 
 
 const SelectReservationTypeSection = () => {
   const { reservationFormState, dispatch } = useReservationContext();
-  const userDetail = useContext(UserDetailContext);
+  // const userDetail = useContext(UserDetailContext);
 
   return (
     <div>
@@ -25,7 +26,8 @@ const SelectReservationTypeSection = () => {
           onClick={() => handleButtonClickReservationType(dispatch, "cancel")}        >
           Canceled Reservation
         </Button>
-        {userDetail.subscription_type === "standard" ?
+        {/* TODO: FINALIZE RELEASE RESERVATIONS */}
+        {/* {userDetail.subscription_type === "standard" ?
           <>
             <Credenza>
               <CredenzaTrigger asChild>
@@ -55,7 +57,7 @@ const SelectReservationTypeSection = () => {
               handleButtonClickReservationType(dispatch, "release");
             }}>
             Release Reservation
-          </Button>}
+          </Button>} */}
       </div>
     </div>
   );
