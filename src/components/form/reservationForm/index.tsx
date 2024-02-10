@@ -40,10 +40,10 @@ const Index = () => {
       </div>
       <SelectReservationTypeSection />
       {initialState.reservationType === "cancel" ? <p className="text-light text-[11px]">
-        If anyone cancels their reservation, Resy Sniper will book it for you instantly{" "}
+        If anyone cancels their reservation, Reservation Sniper will book it for you instantly{" "}
       </p> :
         <p className="text-light text-[11px]">
-          Resy Sniper will get a reservation for you as soon as it releases{" "}
+          Reservation Sniper will get a reservation for you as soon as it releases{" "}
         </p>}
       <AddResturantSection />
       <SelectPartSizeSection />

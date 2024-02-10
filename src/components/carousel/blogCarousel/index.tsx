@@ -8,7 +8,7 @@ function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
 
   return (
     <div className="overflow-x-hidden blog-section md:h-[400px] h-auto">
-      <h2 className="text-4xl font-bold text-white text-center mb-10">Resy Sniper Blog</h2>
+      <h2 className="text-4xl font-bold text-white text-center mb-10">Reservation Sniper Blog</h2>
       <Slider
         dots={true}
         arrows={false}
@@ -46,7 +46,7 @@ function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
                   /> */}
                 </div>
                 <div className="text">
-                  <p>Resy Sniper</p>
+                  <p>Reservation Sniper</p>
                 </div>
               </a>
             </div>
@@ -55,28 +55,28 @@ function BlogCarousel({ blogs }: { blogs: { data: IBlog[] } }) {
                     <a class="category">Reservation Guide</a>, <a>
                        <span class="date">{blog.created_at}</span>
                     </a></div><a>
-                 </a><h2 class="heading"><a></a><a href="/blog/how-to-get-a-reservation-at-i-sodi">How to Get a Reservation at I Sodi: 5 Proven Methods Featuring Resy Sniper</a></h2>
-                 <p>Securing a reservation at I Sodi in New York City can be tough. We offer five proven methods to help you book a table, including using Resy Sniper.</p>
+                 </a><h2 class="heading"><a></a><a href="/blog/how-to-get-a-reservation-at-i-sodi">How to Get a Reservation at I Sodi: 5 Proven Methods Featuring Reservation Sniper</a></h2>
+                 <p>Securing a reservation at I Sodi in New York City can be tough. We offer five proven methods to help you book a table, including using Reservation Sniper.</p>
 
                  <a class="post-author d-flex align-items-center">
                     <div class="author-pic">
                        <img src="/static/images/logo.png" alt="Author Image">
                     </div>
                     <div class="text">
-                       <strong>Resy Sniper</strong>
+                       <strong>Reservation Sniper</strong>
                        <span></span>
                     </div>
                  </a>
               </div> */}
             {/* <div className="flex">
                  <header className="text-center p-5">
-                    <h1 className="text-4xl font-bold">Resy Sniper Blog</h1>
+                    <h1 className="text-4xl font-bold">Reservation Sniper Blog</h1>
                  </header>
                  <article className="max-w-4xl mx-auto p-8">
                     <h2 className="text-3xl font-bold mb-4">Unlocking the Secret: How to Secure a Reservation at 4 Charles Prime Rib</h2>
                     <p className="text-gray-400">Reservation Guide, October 21, 2023</p>
                     <img className="my-6 w-full" src="path-to-your-image.jpg" alt="Prime Rib" />
-                    <p className="text-lg">Wondering how to break through the barrier and get a reservation at the renowned 4 Charles Prime Rib? Look no further—your comprehensive guide is here, featuring Resy Sniper, your ultimate secret weapon.</p>
+                    <p className="text-lg">Wondering how to break through the barrier and get a reservation at the renowned 4 Charles Prime Rib? Look no further—your comprehensive guide is here, featuring Reservation Sniper, your ultimate secret weapon.</p>
                  </article>
               </div> */}
           </div>

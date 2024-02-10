@@ -13,7 +13,7 @@ const ConnectAccount = () => {
     <div className="sm:h-svh sm:w-svw flex flex-col justify-evenly p-4 sm:justify-evenly">
       <div className="mb-3 sm:mb-0 text-center">
         <h1 className="sm:mb-14 text-primary text-4xl font-bold">
-          RESY SNIPER
+          RESERVATION SNIPER
         </h1>
         <span>
           <h2 className="font-bold text-2xl">Connect Accounts</h2>

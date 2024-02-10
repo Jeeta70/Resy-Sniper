@@ -2,7 +2,7 @@ import { useGetSingleBlog } from "@/features/blog/blog";
 import  { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import "./style.css";
-import logo from "@/assets/resy.png"
+import logo from "@/assets/homepage/Logo.png";
 
 const Index = () => {
    const pathname = useLocation();
@@ -75,14 +75,14 @@ const Index = () => {
                               <p className="text-sm mb-4 leading-6">
                                  {article.lead_text}
                               </p>
-                              <div className="flex items-center">
+                              {/* <div className="flex items-center">
                                  <img
                                     src={logo}
-                                    alt="Resy Sniper Logo"
+                                    alt="Reservation Sniper Logo"
                                     className="w-10 h-10 rounded-full object-cover mr-2" // Adjust size as needed
                                  />
-                                 <span className="text-sm">Resy Sniper</span>
-                              </div>
+                                 <span className="text-sm">Reservation Sniper</span>
+                              </div> */}
                            </div>
                         </div>
                      ))}

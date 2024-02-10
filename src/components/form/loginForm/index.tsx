@@ -72,7 +72,7 @@ const Index = () => {
     <>
       <div className="h-full w-full sm:w-6/12 px-8 flex flex-col sm:justify-center">
         <div className="text-center mt-5 text-[#F94633] hover:text-primary text-4xl font-bold">
-          <Link to={'/home'}> RESY SNIPER </Link>
+          <Link to={'/home'}> RESERVATION SNIPER </Link>
         </div>
         <Form {...form}>
           <form

@@ -2,6 +2,7 @@ import { BlogCarousel } from "@/components";
 import { useGetAllblogs } from "@/features/blog/blog";
 import { IBlog } from "@/types/blog";
 import { useNavigate } from "react-router-dom";
+import logo from "@/assets/resy.png"
 
 const Index = () => {
   const { blogs, isLoading } = useGetAllblogs();
@@ -13,7 +14,7 @@ const Index = () => {
         <>
           <section className="py-7 bg-black h-full" id="features">
 
-            <span className="text-[#D62637] mx-10 md:mx-30 sm:container  text-2xl font-black cursor-pointer hover:text-primary" role="button" onClick={() => navigate("/login")}>RESY SNIPER</span>
+            <span className="text-[#D62637] mx-10 md:mx-30 sm:container  text-2xl font-black cursor-pointer hover:text-primary" role="button" onClick={() => navigate("/login")}>RESERVATION SNIPER</span>
             <div className="mx-10 md:mx-30 sm:container flex justify-center items-center">
               <BlogCarousel blogs={blogs} />
             </div>
@@ -45,14 +46,14 @@ const Index = () => {
                         <p className=" text-base leading-7 ">{blog.summary}</p>
                         <a className="flex items-center gap-2  mt-3">
                           <div className="">
-                            <img
+                            {/* <img
                               src="http://54.172.183.153/static/images/logo.png"
                               className="rounded-full h-10"
-                              alt="Author Image"
-                            />
+                              alt={ logo }
+                            /> */}
                           </div>
                           <div className="text">
-                            <p>Resy Sniper</p>
+                            <p>- Reservation Sniper</p>
                           </div>
                         </a>
                       </div>

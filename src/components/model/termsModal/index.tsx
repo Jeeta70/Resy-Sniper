@@ -22,13 +22,13 @@ const Index = () => {
         <ScrollArea className="h-[80vh] text-start">
           <p className="mb-4">
             These Terms of Service ("Agreement") govern your access to and use
-            of the Resy Sniper platform ("Service") provided by Resy Sniper. By
+            of the Reservation Sniper platform ("Service") provided by Reservation Sniper. By
             using the Service, you agree to comply with and be bound by this
             Agreement.
           </p>
           <h5 className="text-xl font-bold mb-4">0. Affiliation Disclaimer</h5>
           <p className="mb-4">
-            Resy Sniper is not associated with, affiliated with, or endorsed by
+            Reservation Sniper is not associated with, affiliated with, or endorsed by
             Resy, OpenTable, or any other third-party reservation platforms. Use
             of third-party names does not imply any partnership or endorsement.
           </p>
@@ -46,7 +46,7 @@ const Index = () => {
           </p>
           <h5 className="text-xl font-bold mb-4">3. Information Sharing</h5>
           <p className="mb-4">
-            1.3 Reservation Bookings: Resy Sniper automatically books
+            1.3 Reservation Bookings: Reservation Sniper automatically books
             reservations on your behalf. However, we cannot guarantee the
             availability of reservations or the performance of third-party
             platforms such as Resy and OpenTable.
@@ -67,7 +67,7 @@ const Index = () => {
           <p>
             3.1 Ownership: All intellectual property rights related to the
             Service, including but not limited to trademarks, copyrights, and
-            proprietary information, belong to Resy Sniper.
+            proprietary information, belong to Reservation Sniper.
           </p>
           <p className="mb-4">
             3.2 Use Restrictions: You are prohibited from copying, modifying,
@@ -76,7 +76,7 @@ const Index = () => {
           </p>
           <h5 className="text-xl font-bold mb-4">4. Data Privacy</h5>
           <p className="mb-4">
-            4.1 User Data: Resy Sniper collects and stores user account
+            4.1 User Data: Reservation Sniper collects and stores user account
             credentials (username and password) for the purpose of providing the
             Service. We are committed to safeguarding the privacy and security
             of your data in accordance with our Privacy Policy.
