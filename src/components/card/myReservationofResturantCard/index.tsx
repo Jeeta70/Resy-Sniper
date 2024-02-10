@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -21,6 +22,44 @@ import {
   usePauseReservation,
   useUnPauseReservation,
 } from "@/features/reservation/reservation";
+import { getToken } from "@/utils/healper";
+import { baseUrl } from "@/config/baseUrl";
+import axios from "axios";
+
+// Custom Hook for Fetching Unique Dates
+const useFetchUniqueDates = (group_id: string) => {
+  const [uniqueDates, setUniqueDates] = useState(''); // Now expecting a string
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDates = async () => {
+      setIsLoading(true);
+      try {
+        const accessToken = getToken("access_token");
+        const response = await axios.post(
+          `${baseUrl}/api/get_unique_dates_by_group`,
+          { group_id },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+        // Assuming the backend sends the data in the format { unique_dates: "date1, date2, date3" }
+        setUniqueDates(response.data.unique_dates); // Directly set the string
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch unique dates'); // Set error message
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (group_id) {
+      fetchDates();
+    }
+  }, [group_id]);
+
+  return { uniqueDates, isLoading, error };
+};
+
 
 const Index = ({
   reservation,
@@ -35,6 +74,7 @@ const Index = ({
   const { unPauseReservation } = useUnPauseReservation();
   const { cancelReservation } = useCancelReservation();
   const navigate = useNavigate();
+  const { uniqueDates } = useFetchUniqueDates(group_id);
   const restaurantNames = reservation
     .slice(0, 6)
     .map((restaurant) => restaurant.restaurant_name)
@@ -120,7 +160,6 @@ const Index = ({
   // const endTime = new Date(`2000-01-01T${reservation[0].end_time}`);
   const formattedStartTime = convertTo12HourFormat(reservation[0].start_time);
   const formattedEndTime = convertTo12HourFormat(reservation[0].end_time);
-  const datePart = new Date(reservation[0].date).toDateString().split(" ")[1] + " " + new Date(reservation[0].date).getDate();
 
   const showOptionToValidStatus = () => {
     if (status === "completed" || status === "canceled") {
@@ -223,7 +262,7 @@ const Index = ({
               <span className=" hidden sm:block">{snipe_type}</span>
               <span>
                 {reservation[0]?.party_size} people{" "}
-                | {datePart} | {formattedStartTime} -{" "}
+                | {uniqueDates} | {formattedStartTime} -{" "}
                 {formattedEndTime}
               </span>
             </p>

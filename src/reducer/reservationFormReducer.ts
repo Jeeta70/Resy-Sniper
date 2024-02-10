@@ -283,6 +283,7 @@ export const reservationFormReducer = (
         },
       };
     case ResturantReservationStateReducerConstant.UPDATE_RESERVATION:
+      console.log("action.payload", action.payload)
       return action.payload;
     case ResturantReservationStateReducerConstant.UPDATE_SELECTED_RESTAURANT:
       return {

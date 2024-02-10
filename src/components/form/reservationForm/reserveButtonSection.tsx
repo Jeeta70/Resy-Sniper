@@ -7,7 +7,7 @@ import { setAllErrorFieldTrue } from "@/reducer/reservationFormReducer";
 import {
   // convertDateTimeFormt,
   formatDateForSnipingDate,
-  formateDateFromSingleRservation,
+  formateDateFromSingleReservation,
 } from "@/utils/healper";
 import {
   useCreateReservation,
@@ -112,7 +112,7 @@ const ReserveButtonSection = () => {
       state.partySize = data[0].party_size;
       state.reservationTime = reservationTimeNew;
       state.reservationType = data[0].snipe_type;
-      state.releaseDates = formateDateFromSingleRservation(data[0].release_date);
+      state.releaseDates = formateDateFromSingleReservation(data[0].release_date);
       state.releaseTime = data[0].release_time;
       // const dateString = data[0].date;
 
@@ -126,8 +126,8 @@ const ReserveButtonSection = () => {
       //   return transformedDate;
       // });
 
-      // state.reservationDates = formateDateFromSingleRservation(data);
-      state.reservationDates = Array.from(new Set(data.map((restaurant: { date: string }) => formateDateFromSingleRservation(restaurant.date))));
+      // state.reservationDates = formateDateFromSingleReservation(data);
+      state.reservationDates = Array.from(new Set(data.map((restaurant: { date: string }) => formateDateFromSingleReservation(restaurant.date))));
       state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = data.map((item: { venue_data: unknown }) => item.venue_data).filter((value: { venue_id: string }, index: Key, self: any[]) => index === self.findIndex((obj) => obj.venue_id === value.venue_id));
       state.finalSnipingDay = data[0]?.final_snipe_date === null ? "none" : data[0]?.final_snipe_date;
       state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false;
