@@ -2,7 +2,7 @@ import { useGetSingleBlog } from "@/features/blog/blog";
 import  { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import "./style.css";
-import logo from "@/assets/homepage/Logo.png";
+// import logo from "@/assets/homepage/Logo.png";
 
 const Index = () => {
    const pathname = useLocation();

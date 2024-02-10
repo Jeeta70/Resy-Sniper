@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, Key } from "react";
 import backgroundImage1 from "@/assets/homepage/Hero.png";
-import logo from "@/assets/homepage/Logo.png";
+// import logo from "@/assets/homepage/Logo.png";
 import Hero from "@/assets/homepage/Hero_img.png";
 import Speed from "@/assets/homepage/Speed.png";
 import Automatic from "@/assets/homepage/Automatic.png";
