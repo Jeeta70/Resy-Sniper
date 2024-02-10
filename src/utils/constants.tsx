@@ -1,4 +1,4 @@
-import { CircleDollarSign, Link, ShieldCheck, Utensils } from "lucide-react";
+import { CircleDollarSign, Link, ShieldCheck, Utensils, User2 } from "lucide-react";
 
 export const siderBarOptions = [
   {
@@ -29,6 +29,6 @@ export const siderBarOptions = [
     title: "Profile",
     navigate: "/profile",
     pathname: "profile",
-    icon: <Utensils size={18} />,
+    icon: <User2 size={18} />,
   },
 ];
