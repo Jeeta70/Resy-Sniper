@@ -2,7 +2,7 @@ import { BlogCarousel } from "@/components";
 import { useGetAllblogs } from "@/features/blog/blog";
 import { IBlog } from "@/types/blog";
 import { useNavigate } from "react-router-dom";
-import logo from "@/assets/resy.png"
+// import logo from "@/assets/resy.png"
 
 const Index = () => {
   const { blogs, isLoading } = useGetAllblogs();
