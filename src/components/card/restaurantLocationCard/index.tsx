@@ -31,6 +31,7 @@ const Index = ({ restaurant }: Props) => {
     <>
       <Card className="">
         <img
+          style={{ objectFit: 'cover' }}
           className="rounded-t-lg max-h-[250px] w-[100%]"
           src={restaurant.cover_image_url}
           alt=""

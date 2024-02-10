@@ -48,6 +48,7 @@ const Index = ({
     if (reservationArray.length === 1)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           key={i}
           className="rounded-tl-lg rounded-tr-lg sm:rounded-l-lg sm:rounded-tr-none h-40 sm:h-40 w-full"
           src={restaurant.venue_data.cover_image_url}
@@ -57,6 +58,7 @@ const Index = ({
     if (reservationArray.length === 2)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           key={i}
           className={`${i == 0 && "rounded-l-lg"} ${i == 1 && "w-[100%]"
             } sm:h-full h-40 `}
@@ -67,6 +69,7 @@ const Index = ({
     if (reservationArray.length === 3)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           className={`${i == 0 && "rounded-l-lg sm:h-full sm:row-span-3"} ${i == 1 && "sm:h-16 sm:col-span-1"
             } ${i == 2 && "sm:h-16"} h-40`}
           src={restaurant.venue_data.cover_image_url}
@@ -76,6 +79,7 @@ const Index = ({
     if (reservationArray.length === 4)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           key={i}
           className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"
             } ${i == 2 && "rounded-tr-lg sm:rounded-bl-lg"} ${i == 3 && "hidden sm:block"
@@ -89,6 +93,7 @@ const Index = ({
         <>
           {" "}
           <img
+            style={{ objectFit: 'cover' }}
             key={i}
             className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"
               } ${i == 2 && "sm:rounded-bl-lg opacity-[70%] sm:opacity-[100%]"} ${i == 3 && "hidden sm:block opacity-[70%] relative"
@@ -115,6 +120,7 @@ const Index = ({
   // const endTime = new Date(`2000-01-01T${reservation[0].end_time}`);
   const formattedStartTime = convertTo12HourFormat(reservation[0].start_time);
   const formattedEndTime = convertTo12HourFormat(reservation[0].end_time);
+  const datePart = new Date(reservation[0].date).toDateString().split(" ")[1] + " " + new Date(reservation[0].date).getDate();
 
   const showOptionToValidStatus = () => {
     if (status === "completed" || status === "canceled") {
@@ -217,7 +223,7 @@ const Index = ({
               <span className=" hidden sm:block">{snipe_type}</span>
               <span>
                 {reservation[0]?.party_size} people{" "}
-                {reservation[0]?.date.toString()} {formattedStartTime} -{" "}
+                | {datePart} | {formattedStartTime} -{" "}
                 {formattedEndTime}
               </span>
             </p>

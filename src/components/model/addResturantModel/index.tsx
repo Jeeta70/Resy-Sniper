@@ -145,6 +145,7 @@ const AddResturantModel = () => {
             {/* <span> {reservationFormState.selectSittingOptions.title}fffff</span> */}
             <div className="h-52 sm:h-72">
               <img
+                style={{ objectFit: 'cover' }}
                 className="rounded-lg w-full h-full"
                 src={
                   reservationFormState.selectSittingOptions.restaurantDetail

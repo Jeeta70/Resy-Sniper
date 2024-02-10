@@ -67,6 +67,7 @@ const Index = ({ restaurant, layout }: Props) => {
             />
           )}
           <img
+            style={{ objectFit: 'cover' }}
             className="rounded-t-lg object-cover h-36 w-[100%]"
             src={restaurant.cover_image_url ?? "../restaurant/restaurant.png"}
             alt=""
