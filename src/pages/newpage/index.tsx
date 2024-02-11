@@ -731,7 +731,7 @@ const NewPage = () => {
                                             <Link to={"#"} onClick={() => scrollToElement('features')}>Features</Link>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
-                                            <Link to={"#"} onClick={() => scrollToElement('how-it-works')}>How it works</Link>
+                                            <Link to={"#"} onClick={() => scrollToElement('how-it-works')}> test</Link>
                                         </li>
                                         <li className="my-3 text-[14px] !font-[500] text-[#D0D1D1] font-inter">
                                             <Link to={"#"} onClick={() => scrollToElement('pricing')}>Pricing</Link>
