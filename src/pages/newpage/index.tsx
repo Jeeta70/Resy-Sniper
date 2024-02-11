@@ -241,7 +241,7 @@ const NewPage = () => {
                                     onClick={() => scrollToElement('how-it-works')}
                                 >
                                     {" "}
-                                    How it Work
+                                    How it Works
                                 </p>
                                 <p
                                     className="hover:text-[#D62637] cursor-pointer"
