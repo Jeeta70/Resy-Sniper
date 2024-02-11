@@ -38,7 +38,7 @@ jobs:
             cd /home/bitnami/resy-sniper-frontend && \
             git pull origin main && \
             sudo npm install && \
-            sudo sudo npm run build && \
+            npm run build && \
             sudo cp -r dist/ /var/www/html/ && \
             /home/bitnami/.nvm/versions/node/v14.21.3/bin/pm2 reload all"
 
