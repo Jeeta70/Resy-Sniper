@@ -4,27 +4,28 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.21.3
+
     working_directory: ~/repo
+
     steps:
       - checkout
+      - run:
+          name: Install PM2
+          command: npm install -g pm2
       - run:
           name: Install Dependencies
           command: npm install
       - run:
           name: Build
           command: npm run build
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - .
 
   deploy_staging:
     docker:
       - image: cimg/node:14.21.3
+
     working_directory: ~/repo
+
     steps:
-      - attach_workspace:
-          at: ~/repo
       - run:
           name: Install SSH Client
           command: |
@@ -33,25 +34,24 @@ jobs:
       - run:
           name: Deploy to Staging
           command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin staging && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin main && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
 
-  deploy_main:
+  deploy_master:
     docker:
       - image: cimg/node:14.21.3
+
     working_directory: ~/repo
+
     steps:
-      - attach_workspace:
-          at: ~/repo
       - run:
           name: Install SSH Client
           command: |
             sudo apt-get update && sudo apt-get install -y openssh-client
       - checkout
       - run:
-          name: Deploy to main
+          name: Deploy to Master
           command: |
             ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.156.213.45 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin main && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
-
 
 workflows:
   version: 2
@@ -62,9 +62,10 @@ workflows:
           requires:
             - build
 
-  build_and_deploy_main:
+  build_and_deploy_master:
     jobs:
       - build
-      - deploy_main:
+      - deploy_master:
           requires:
             - build
+      
