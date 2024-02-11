@@ -10,14 +10,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Dependencies
-          command: npm install
-      - run:
           name: Install PM2
           command: npm install -g pm2 --prefix=~/.npm-global
-      - run:
-          name: Build React App
-          command: npm run build
 
   deploy:
     docker:
@@ -40,14 +34,17 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 
-
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 << EOF
             cd /home/bitnami/resy-sniper-frontend
-            git pull origin main 
+            git pull origin main
 
-            cd /var/www/html/
-            sudo cp -r /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/ 
+            npm install
+            npm run build
+
+            sudo cp -r dist/ /var/www/html/
             /home/bitnami/.nvm/versions/node/v14.21.3/bin/pm2 reload all
+            EOF
+
  
 workflows:
   version: 2
