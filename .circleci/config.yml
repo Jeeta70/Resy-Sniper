@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build_staging:
+  build:
     docker:
       - image: cimg/node:14.21.3
 
@@ -57,15 +57,15 @@ workflows:
   version: 2
   build_and_deploy_staging:
     jobs:
-      - build_staging
+      - build
       - deploy_staging:
           requires:
-            - build_staging
+            - build
 
   build_and_deploy_main:
     jobs:
-      - build_main
+      - build
       - deploy_main:
           requires:
-            - deploy_main
+            - build
       
