@@ -1,68 +1,43 @@
-version: 2.1
+deploy:
+  docker:
+    - image: cimg/node:14.17.0
+  working_directory: ~/repo
+  steps:
+    - run:
+        name: Install SSH Client
+        command: sudo apt-get update && sudo apt-get install -y openssh-client
+    - checkout
+    - run:
+        name: Install Dependencies
+        command: npm install
+    - run:
+        name: Install PM2
+        command: npm install -g pm2
+    - run:
+        name: Deploy to EC2
+        command: |
+          ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 'bash -s' << 'EOF'
+          set -e # Stop the script on the first error
 
-jobs:
-  build:
-    docker:
-      - image: cimg/node:14.17.0
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: Install Dependencies
-          command: npm install
-      - run:
-          name: Build React App
-          command: npm run build
+          # Navigate to the project directory
+          cd /home/bitnami/resy-sniper-frontend
 
-  deploy:
-    docker:
-      - image: cimg/node:14.17.0
-    working_directory: ~/repo
-    steps:
-      - run:
-          name: Install SSH Client
-          command: sudo apt-get update && sudo apt-get install -y openssh-client
-      - checkout
-      - run:
-          name: Install Dependencies
-          command: npm install
-      - run:
-          name: Install PM2
-          command: npm install -g pm2
-      - run:
-          name: Deploy to EC2
-          command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 << 'EOF'
-            set -e # Stop the script on the first error
+          # Fetch the latest changes from the remote repository
+          git fetch origin
 
-            # Navigate to the project directory
-            cd /home/bitnami/resy-sniper-frontend
+          # Reset the local changes and align with the main branch
+          git reset --hard origin/main
 
-            # Fetch the latest changes from the remote repository
-            git fetch origin
+          # Clean any untracked files and directories
+          git clean -fd
 
-            # Reset the local changes and align with the main branch
-            git reset --hard origin/main
+          # Build the project (make sure you're in the right directory and have all dependencies)
+          npm install
+          npm run build
 
-            # Clean any untracked files and directories
-            git clean -fd
+          # Copy the build to the web server directory
+          sudo cp -r dist/ /var/www/html/
 
-            # Build the project (make sure you're in the right directory and have all dependencies)
-            npm install
-            npm run build
-
-            # Copy the build to the web server directory
-            sudo cp -r dist/ /var/www/html/
-
-            # Reload PM2 to apply the changes
-            /home/bitnami/.nvm/versions/node/v14.21.3/bin/pm2 reload all
-            EOF
-
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+          # Reload PM2 to apply the changes
+          /home/bitnami/.nvm/versions/node/v14.21.3/bin/pm2 reload all
+          EOF
