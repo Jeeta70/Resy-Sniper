@@ -28,9 +28,9 @@ jobs:
       - run:
           name: Deploy to Staging
           command: |
-            # Your staging deployment script here
-            echo "Deploying to Staging"
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin master && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
 
+            echo "Deploying to Staging"
   deploy_production:
     docker:
       - image: cimg/node:14.21.3
@@ -42,6 +42,7 @@ jobs:
           name: Deploy to Production
           command: |
             # Your production deployment script here
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.156.213.45 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin master && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
             echo "Deploying to Production"
 
 workflows:
