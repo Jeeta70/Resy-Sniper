@@ -40,7 +40,7 @@ jobs:
             sudo npm install && \
             sudo sudo npm run build && \
             sudo cp -r dist/ /var/www/html/ && \
-            sudo /home/bitnami/.nvm/versions/node/v14.21.3/bin/pm2 reload all"
+            /home/bitnami/.nvm/versions/node/v14.21.3/bin/pm2 reload all"
 
 
  
