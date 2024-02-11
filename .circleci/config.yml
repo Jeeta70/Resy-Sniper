@@ -26,9 +26,9 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run:
-        name: Install SSH Client
-        command: |
-          sudo apt-get update && sudo apt-get install -y openssh-client
+          name: Install SSH Client
+          command: |
+            sudo apt-get update && sudo apt-get install -y openssh-client
       - checkout
       - run:
           name: Deploy to Staging
@@ -68,4 +68,3 @@ workflows:
       - deploy_main:
           requires:
             - build
-      
