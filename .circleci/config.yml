@@ -29,7 +29,6 @@ jobs:
       - run:
           name: Install SSH Client
           command: |
-            sudo apt-get update
             sudo apt-get install -y openssh-client
       - checkout
       - run:
@@ -49,7 +48,7 @@ jobs:
             cd /var/www/html/
             sudo cp -r /home/bitnami/resy-sniper-frontend/dist/ /var/www/html/ 
             /home/bitnami/.nvm/versions/node/v14.21.3/bin/pm2 reload all
-
+ 
 workflows:
   version: 2
   build_and_deploy:
