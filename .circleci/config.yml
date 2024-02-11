@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Deploy to Master
           command: |
-            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.156.213.45 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin main && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
+            ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.156.213.45 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin master && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
 
 workflows:
   version: 2
@@ -62,7 +62,10 @@ workflows:
           requires:
             - build_staging
 
-  deploy_master:
+  build_and_deploy_master:
     jobs:
-      - deploy_master
+      - build_master
+      - deploy_master:
+          requires:
+            - deploy_master
       
