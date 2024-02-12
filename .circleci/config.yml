@@ -32,6 +32,10 @@ jobs:
             sudo apt-get update && sudo apt-get install -y openssh-client
       - checkout
       - run:
+          name: Stash Changes
+          command: |
+            git diff-index --quiet HEAD || git stash
+      - run:
           name: Deploy to Staging
           command: |
             ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null bitnami@54.172.183.153 "source ~/.nvm/nvm.sh && nvm use 14.21.3 && cd /home/bitnami/resy-sniper-frontend && git pull origin main && npm install && npm run build && sudo cp -r dist/ /var/www/html/ && pm2 reload all"
@@ -48,6 +52,10 @@ jobs:
           command: |
             sudo apt-get update && sudo apt-get install -y openssh-client
       - checkout
+      - run:
+          name: Stash Changes
+          command: |
+            git diff-index --quiet HEAD || git stash
       - run:
           name: Deploy to Master
           command: |
@@ -68,4 +76,3 @@ workflows:
       - deploy_master:
           requires:
             - build
-      
