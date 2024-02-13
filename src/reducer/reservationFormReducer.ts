@@ -54,12 +54,7 @@ export interface IFormState {
   selectSittingOptions: {
     showModel: boolean;
     title: string;
-    restaurantDetail: {
-      need_to_know_description: string;
-      cover_image_url: string;
-      price: number;
-      venue_name: string;
-    };
+    restaurantDetail: IRestaurant;
     availableSittings: string;
   };
   partySize: number | string;
@@ -167,8 +162,6 @@ export const reservationFormReducer = (
     case ResturantReservationStateReducerConstant.SET_SELECT_RESTAURANTS_FOR_RESERVATION:
       // eslint-disable-next-line no-case-declarations
       const currentVenueId = action.payload?.venue_id;
-      // const table_type = action.payload.availableSittings;
-      console.log("new", action.payload);
       return {
         ...state,
         resturantOptionOnAddReservationPage: {
@@ -189,6 +182,14 @@ export const reservationFormReducer = (
                 .selectedResturantsForReservationOnAddReservationPage,
         },
       };
+      // return {
+      //   ...state,
+      //   resturantOptionOnAddReservationPage:{
+      //     ...state.resturantOptionOnAddReservationPage,
+      //     selectedResturantsForReservationOnAddReservationPage.push(action.payload)
+      //   }
+      // }
+     
 
     case ResturantReservationStateReducerConstant.DELETE_RESTURANTS_FOR_RESERVATION:
       return {

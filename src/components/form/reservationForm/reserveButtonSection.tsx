@@ -229,8 +229,6 @@ const ReserveButtonSection = () => {
             end_time: toTime24HourFormat,
             party_size: partySize,
           };
-          // debugger
-          // console.log(payload)
           createReservation(payload);
         }
       } else if (reservationType === "release") {

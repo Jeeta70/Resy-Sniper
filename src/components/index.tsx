@@ -72,3 +72,4 @@ export { default as DrawerForAllLocation } from "@/components/drawer/drawerForAl
 export { default as TopPickSection } from "@/components/sections/TopPickSection"
 export { default as AllRestaurantSection } from "@/components/sections/AllRestaurantSection"
 
+export { default as Pagination } from "@/components/pagination"

@@ -21,11 +21,19 @@ const SearchAndFilterSection = () => {
     setsearchQuery(e.target.value);
   }
 
+  
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setSeachParams((prev) => {
-        prev.set("query", searchQuery);
+        // prev.set("page","1")
+        // prev.set("per_page", "12")
+
+       if(searchQuery){
+         prev.set("query", searchQuery);
+       }else {
+        prev.delete("query")
+       }
         return prev;
       });
     }, 500);
@@ -35,7 +43,14 @@ const SearchAndFilterSection = () => {
 
   function priceSuggestionChange(price: string) {
     setSeachParams((prev) => {
-      prev.set("price", price);
+      prev.delete("page")
+      prev.delete("per_page")
+      if(price){
+        prev.set("price", price);
+
+      }else{
+        prev.delete("price")
+      }
       return prev;
     });
   }
@@ -48,7 +63,7 @@ const SearchAndFilterSection = () => {
         onChange={onChange}
         placeholder="Search restaurant"
         searchIcon={true}
-        defaultValue={query ?? ""}
+        defaultValue={query ?? "" }
       />
       <div className="lg:grid lg:grid-cols-2  gap-2 mt-3 lg:mt-0 hidden sm:block">
         <DropDown

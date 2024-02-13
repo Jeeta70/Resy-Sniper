@@ -15,6 +15,7 @@ import { useSearchParams } from "react-router-dom";
 import { SearchInputField } from "@/components";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetResturantSuggestion } from "@/features/restaurant/restaurant";
+import { IRestaurant } from "@/types/restaurants";
 
 
 const Index = () => {
@@ -93,13 +94,13 @@ const Index = () => {
             <div className="hover:bg-[#12171A0D]-200 font-semibold h-10 flex  items-center left-1 ps-2">
               All location 
             </div>
-            {restaurantSuggestion?.map((suggestion: string) => (
+            {restaurantSuggestion?.map((suggestion: IRestaurant) => (
               <DrawerClose
-                onClick={() => handleSuggestionClick(suggestion)}
+                onClick={() => handleSuggestionClick(suggestion.locality)}
                 className="hover:bg-gray-200 h-10 flex  items-center ps-2 cursor-pointer"
-                key={suggestion}
+                key={suggestion.venue_id}
               >
-                {suggestion}
+                {suggestion.locality}
               </DrawerClose>
             ))}
           </ScrollArea>
