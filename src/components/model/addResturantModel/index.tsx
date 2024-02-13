@@ -41,6 +41,7 @@ const AddResturantModel = () => {
   const { reservationFormState, dispatch } = useReservationContext();
   const { searchRestaurants, isLoading } = useSearchRestaurants();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [query, setSeachParams] = useSearchParams({ query: "" });
   const [searchQuery, setsearchQuery] = useState("");
 
@@ -252,19 +253,21 @@ const AddResturantModel = () => {
                   variant="primary"
                   className="w-full"
                   onClick={() => {
-                    const restaurantPayload =
-                      reservationFormState.selectSittingOptions.restaurantDetail;
-                    Object.defineProperty(
-                      restaurantPayload,
-                      "availableSittings",
-                      {
-                        value: avilableSittings,
-                        writable: false,
-                        enumerable: true,
-                        configurable: true,
-                      }
-                    );
-                    selectResturantForReservation(dispatch, restaurantPayload);
+                    const { venue_id, venue_name } = reservationFormState.selectSittingOptions.restaurantDetail;
+                    const payload = { venue_id, venue_name, table_type: avilableSittings, venueData: reservationFormState.selectSittingOptions.restaurantDetail }
+                    console.log("res=a=>",);
+
+                    // Object.defineProperty(
+                    //   restaurantPayload,
+                    //   "availableSittings",
+                    //   {
+                    //     value: avilableSittings,
+                    //     writable: false,
+                    //     enumerable: true,
+                    //     configurable: true,
+                    //   }
+                    // );
+                    selectResturantForReservation(dispatch, payload);
                   }}
                 >
                   Confirm

@@ -1,13 +1,13 @@
-import { RestaurantCard, RestaurantCardSkeleton, SelectedRestaurantModal } from "@/components";
+import { Pagination, RestaurantCard, RestaurantCardSkeleton, SelectedRestaurantModal } from "@/components";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRestaurantContext } from "@/context/SelectRestaurantForReservationProvider";
 import { useSearchRestaurants } from "@/features/restaurant/restaurant";
 // import { IRestaurant } from "@/types/filteredRestaurants";
 import { IRestaurant } from "@/types/restaurants";
 import { ChevronLeft, X } from "lucide-react";
-import { Key, useEffect, useMemo } from "react";
+import { Key, useEffect, useState } from "react";
 // import { RestaurantProps } from "@/components/card/restaurantCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import SearchAndFilterSection from "../searchAndFilterSection";
 import { Credenza, CredenzaTrigger } from "@/components/ui/credenza";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -15,32 +15,47 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 
 const Section = () => {
    const navigate = useNavigate();
-   const { removeAllRestaurant } = useRestaurantContext();
-   // const { restaurants: searchRestaurants, isLoading } = useGetAllRestaurants()
+
+   const [searchParams, setSeachParams] = useSearchParams();
+   // const { removeAllRestaurant } = useRestaurantContext();
    const { searchRestaurants, isLoading } = useSearchRestaurants();
-
    const { restaurants: selectedRestaurants, removeRestaurant } = useRestaurantContext();
-   // const { topPickRestaurants: searchRestaurants, isLoading } = useTopPicksRestaurants()
-
-
-   // const [searchParams] = useSearchParams();
-   // const _query = searchParams.get("query");
-
+   const [filteredRestaurants, setfilteredResturantState] = useState([])
    const desktop = "(min-width: 768px)"
    const isDesktop = useMediaQuery(desktop)
    const numberOfRestaurantToShow = isDesktop ? 4 : 2
 
 
+
    useEffect(() => {
-      return () => removeAllRestaurant()
+      setSeachParams((prev) => {
+         prev.delete("query");
+         prev.delete("price");
+         prev.delete("location-d");
+         prev.delete("location");
+         prev.delete("page");
+         prev.delete("per_page");
+         return prev;
+      });
+      // return () => removeAllRestaurant()
    }, [])
 
-
-   const filteredRestaurants = useMemo(() => {
+   useEffect(() => {
       if (!isLoading) {
-         return searchRestaurants?.data ?? []
+         if (searchParams.get("page") || searchParams.get("page")) {
+            return setfilteredResturantState(prev => prev.concat(searchRestaurants?.data))
+         }
+         return setfilteredResturantState(searchRestaurants?.data)
       }
    }, [isLoading, searchRestaurants?.data])
+
+
+
+   // const filteredRestaurants = useMemo(() => {
+   //    if (!isLoading) {
+   //       return searchRestaurants?.data ?? []
+   //    }
+   // }, [isLoading, searchRestaurants?.data])
 
 
 
@@ -57,17 +72,21 @@ const Section = () => {
             <SearchAndFilterSection />
          </div>
          {isLoading && <RestaurantCardSkeleton />}
-         <div className="lg:grid  md:grid md:grid-cols-2 grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4">
-            {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
-               <RestaurantCard
-                  key={i}
-                  restaurant={restaurant}
-                  layout={{ displayFooter: true }}
-               />
-            ))}
+         <div className="mb-20">
+            <div className="lg:grid md:grid md:grid-cols-2 grid grid-cols-2 gap-3 flex-wrap lg:grid-cols-4 lg:gap-4 mb-4">
+               {!isLoading && filteredRestaurants.map((restaurant: IRestaurant, i: Key | null | undefined) => (
+                  <RestaurantCard
+                     key={i}
+                     restaurant={restaurant}
+                     layout={{ displayFooter: true }}
+                  />
+               ))}
+            </div>
+             {filteredRestaurants.length > 11 && <Pagination isLoading={isLoading} />} 
          </div>
+
          {selectedRestaurants.length > 0 && (
-            <div className="fixed bottom-0 w-[100%] sm:w-[calc(100%_-_22rem)]  transition-all flex flex-wrap justify-between py-5 pr-10 bg-white gap-3">
+            <div className="fixed bottom-0 w-[100%] sm:w-[calc(100%_-_22rem)]  transition-all flex flex-wrap justify-between py-5 pr-10 bg-white gap-3 ">
                <div className="flex gap-3 flex-wrap w-full">
                   {selectedRestaurants.map((restaurant, i) => {
                      if (i < numberOfRestaurantToShow) {

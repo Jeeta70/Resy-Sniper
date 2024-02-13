@@ -18,16 +18,24 @@ export function useSearchRestaurants() {
   const query = searchParams.get("query");
   const exact_location = searchParams.get("exact_location");
   const price = searchParams.get("price");
-  const { data: searchRestaurants, isPending: isLoading } = useQuery({
-    queryKey: ["resturants", query, exact_location, price],
+  const page = searchParams.get("page");
+  const perPage = searchParams.get("per_page");
+
+
+  const { data: searchRestaurants, isPending: isLoading, isSuccess } = useQuery({
+    queryKey: ["resturants", query, exact_location, price, page, perPage],
     queryFn: (): Promise<AxiosResponse> => {
-      if (query || exact_location || price) {
-        return axios.get(`${baseUrl}/restaurants/search?venue_name=${query ?? ""}&exact_location=${exact_location ?? ""}&price=${price ?? ""}`);
-      }
-      return axios.get(`${baseUrl}/restaurants/all`);
+      // if (query || exact_location || price) {
+      return axios.get(`${baseUrl}/restaurants/search?${query ? `venue_name=${query}` : ""}${exact_location ? `&exact_location=${exact_location}` : ""}${price ? `&price=${price}` : ""}${page ? `&page=${page}` : `&page=1`} ${perPage ? `&per_page=${perPage}` : `&per_page=12`}`);
+      // }
+      // else {
+      //   return axios.get(`${baseUrl}/restaurants/all?page=${page ?? 1}&per_page=${perPage ?? 12}`);
+      // }
+      // return axios.get(`${baseUrl}/restaurants/all`);
     },
+    // placeholderData: keepPreviousData,
   });
-  return { searchRestaurants, isLoading };
+  return { searchRestaurants, isLoading, isSuccess };
 }
 
 export function useGetResturantSuggestion() {
@@ -41,9 +49,9 @@ export function useGetResturantSuggestion() {
     queryFn: (): Promise<AxiosResponse> => {
       if (url.pathname.includes("/top-picks")) {
         if (locationDropDown) {
-          return axios.get(`${baseUrl}/restaurants/search?location=${locationDropDown ?? ""}&featured=true`);
+          return axios.get(`${baseUrl}/restaurants/search?location=${locationDropDown ?? ""}`);
         }
-        return axios.get(`${baseUrl}/restaurants/search?location=${location ?? ""}&featured=true`);
+        return axios.get(`${baseUrl}/restaurants/search?location=${location ?? ""}`);
       } else if (locationDropDown) {
         return axios.get(
           `${baseUrl}/restaurants/search?location=${locationDropDown ?? ""}`
@@ -62,13 +70,18 @@ export function useTopPicksRestaurants() {
   const query = searchParams.get("query");
   const exact_location = searchParams.get("exact_location");
   const price = searchParams.get("price");
+  const page = searchParams.get("page");
+  const perPage = searchParams.get("per_page");
+
   const { data: topPickRestaurants, isPending: isLoading } = useQuery({
-    queryKey: ["topPick", query, exact_location, price],
+    queryKey: ["topPick", query, exact_location, price, page, perPage],
     queryFn: (): Promise<AxiosResponse> => {
       if (query || exact_location || price) {
         return axios.get(`${baseUrl}/restaurants/search?venue_name=${query ?? ""}&exact_location=${exact_location ?? ""}&price=${price ?? ""}&featured=true`);
+      } else {
+        return axios.get(`${baseUrl}/restaurants/search?page=${page ?? 1}&per_page=${perPage ?? 12}&featured=true`);
       }
-      return axios.get(`${baseUrl}/restaurants/featured`);
+      // return axios.get(`${baseUrl}/restaurants/featured`);
     },
   });
 

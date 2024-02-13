@@ -3,6 +3,7 @@ import { SearchInputField } from "@/components";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { useGetResturantSuggestion } from "@/features/restaurant/restaurant";
+import { IRestaurant } from "@/types/restaurants";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -92,16 +93,16 @@ const Index = () => {
               <div className="hover:bg-[#12171A0D]-200 font-semibold h-10 flex  items-center left-1 ps-2">
                 All locations
               </div>
-              {restaurantSuggestion?.map((suggestion: string) => (
+              {restaurantSuggestion?.map((resturant: IRestaurant) => (
                 <div
                   onClick={() =>{
-                    handleSuggestionClick(suggestion);
+                    handleSuggestionClick(resturant.locality);
                     setIsOpen(prev=>!prev)
                   }}
                   className="hover:bg-gray-200 h-10 flex  items-center ps-2 cursor-pointer"
-                  key={suggestion}
+                  key={resturant.venue_id}
                 >
-                  {suggestion}
+                  {resturant.locality}
                 </div>
               ))}
             </ScrollArea>
