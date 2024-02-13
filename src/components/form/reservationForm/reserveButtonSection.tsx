@@ -7,7 +7,7 @@ import { setAllErrorFieldTrue } from "@/reducer/reservationFormReducer";
 import {
   // convertDateTimeFormt,
   formatDateForSnipingDate,
-  formateDateFromSingleRservation,
+  formateDateFromSingleReservation,
 } from "@/utils/healper";
 import {
   useCreateReservation,
@@ -30,6 +30,7 @@ const ReserveButtonSection = () => {
   const { updateReservation, isLoading: updateIsLoading } = useUpdateReservation();
   const { group_id } = useParams();
   const { singleReservation, isLoading: singleResevationIsLoading } = useGetSingleReservation();
+
 
   const { subscription_type } = useContext(UserDetailContext);
 
@@ -71,7 +72,7 @@ const ReserveButtonSection = () => {
     showModel: false,
     title: "Add Resturant",
     restaurantDetail: { cover_image_url: "", price: 0, venue_name: "" },
-    availableSittings: "indoor",
+    availableSittings: "any",
   };
   const state = {
     reservationType: "cancel",
@@ -112,8 +113,9 @@ const ReserveButtonSection = () => {
       state.partySize = data[0].party_size;
       state.reservationTime = reservationTimeNew;
       state.reservationType = data[0].snipe_type;
-      state.releaseDates = formateDateFromSingleRservation(data[0].release_date);
+      state.releaseDates = formateDateFromSingleReservation(data[0].release_date);
       state.releaseTime = data[0].release_time;
+
       // const dateString = data[0].date;
 
       // const dateObject = new Date(dateString);
@@ -126,9 +128,15 @@ const ReserveButtonSection = () => {
       //   return transformedDate;
       // });
 
-      // state.reservationDates = formateDateFromSingleRservation(data);
-      state.reservationDates = Array.from(new Set(data.map((restaurant: { date: string }) => formateDateFromSingleRservation(restaurant.date))));
-      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = data.map((item: { venue_data: unknown }) => item.venue_data).filter((value: { venue_id: string }, index: Key, self: any[]) => index === self.findIndex((obj) => obj.venue_id === value.venue_id));
+      // state.reservationDates = formateDateFromSingleReservation(data);
+      state.reservationDates = Array.from(new Set(data.map((restaurant: { date: string }) => formateDateFromSingleReservation(restaurant.date))));
+
+      console.log(data);
+
+      state.resturantOptionOnAddReservationPage.selectedResturantsForReservationOnAddReservationPage = data.map((item: { venue_data: unknown }) => item).filter((value: { venue_id: string }, index: Key, self: any[]) => index === self.findIndex((obj) => obj.venue_id === value.venue_id));
+
+
+
       state.finalSnipingDay = data[0]?.final_snipe_date === null ? "none" : data[0]?.final_snipe_date;
       state.overideCurrentReservationToggleSection = data[0].override_reservations ? true : false;
 
@@ -169,11 +177,11 @@ const ReserveButtonSection = () => {
     setAllErrorFieldTrue(dispatch);
     if (buttonClickType === "reserve") {
       if (reservationType === "cancel") {
-        const { reservationType, resturantOptionOnAddReservationPage: { selectedResturantsForReservationOnAddReservationPage, }, partySize, reservationDates, reservationTime, } = reservationFormState;
+        const { reservationType, resturantOptionOnAddReservationPage: { selectedResturantsForReservationOnAddReservationPage, }, partySize, reservationDates, reservationTime } = reservationFormState;
         if (!selectedResturantsForReservationOnAddReservationPage.length || !partySize || !reservationDates.length || !reservationTime || !reservationType) {
           return console.log("invalid");
         } else {
-          const { reservationType, partySize, reservationDates, reservationTime, resturantOptionOnAddReservationPage: { selectedResturantsForReservationOnAddReservationPage, }, overideCurrentReservationToggleSection, } = reservationFormState;
+          const { reservationType, partySize, reservationDates, reservationTime, resturantOptionOnAddReservationPage: { selectedResturantsForReservationOnAddReservationPage }, overideCurrentReservationToggleSection } = reservationFormState;
           const newTime = reservationTime.split("-");
           const convertTo24HourFormat = (timeString: string) => {
             const [time, period] = timeString.trim().split(" ");
@@ -204,6 +212,7 @@ const ReserveButtonSection = () => {
               return {
                 venue_id: venue.venue_id,
                 venue_name: venue.venue_name,
+                table_type: venue.availableSittings,
               };
             }
             ),
@@ -220,7 +229,6 @@ const ReserveButtonSection = () => {
             end_time: toTime24HourFormat,
             party_size: partySize,
           };
-                
           createReservation(payload);
         }
       } else if (reservationType === "release") {

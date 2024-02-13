@@ -17,8 +17,8 @@ const Index = () => {
           <p className="mb-4">
             This Privacy Policy ("Policy") outlines the types of personal
             information collected, how it is used, and the measures taken to
-            protect your privacy while using the Resy Sniper platform
-            ("Service") provided by Resy Sniper LLC. By using the Service, you
+            protect your privacy while using the Reservation Sniper platform
+            ("Service") provided by Reservation Sniper LLC. By using the Service, you
             consent to the collection and use of your personal information as
             described in this Policy.
           </p>

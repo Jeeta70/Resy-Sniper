@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -21,6 +22,44 @@ import {
   usePauseReservation,
   useUnPauseReservation,
 } from "@/features/reservation/reservation";
+import { getToken } from "@/utils/healper";
+import { baseUrl } from "@/config/baseUrl";
+import axios from "axios";
+
+// Custom Hook for Fetching Unique Dates
+const useFetchUniqueDates = (group_id: string) => {
+  const [uniqueDates, setUniqueDates] = useState(''); // Now expecting a string
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDates = async () => {
+      setIsLoading(true);
+      try {
+        const accessToken = getToken("access_token");
+        const response = await axios.post(
+          `${baseUrl}/api/get_unique_dates_by_group`,
+          { group_id },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+        // Assuming the backend sends the data in the format { unique_dates: "date1, date2, date3" }
+        setUniqueDates(response.data.unique_dates); // Directly set the string
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch unique dates'); // Set error message
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (group_id) {
+      fetchDates();
+    }
+  }, [group_id]);
+
+  return { uniqueDates, isLoading, error };
+};
+
 
 const Index = ({
   reservation,
@@ -35,6 +74,7 @@ const Index = ({
   const { unPauseReservation } = useUnPauseReservation();
   const { cancelReservation } = useCancelReservation();
   const navigate = useNavigate();
+  const { uniqueDates } = useFetchUniqueDates(group_id);
   const restaurantNames = reservation
     .slice(0, 6)
     .map((restaurant) => restaurant.restaurant_name)
@@ -48,6 +88,7 @@ const Index = ({
     if (reservationArray.length === 1)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           key={i}
           className="rounded-tl-lg rounded-tr-lg sm:rounded-l-lg sm:rounded-tr-none h-40 sm:h-40 w-full"
           src={restaurant.venue_data.cover_image_url}
@@ -57,6 +98,7 @@ const Index = ({
     if (reservationArray.length === 2)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           key={i}
           className={`${i == 0 && "rounded-l-lg"} ${i == 1 && "w-[100%]"
             } sm:h-full h-40 `}
@@ -67,6 +109,7 @@ const Index = ({
     if (reservationArray.length === 3)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           className={`${i == 0 && "rounded-l-lg sm:h-full sm:row-span-3"} ${i == 1 && "sm:h-16 sm:col-span-1"
             } ${i == 2 && "sm:h-16"} h-40`}
           src={restaurant.venue_data.cover_image_url}
@@ -76,6 +119,7 @@ const Index = ({
     if (reservationArray.length === 4)
       return (
         <img
+          style={{ objectFit: 'cover' }}
           key={i}
           className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"
             } ${i == 2 && "rounded-tr-lg sm:rounded-bl-lg"} ${i == 3 && "hidden sm:block"
@@ -89,6 +133,7 @@ const Index = ({
         <>
           {" "}
           <img
+            style={{ objectFit: 'cover' }}
             key={i}
             className={`${i == 0 && "rounded-tl-lg"} ${i == 1 && "sm:rounded-tr-none"
               } ${i == 2 && "sm:rounded-bl-lg opacity-[70%] sm:opacity-[100%]"} ${i == 3 && "hidden sm:block opacity-[70%] relative"
@@ -217,7 +262,7 @@ const Index = ({
               <span className=" hidden sm:block">{snipe_type}</span>
               <span>
                 {reservation[0]?.party_size} people{" "}
-                {reservation[0]?.date.toString()} {formattedStartTime} -{" "}
+                | {uniqueDates} | {formattedStartTime} -{" "}
                 {formattedEndTime}
               </span>
             </p>

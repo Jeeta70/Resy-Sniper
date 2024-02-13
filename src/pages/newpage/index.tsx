@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, Key } from "react";
 import backgroundImage1 from "@/assets/homepage/Hero.png";
-import logo from "@/assets/homepage/Logo.png";
+// import logo from "@/assets/homepage/Logo.png";
 import Hero from "@/assets/homepage/Hero_img.png";
 import Speed from "@/assets/homepage/Speed.png";
 import Automatic from "@/assets/homepage/Automatic.png";
@@ -106,22 +106,23 @@ const NewPage = () => {
 
     const faq = [
         {
-            heading: "How does Resy Sniper work?",
-            text: "Resy Sniper allows you to create jobs that will automatically monitor specified restaurants between certain hours on a specified day. If any reservations come up, they will be instantly booked for you.",
+            heading: "How does Reservation Sniper work?",
+            text: "Reservation Sniper is optimized to secure cancelled reservations at your favorite restaurants on Resy and OpenTable. By creating a job within our system, you can specify the restaurants you're interested in, along with desired dates and times. Our system continuously monitors these restaurants for cancellations and is designed to book available slots before notifications are sent out to the general public, increasing your chances of securing a coveted spot.",
         },
         {
-            heading: "Is Resy Sniper secure?",
-            text: "Resy Sniper allows you to create jobs that will automatically monitor specified restaurants between certain hours on a specified day. If any reservations come up, they will be instantly booked for you.",
+            heading: "Is Reservation Sniper secure?",
+            text: "Absolutely. Reservation Sniper prioritizes your privacy and security. Our system uses state-of-the-art encryption to protect your personal information and ensure that your reservation details are securely handled. You can trust us to keep your data safe while we work on securing your next dining experience.",
         },
         {
-            heading: "Can I use Resy Sniper for any restaurant?",
-            text: "Resy Sniper allows you to create jobs that will automatically monitor specified restaurants between certain hours on a specified day. If any reservations come up, they will be instantly booked for you.",
+            heading: "Can I use Reservation Sniper for any restaurant?",
+            text: "Yes, you can use Reservation Sniper for any restaurant listed on Resy or OpenTable. Our platform is designed to work with a wide range of dining establishments on these sites. Whether you're looking for a popular new eatery or a classic favorite, as long as it's available on Resy or OpenTable, Reservation Sniper can help you book your next reservation.",
         },
         {
-            heading: "How does Resy Sniper notify me of a successful booking?",
-            text: "Resy Sniper allows you to create jobs that will automatically monitor specified restaurants between certain hours on a specified day. If any reservations come up, they will be instantly booked for you.",
+            heading: "How does Reservation Sniper notify me of a successful booking?",
+            text: "Once Reservation Sniper successfully books a reservation for you, our notification system will promptly inform you via your choice of text message or email. This ensures that you're immediately aware of your booking details, allowing you to plan your dining experience without delay. Our goal is to keep you informed at every step of the process.",
         },
     ];
+    
     // useEffect(() => {
     //     const intervalId = setInterval(() => {
     //         setActiveIndex((prevIndex) => (prevIndex + 1) % faq.length);
@@ -151,7 +152,7 @@ const NewPage = () => {
     //         image: Rectangle,
     //         title: "User Guide",
     //         date: "October 22, 2023",
-    //         text: "Mastering the Art of Reservation: Tips to Increase Your Odds with Resy Sniper",
+    //         text: "Mastering the Art of Reservation: Tips to Increase Your Odds with Reservation Sniper",
     //         color: "green",
     //     },
     // ];
@@ -225,7 +226,7 @@ const NewPage = () => {
                                     src={logo}
                                     onClick={() => scrollToElement('home')}
                                 /> */}
-                                <span className="text-[#D62637] text-2xl font-black cursor-pointer hover:text-primary" onClick={() => scrollToElement('home')}>RESY SNIPER</span>
+                                <span className="text-[#D62637] text-2xl font-black cursor-pointer hover:text-primary" onClick={() => scrollToElement('home')}>RESERVATION SNIPER</span>
                             </div>
                             <div className="sm:flex hidden gap-7 items-center font-inter text-base !font-[600]">
                                 <p
@@ -280,7 +281,7 @@ const NewPage = () => {
                                     src={logo}
                                     onClick={() => scrollToElement('home')}
                                 /> */}
-                                <span className="text-[#D62637] text-2xl font-black cursor-pointer hover:text-primary" onClick={() => scrollToElement('home')}>RESY SNIPER</span>
+                                <span className="text-[#D62637] text-2xl font-black cursor-pointer hover:text-primary" onClick={() => scrollToElement('home')}>RESERVATION SNIPER</span>
                             </div>
                             <div className="lg:hidden md:block block">
                                 {show ? (
@@ -384,7 +385,7 @@ const NewPage = () => {
                             Features
                         </h1>
                         <p className="font-inter text-[16px] !font-[500] mt-3 text-[#6C6F71]">
-                            Resy Sniper offers everything you need
+                            Reservation Sniper offers everything you need
                         </p>
                     </div>
                     <div className="sm:flex justify-between block gap-10 items-center m-auto w-[100%] sm:pb-[120px] pb-[60px] lg:px-[134px] md:px-[50px] px-5 sm:mt-10 mt-8">
@@ -424,7 +425,7 @@ const NewPage = () => {
                                 How it works
                             </h1>
                             <p className="text-[16px] text-[#6C6F71] !font-[500] font-inter pb-5">
-                                Resy Sniper offers everything you need.
+                                Reservation Sniper offers everything you need.
                             </p>
                         </div>
                         <div className="lg:flex md:grid grid grid-rows-3 justify-between sm:gap-[60px] gap-2">
@@ -459,7 +460,7 @@ const NewPage = () => {
                     <div>
                         <div className="lg:w-[690px] md:w-auto w-[100%] py-24 lg:pl-32 md:pl-5 pl-5 pr-5 sm:pr-1">
                             <h1 className="font-inter sm:text-[52px] text-[45px] !font-[700] leading-snug text-white">
-                                Save your precious time with Resy Sniper
+                                Save time with Reservation Sniper
                             </h1>
                             <p className="text-white opacity-[80%] font-inter text-[16px] !font-[500] lg:mt-2 mt-4">
                                 This tool is particularly valuable for those looking to dine at
@@ -602,7 +603,7 @@ const NewPage = () => {
                         <div className="sm:py-[100px] py-[30px] sm:pl-[50px] pl-5">
                             <div className="pb-10">
                                 <h1 className="text-[40px] font-inter !font-[700]">
-                                    Resy Sniper Blog
+                                    Reservation Sniper Blog
                                 </h1>
                                 <p className="mt-3 font-inter !font-[500] text-[16px] text-[#6C6F71]">
                                     Catch up on all our latest news.
@@ -697,7 +698,7 @@ const NewPage = () => {
                                 Fast, secure, and easy-to-use
                             </h1>
                             <p className="text-[16px] mt-2 font-inter opacity-[80%] text-[white]">
-                                Try Resy Sniper today and never miss a reservation again!
+                                Try Reservation Sniper today and never miss a reservation again!
                             </p>
                             <button
                                 type="button"
@@ -714,7 +715,7 @@ const NewPage = () => {
                     <div className="bg-[#000000]">
                         <div className="sm:grid sm:grid-cols-[30%,30%,40%] md:grid-cols-[30%,30%,40%] lg:grid-cols-[30%,30%,40%] xl:grid-cols-[30%,40%,30%] block border-b border-[gray] lg:mx-[121px] md:mx-[10px] mx-3 sm:py-[60px] text-white py-12">
                             <div>
-                                <img src={logo}></img>
+                                {/* <img src={logo}></img> */}
                                 <div className="flex gap-3 mt-5">
                                     <a href="https://www.instagram.com/resysniper/" target="_blank"><img src={Instagram}></img></a>
                                     <img src={Twitter}></img>
@@ -795,7 +796,7 @@ const NewPage = () => {
                         </div>
                         <div className="sm:py-16 py-8 text-center px-10 text-[#D0D1D1] text-[12px]">
                             <p className="font-inter">
-                                © 2024 Resy Sniper - All Rights Reserved
+                                © 2024 Reservation Sniper - All Rights Reserved
                             </p>
                         </div>
                     </div>

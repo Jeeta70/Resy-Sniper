@@ -51,7 +51,7 @@ const Index = () => {
       <div className="flex sm:items-center items-start justify-center h-screen w-[100%] font-inter">
         <div className="container sm:w-3/12">
           <div className="text-center text-primary text-3xl font-bold w-full sm:w-auto p-3 font-inter">
-            RESY SNIPER
+            RESERVATION SNIPER
           </div>
           <div className="sm:border sm:border-gray-300 sm:p-[40px] w-full rounded-md mt-3">
             <div className="text-center text-[24px] font-bold mb-3 font-inter">

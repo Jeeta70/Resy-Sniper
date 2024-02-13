@@ -42,6 +42,7 @@ const AddResturantSection = () => {
     }
   }, [dispatch, state]);
 
+  console.log(selectedResturantsForReservationOnAddReservationPage)
 
   return (
     <div>
@@ -54,6 +55,7 @@ const AddResturantSection = () => {
               <Card key={i} className="flex sm:h-[15vh] h-[10vh] my-5">
                 <div>
                   <img
+                    style={{ objectFit: 'cover' }}
                     className="rounded-l-lg h-full sm:w-40 w-36"
                     src={
                       resturant.cover_image_url ??
@@ -69,7 +71,7 @@ const AddResturantSection = () => {
                         {resturant.venue_name}
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
-                        {resturant?.availableSittings}
+                        {resturant?.availableSittings || resturant.table_type}
                       </p>
                     </div>
                     <X

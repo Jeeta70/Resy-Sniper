@@ -70,16 +70,19 @@ export function formatDate(date: Date) {
     .replace(/\//g, "-");
 }
 
-export function formateDateFromSingleRservation(dateString: string): string {
+export function formateDateFromSingleReservation(dateString: string): string {
   const date = new Date(dateString);
-  const formattedDate = `${(date.getMonth() + 1)
+  // Using UTC methods to ensure time zone differences are accounted for
+  const formattedDate = `${(date.getUTCMonth() + 1)
     .toString()
     .padStart(2, "0")}-${date
-    .getDate()
+    .getUTCDate()
     .toString()
-    .padStart(2, "0")}-${date.getFullYear()}`;
+    .padStart(2, "0")}-${date.getUTCFullYear()}`;
   return formattedDate;
 }
+
+
 
 export function getDayBefore(
   dateString: string | null,

@@ -16,7 +16,7 @@ const Index = () => {
     <div className="h-svh sm:p-10 p-5">
       <div className="mb-3 sm:mb-0 sm:h-1/4 text-center">
         <h1 className="mb-3 sm:mb-14 text-primary sm:text-4xl text-3xl font-bold">
-          RESY SNIPER
+          RESERVATION SNIPER
         </h1>
         <span>
           <h2 className="font-bold text-2xl">Subscription</h2>
