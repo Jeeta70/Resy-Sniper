@@ -67,7 +67,7 @@ const AddResturantSection = () => {
                         {resturant.venue_name}
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
-                        {resturant.table_type}
+                        {resturant.table_type === null ? "any" : resturant.table_type }
                       </p>
                     </div>
                     <X
