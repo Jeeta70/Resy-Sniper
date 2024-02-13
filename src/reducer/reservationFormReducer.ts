@@ -204,7 +204,6 @@ export const reservationFormReducer = (
       };
 
     case ResturantReservationStateReducerConstant.SELECT_SITTING_OPTION:
-      console.log("abc");
       return {
         ...state,
         selectSittingOptions: {
@@ -295,7 +294,6 @@ export const reservationFormReducer = (
         },
       };
     case ResturantReservationStateReducerConstant.UPDATE_RESERVATION:
-      console.log("action.payload", action.payload);
       return action.payload;
     case ResturantReservationStateReducerConstant.UPDATE_SELECTED_RESTAURANT:
       return {
@@ -345,7 +343,6 @@ export function selectResturantForReservation(
   dispatch: IUserStateReducerDispatchType,
   restaurantPayload: object
 ) {
-  console.log("restaurantPayload", restaurantPayload);
   dispatch({
     type: ResturantReservationStateReducerConstant.SET_SELECT_RESTAURANTS_FOR_RESERVATION,
     payload: restaurantPayload,

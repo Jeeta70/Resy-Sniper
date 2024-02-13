@@ -207,8 +207,6 @@ const ReserveButtonSection = () => {
             end_time: toTime24HourFormat,
             party_size: partySize,
           };
-
-          console.log(payload);
           
           createReservation(payload);
         }
@@ -366,8 +364,6 @@ const ReserveButtonSection = () => {
           party_size: partySize,
         };
 
-        console.log(payload);
-        
         updateReservation(payload);
       } else if (reservationType === "release") {
         const {
