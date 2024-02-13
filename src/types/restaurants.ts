@@ -1,4 +1,5 @@
 export type IRestaurant = {
+  venueData?: IRestaurant;
   table_type: string | undefined;
   availableSittings?: string;
   featured: boolean;

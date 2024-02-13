@@ -58,8 +58,7 @@ const AddResturantSection = () => {
                     style={{ objectFit: 'cover' }}
                     className="rounded-l-lg h-full sm:w-40 w-36"
                     src={
-                      resturant.cover_image_url ??
-                      "../restaurant/restaurant.png"
+                      resturant.cover_image_url  || resturant.venueData.cover_image_url
                     }
                     alt={resturant.cover_image_url}
                   />
@@ -71,7 +70,7 @@ const AddResturantSection = () => {
                         {resturant.venue_name}
                       </h1>
                       <p className="font-medium text-xs text-light capitalize">
-                        {resturant?.availableSittings || resturant.table_type}
+                        {resturant.table_type}
                       </p>
                     </div>
                     <X
