@@ -74,7 +74,6 @@ const SelectFinalSnipingDaySection = () => {
           value: oneDayBefore,
         });
       } else if (buttonValue === "2_days_before") {
-        console.log(isTommorrow(reservationDates[0]));
 
 
         const twoDayBefore = getDayBefore(reservationDates[0], 2);

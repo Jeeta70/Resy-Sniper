@@ -13,24 +13,23 @@ const Index = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false)
   const { userReservations, isLoading, isSuccess } = useGetUserReservations();
-  const { reservationCounts, isSuccess: countIsLoading } =
-    useGetReservationCount();
+  const { reservationCounts, isSuccess: countIsLoading } = useGetReservationCount();
   const { subscription_type } = useContext(UserDetailContext);
 
-
-  const reservations = useMemo(() => {
-    if (isSuccess) {
-      if (userReservations && userReservations.data && userReservations.data.message === "no record found!") {
-        return userReservations.data.message;
-      } else if (userReservations) {
-        return userReservations;
-      }
-    }
-    return null;
-  }, [isSuccess, userReservations]);
-
   
-
+  
+  
+  const reservations = useMemo(() => {
+    if (isSuccess && userReservations?.data.data) {
+      return userReservations?.data.data;
+    } else if (isSuccess && userReservations?.data) {
+      return userReservations
+    }
+    return []
+    
+  }, [isSuccess, userReservations]);
+  
+  
 
   useEffect(() => {
     if (countIsLoading && reservationCounts) {
@@ -71,7 +70,7 @@ const Index = () => {
         </div>
       </div>
       {isLoading && <ReservationPageSkeleton />}
-      {typeof reservations?.data !== "object" ? (
+      {reservations?.length === 0 ? (
         <div className="flex flex-col justify-center items-center h-5/6  text-center text-[#12171A] gap-5 ">
           <img src="./Reservation.png" />
           <p>

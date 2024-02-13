@@ -256,7 +256,7 @@ const AddResturantModel = () => {
                   onClick={() => {
                     const { venue_id, venue_name } = reservationFormState.selectSittingOptions.restaurantDetail;
                     const payload = { venue_id, venue_name, table_type: avilableSittings, venueData: reservationFormState.selectSittingOptions.restaurantDetail }
-                    console.log("res=a=>",);
+
 
                     // Object.defineProperty(
                     //   restaurantPayload,
